@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<title>首页</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<!--主样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/main.css">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+		    var docEl = doc.documentElement,
+		        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		        recalc = function () {
+		            var clientWidth = docEl.clientWidth;
+		            if (!clientWidth) return;
+		            if(clientWidth>=640){
+		                docEl.style.fontSize = '100px';
+		            }else{
+		                docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+		        }
+		    };
+		    if(!doc.addEventListener) return;
+		    win.addEventListener(resizeEvt, recalc, false);
+		    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<section class="pb40">
+			<!-- banner 轮播图 -->
+			<div class="h175 w_b100">
+				<img src="../../images/banner2.png" alt="">
+			</div>
+			<!-- 列表 -->
+			<section class="box_between flex_wrap p10">
+				<!-- 列表项 -->
+				<div class="w_b50 p10 box_center">
+					<a href="../live/liveRoom.html" class="box_center w_b100 br5 p_r">
+						<div class="back_000 opacity2 t0 l0 r0 b0 p_a br5"></div>
+						<div class="p_a b0 l0 w_b100 col_fff p5">
+							<div class="f14 wbyc">直播标题直播标题直播标题直播标题直播标题直播标题直播标题直播标题</div>
+							<div class="box_start mt5 ">
+								<div class="backRgba_black_5 box_start br3">
+									<div class="back_red br3 pl5 pr5 box_center h18 f_w">直播中</div>
+									<div class="pl5 pr5 box_center h18"><em>234567</em>观看</div>
+								</div>
+							</div>
+						</div>
+						<img class="br5" src="../../images/liveList1.png" alt="">
+					</a>
+				</div>
+			</section>
+		</section>
+		<footer class="p_f b0 l0 w_b100 back_fff box_between h40 bor_t">
+			<a href="" class="box_center grid_cell">
+				<div class="footer_live_act_icon w40 h40"></div>
+			</a>
+			<div class="w1 h_b50 back_ccc"></div>
+			<a href="../me/me.html" class="box_center grid_cell">
+				<div class="footer_me_icon w40 h40"></div>
+			</a>
+		</footer>
+	</div>
+</body>
+</html>

@@ -1,0 +1,450 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>$url,'text'=>'售后列表'],
+['href'=>'','text'=>'售后详情']
+]
+])}
+<style>
+    .beizhu_btn { padding: 3px 3px; *padding: 0 3px; *height: 24px;  font-size: 12px; text-align: center; border:1px solid #4898d5; border-radius: 2px; background-color: #2e8ded; color:#fff;cursor: pointer; display: inline-block; }
+    .layui-layer-btn {
+        text-align: center!important;
+        padding: 0 10px 12px;
+        pointer-events: auto;
+    }
+</style>
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <div class="cl pd-5 bg-1 bk-gray">
+        <div><b>售后信息</b></div>
+    <div class="mt-5">
+        <table  class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="100">售后编号</th>
+                <th width="100">订单号</th>
+                <th width="120">下单会员</th>
+                <th width="50">类型</th>
+                <th width="50">售后金额</th>
+                <th width="50">实际金额</th>
+                <th width="60">状态</th>
+                <!--<th width="80">操作</th>-->
+            </tr>
+            </thead>
+            <tbody>
+                <tr class="text-c">
+                    <td>{$re.refund_no}</td>
+                    <td>{$re.order_no}</td>
+                    <td>{$re.username} --- {$re.phone}</td>
+                    <td>
+                        {switch name="$re['refund_type']"}
+                        {case value="1"}退款{/case}
+                        {case value="2"}退货{/case}
+                        {/switch}
+                    </td>
+                    <td>{$re['refund_price']|default=0}</td>
+                    <td>{$re['refund_actual_price']|default=0}</td>
+                    <td>
+                        {switch name="$re['refund_state']"}
+                        {case value="wait_review"}等待审核{/case}
+                        {case value="accept"}接受审核{/case}
+                        {case value="refuse"}拒绝受理{/case}
+                        {case value="end"}退款成功{/case}
+                        {/switch}
+                    </td>
+                    <!--<td class="td-manage">-->
+                        <!--<a title="订单改价" onclick="change_paid('{$re.refund_no}',this)"   style="text-decoration:none"><i class="Hui-iconfont">&#xe60c;</i></a>-->
+                    <!--</td>-->
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <!--<div class="cl pd-5 bg-1 bk-gray mt-20">-->
+        <!--<div><b>配送信息</b></div>-->
+        <!--<div class="mt-5">-->
+            <!--<table  class="table table-border table-bordered table-bg table-hover table-sort">-->
+                <!--<thead>-->
+                <!--<tr class="text-c">-->
+                    <!--<th width="50">收件人</th>-->
+                    <!--<th width="50">联系方式</th>-->
+                    <!--<th width="50">配送方式</th>-->
+                    <!--<th width="80">配送地址</th>-->
+                    <!--<th width="60">地址邮编</th>-->
+                    <!--<th width="120">配送街道</th>-->
+                    <!--<th width="50">快递单号</th>-->
+                    <!--<th width="50">快递公司</th>-->
+                    <!--&lt;!&ndash;<th width="50">成本价</th>&ndash;&gt;-->
+                    <!--<th width="50">配送类型</th>-->
+                    <!--<th width="80">操作</th>-->
+                <!--</tr>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr class="text-c">-->
+                    <!--<td>{$re.address_name}</td>-->
+                    <!--<td>{$re.address_mobile}</td>-->
+                    <!--<td>-->
+                        <!--{$re.is_take == 1 ? '自取' : '商家配送'}-->
+                    <!--</td>-->
+                    <!--<td>{$re.address_province}- {$re.address_city}-{$re.address_country}-{$re.address_detailed}</td>-->
+                    <!--<td>{$re.address_road}</td>-->
+                    <!--<td>{$re.address_zip_code}</td>-->
+                    <!--<td>-->
+                    <!--</td>-->
+                    <!--<td>{$re['address']}</td>-->
+                    <!--<td>-->
+                        <!--{$re.is_take == 1 ? '自取' : '商家配送'}-->
+                    <!--</td>-->
+                    <!--<td class="td-manage">-->
+                        <!--<a title="查看" href="javascript:;;" onclick="category_edit('快递信息','{:url('Horder/express',['order_no'=>$re['order_no']])}','4','','510')"   style="text-decoration:none">-->
+                            <!--<i class="Hui-iconfont">&#xe669;</i>-->
+                        <!--</a>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+        <!--</div>-->
+    <!--</div>-->
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <div><b>商品信息</b></div>
+        <div class="mt-5">
+            <table style="position: relative" class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="70">商品编号</th>
+                    <th width="70">商品SKU</th>
+                    <th width="120">商品名称</th>
+                    <th width="70">商品图片</th>
+                    <th width="50">商品价格</th>
+                    <th width="50">型号参数</th>
+                    <th width="50">购买数量</th>
+                    <th width="50">退换货数量</th>
+                </tr>
+                </thead>
+                <tbody>
+                {volist name="goods" id="vo"}
+                    <tr class="text-c">
+                        <td>{$vo.code}</td>
+                        <td>{$vo.sku}</td>
+                        <td>{$vo.goods_name}</td>
+                        <td><img src="{$vo.goods_img}" style="width:50px; height:50px; border-radius:25px;" /></td>
+                        <td>{$vo['specification_price']}</td>
+                        <td>
+                            {$vo.specification_names}
+                        </td>
+                        <td>{$vo['goods_num']}</td>
+                        <td>{$re['refund_count']}</td>
+                    </tr>
+                {/volist}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {notempty name='refund'}
+    <div class="cl pd-5 bg-1 bk-gray mt-5">
+        <div><b>退换货信息</b></div>
+        <div class="mt-5">
+            <table style="position: relative" class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="50">编号</th>
+                    <th width="50">类型</th>
+                    <th width="50">退换货商品</th>
+                    <th width="50">型号</th>
+                    <th width="50">数量</th>
+                    <th width="80">退换货原因</th>
+                    <th width="80">操作</th>
+                </tr>
+                {volist name="refund" id="vo"}
+                <tr class="text-c">
+                    <td>{$vo.refund_no}</td>
+                    <td>{$vo.refund_type==1 ? '换货订单' : '退货订单'}</td>
+                    <td>{$vo.goods_name}</td>
+                    <td>{$vo.specification_names}</td>
+                    <td>{$vo.refund_count}</td>
+                    <td>{$vo.refund_reason}</td>
+                    <td>
+                        <a title="详情" href="javascript:;;" onclick="category_edit('快递信息','{:url('Horder/express',['order_no'=>$re['order_no']])}','4','','510')"   style="text-decoration:none">
+                            <i class="Hui-iconfont">&#xe623;</i>
+                        </a>
+                    </td>
+                </tr>
+                {/volist}
+                </thead>
+            </table>
+        </div>
+    </div>
+    {/notempty}
+    <div class="cl pd-5 bg-1 bk-gray mt-5" >
+        <div><b>售后状态编辑</b></div>
+        <form   method="post" class="form form-horizontal mt-5">
+            <div class="row cl">
+                <label class="form-label col-xs-4 col-sm-2"></label>
+                <div class="formControls col-xs-8 col-sm-9">
+                    {volist name="re.refund_img" id="vo" key="key"}
+                    <div class="droparea spot" id="image1" data="{$key}" style="background-image: url('{$vo}');background-size: 220px 160px;" >
+                        <div class="instructions">图片</div>
+                        <div class="uparea" data="{$key}"></div>
+                        <input type="hidden" name="class_img" id="image_{$key}" value="{$vo}" />
+                    </div>
+                    {/volist}
+                </div>
+            </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">退款原因：</label>
+            <div class="formControls col-xs-8 col-sm-8">
+                <textarea  cols="" rows="" class="textarea" placeholder="退款原因"   readonly>{$re['refund_reason']}</textarea>
+            </div>
+        </div>
+        <div class="row cl mt-5">
+            <label class="form-label col-xs-4 col-sm-2">退款说明：</label>
+            <div class="formControls col-xs-8 col-sm-8">
+                <textarea name="refund_desc" cols="" rows="" class="textarea" placeholder="退款说明" id="refund_desc" readonly>{$re.refund_desc}</textarea>
+            </div>
+        </div>
+        <div class="row cl mt-5">
+            <label class="form-label col-xs-4 col-sm-2">拒绝理由：</label>
+            <div class="formControls col-xs-8 col-sm-8">
+                <textarea name="refund_desc" cols="" rows="" class="textarea" placeholder="拒绝理由" readonly>{$re.reason_name}</textarea>
+            </div>
+        </div>
+        <div class="row cl" style="margin-bottom: 30px;">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" name="order_no" value="{$re.order_no}" />
+                <button title="改变订单状态" {if condition="$re['refund_state'] neq 'wait_review'"} style='display:none;'{/if} class="ibutton submit btn btn-primary radius blue_btn" data='accept' type="button"><i class="Hui-iconfont">&#xe627;</i> 接受处理</button>
+                <button title="改变订单状态" {if condition="!in_array($re['refund_state'],['accept','wait_review'])"} style='display:none;'{/if} class="reason_name submit btn btn-primary radius blue_btn" data='refuse' type="button"><i class="Hui-iconfont">&#xe627;</i> 拒绝受理</button>
+                <button title="改变订单状态" {if condition="$re['refund_state'] neq 'accept'"} style='display:none;'{/if} class="ibutton submit btn btn-primary radius blue_btn" data='end' type="button"><i class="Hui-iconfont">&#xe627;</i> 退款</button>
+                <button title="改变订单状态" {if condition="$re['refund_state'] eq 'end'"}class=" btn btn-default radius blue_btn"{else/}style='display:none;' {/if}  type="button"><i class="Hui-iconfont">&#xe627;</i> 退款成功</button>
+                <!--<button title="改变订单状态" {if condition="$re['refund_state'] eq 'refuse'"}class=" btn btn-default radius blue_btn"{else/}style='display:none;' {/if}  type="button"><i class="Hui-iconfont">&#xe627;</i> 拒绝受理</button>-->
+                <!-- 修改 - 点击拒绝 填写拒绝原因-->
+            </div>
+        </div>
+       </form>
+    </div>
+    {notempty name='log'}
+    <div class="cl pd-5 bg-1 bk-gray mt-5" >
+        <div><b>订单操作日志记录</b></div>
+        <div class="mt-5">
+            <table style="position: relative" class="table table-border table-bordered table-bg table-hover table-sort">
+                <thead>
+                <tr class="text-c">
+                    <th width="50">操作人</th>
+                    <th width="150">操作信息</th>
+                    <th width="50">时间</th>
+                </tr>
+                {volist name="log" id="vo"}
+                <tr class="text-c">
+                    <td>{$vo.name}</td>
+                    <td>{$vo.title}</td>
+                    <td>{$vo.intime}</td>
+                </tr>
+                {/volist}
+                </thead>
+            </table>
+        </div>
+    </div>
+    {/notempty}
+</div>
+<script type="text/javascript" src="/static/admin/layer/layer.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.3.0/jquery.js"></script>
+<script>
+    $(function(){
+        $(".uparea").mouseover(function(e){
+            var data = $(this).attr('data');
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_'+data).val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + img + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $(".uparea").mouseout(function(){
+            $("#big").hide();
+        });
+        $('.ibutton').click(function(){
+            var obj = $(this);
+            var state = obj.attr('data');
+            layer.confirm('您是否要改变订单状态\n状态一旦改变将不能回退，请谨慎操作',function(index){
+
+            var state = obj.attr('data');
+            $.post("{:url('Horder/change_refund_state')}",{refund_id:"{$re.refund_id}",state:state},function(data){
+                if(data['status'] == 'ok'){
+                    layer.msg(data.data,{icon:1,time:1000})
+                    window.location.href = window.location.href;
+                }else{
+                    layer.msg(data.data,{icon:5,time:1000})
+                }
+            },'json');
+            return false;
+            });
+        });
+
+        var reason_submit = function(){
+            alert(" 我成功啦 ");
+        }
+
+        //拒绝理由
+        $('.reason_name').click(function(){
+            var obj = $(this);
+            var state = obj.attr('data');
+            var url = "{:url(\'Horder/reason')}?refund_id={$re.refund_id}&state="+state
+            var w =1000;
+            var h =400;
+            var title = '拒绝申请';
+            layer_show(title,url,w,h);
+
+
+        });
+
+        $('#reason_submit').click(function(){
+            var obj = $('.reason_name');
+            var state = obj.attr('data');
+            var reason_name = $('#reason_name').text();
+            layer.confirm('您是否要改变订单状态\n状态一旦改变将不能回退，请谨慎操作',function(index){
+
+                var state = obj.attr('data');
+                $.post("{:url('Horder/change_refund_state')}",{refund_id:"{$re.refund_id}",state:state,reason_name:reason_name},function(data){
+                    if(data['status'] == 'ok'){
+                        layer.msg(data.data,{icon:1,time:1000})
+                        window.location.href = window.location.href;
+                    }else{
+                        layer.msg(data.data,{icon:5,time:1000})
+                    }
+                },'json');
+                return false;
+            });
+        });
+
+        $('.ibutton2').click(function(){
+            var obj = $(this);
+            var state = obj.attr('data');
+            layer.confirm('您是否要改变订单状态\n状态一旦改变将不能回退，请谨慎操作',function(index){
+            $.post("{:url('Horder/change_order_status')}",{order_no:"{$re.order_no}",state:state},function(data){
+                if(data['status'] == 'ok'){
+                    layer.msg(data,{icon:1,time:1000})
+                    window.location.href = window.location.href;
+                }else{
+                    layer.msg(data,{icon:5,time:1000})
+                }
+            },'json');
+            return false;
+            });
+        });
+
+        $('.beizhu_btn').click(function(){
+            var beizhu = $('#beizhu').val();
+            $.post("{:url('Horder/beizhu')}",{id:"{$re.order_no}",beizhu:beizhu},function(data){
+                if(data['status'] == 'ok'){
+                    layer.msg(data.info,{icon:1,time:1000})
+                    //window.location.href = window.location.href;
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000})
+                }
+            },'json');
+        });
+
+        $(".ajax-form").submit(function(){
+            var obj = $(this);
+            var url = obj.attr("data-action");
+            $.get(url,obj.serializeArray(),function(data){
+                if(data['status'] == 'ok'){
+                    layer.msg(data.info,{icon:1,time:1000})
+                    window.location.href = window.location.href;
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000})
+                }
+            },'json');
+        })
+
+    });
+
+    function category_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+
+
+    function change_paid(id,v){
+        var html = '<form class="form form-horizontal" id="form" method="post">'+
+            '<div class="row cl">'+
+            '<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>售后金额</label>'+
+            '<div class="formControls col-xs-8 col-sm-8">'+
+            '<input type="text" name="refund_price" class="input-text" value="{$re.refund_price}" placeholder="售后金额" readonly id="refund_price" />'+
+            '</div>'+
+            '</div>'+
+            '<div class="row cl">'+
+            '<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>实际金额</label>'+
+            '<div class="formControls col-xs-8 col-sm-8">'+
+            '<input type="text" name="refund_actual_price" class="input-text" value="{$re.refund_actual_price}" placeholder="售后实际金额" id="refund_actual_price" />'+
+            '</div>'+
+            '</div>'+
+            '</form>'
+        layer.open({
+            type: 1,
+            title: '修改售后价格',
+            closeBtn: 0,
+            area: ['550px','220px'],
+            skin: '', //没有背景色
+            shadeClose: true,
+            content: html,
+            btn:['保存'],
+            yes:function(){
+                var refund_actual_price = $('#refund_actual_price').val();
+                var refund_price = $('#refund_price').val();
+                $.ajax({
+                    url:"{:url('Horder/change_refund_paid')}",
+                    type:'post',
+                    data:{refund_no:id,refund_actual_price:refund_actual_price},
+                    dataType:'json',
+                    success:function(data){
+                        if(data['status'] == 'ok'){
+                            layer.msg(data.data,{icon:1,time:1000})
+                            window.location.href = window.location.href;
+                        }else{
+                            layer.msg(data.data,{icon:5,time:1000})
+                        }
+                    }
+                })
+            }
+        });
+    }
+
+    //相册层
+    function view_img(e) {
+        var url = "{:url('Horder/get_returns_img')}";
+        $.get(url, {id: e}, function (json) {
+            layer.photos({
+                photos: json, //格式见API文档手册页
+                anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机
+            });
+        },'json');
+    }
+
+    function change_returns_state(id,e){
+        var url = "{:url('Horder/change_returns_state')}";
+        $.post(url,{id:id,status:e},function(data){
+            if(data['status'] == 'ok'){
+                layer.msg(data.info,{icon:1,time:1000})
+                window.location.href = window.location.href;
+            }else{
+                layer.msg(data.info,{icon:5,time:1000})
+            }
+        },'json');
+    }
+
+    function down(v,e){
+        window.location.href = "system.php?m=Admin&c=Horder&a=down_diy&order_no="+v+"&url="+e;
+    }
+    function getExpressNode(v){
+        var url = "{:url('Horder/getExpressNode')}";
+        $.get(url,{express:v},function(data){
+           $("#kuaidi_node").val(data);
+        });
+    }
+    function getExpress(v){
+        var url = "{:url('Horder/getExpress')}";
+        $.get(url,{express:v},function(data){
+            console.log(data);
+            $("#kuaidi_name").html(data);
+        });
+    }
+</script>

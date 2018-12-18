@@ -1,0 +1,145 @@
+<php>
+    $uid = $_GET['id'];
+    $_GET['id']?$text='编辑文章':$text='添加文章';
+</php>
+{:W('public/breadcrumbs',[
+[
+['href'=>U('Home/news'),'text'=>'文章列表'],
+['href'=>'','text'=>$text]
+]
+])}
+<style>
+    .ibutton { padding: 3px 15px; *padding: 0 15px; *height: 24px;  font-size: 12px; text-align: center; text-shadow: #CF510B 0 1px 0; border:1px solid #ec5c0d; border-radius: 2px; background: #FC750A; background-image: -webkit-linear-gradient(top, #fc8746, #ec5d0e); color:#FFF; cursor: pointer; display: inline-block; }
+</style>
+<load href="__ROOT__/public/upload/uploadify.css" />
+<load href="__ROOT__/public/upload/swfobject.js" />
+<script type="text/javascript" src="__ROOT__/public/upload/jquery.uploadify.v2.1.4.min.js"></script>
+
+<style>
+    #big{
+        position:absolute;
+        left:490px;
+        top:0px;
+        z-index:999;
+        display:none;
+    }
+</style>
+<div class="page-content">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <div class="row">
+        <div class="col-xs-12"><br/>
+            <div>
+		        <span style="padding-top:20px;font-weight:bold;">
+					<php>echo $text</php>
+				</span>
+            </div>
+            <hr/>
+            <form  method="post" onsubmit="return checked()">
+                <table width="100%" border="0" class="all">
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="10%">活动标题</td>
+                        <td width="65%">
+                            <input value="{$re['title']}" name="title" id="title" type="text" size="50">
+                            <span class="important">*</span>
+                        </td>
+                    </tr>
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <!--<tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>-->
+                    <!--<tr>-->
+                        <!--<td width="10%">外部链接</td>-->
+                        <!--<td width="65%">-->
+                            <!--<input value="{$banner['url']}" name="url" id="url" type="text" size="50">-->
+                        <!--</td>-->
+                    <!--</tr>-->
+                    <tr>
+                        <td width="10%">内容</td>
+                        <td width="65%">
+                            {:W('Unit/ueditor',['content',$re['content']])}
+                        </td>
+                    </tr>
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                </table>
+                <input type="hidden" name="id" value="{$_GET['id']}" />
+                <input type="hidden" name="type" value="6" />
+                <button class="ibutton submit" type="button">&emsp;保&emsp;存&emsp;</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function(){
+        var  content ;
+        KindEditor.ready(function(K) {
+            content = K.create('#content',{
+                allowFileManager : true,
+                uploadJson:'system.php/tools/upload?dirname=banner'
+            });
+        });
+
+        KindEditor.ready(function(K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager : true,
+                uploadJson:'system.php/tools/upload?dirname=banner'
+                //sdl:false
+            });
+            K('#uparea1').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".submit").click(function(){
+            commonAjaxSubmit();
+            return false;
+        });
+
+        $("#uparea1").mouseover(function(e){
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_1').val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $("#uparea1").mouseout(function(){
+            $("#big").hide();
+        });
+
+        $(".pic3").mouseover(function(e){
+            $("#big2").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            $("#big2").html('<img src="'+this.src+'" width=380 height=300>');
+            $("#big2").show();        //show：显示
+        });
+        $(".pic3").mouseout(function(){
+            $("#big2").hide();
+        });
+    });
+
+    function check(v){
+        var name = $(v).prop("class");
+        if(name == 'other'){
+            if($(v).is(":checked")){
+                $('#all').prop("checked",false);
+            }
+        }
+        if($('#all').is(":checked")){
+            $('.other').prop("checked",false);
+        }
+    }
+
+</script>

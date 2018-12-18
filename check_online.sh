@@ -1,0 +1,1 @@
+ curl -g 'http://shop.100ytv.com/api/cli/check_online'

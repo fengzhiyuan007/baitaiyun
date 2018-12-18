@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<title>店铺详情</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+	<!--主样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/main.css">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+		    var docEl = doc.documentElement,
+		        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		        recalc = function () {
+		            var clientWidth = docEl.clientWidth;
+		            if (!clientWidth) return;
+		            if(clientWidth>=640){
+		              docEl.style.fontSize = '100px';
+		            }else{
+		              docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+		        }
+		    };
+		    if(!doc.addEventListener) return;
+		    win.addEventListener(resizeEvt, recalc, false);
+		    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+	<div class="liveRoom_warp">
+		<div class="liveRoom_app box_direction over_hidden">
+			<div class="h120 w_b100 p_r">
+				<div class="p_a w_b100 h_b100 z100 box_direction">
+					<div class="h45 w_b100 box_between pl10 pr10">
+						<div class="left_white_icon w22 h28"></div>
+						<div class="grid_cell ml20 borCol_fff_b box_start">
+							<div class="w22 h22 search_white_icon"></div>
+							<input class="grid_cell back_tm col_fff f12 shopSearch" type="text" placeholder="输入您要搜索的商品名称">
+						</div>
+						<div class="cart_white_icon w22 h22 ml20 mr20"></div>
+						<div class="info_white_icon w22 h22"></div>
+					</div>
+					<div class="box_between grid_cell pl15 pr15">
+						<div class="box_start w_b80">
+							<div class="w50 h50">
+								<img src="../../../images/liveList1.png" alt="">
+							</div>
+							<div class="ml10 w_b70 col_fff">
+								<div class="f14 wbyc w_b100">店铺名称</div>
+								<div class="f12 box_start h20 wbyc w_b100">店铺简介店铺简介店铺简介店铺简介店铺简介店铺简介</div>
+							</div>
+						</div>
+						<div class="borCol_red f12 br15 box_center h25 col_red pl10 pr10">+关注</div>
+					</div>
+				</div>
+				<img style="filter: blur(2px)" src="../../../images/wode_beijin@2x.png" alt="">
+			</div>
+			<!-- tab -->
+			<div class="box_between back_fff h45 f14 col_999 bor_b over_x">
+				<div class="grid_cell box_center ">
+					<span class="box_center h42 pl10 pr10">全部商品</span>
+				</div>
+				<div class="grid_cell box_center ml10 mr10">
+					<span class="box_center h42 pl10 pr10 nav_act col_red">直播&回放</span>
+				</div>
+				<div class="grid_cell box_center ml10 mr10">
+					<span class="box_center h42 pl10 pr10">导购视频</span>
+				</div>
+			</div>
+			<div class="grid_cell p_r">
+				<section class="liveRoom_touch p_a t0 l0 b0 w_b100">
+					<!-- 商品列表 -->
+					<div class="hide">
+						<div class="box_start flex_wrap p5 pb40 ">
+							<!-- 列表项 -->
+							<div class="w_b50 p5">
+								<a href="#/" class="show">
+									<div class="w_b100 goodsListImgBox">
+										<img src="../../../images/goods1.png" alt="">
+									</div>
+									<div class="back_fff p5">
+										<div class="wbyc2 f12 h30 lh15">商品名称商品名称商品名称</div>
+										<div class="pt5">
+											<span class="col_red f12">现价：¥<em class="f14">567</em></span>
+											<span class="scx col_999 ml10">¥<em>898</em></span>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- 直播&回放 -->
+					<div class="hide">
+						<!-- 正在直播 -->
+						<div class="back_fff box_start h120 pl10 pr10">
+							<div class="w100 h100 p_r">
+								<img class="br5" src="../../../images/liveList2.png" alt="">
+								<div class="p_a t0 l0 r0 b0 backRgba_black_5 br5 box_center">
+									<div class="play_icon w30 h30"></div>
+								</div>
+							</div>
+							<div class="ml10 grid_cell h100">
+								<div class="h35">
+									<div class="wbyc2 f12">直播标题直播标题直播标题直播标题直播标题直播标题直播标题直播标题直播标题直播标题直播标题直播标题</div>
+								</div>
+								<div class="h50">
+									<div class="wbyc3 f10 col_999">直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍直播介绍</div>
+								</div>
+								<div class="box_between f10">
+									<div class="box_start col_red">状态：<span>正在直播</span></div>
+									<div class="box_end col_999">在线人数：<span>5678</span></div>
+								</div>
+							</div>
+						</div>
+						<!-- 回放 -->
+						<div class="mt10">
+							<div class="box_center back_fff h40 f14 bor_b">- 往期回放(<em>30</em>) -</div>
+							<div class="back_fff">
+								<!-- 列表项 -->
+								<a href="" class="box_start bor_b h90 pl10 pr10 col_999">
+									<div class="w70 h70 p_r">
+										<img class="br5" src="../../../images/liveList2.png" alt="">
+										<div class="p_a t0 l0 r0 b0 backRgba_black_5 br5 box_center">
+											<div class="play_icon w20 h20"></div>
+										</div>
+									</div>
+									<div class="ml10 h70 grid_cell w_b60">
+										<div class="f12 wbyc w_b100 h25">直播标题直播标题直播标题直播标题直播标题直播标题直播标题直播标题直播标题</div>
+										<div class="box_between f10 h30">
+											<div class="box_start">状态：<span>已结束</span></div>
+											<div class="box_end">在线人数：<span>5678</span></div>
+										</div>
+										<div>开播时间：<span>2018-12-19</span></div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- 导购视频 -->
+					<div class="p10">
+						<!-- 列表项 -->
+						<a href="" class="show br5 mb10">
+							<div class="w_b100 h120 p_r">
+								<img class="br5_top_right br5_top_left" src="../../../images/banner1.png" alt="">
+								<div class="p_a t0 l0 r0 b0 box_center backRgba_black_5 br5_top_right br5_top_left">
+									<div class="play_icon w40 h40 "></div>
+								</div>
+							</div>
+							<div class="back_fff br5_bottom_right br5_bottom_left p10">
+								<div class="f12 wbyc">视频标题标题视频标题标题视频标题标题视频标题标题视频标题标题视频标题标题</div>
+								<div class="box_between col_999 mt5">
+									<div class="box_start">上传时间：<span>2018-12-30</span></div>
+									<div class="box_end">播放次数：<span>678</span></div>
+								</div>
+							</div>
+						</a>
+					</div>
+				</section>
+				<!-- 店铺所有分类 -->
+				<div class="p_a b0 l0 w_b100 back_fff z100 hide">
+					<div class="h40 box_direction">
+						<div class="box_center grid_cell">
+							<div class="top_icon w18 h12"></div>
+						</div>
+						<div class="box_center f12 grid_cell">查看所有分类</div>
+					</div>
+					<div class="hide">
+						<div class="maxH200 liveRoom_touch bor_t box_start flex_wrap p10 f12 col_666">
+							<div class="h30 pl10 pr10 br5 box_center back_ mr10 mb10 bor">烘培原料</div>
+							<div class="h30 pl10 pr10 br5 box_center back_ mr10 mb10 bor">烘培</div>
+							<div class="h30 pl10 pr10 br5 box_center back_ mr10 mb10 bor">烘培原料原料</div>
+							<div class="h30 pl10 pr10 br5 box_center back_ mr10 mb10 bor">烘培原料</div>
+							<div class="h30 pl10 pr10 br5 box_center back_ mr10 mb10 bor">烘培原料原料</div>
+							<div class="h30 pl10 pr10 br5 box_center back_ mr10 mb10 bor">烘培原料原料原料</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

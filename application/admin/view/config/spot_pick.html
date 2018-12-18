@@ -1,0 +1,142 @@
+{:W('public/breadcrumbs',[
+[
+['href'=>U('Config/spot_address'),'text'=>'取货点'],
+]
+])}
+</if>
+<script type="text/javascript" src="__ROOT__/public/admin/js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__ROOT__/public/admin/layer/layer.js"></script>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <form class="search" action="__SELF__" method="get">
+                <span style="float:right;padding-right:30px;padding-top:10px;margin-bottom: 15px;">
+		           <a href="{:U('Config/edit_pick',['spot_id'=>$_GET['spot_id']])}"  style="text-decoration:none;color:#000000">
+                       <span style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">添加</span>
+                   </a>
+		        </span>
+            </form>
+
+            <table width="100%" class="tab" style="margin-top:10px;">
+                <thead>
+                <tr><td colspan="10" align="left">
+                <span style="float:left;padding-right:30px;padding-top:8px;padding-bottom:18px">
+	              <a href="javascript:void(0);" style="text-decoration:none;color:#000000">
+                      <span onclick="del();" style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">删除</span></a>
+	            </span>
+                <span style="float:left;padding-top:8px;">每页显示
+				<select id="nus" onchange="getnums();">
+                    <volist name="nums" id="l">
+                        <option value="{$l}" <if condition=" $l eq $nus ">selected<else/></if>>{$l}</option>
+                    </volist>
+                </select>
+				条</span>
+                </td></td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:;" id="selall">全选</a></td>
+                    <td>景点名称</td>
+                    <td>取货点</td>
+                    <td>详细地址</td>
+                    <td width="190">操作</td>
+                </tr>
+                </thead>
+                <volist name="list" id="vo">
+                    <tr align="center" onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';">
+                        <td align="center"><input type="checkbox" name="ids" id="ids"  value="{$vo.pick_id}"/>
+                            <php>
+                                if($_GET['num'])$num=$_GET['num'];else $num ='10';
+                                if($_GET['p'] > 0){
+                                echo $key+1+($_GET['p']-1)*$num;
+                                }else{
+                                echo $key+1;
+                                }
+                            </php>
+                        </td>
+                        <td align="center">{$vo.spot_name}</td>
+                        <td align="center">{$vo.name}</td>
+                        <td align="center">{$vo.address}</td>
+                        <td align="center">
+                            [ <a href="{:U('Config/edit_pick',array('spot_id'=>$_GET['spot_id'],'id'=>$vo['pick_id'], 'str'=>CONTROLLER_NAME.'/'.ACTION_NAME))}">编辑</a> ]
+                            [ <a href="javascript:;"  onclick="del({$vo.pick_id});">删除</a> ]
+                        </td>
+                    </tr>
+                </volist>
+                <!--<tr><td colspan="7" align="right">{$page}</td></td></tr>-->
+            </table>
+            {$page}
+        </div>
+    </div>
+</div>
+<!--<script src="__ROOT__/public/admin/js/common.js"></script>-->
+<script type="text/javascript">
+    $(function() {
+        $("#selall").toggle(function() {
+            $("input[name='ids']").each(function() {
+                $(this).attr("checked", true);
+            });
+        },function(){
+            $("input[name='ids']").each(function() {
+                $(this).attr("checked", false);
+            });
+        });
+
+    });
+
+    function del(kid){
+
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        if(!confirm('确定要删除该记录？'))
+            return false;
+        $.post("{:U('Config/del_pick')}", {ids:kid}, function(data){
+            if( data['status'] == 'ok' ){
+                alert(data.info);
+                window.location.href = data.url;
+            }else{
+                alert(data.info);
+            }
+        },'json');
+        return false;
+    }
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+
+    function xiazai(){
+        var download = 'download';
+        window.location.href="__SELF__&act="+download;
+    }
+    function getnums(){
+        var num = $("#nus").val();
+        window.location.href="__SELF__&num="+num;
+    }
+    function change_status(id,v){
+        var id = id;
+        $.post("{:U('Config/change_spot_status')}",{id:id},function(data){
+            if(data['status'] == 'ok'){
+                $(v).html(data['info']);
+            }else{
+                alert(data['info']);
+            }
+        },'json');
+        return false;
+    }
+
+
+    //$('.check_auth').click(function(){
+    //    var url = $(this).attr('data-action');
+    //    console.log(url+'&chek=1');
+    //    $.get(url+'&chek=1',function(data){
+    //
+    //    })
+    //})
+</script>

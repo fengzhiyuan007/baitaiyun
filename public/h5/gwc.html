@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <link rel="icon" type="image/x-icon" href="images/sw.ico">
+  <title>牛烘烘</title>
+  <link href="src/base.css" rel="stylesheet" type="text/css" />
+  <link href="src/sw.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="src/flexslider.css" />
+  <style>
+  .page.ng-enter {
+        transition:0.5s cubic-bezier(0.55, 0.06, 0.68, 0.19) all;
+        opacity:0;
+    }
+    .page.ng-enter.ng-enter-active{
+        opacity:1;
+    }
+  </style>
+</head>
+<body ng-controller="home">
+  <div ng-include="'public/header2.html'"></div>
+  <div class="page" ng-view></div>
+  <div ng-include="'public/footer.html'"></div>
+  <!--jq-->
+  <script type="text/javascript" src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+  <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+  <!--angular-->
+  <script src="http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js"></script>
+  <script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-cookies.min.js"></script>
+  <script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-route.min.js"></script>
+  <script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-touch.min.js"></script>
+  <script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-animate.min.js"></script>
+  <!--支付-->
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script src="src/pingpp-pc.js"></script>
+  <script src="src/pingpp.js"></script>
+  <!--引入和自己写的-->
+
+    <script src="src/region_select.js"></script>
+    <script src="src/router2.js"></script>
+    <script src="src/main2.js"></script>
+    <script src="src/jquery-1.11.3.min.js" type="text/javascript"></script>
+</body>
+</html>

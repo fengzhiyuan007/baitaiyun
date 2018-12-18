@@ -1,0 +1,237 @@
+a:focus, a:hover{
+  text-decoration: none;
+}
+.container{
+  /*width: 1170px;*/
+  padding: 0;
+  position: relative;
+}
+.qy-con-left {
+    width: 220px;
+    float: left;
+    border: 1px solid #F1F1F1;
+    margin-bottom: 15px;
+}
+.qy-con-left h4 {
+    font-size: 14px;
+    color: #555;
+    padding: 0px 20px;
+    background-color: #fff;
+    height: 38px;
+    line-height: 38px;
+    border: 1px solid #DAE1EF;
+    box-shadow: 0px 2px 7.84px 0.16px rgba(61, 108, 215, 0.18);
+    cursor: pointer;
+
+}
+.qy-ul dt {
+    color: #555;
+    padding: 10px 0 10px 40px;
+    position: relative;
+}
+.qy-ul dt i {
+    display: inline-block;
+    width: 18px;
+    height: 16px;
+    background: url(../../img/qy1.png) left center no-repeat;
+    position: absolute;
+    left: 10px;
+    top: 12px;
+}
+.qy-ul2 dt i {
+    width: 15px;
+    height: 16px;
+    background: url(../../img/qy2.png) left center no-repeat;
+}
+.qy-ul3 dt i {
+    width: 16px;
+    height: 16px;
+    background: url(../../img/qy3.png) left center no-repeat;
+}
+.qy-ul{
+  background-color:#fff;
+  border: 1px solid #DAE1EF;
+  margin-bottom:10px;
+  padding-bottom: 10px;
+  box-shadow: 0px 2px 7.84px 0.16px rgba(61, 108, 215, 0.18);
+
+}
+.qy-ul dd {
+    font-size: 14px;
+    color: #9f9f9f;
+    margin: 10px 0 3px 40px;
+    cursor: pointer;
+    width: 120px
+}
+.qy-con-right {
+    width: 930px;
+    float: right;
+    margin-bottom: 15px;
+    margin-top: 10px;
+}
+.main .input-box {
+  margin-top: 16px;
+  height: 50px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0px 2px 7.84px 0.16px rgba(61, 108, 215, 0.18);
+
+}
+.main .input-box .txt {
+  outline: 0;
+  border: none;
+  float: left;
+  width: 540px;
+  padding:0 24px;
+  line-height: 48px;
+  height: 48px;
+  font-size: 14px;
+  display: none;
+}
+.main .input-box .txt.txt-show{
+  display: block;
+}
+.main .input-box .txt.txt-show.txt-show2{
+  width: 120px;
+  border-right: 1px solid #e5e5e5;
+}
+.main .input-box .txt.txt-show.txt-show3{
+  width: 420px;
+}
+.main .btn2{
+  float: right;
+  height: 38px;
+  margin-top: 5px;
+  padding: 0 18px;
+  border-left: 1px solid #E5E5E5;
+  cursor: pointer;
+}
+.main .btn2 i{
+  display: inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(../../img/sousu2.png) right center no-repeat;
+    vertical-align: -20px;
+}
+.task-tab{
+  border-bottom: 0;
+}
+.task-tab li{
+  position: relative;
+  margin: 0 10px 0 0;
+  
+}
+.task-tab li a{
+  font-size: 16px;
+  color: #555;
+  border-radius: 4px;
+  padding: 5px 10px;
+  margin: 0;
+  border: 0;
+}
+.task-tab>li.active>a, .task-tab>li.active>a:focus, .task-tab>li.active>a:hover, .task-tab li a:hover{
+  background-color: #DD2828;
+  color: #fff;
+  border: 0;
+}
+.task-tab li.active a:after, .task-tab li a:hover:after{
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #DD2828;
+    font-size: 0;
+    line-height: 0;
+    bottom: -6px;
+    left: 50px;
+}
+.qy-right-con2{
+  background-color: #fff;
+  padding:0px 15px 30px;
+  margin-top: 20px;
+  border:1px solid #E2E7F0;
+  min-height: 450px;
+  box-shadow: 0px 2px 7.84px 0.16px rgba(61, 108, 215, 0.18);
+  position: relative;
+}
+.qy-right-con2 li{
+  border-bottom: 1px dashed #E5E5E5;
+}
+.qy-right-con2 li h4{
+  margin: 15px 0 5px;
+  font-size: 14px;
+  color: #333;
+}
+.qy-right-con2 li p span{
+  font-size: 12px;
+  color: #999;
+  margin-right: 30px;
+}
+.main .input-box .txt.txt-show.txt-show4{
+  width: 80%;
+}
+.qy-zanwu{
+  text-align: center;
+  padding: 100px 0;
+}
+.qy-zanwu img{
+  width: 54px;
+  height: 56px;
+  margin: 0px 0 15px;
+}
+.qy-zanwu p{
+  font-size: 14px;
+  color: #999;
+}
+.use-tp{
+  cursor: pointer;
+}
+.use-tp img{
+  widows: 46px;
+  height: 46px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.modal-size2{
+  margin-top: 8%;
+}
+.modal-size2 .modal-header {
+    background-color: #384351;
+    border-radius: 6px 6px 0 0;
+}
+.modal-size2 .modal-header h4 {
+    font-size: 14px;
+    color: #fff;
+}
+.modal-size2 .modal-content {
+    border: 0;
+}
+.task-dl2 p{
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  line-height: 24px;
+}
+.task-dl2 p span{
+  font-size: 18px;
+  color: #dd2727;
+}
+.er-wem{
+  text-align: center;
+  margin-bottom: 70px;
+}
+.er-wem p{
+  color: #18cf18;
+}
+.er-wem img{
+  width: 190px;
+  height: 190px;
+}
+@media (max-width: 767px) {
+.qy-con-right {
+    width: 100%;
+}
+}

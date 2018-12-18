@@ -1,0 +1,169 @@
+{php}
+    $mid = input('get.mid');
+    $mid?$text='编辑用户':$text='添加用户';
+{/php}
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Member/index'),'text'=>'会员列表'],
+['href'=>'','text'=>$text]
+]
+])}
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <form class="form form-horizontal" id="form" method="post">
+        <div class="row cl">
+        <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>用户昵称：</label>
+        <div class="formControls col-xs-8 col-sm-9">
+            <input type="text" name="username" class="input-text" value="{$re['username']?$re['username']:''}" placeholder="" id="username" style="width: 50%"/>
+        </div>
+    </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>账号（手机号）：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$re['phone']?$re['phone']:''}" placeholder="" id="phone" name="phone" style="width: 50%"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>性别：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div class="radio-box">
+                    <input name="sex" type="radio" value="1" id="sex-1" {$re['sex']== 1 ? 'checked' : ''}>
+                    <label for="sex-1">男</label>
+                </div>
+                <div class="radio-box">
+                    <input type="radio" id="sex-2" value="2" name="sex" {$re['sex']== 2 ? 'checked' : ''}>
+                    <label for="sex-2">女</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">头像：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div class="droparea spot" id="image1" style="background-image: url('{$re.header_img?$re.header_img:''}');background-size: 220px 160px;" >
+                    <div class="instructions" onclick="del_image('1')">删除</div>
+                    <div id="uparea1"></div>
+                    <input type="hidden" name="header_img" id="image_1" value="{$re['header_img']?$re['header_img']:''}" />
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width: 18%">
+                    <select name="sheng" onchange="area_linke1(this.value)" class="select">
+                        <option value="">请选择</option>
+                        {volist name="sheng" id="l"}
+                            <option value="{$l.id}" {if condition=" $re.province eq $l.name "}selected{else/}{/if}>{$l.name}</option>
+                        {/volist}
+                    </select>
+				</span>
+                <span class="select-box" style="width: 18%">
+                    <select name="shi" id="shi" onchange="area_linke2(this.value)" class="select">
+                            <option value=''>请选择（市）</option>
+                            {volist name="re.shi" id="s"}
+                                <option value="{$s.id}" {if condition=" $re.city_id eq $s.id "}selected{else/}{/if}>{$s.name}</option>
+                            {/volist}
+                    </select>
+                </span>
+                <span class="select-box" style="width: 18%">
+                    <select name="qu" id="qu" class="select">
+                        <option value=''>请选择（区/县）</option>
+                        {volist name="re.qu" id="s"}
+                            <option value="{$s.id}" {if condition=" $re.area_id eq $s.id "}selected{else/}{/if}>{$s.name}</option>
+                        {/volist}
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="row cl {$_GET['uid'] ? hiden : ''}">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>密码：</label>
+            <div class="formControls col-xs-8 col-sm-9" style="display: inline-block;width: 50%">
+                <input type="password" class="input-text" style="width: 70%" value="" placeholder="" id="pwd" name="password" /><span class="ml10 c-red">不修改则不填写</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                <input type="hidden" class="input-text" value="{$re.member_id?$re.member_id:''}" placeholder=""  name="mid">
+            </div>
+        </div>
+    </form>
+</div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        var  content ;
+        KindEditor.ready(function(K) {
+            content = K.create('#content',{
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+            });
+        });
+
+        KindEditor.ready(function(K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+                //sdl:false
+            });
+            K('#uparea1').click(function() {
+                console.log(1);
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".submit").click(function(){
+            commonAjaxSubmit('','form');
+            return false;
+        });
+
+        $("#uparea1").mouseover(function(e){
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_1').val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $("#uparea1").mouseout(function(){
+            $("#big").hide();
+        });
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+    });
+    function area_linke1(value){
+        $.post("{:url('Member/get_area')}", {value:value,type:1}, function(v){
+            $("#shi").html(v);
+        });
+    }
+    function area_linke2(value) {
+        $.post("{:url('Member/get_area')}", {value: value, type: 2}, function (v) {
+            $("#qu").html(v);
+        });
+    }
+
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->

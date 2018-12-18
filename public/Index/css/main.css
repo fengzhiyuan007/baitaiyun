@@ -1,0 +1,38 @@
+/*清除浮动*/
+.show{display: block;}
+.hide{display: none;}
+.p_r{position: relative;}
+.p_a{position: absolute;}
+
+#pageBox{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+.logo{
+	background: url(../img/logo.png) no-repeat center;
+	background-size: cover;
+}
+.titleBox{
+	background: url(../img/biaoti@2x.png) no-repeat center;
+	background-size: cover;
+}
+.iosBtn{
+	background: url(../img/iosBtn.png) no-repeat center;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+}
+.androidBtn{
+	background: url(../img/androidBtn.png) no-repeat center;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+}
+.gzBtn{
+	background: url(../img/gzBtn.png) no-repeat center;
+	background-size: cover;
+	width: 100%;
+	height: 100%;
+}
+

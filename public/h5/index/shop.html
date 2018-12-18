@@ -1,0 +1,219 @@
+<link rel="stylesheet" href="src/owl.carousel.css">
+<script src="src/owl.carousel.min.js"></script>
+<!--弹出框-->
+<div class="tck gogwc" ng-show="shoppingCartTitleShow">
+   <i></i>
+   <div class="jrgwc-box">
+      <p>商品已加入购物车</p>
+      <a href="javascript:void(0)" ng-click="jxgg()">继续逛逛</a><a href="gwc.html#/" class="act">去结算</a>
+   </div>
+</div>
+
+<!--主体内容-->
+<div class="mainbox clearfix">
+  <!--面包屑-->
+  <div class="mbx-navbox">
+    <div class="mbx-nav">
+       <div class="mbx-nav-l"><a href="index.html#/">首页</a><a href="javascript:history.go(-1);">分类</a><a href="javascript:;">{{goodsDetailContent.goods_name}}</a></div>
+       <div class="mbx-nav-r"><a class="sc" href="javascript:;" ng-class="{act:shopdetails2.merchantsBean.is_collection==1}" ng-click="collection(2,shopdetails2.merchantsBean.merchants_id,shopdetails2.merchantsBean.collection_id,shopdetails2.merchantsBean.is_collection)" dbclick>收藏店铺</a><a target="_blank" class="lx" href="http://kefu.easemob.com/webim/im.html?tenantId={{shopdetails.merchantsBean.custom_id}}">联系商家</a><a href="index.html#/dianpu?mid={{shopdetails.merchants_id}}">{{shopdetails.merchantsBean.merchants_name}}</a></div>
+    </div>
+  </div>
+  <!---->
+  <div class="spxq-box box mar-t60 mar-b80 clearfix">
+     <div class="spxq-imgbox">
+        <div class="spxq-img-big"><i><img ng-src="{{goodsDetailContent.goods_img}}" /></i></div>
+        <div class="spxq-img-list">
+          <ul id="spxqimg">
+            <li class="item" ng-repeat="shopimg in goodsDetailContent.imgs" ng-click="owlCarouselButton(shopimg)" shopimg><img ng-src="{{shopimg}}" ng-click="" /></li>
+          </ul>
+        </div>
+     </div>
+     <div class="spxq-text">
+        <div class="tit">{{goodsDetailContent.goods_name}}</div>
+        <div class="detaile">
+          <ul>
+            <li class="s-d-1of3" ng-if="shopdetails.goods_origin_price!=0&&shopdetails.goods_origin_price!=shopdetails.goods_pc_price"><span>原价：￥{{shopdetails.goods_origin_price | number:2}}</span></li>
+            <li class="s-d-2of3">现价：￥{{goodsDetailContent.goods_now_price| number:2}}</li>
+            <li class="s-d-3of3">
+              <div class="left" ng-show="shopdetails.activityBeans.length!=0">
+                <div class="cx-select" sel-cx>
+                  <span>促销优惠</span>
+                  <ul hidden>
+                    <li ng-repeat="sel in shopdetails.activityBeans">{{sel.activity_name}}</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="right" ng-if="shopdetails.goods_now_price!=shopdetails.goods_pc_price"><span>手机专享价￥{{p_nowprice | number:2}}</span><small><img ng-src="{{shopdetails.qrcode_img}}" /></small></div>
+            </li>
+            <li class="s-d-1of4"><span>销量：{{goodsDetailContent.day_sales}}</span><span>{{goodsDetailContent.goods_stock==0?'无货':'库存：'+goodsDetailContent.goods_stock}}</span></li>
+          </ul>
+        </div>
+        <div class="other">
+           <ul>
+             <li class="s-o-1of5 clearfix" ng-if="shopdetails.goods_address!=''"><label>发货地：</label>{{goodsDetailContent.goods_address}}</li>
+             <li class="s-o-1of5 clearfix"><label>配送：</label>由统一商家配送发货，并提供售后服务</li>
+             <li class="s-o-1of5 clearfix">
+                 <label>规格：</label>
+                 <!--<span
+                         class="specificationontent"
+                         ng-click="specificationontentClickButton(specification)"
+                         ng-repeat="specification in specificationBeansShowWeb" tab>{{specification.specification_value}}</span>-->
+
+             </li>
+               <li class="s-o-1of5 clearfix">
+                   <ul class="specificationStyleContent" ng-repeat="specificationBeans in specificationBeansShowWeb track by $index">
+                       <li class="specificationontent" ng-repeat="specificationValue in specificationBeans" ng-click="specificationontentClickButton(specificationValue,$parent.$index)" tabs>{{specificationValue.specification_value}}</li>
+                   </ul>
+               </li>
+             <li class="s-o-3of5 clearfix" ng-repeat="spec in shopdetails.goodsParameterBeans"><label>{{spec.parameter_name}}：</label><p><span ng-class="{act:spec.goodsParameterBeans.length==1}" ng-repeat="spec2 in spec.goodsParameterBeans" price="{{spec2.parameter_price}}" val="{{spec2.parameter_id}}" ng-click="selgg()" tab>{{spec2.parameter_name}}</span></p></li>
+             <li class="s-o-4of5">
+                 <p class="num mar-r60">
+                     <span class="jian" ng-click="count>1?count = count - 1:count=1">-</span>
+                     <input ime-mode:disabled" onkeydown="if(event.keyCode==13)event.keyCode=9" onKeyPress="if ((event.keyCode<48 || event.keyCode>57)) event.returnValue=false" type="number" ng-model="count" ng-blur="blurnum(count)" />
+                     <span ng-click="goodsDetailContent.goods_stock>count?count=count+1:goodsDetailContent.goods_stock==0?count=1:count=goodsDetailContent.goods_stock" class="jia">+</span>
+                 </p>
+                 <button
+                         class="gwc"
+                         ng-click="GoosdShoppingCart(UsersID,UsersAppToken,goodsDetailContent.goods_id,count)"
+                         title="{{goodsDetailContent.goods_stock==0||goodsDetailContent.goods_stock<0?'无货':''}}"
+                         ng-class="{act:goodsDetailContent.goods_stock==0||goodsDetailContent.goods_stock<0}">加入购物车</button><!-- <button class="ljgm">立即购买</button> --></li>
+             <li class="s-o-5of5">
+                 <!--(count,shopdetails.goods_id,shopdetails.merchantsBean.merchants_id)-->
+                <div class="fx" href="javascript:;">
+                    <span>分享</span>
+                    <div class="fx-center">
+                      <div class="bdsharebuttonbox tracking-ad" style="float: right;" data-mod="popu_172">
+<a href="javascript:;" class="bds_more" data-cmd="more" style="background-position:0 0 !important; background-image: url(http://bdimg.share.baidu.com/static/api/img/share/icons_0_16.png?v=d754dcc0.png) !important"></a>
+<a href="javascript:;" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"  style="background-position:0 -52px !important"></a>
+<a href="javascript:;" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"style="background-position:0 -104px !important"></a>
+<a href="javascript:;" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博"style="background-position:0 -260px !important"></a>
+<a href="javascript:;" class="bds_renren" data-cmd="renren" title="分享到人人网"style="background-position:0 -208px !important"></a>
+<a href="javascript:;" class="bds_weixin" data-cmd="weixin" title="分享到微信"style="background-position:0 -1612px !important" ></a>
+</div>
+                    </div>
+                </div>
+                <a class="sc" ng-class="{act:shopdetails2.is_collection==1}" href="javascript:;" dbclick  ng-click="collection(1,shopdetails2.goods_id,shopdetails2.collection_id,shopdetails2.is_collection)">收藏</a>
+             </li>
+           </ul>
+        </div>
+     </div>
+  </div>
+  <!--spxq end-->
+  <div class="box clearfix">
+     <div class="main-leftbox">
+        <div class="dpxq-details">
+           <div class="tit">
+               <span>{{shopdetails.merchantsBean.merchants_name}}<a target="_blank" href="http://kefu.easemob.com/webim/im.html?tenantId={{shopdetails.merchantsBean.custom_id}}"><img src="images/lianxishangjia.png" /></a></span>
+           </div>
+            <div class="times" ng-if="shopdetails.merchantsBean.job_start_time!=''">工作时间:{{shopdetails.merchantsBean.job_start_time}}~{{shopdetails.merchantsBean.job_end_time}},其他时间请留言</div>
+           <div class="score clearfix">
+              <ul>
+                <li>{{shopdetails.merchantsBean.merchants_star1}}<span>商家评分</span></li>
+                <li>{{shopdetails.merchantsBean.merchants_star2}}<span>商品评分</span></li>
+                <li>{{shopdetails.merchantsBean.merchants_star3}}<span>物流评分</span></li>
+              </ul>
+           </div>
+           <div class="btn"><a class="jd" href="index.html#/dianpu?mid={{shopdetails.merchants_id}}">进店逛逛</a><a class="sc" href="javascript:;" dbclick ng-click="collection(2,shopdetails2.merchantsBean.merchants_id,shopdetails2.merchantsBean.collection_id,shopdetails2.merchantsBean.is_collection)" ng-class="{act:shopdetails2.merchantsBean.is_collection==1}">收藏店铺</a></div>
+        </div>
+        <div class="rmtj-box mar-t40">
+           <div class="tit">热门推荐</div>
+           <div class="sj-r-list" ng-repeat="rshop in recshop">
+              <ul>
+                <li class="sj-l-1of5"><a target="_blank" href="index.html#/shop?shopid={{rshop.goods_id}}"><img ng-src="{{rshop.goods_img!=''?rshop.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+                <li class="sj-l-2of5">￥{{rshop.goods_pc_price}}<span ng-if="rshop.goods_origin_price!=0">￥{{rshop.goods_origin_price}}</span></li>
+                <li class="sj-l-3of5">{{rshop.goods_name}}</li>
+                <li class="sj-l-4of5"><span ng-if="rshop.is_directly==1">自营</span><span ng-if="rshop.brand_name!=''">{{rshop.brand_name}}</span></li>
+                <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{rshop.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{rshop.year_sales}}</a></span></li>
+              </ul>
+           </div>
+        </div>
+     </div>
+     <div class="main-rightbox">
+        <div class="shop-details">
+            <!--
+            <span class="act" spxqtab>商品详情</span><span spxqtab>规格参数</span><span spxqtab>商品评价（{{shopdetails.assessment_count}}）</span>
+            -->
+           <div class="tit">
+               <span ng-class="{act:shop_data_content==$index}" ng-repeat="shop_data in shop_detail_edit track by $index" ng-click="shop_tab_content($index,shop_data.key)">{{shop_data.name}}</span>
+           </div>
+           <div class="s-d-xq sd" ng-show="shop_key == 1">
+           <!-- 商品详情暂无 -->
+            <iframe
+                    frameborder="0"
+                    style="padding: 0px; width: 100%;height: 600px;"
+                    padding="0px";
+                    ng-src="{{goodsDetailContent.goods_url}}"></iframe>
+           </div>
+           <div class="s-d-gg sd" ng-show="shop_key == 2">
+              <table cellspacing="0" cellpadding="0">
+                <th colspan="2">{{goodsDetailContent.goods_name}}的规格参数</th>
+                <tr ng-repeat="spgg in goodsDetailContent.goodsSpecificationBeans[0].specificationBeans">
+                  <td>{{spgg.specification_id}}</td>
+                  <td>{{spgg.specification_value}}</td>
+                </tr>
+              </table>
+           </div>
+           <div class="s-d-pj sd" ng-show="shop_key == 3">
+               <div class="haopindu clearfix">
+                   <div class="left"><span>{{shopdetails.good_assessment_percent | number:0}}%</span>好评度</div>
+                   <div class="right">
+                      <ul>
+                        <li><label>好评（{{shopdetails.good_assessment_count}}）</label><p><span style="width:{{shopdetails.good_assessment_count/shopdetails.assessment_count*100}}%"></span></p></li>
+                        <li><label>中评（{{shopdetails.in_assessment_count}}）</label><p><span style="width:{{shopdetails.in_assessment_count/shopdetails.assessment_count*100}}%"></span></p></li>
+                        <li><label>差评（{{shopdetails.bad_assessment_count}}）</label><p><span style="width:{{shopdetails.bad_assessment_count/shopdetails.assessment_count*100}}%"></span></p></li>
+                      </ul>
+                   </div>
+               </div>
+               <div class="pinjia-box">
+                  <div class="tit">
+                    <span class="act" ng-click="evaluate('',1)" tab>全部评价（{{shopdetails.assessment_count}}）</span>
+                    <span ng-click="evaluate('img',1)" tab>晒图（{{shopdetails.assessment_img_count}}）</span>
+                    <span ng-click="evaluate('good',1)" tab>好评（{{shopdetails.good_assessment_count}}）</span>
+                    <span ng-click="evaluate('in',1)" tab>中评（{{shopdetails.in_assessment_count}}）</span>
+                    <span ng-click="evaluate('bad',1)" tab>差评（{{shopdetails.bad_assessment_count}}）</span></div>
+                  <div class="pinjia-listbox">
+                     <div class="pinjia-list clearfix" ng-repeat="pj in evaluates">
+                        <div class="img"><i><img ng-src="{{pj.memberBean.head_path}}" /></i><span>{{pj.memberBean.nick_name}}</span></div>
+                        <div class="text">
+                           <ul>
+                             <li class="p-l-t-1of4"><p class="star star{{pj.assessment_star1}}"></p><span>{{pj.create_time | limitTo:10}}</span></li>
+                             <li class="p-l-t-2of4">{{pj.assessment_desc}}</li>
+                             <li class="p-l-t-3of4"><span ng-repeat="pjimg in pj.assessmentImgBeans"><img ng-src="{{pjimg.assessment_img}}" /></span></li>
+                             <li class="p-l-t-4of4">购买日期：{{pj.buy_time | limitTo:10}}</li>
+                           </ul>
+                        </div>
+                     </div>
+                     <!--分页-->
+                      <div class="page-box" ng-if="pageNum>1">
+                        <a href="javascript:;" ng-click="pageclick(nowpageNum-1)">上一页</a>
+                        <span ng-repeat="page in pageboxs" ng-click="pageclick(page)" ng-class="{act:page==nowpageNum}">{{page}}</span>
+                        <a class="act" href="javascript:;" ng-click="pageclick(nowpageNum*1+1)">下一页</a>
+                        跳到<input type="number" ng-model="nowpageNum2" width="20px;">/{{pageNum}}页<button ng-click="pageclick(nowpageNum2)">确定</button>
+                      </div>
+                  </div>
+                  <!--pinjia-listbox end-->
+               </div>
+           </div>
+        </div>
+     </div>
+  </div>
+  <div class="guess-you-like box mar-b80 mar-t60" ng-if="guessyouliketotal>0">
+     <div class="tit"><h1>猜你喜欢</h1><p ng-if="guessyoulikepagenum>1">{{guessyoulikepage}}/{{guessyoulikepagenum>4?'4':guessyoulikepagenum}}<span ng-click="guessyoulike(guessyoulikepage*1-1*1)"><</span><span class="act" ng-click="guessyoulike(guessyoulikepage*1+1*1)">></span></p></div>
+     <div class="g-y-l-listbox clearfix">
+       <div class="sj-r-list" ng-repeat="gyl in guessyoulikes">
+          <ul>
+            <li class="sj-l-1of5"><a target="_blank" href="index.html#/shop?shopid={{gyl.goods_id}}"><img ng-src="{{gyl.goods_img!=''?gyl.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+            <li class="sj-l-2of5">￥{{gyl.goods_pc_price}}<span ng-if="gyl.goods_origin_price!=0">￥{{gyl.goods_origin_price}}</span></li>
+            <li class="sj-l-3of5">{{gyl.goods_name}}</li>
+            <li class="sj-l-4of5"><span ng-if="gyl.is_directly==1">自营</span><span ng-if="gyl.brand_name!=''">{{gyl.brand_name}}</span></li>
+            <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{gyl.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{gyl.year_sales}}</a></span></li>
+          </ul>
+       </div>
+
+     </div>
+     <!--g-y-l-listbox end-->
+  </div>
+</div>
+<script>
+  window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+</script>

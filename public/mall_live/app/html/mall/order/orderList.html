@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />	
+	<title>订单列表</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+	<!--主样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/main.css">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+		    var docEl = doc.documentElement,
+		        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		        recalc = function () {
+		            var clientWidth = docEl.clientWidth;
+		            if (!clientWidth) return;
+		            if(clientWidth>=640){
+		                docEl.style.fontSize = '100px';
+		            }else{
+		                docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+		        }
+		    };
+		    if(!doc.addEventListener) return;
+		    win.addEventListener(resizeEvt, recalc, false);
+		    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+	<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<!--header-->
+		<div class="p_f t0 l0 w_b100 back_fff z100">
+			<div class="box_center h44 pr10 pl10 w_b100 bor_b">
+				<div class="grid_cell box_start">
+					<div class="left_icon w22 h28"></div>
+				</div>
+				<div class="f16 grid_cell box_center">我的订单</div>
+				<div class="grid_cell box_end">
+					<div class=""></div>
+				</div>
+			</div>
+			<!-- tab -->
+			<div class="box_between back_fff h45 f14 col_999 bor_b over_x">
+				<div class="grid_cell box_center ml10 mr10 h45 nav_act">全部</div>
+				<div class="grid_cell box_center ml10 mr10 h45">待付款</div>
+				<div class="grid_cell box_center ml10 mr10 h45">待发货</div>
+				<div class="grid_cell box_center ml10 mr10 h45">待收货</div>
+				<div class="grid_cell box_center ml10 mr10 h45">已完成</div>
+			</div>
+		</div>
+		<!-- content -->
+		<div class="mt100">
+			<!-- 列表 -->
+			<div class="p10">
+				<!-- 列表项 -->
+				<a href="orderDetails.html" class="back_fff show mb10">
+					<div class="h40 pl10 pr10 box_between f12">
+						<div>订单号：<span>201708111516234</span></div>
+						<div class="col_red">待收货款</div>
+					</div>
+					<div class="box_start p_r h115 bor_t">
+						<div class="w95 h95 ml10">
+							<img src="../../../images/goods2.png" alt="">
+						</div>
+						<div class="w_b65 ml10">
+							<div class="w_b45 f16 col_666 wbyc">大荔冬枣</div>
+							<div class="f12 col_999 wbyc2 h35">规格：<span>标准</span></div>
+							<div class="f12">拼团购买：<span>￥<em class="col_red f16">68.8</em></span> / 件 / <em>2</em>人团</div>
+							<div class="box_between col_999 f12">
+								<div class="scx">原价：￥80.0</div>
+								<div>x<em>1</em></div>
+							</div>
+						</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff z100 bor_b">
+		<div class="box_between h45 pl10 pr10 header_back_icon">
+			<div class="box_start">
+				<div class="left_white_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f12 col_fff grid_cell box_center pl15 pr15">选择城市</div>
+			<div class="box_end col_fff f14 w22"></div>
+		</div>
+	</div>
+	<div class="pt45 back_fff">
+		<section class="p5 flex_wrap box_start f12 col_666">
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('')">默认</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('A,B,C')">ABC</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('D,E,F')">DEF</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('G,H,I')">GHI</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('J,K,L')">JKL</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('M,N,O')">MNO</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('P,Q,R')">PQR</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('S,T,U')">STU</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('V,W,X')">VWX</div>
+			</div>
+			<div class="p5 w_b25">
+				<div class="br5 bor box_center h25" ng-click="getCityListClick('Y,Z')">YZ</div>
+			</div>
+		</section>
+		<section class="p5 flex_wrap box_start f12 col_666">
+			<div class="p5" ng-repeat="item in cityListInfo track by $index">
+				<div class="br5 bor box_center h25 pl15 pr15" ng-bind="item.city" ng-click="selectCityClick(item.city)"></div>
+			</div>
+		</section>
+	</div>
+</div>

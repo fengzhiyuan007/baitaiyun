@@ -1,0 +1,189 @@
+<link rel="stylesheet" type="text/css" href="src/flexslider.css" />
+<script type="text/javascript" src="src/jquery.flexslider-min.js"></script>
+<!--主体内容-->
+<div class="box clearfix pad-b20">
+   <div class="box cnxh-banner">
+      <div class="flexslider">
+          <ul class="slides">
+            <li ng-repeat="z in merchantxqs.merchantsDescImgBeans" repeat-finish="flexslider()"><a href="{{z.merchants_url}}"><img ng-src="{{z.merchants_img}}" /></a></li>
+          </ul>
+      </div>
+   </div>
+   <div class="box sjyhq-box clearfix mar-t20" ng-if="coupontotal>0">
+     <div class="tit">店铺优惠券</div>
+     <i ng-if="couponNum>1" ng-click="yhqlist2(couponpage*1-1*1)" class="l_i"></i>
+     <i ng-if="couponNum>1" ng-click="yhqlist2(couponpage*1+1*1)" class="r_i"></i>
+     <div class="q-y-list" ng-class="{act2:yhq.member_id!=''}" ng-click="yhqpay($index)" ng-repeat="yhq in coupons" ng-if="$index<5" yhqtab>
+        <ul>
+          <li><span>￥{{yhq.coupon_price}}</span>满{{yhq.coupon_full_price}}</li>
+          <li>有效期：{{yhq.end_time | limitTo:10}}</li>
+        </ul>
+        <p><span ng-click="receivecoupon(yhq.coupon_id,yhq.member_id)">[{{yhq.member_id==''?'立即领取':'已领取过'}}]</span></p>
+     </div>
+   </div>
+</div>
+<div class="tck" ng-if="yyzzshows==1">
+  <i ng-click="yyzzshow(yyzzshows)"></i>
+  <div class="yyzz-box">
+    <p class="tit">营业资质<i ng-click="yyzzshow(yyzzshows)">&times</i></p>
+    <div class="img"><img ng-repeat="img in merchantxqs.merchantsImgBeans" ng-if="img.img_type=='business1'" ng-src="{{img.merchants_img}}"></div>
+  </div>
+</div>
+<div class="mainbox clearfix bg-f5 pad-b70 pad-t40">
+  <!---->
+  <div class="box shop-sorts bg-fff clearfix">
+     <div class="s-s-list clearfix" ng-repeat="sps in shoppinpais" ng-if="sps.type=='brand'" id="{{sps.type}}">
+        <label class="pad-t30">{{sps.name}}</label>
+        <div class="s-s-l-pp-list">
+          <ul>
+            <li ng-repeat="simg in sps.brandBeans" val='{{simg.brand_id}}' ng-click="ssclicks(sps.type,simg.brand_id)" ss-Click><img ng-src="{{simg.brand_img}}" alt="{{simg.brand_name}}" title="{{simg.brand_name}}" /></li>
+          </ul>
+        </div>
+        <div class="s-s-l-btn pad-t40">
+          <a href="javascript:void(0);" class="dx" ss-Click2>+多选</a>
+          <a href="javascript:void(0);" ng-click="ssclicks(sps.type,'')" ss-Click8>清空</a>
+          <a ng-if="sps.brandBeans.length>16" href="javascript:void(0);" class="gd" ss-Click5>更多</a>
+        </div>
+        <p class="pad-t0"><a class="qr" href="javascript:void(0);" ng-click="dbclicks(sps.type)" ss-Click3>确认</a><a class='qx' href="javascript:void(0);" ss-Click4>取消</a></p>
+     </div>
+     <div class="ppsort ppbor clearfix">
+       <label>分类</label>
+       <div class="sortbox1">
+          <ul>
+            <li class="act" tab><span ng-click="ssclicks('fenlei','')">全部</span></li>
+            <li ng-repeat="sort in guesslikes" sort-top tab>
+              <span ng-click="ssclicks('fenlei',sort.goods_uuid)" ng-mouseover="guesslike2(2,sort.goods_id,$index)">{{sort.goods_name}}</span>
+              <div class="sortbox2" hidden>
+                <ul>
+                  <li ng-repeat="sort2 in sort.sort2" sort-top2>
+                    <span ng-click="ssclicks('fenlei',sort2.goods_uuid)" ng-mouseover="guesslike3(3,sort2.goods_id,$index)">{{sort2.goods_name}}</span>
+                    <div class="sortbox3" hidden>
+                      <ul>
+                        <li ng-repeat="sort3 in sort2.sort3" ng-click="ssclicks('fenlei',sort3.goods_uuid)" tab>{{sort3.goods_name}}</li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+       </div>
+     </div>
+
+     <div class="s-s-list clearfix" ng-repeat="sps in shoppinpais" ng-if="sps.type=='activity'" id="{{sps.type}}">
+        <label>{{sps.name}}</label>
+        <div class="s-s-l-sp-list">
+          <ul>
+            <li ng-repeat="zk in sps.activityBeans" val='{{zk.activity_id}}' ng-click="ssclicks(sps.type,zk.activity_id)" ss-Click><span></span>{{zk.activity_name}}</li>
+          </ul>
+        </div>
+        <div class="s-s-l-btn s-s-l-btn2">
+          <a href="javascript:void(0);" class="dx" ss-Click2>+多选</a>
+          <a href="javascript:void(0);" ng-click="ssclicks(sps.type,'')" ss-Click8>清空</a>
+        </div>
+        <p><a class="qr" href="javascript:void(0);" ng-click="dbclicks(sps.type)" ss-Click3>确认</a><a class='qx' href="javascript:void(0)" ss-Click4>取消</a></p>
+     </div>
+     <div class="s-s-list clearfix" ng-repeat="sps in shoppinpais" ng-if="sps.type=='service'" id="{{sps.type}}">
+        <label>{{sps.name}}</label>
+        <div class="s-s-l-sp-list">
+          <ul>
+            <li ng-repeat="fw in sps.goodsLabelBeans" val='{{fw.label_id}}' ng-click="ssclicks(sps.type,fw.label_id)" ss-Click><span></span>{{fw.label_name}}</li>
+          </ul>
+        </div>
+        <div class="s-s-l-btn s-s-l-btn2">
+          <a href="javascript:void(0);" class="dx" ss-Click2>+多选</a>
+          <a href="javascript:void(0);" ng-click="ssclicks(sps.type,'')" ss-Click8>清空</a>
+        </div>
+        <p><a class="qr" href="javascript:void(0);" ng-click="dbclicks(sps.type)" ss-Click3>确认</a><a class='qx' href="javascript:void(0);" ss-Click4>取消</a></p>
+     </div>
+  </div>
+  <!---->
+   <div class="box clearfix mar-t40">
+     <div class="main-leftbox w310">
+        <div class="dpxq-details sjdp-details">
+           <div class="tit"><span>{{merchantxqs.merchants_name}}<a target="_blank" href="http://kefu.easemob.com/webim/im.html?tenantId={{merchantxqs.custom_id}}"><img src="images/lianxishangjia.png" /></a></span></div>
+            <div class="times" ng-if="merchantxqs.job_start_time!=''">工作时间:{{merchantxqs.job_start_time}}~{{merchantxqs.job_end_time}},其他时间请留言</div>
+           <div class="score clearfix">
+              <ul>
+                <li>{{merchantxqs.merchants_star1}}<span>商家评分</span></li>
+                <li>{{merchantxqs.merchants_star2}}<span>商品评分</span></li>
+                <li>{{merchantxqs.merchants_star3}}<span>物流评分</span></li>
+              </ul>
+           </div>
+           <div class="text">
+              <ul>
+                <li class="d-d-t1of5" title="{{merchantxqs.merchants_desc}}">{{merchantxqs.merchants_desc}}</li>
+                <li class="d-d-t2of5">电话：<span class="blue">{{merchantxqs.contact_mobile}}</span></li>
+                <li class="d-d-t3of5">所在地：{{merchantxqs.merchants_province}}</li>
+                <li class="d-d-t4of5"><a class="blue" href="javascript:;" ng-click="yyzzshow(0)">查看营业资质</a></li>
+                <li class="d-d-t5of5"><button ng-click="collection(merchantxqs.merchants_id,merchantxqs.collection_id,merchantxqs.is_collection)">{{merchantxqs.is_collection==0?'收藏店铺':'取消收藏'}}</button></li>
+              </ul>
+           </div>
+        </div>
+        <!--dpxq-details end-->
+
+     </div>
+     <div class="main-rightbox w870">
+        <div class="saixuan-tit">
+           <ul>
+             <li class="act" ng-click="mshoplist(1,'','','','')" tab>全部</li>
+             <li ng-click="mshoplist(1,1,'','','')" tab>新品</li>
+             <li ng-click="mshoplist(1,'',1,'','')" tab>推荐</li>
+             <li ng-click="mshoplist(1,'',1,'sales','asc')" tab>销量</li>
+             <li ng-click="mshoplistprice(mshoplistprices)" class="jg" tab>价格<img src="images/sx.png" /></li>
+           </ul>
+           <div class="loading" ng-if="loading==1||loading==2">
+              <div class="loader">
+                <div class="loader-inner line-spin-fade-loader">
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                  <div></div>
+                </div>
+              </div>
+              <span ng-if="loading==1">加载中...</span>
+              <span ng-if="loading==2" class="red">请求超时...</span>
+           </div>
+        </div>
+        <div class="sjdp-listbox mar-t20 clearfix">
+          <div class="sj-r-list" ng-repeat="shop in mshoplists">
+            <ul>
+              <li class="sj-l-1of5"><a target="_blank" href="index.html#/shop?shopid={{shop.goods_id}}"><img ng-src="{{shop.goods_img!=''?shop.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+              <li class="sj-l-2of5">￥{{shop.goods_pc_price}}<span ng-if="shop.goods_origin_price!=0">￥{{shop.goods_origin_price}}</span></li>
+              <li class="sj-l-3of5">{{shop.goods_name}}</li>
+              <li class="sj-l-4of5"><span ng-if="shop.is_directly==1">自营</span><span ng-if="shop.brand_name!=''">{{shop.brand_name}}</span></li>
+              <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{shop.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{shop.year_sales}}</a></span></li>
+            </ul>
+          </div>
+        </div>
+        <!--分页-->
+        <div class="page-box" ng-if="pageNum>1">
+          <a href="javascript:;" ng-click="pageclick(nowpageNum-1)">上一页</a>
+          <span ng-repeat="page in pageboxs" ng-click="pageclick(page)" ng-class="{act:page==nowpageNum}">{{page}}</span>
+          <a class="act" href="javascript:;" ng-click="pageclick(nowpageNum*1+1)">下一页</a>
+          跳到<input type="number" ng-model="nowpageNum2" width="20px;">/{{pageNum}}页<button ng-click="pageclick(nowpageNum2)">确定</button>
+        </div>
+     </div>
+  </div>
+</div>
+
+<script>
+$(".dpxq-fenlei a").click(function(){
+	$(".dpxq-fenlei a").removeClass("act1");
+	if($(this).hasClass("act")&&$(this).hasClass("jt")){
+		$(this).siblings("ul").removeClass("act");
+		$(this).removeClass("act");
+	}else{
+		$(this).siblings("ul").addClass("act");
+		$(this).addClass("act").addClass("act1");
+
+	}
+
+})
+
+
+</script>

@@ -1,0 +1,5 @@
+@charset "utf-8";
+/* 你自己的样式 */
+.hiden{ display: none;}
+.text-ellip { width:300px;  overflow: hidden;  text-overflow: ellipsis;  white-space: nowrap;  course:hand; }
+

@@ -1,0 +1,40 @@
+<div class="liveRoom_warp">
+	<div class="liveRoom_app over_hidden box_direction">
+		<!--header-->
+		<div class="box_center h44 pl10 pr10 header_back_icon">
+			<div class="box_start">
+				<div class="left_white_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f12 col_fff grid_cell box_center pl15 pr15">
+				<a href="#/searchGoods" class="backRgba_fff_5 br5 pl10 pr10 w_b100 h25 box_start ">
+					<div class="search_white_icon w20 h20 mr5"></div>
+					输入您要搜索的商品名称
+				</a>
+			</div>
+		</div>
+		<section class="grid_cell over_hidden">
+			<div class="box_between h_b100">
+				<div class="h_b100 w_b25 p5 bor_r over_y">
+					<div class="box_center w_b100 h30 mt10 mb10" ng-repeat="parent in parentClassInfo track by $index" ng-click="getSeedClassClick(parent.class_uuid,parent.s)">
+						<div class="wbyc" ng-class="{col_red:uuid==parent.class_uuid}" ng-bind="parent.class_name"></div>
+					</div>
+				</div>
+				<div class="grid_cell over_y h_b100">
+					<div class="h120 w_b100">
+						<img ng-src="{{template_img}}" alt="">
+					</div>
+					<div class="flex_wrap box_start p10">
+						<div class=" p10 w_b50" ng-repeat="s in seedClassInfo track by $index" repeat-finish="setGoodsListImgH('.seedClassList')" >
+							<a href="#/goodsList?class_uuid={{s.class_uuid}}&title={{s.class_name}}" class="w_b100 seedClassList">
+								<div class="w_b100"><img ng-src="{{s.class_img}}" alt=""></div>
+								<div class="box_center mt10">
+									<div class="" ng-bind="s.class_name"></div>
+								</div>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

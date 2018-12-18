@@ -1,0 +1,361 @@
+{:widget('Base/breadcrumbs',[
+[
+['href'=>'','text'=>'商品信息'],
+['href'=>url('Goods/goods_list'),'text'=>'商品列表'],
+]
+])}
+<div class="page-container">
+	<div class="text-l">
+		<form class="search"  method="get">
+			<input type="text" class="input-text" style="width:200px" placeholder="搜索商品名称、编号" value="{$Request.get.name}" name="name">
+			<span class="select-box" style="width:150px">
+			<select name="goods_state"  class="select select-box inlin" style="width:120px" id="goods_state">
+				<option value="">商品状态</option>
+				<option value="1" {if condition=" $Request.get.goods_state eq 1"}selected{else/}{/if}>上架状态</option>
+				<option value="2" {if condition=" $Request.get.goods_state eq 2"}selected{else/}{/if}>下架状态</option>
+			</select>
+			</span>
+			<span class="select-box" style="width:150px">
+				<select name="parent_class" id="parent_class" onchange="change_class(this.value)" class="select">
+					<option value="">一级分类</option>
+					{volist name="parent_class" id="vo"}
+						<option value="{$vo['class_id']}" {if condition="$Request.param.parent_class eq $vo['class_id']"}selected{/if}>{$vo['class_name']}</option>
+					{/volist}
+				</select>
+			</span>
+			<span class="select-box" style="width:150px">
+			<select name="seed_class" id="seed_class" class="select">
+				<option value="">二级分类</option>
+				<if condition="!empty($re['seed_class'])">
+					{foreach name="seed_class" item="v"}
+					<option value="{$v.class_id}" {if condition=" $Request.param.seed_class eq $v['class_id']"}selected{/if}>{$v.class_name}</option>
+					{/foreach}
+				</if>
+			</select>
+			</span>
+			<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜商品</button>
+			<!--<span style="float:right;padding:0px 10px 10px 0" >-->
+                <!--<a href="javascript:void(0)"  data-action="{:url('Goods/insert_goods')}" class="check_auth btn btn-primary radius" >-->
+					<!--<i class="Hui-iconfont">&#xe600;</i>添加商品-->
+				<!--</a>-->
+            <!--</span>-->
+		</form>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+		</span>
+		<span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table style="" class="table table-border table-bordered table-bg table-hover table-sort">
+			<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" name="" value=""></th>
+				<th width="40">ID</th>
+				<th width="100">图片</th>
+				<th width="100">二维码</th>
+				<th width="200">商品名称</th>
+				<!--<th width="70">编码</th>-->
+				<th width="50">原价</th>
+				<th width="50">售价</th>
+				<!--<th width="50">总销量</th>-->
+				<th width="50">库存</th>
+				<th width="50">店铺</th>
+				<!--<th width="60">排序</th>-->
+				<!--<th width="60">置顶</th>-->
+				<th width="60">状态</th>
+				<th width="60">审核状态</th>
+				<th width="60">推荐</th>
+				<th width="120">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{volist name="list" id="vo"}
+				<tr class="text-c">
+					<td><input type="checkbox" value="{$vo.goods_id}" name="checkbox"></td>
+					<td>{$vo.goods_id}</td>
+					<td><img src="{$vo.goods_img}" style="width:50px; height:50px; border-radius:25px;"></td>
+					<td><img src="{$vo.goods_qrcode}" onclick="view_play_img('{:url('Goods/goods_qrcode',['goods_id'=>$vo.goods_id])}')" style="width:50px; height:50px; border-radius:25px;"></td>
+					<td><a href="{:url('Goods/edit_goods',['goods_uuid'=>$vo['goods_uuid']])}"><u style="cursor:pointer" class="text-primary" >{$vo.goods_name}</u></a></td>
+					<!--<td>{$vo['goods_num']}</td>-->
+					<td>{$vo['goods_origin_price']}</td>
+					<td>{$vo['goods_now_price']}</td>
+					<!--<td>{$vo['total_sales']}</td>-->
+					<td>{$vo['goods_stock']}</td>
+					<!--<td>-->
+						<!--<a href="javascript:void(0)" onclick="plus({$vo['goods_id']})" title="上移">-->
+							<!--<i class="Hui-iconfont">&#xe679;</i>-->
+						<!--</a>-->
+						<!--<a href="javascript:void(0)" onclick="minus({$vo['goods_id']})" title="下移">-->
+							<!--<i class="Hui-iconfont">&#xe674</i>-->
+						<!--</a>-->
+					<!--</td>-->
+					<!--<td>-->
+						<!--<a href="javascript:void(0)" style="display: block" onclick="go_top({$vo['goods_id']})" title="置顶"><i class="Hui-iconfont">&#xe699;</i></a>-->
+						<!--<a href="javascript:void(0)" style="display: block" onclick="go_after({$vo['goods_id']})" title="置后"><i class="Hui-iconfont">&#xe698;</i></a>-->
+					<!--</td>-->
+					<td>
+					{php}
+					echo db('merchants')->where(['member_id'=>$vo['merchants_id']])->value('merchants_name');
+					{/php}
+					</td>
+					<td class="td-status">
+						{if condition="$vo['goods_state'] eq 2"}
+							<span class="label label-defaunt radius">已下架</span>
+							{else/}
+							<span class="label label-success radius">已发布</span>
+						{/if}
+					</td>
+					<td>
+						{if condition="$vo['is_review'] eq 1"}
+						<u><a href="javascript:;;" onClick="change_review(this,{$vo.goods_id})"><span class="label label-success radius">已审核</span></a></u>
+						{else/}
+						<u><a href="javascript:;;" onClick="change_review(this,{$vo.goods_id})"><span class="label label-defaunt radius">未审核</span></a></u>
+						{/if}
+					</td>
+					<td class="td-status">
+							<a href="javascript:void(0)" onclick="change_tuijian({$vo['goods_id']},this)">
+								<u style="cursor:pointer" class="text-primary">
+								{if condition="$vo['is_tuijian'] eq 0"}
+									<span class="label label-defaunt radius">未推荐</span>
+									{else/}
+									<span class="label label-success radius">已推荐</span>
+								{/if}</u>
+							</a>
+					</td>
+					<td class="td-manage">
+						{if condition="$vo['goods_state'] eq 1"}
+							<a style="text-decoration:none"  onClick="member_stop(this,'{$vo.goods_id}')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>
+							{else/}
+							<a style="text-decoration:none"  onClick="member_start(this,'{$vo.goods_id}')" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>
+						{/if}
+						<a title="编辑" href="{:url('Goods/edit_goods',['goods_uuid'=>$vo['goods_uuid']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<!--<a title="复制" href="javascript:void(0)" onclick="copy({$vo['goods_id']},this)"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6ea;</i></a>-->
+						<a title="删除" href="javascript:;" onclick="del(this,'{$vo.goods_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					</td>
+				</tr>
+			{/volist}
+			</tbody>
+		</table>
+		<div style="text-align:center">
+			{$page}
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+/*	$(document).ready(function(){
+		$('.table-sort').dataTable({
+			"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+			"bStateSave": true,//状态保存
+			"aoColumnDefs": [
+				{"orderable":false,"aTargets":[0,7]}// 制定列不参与排序
+			]
+		});
+	});*/
+
+	function getChecked() {
+		var gids = new Array();
+		$.each($('input[name="checkbox"]:checked'), function(i, n){
+			gids.push( $(n).val() );
+		});
+		return gids;
+	}
+	function datadel(kid){
+		kid = kid ? kid : getChecked();
+		kid = kid.toString();
+		if(kid == ''){
+			layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+			return false;
+		}
+		layer.confirm('确认要删除吗？',function(index){
+			$.post("{:url('Goods/del_goods')}", {ids:kid}, function(data){
+				if( data.status == 'ok' ){
+					layer.msg(data.data.info,{icon:1,time:1000});
+					window.location.href = data.data.url;
+				}else{
+					layer.msg(data.data,{icon:5,time:1000});
+				}
+			},'json');
+		})
+	}
+	/*用户-添加*/
+	function member_add(title,url,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*用户-查看*/
+	function member_show(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*用户-停用*/
+	function member_stop(obj,id){
+		layer.confirm('确认要下架吗？',function(index){
+			$.post("{:url('Goods/change_goods_status')}",{id:id},function(data){
+				if(data.data == 2){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none"  onClick="member_start(this,'+id+')" href="javascript:;" title="发布"><i class="Hui-iconfont">&#xe603;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已下架</span>');
+					$(obj).remove();
+					layer.msg('已下架!',{icon: 5,time:1000});
+				}
+			},'json')
+		});
+	}
+
+	/*用户-启用*/
+	function member_start(obj,id){
+		layer.confirm('确认要上架吗？',function(index){
+			$.post("{:url('Goods/change_goods_status')}",{id:id},function(data){
+				if(data.data == 1){
+					$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="ml-5" onClick="member_stop(this,'+id+')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+					$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已发布</span>');
+					$(obj).remove();
+					layer.msg('已发布!',{icon: 6,time:1000});
+				}
+			},'json');
+
+		});
+	}
+	/*用户-编辑*/
+	function member_edit(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*密码-修改*/
+	function change_password(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*用户-删除*/
+function del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post("{:url('Goods/del_goods')}", {ids:id}, function(data){
+			if( data.status == 'ok' ){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			}else{
+				layer.msg(data.info,{icon:5,time:1000});
+			}
+		},'json');
+	});
+}
+
+	/*商品-复制*/
+function copy(id,v){
+	var id = id;
+	$.post("{:url('Goods/copy_goods')}",{id:id},function(data){
+		if(data['status'] == 'ok'){
+			layer.msg('复制商品成功',{icon:1,time:1500});
+			window.location.href = window.location.href;
+		}else{
+			alert(data['info']);
+		}
+	},'json');
+	return false;
+}
+
+function plus(v){
+    var name = "{$Request.get.name}";
+    var goods_state = "{$Request.get.goods_state}";
+    var class_id = "{$Request.get.class_id}";
+	$.post("{:url('Goods/plus_goods_sort')}",{goods_id:v,name:name,goods_state:goods_state,class_id:class_id},function(data){
+		if(data['status'] == 'ok'){
+			layer.msg(data.data,{icon:1,time:2000})
+			window.location.href = window.location.href;
+		}else{
+			layer.msg(data.data,{icon:5,time:2000})
+		}
+	},'json');
+}
+
+function minus(v){
+    var name = "{$Request.get.name}";
+    var goods_state = "{$Request.get.goods_state}";
+    var class_id = "{$Request.get.class_id}";
+	$.post("{:url('Goods/minus_goods_sort')}",{goods_id:v,name:name,goods_state:goods_state,class_id:class_id},function(data){
+		if(data['status'] == 'ok'){
+			layer.msg(data.data,{icon:1,time:2000})
+			window.location.href = window.location.href;
+		}else{
+			layer.msg(data.data,{icon:5,time:2000})
+		}
+	},'json');
+}
+
+function go_top(v){
+	$.post("{:url('Goods/top')}",{goods_id:v},function(data){
+		if(data['status'] == 'ok'){
+			layer.msg(data.data,{icon:1,time:1000})
+			window.location.href = window.location.href;
+		}else{
+			layer.msg(data.data,{icon:5,time:1000})
+		}
+	},'json');
+};
+
+function go_after(v){
+	$.post("{:url('Goods/after')}",{goods_id:v},function(data){
+		if(data['status'] == 'ok'){
+			layer.msg(data.data,{icon:1,time:1000})
+			window.location.href = window.location.href;
+		}else{
+			layer.msg(data.data,{icon:5,time:1000})
+		}
+	},'json');
+};
+function change_category(e){
+	if(!e || e==''){
+		return false;
+	}
+	var url = "{:url('Goods/get_son_category')}";
+	$.post(url,{first:e},function(data){
+		$("#second_category").html(data);
+	})
+};
+
+/*图片-发布*/
+function change_review(obj,id){
+    layer.confirm('确认要操作吗？',function(index){
+        $.post("{:url('Goods/change_goods_review')}",{id:id},function(data){
+            console.log(data);
+            if(data.data==1){
+                $(obj).parents("td").html('<u><a href="javascript:;;" onClick="change_review(this,'+id+')"><span class="label label-success radius">已审核</span></a></u>');
+                layer.msg('操作成功!',{icon: 6,time:1000});
+            }else if(data.data == 0){
+                $(obj).parents("td").html('<u><a href="javascript:;;" onClick="change_review(this,'+id+')"><span class="label label-defaunt radius">未审核</span></a></u>');
+                layer.msg('操作成功!',{icon: 6,time:1000});
+            }
+        },'json')
+    });
+}
+
+function change_tuijian(v,s){
+    var url = "{:url('Goods/change_goods_tuijian')}";
+    $.post(url,{id:v},function(data){
+        if(data.data == 1){
+            $(s).find("u").html('<span class="label label-defaunt radius">未推荐</span>');
+		}else{
+            $(s).find("u").html('<span class="label label-success radius">已推荐</span>');
+		}
+	},'json');
+}
+function change_class(e){
+    if(!e || e==''){
+        return false;
+    }
+    console.log(e);
+    var url = "{:url('Goods/get_seed_class')}";
+    $.post(url,{parent:e},function(data){
+        $("#seed_class").html(data);
+    })
+}
+function view_play_img(v){
+    layer.open({
+        type: 2,
+        title: false,
+        area: ['500px', '500px'],
+        shade: 0.1,
+        closeBtn: 1,
+        shadeClose: false,
+        content: v,
+    });
+}
+</script>

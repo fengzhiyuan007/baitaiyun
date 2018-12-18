@@ -1,0 +1,33 @@
+{:W('public/breadcrumbs',[
+	[
+		['href'=>U('Member/index'),'text'=>'基本设置'],
+		['href'=>'','text'=>'数据库备份']
+	]
+])}
+<style>
+	.ibutton { padding: 3px 15px; *padding: 0 15px; *height: 24px;  font-size: 12px; text-align: center; text-shadow: #CF510B 0 1px 0; border:1px solid #ec5c0d; border-radius: 2px; background: #FC750A; background-image: -webkit-linear-gradient(top, #fc8746, #ec5d0e); color:#FFF; cursor: pointer; display: inline-block; }
+</style>
+<div class="page-content">
+	<div class="row">
+		<div class="col-xs-12"><br/>
+		     <div>
+		        <span style="padding-top:20px;font-weight:bold;">数据库备份</span>
+		     </div>
+		     <hr/>
+			<form action="{:U('backup_do')}"  enctype="multipart/form-data" method="post" onsubmit="return checked()">
+				<table width="70%" border="0">
+				  
+					<tr>
+						<td width="10%">备份文件名</td>
+						<td width="65%"><input value="back_<?php echo date('Y-m-d',time());?>" name="name" id="name" type="text" size="30"></td>
+					</tr>
+					<tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+
+				</table>
+				
+					<button class="ibutton">&emsp;开始备份&emsp;
+					</button>
+			</form>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,32 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Config/sensitive'),'text'=>'敏感词设置'],
+]
+])}
+<div class="page-content">
+    <form action="" method="post" class="form form-horizontal mt-20" id="form-article-add">
+        <div class="row cl" style="margin-bottom: 50px;">
+            <label class="form-label col-xs-4 col-sm-2">敏感词：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="word" cols="" rows="" class="textarea"  placeholder="多个个词汇用英文逗号（,）隔开">{$word}</textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+                <div class="mt-5">多个个词汇用英文逗号（,）隔开</div>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-8 col-xs-offset-4 col-sm-offset-2">
+                <button  class="submit btn btn-primary radius"  type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存修改</button>
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $(".submit").click(function () {
+            commonAjaxSubmit();
+            return false;
+        });
+    });
+</script>

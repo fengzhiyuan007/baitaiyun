@@ -1,0 +1,351 @@
+{php}
+	$uid = input('id');
+	$uid?$text='录播编辑':$text='录播添加';
+{/php}
+{:widget('Base/breadcrumbs',[
+[
+['href'=>url('Live/play_record'),'text'=>'主播录播管理'],
+['href'=>'','text'=>$text]
+]
+])}
+<style>
+	.ibutton { padding: 3px 15px; *padding: 0 15px; *height: 24px;  font-size: 12px; text-align: center; text-shadow: #CF510B 0 1px 0; border:1px solid #ec5c0d; border-radius: 2px; background: #FC750A; background-image: -webkit-linear-gradient(top, #fc8746, #ec5d0e); color:#FFF; cursor: pointer; display: inline-block; }
+	/*a  upload */
+	.a-upload {
+		padding: 4px 10px;
+		/*height: 20px;*/
+		line-height: 20px;
+		position: relative;
+		cursor: pointer;
+		color: #888;
+		background: #fafafa;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		overflow: hidden;
+		display: inline-block;
+		*display: inline;
+		*zoom: 1
+	}
+
+	.a-upload  input {
+		position: absolute;
+		font-size: 100px;
+		right: 0;
+		top: 0;
+		opacity: 0;
+		filter: alpha(opacity=0);
+		cursor: pointer
+	}
+
+	.a-upload:hover {
+		color: #444;
+		background: #eee;
+		border-color: #ccc;
+		text-decoration: none
+	}
+	*{ margin:0px; padding:0px; font-family:Microsoft Yahei; box-sizing:border-box; -webkit-box-sizing:border-box;}
+	.ul_pics{ float:left;}
+	.ul_pics li{float:left; margin:0px; padding:0px; margin-left:5px; margin-top:5px; position:relative; list-style-type:none; border:1px solid #eee;}
+	.ul_pics li img{width:80px;height:80px;}
+	.ul_pics li i{ position:absolute; top:0px; right:-1px; background:red; cursor:pointer; font-style:normal; font-size:10px; width:14px;
+		height:14px; text-align:center; line-height:12px; color:#fff;}
+	.progress{position:relative;  background:#eee;height:15px;line-height:15px;}
+	.bar {background-color: green; display:block; width:0%; height:15px; }
+	.percent{ height:15px;  text-align:center;  left:0px; color:#666; line-height:15px; font-size:12px; }
+</style>
+	<div id="big"></div>
+	<div id="big2"></div>
+	<form class="form form-horizontal" id="form" method="post">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>视频标题：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="title" class="input-text" value="{$re['title']}" placeholder="视频标题" id="title" />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">
+				<span class="c-red">*</span>主播：
+			</label>
+			<div class="formControls col-xs-8 col-sm-9">
+			<span class="select-box" style="width: 60%">
+			<select name="user_id"  class="select" id="user_id" >
+				<option value="">请选择主播</option>
+				{volist name="anchor" id="vo"}
+				<option value="{$vo.member_id}"{if condition="$re.user_id eq $vo.member_id"}selected{/if}>{$vo.username}</option>
+				{/volist}
+			</select>
+			</span>
+			<input type="text" value="" name="" id="anchor" placeholder="主播" style="width: 21%" class="input-text">
+			<button type="button" onclick="getAnchor($('#anchor').val())" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="droparea spot" id="image1" style="background-image: url('{$re['video_img']}');background-size: 220px 160px;" >
+					<div class="instructions" onclick="del_image('1')">删除</div>
+					<div id="uparea1"></div>
+					<input type="hidden" name="play_img" id="image_1" value="{$re['play_img']}" />
+					<div class="instructions" style="top: 135px;color: red;">建议尺寸750*350,图片小于2M</div>
+				</div>
+			</div>
+		</div>
+		<div id="upload" class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">视频：</label>
+			<div  class="formControls col-xs-8 col-sm-9">
+				<div href="javascript:void(0);" class="a-upload" rel="external nofollow" id="btn">
+				<!--<input name="video" value="" id="video" type="file" accept="video/*">{$_GET['id']?'点击这里更换视频':'点击这里上传视频'}-->
+					{$uid?'点击这里更换视频':'点击这里上传视频'}
+				</div>
+				<input name="url" type="hidden" id="url" value="{$re['url']}" />
+				<san>建议上传mp4格式，大小不要超过700M</san>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"></label>
+			<div  class="formControls col-xs-8 col-sm-9">
+				<ul id="ul_pics" class="ul_pics clearfix">
+				</ul>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+				<!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+				<button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				<input type="hidden" class="input-text" value="{$re.live_store_id}" placeholder=""  name="live_store_id">
+			</div>
+		</div>
+	</form>
+</div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="/static/plupload/js/moxie.js"></script>
+<!--<script type="text/javascript" src="/assets/js/plupload/js/plupload.dev.js"></script>-->
+<script type="text/javascript" src="https://cdn.staticfile.org/plupload/2.1.5/plupload.min.js"></script>
+<script type="text/javascript" src="/static/plupload/js/i18n/zh_CN.js"></script>
+<script type="text/javascript" src="/static/qiniu-js-sdk/dist/qiniu.js"></script>
+<script type="text/javascript">
+	$(function(){
+		var  content ;
+		KindEditor.ready(function(K) {
+			content = K.create('#content',{
+				allowFileManager : true,
+				uploadJson:"{:url('admin/Tools/upload',['dirname'=>'video'])}"
+			});
+		});
+
+		KindEditor.ready(function(K) {
+			K.create();
+			var editor = K.editor({
+				allowFileManager : true,
+				uploadJson:"{:url('admin/Tools/upload',['dirname'=>'video'])}"
+				//sdl:false
+			});
+			K('#uparea1').click(function() {
+				editor.loadPlugin('image', function() {
+					editor.plugin.imageDialog({
+						imageUrl : K('#image_1').val(),
+						clickFn : function(url, title, width, height, border, align) {
+							console.log(url);
+							$('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+							K('#image_1').val(url);
+							// K('#getImgUrl').val(url);
+							editor.hideDialog();
+						}
+					});
+				});
+			});
+
+		});
+
+		$(".submit").click(function(){
+			commonAjaxSubmit();
+			return false;
+		});
+
+		$("#uparea1").mouseover(function(e){
+			$("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+			var img = $('#image_1').val();
+			if(img.length !== 0) {
+				$("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+				$("#big").show();        //show：显示
+			}
+		});
+		$("#uparea1").mouseout(function(){
+			$("#big").hide();
+		});
+
+//		$("#video").change(function(){
+//			var index = layer.load(0, {shade: false}); //0代表加载的风格，支持0-2
+//			var formData = new FormData();
+//			formData.append("video", $('#video')[0].files[0]);
+//			$.ajax({
+//				url: "{:url('Tools/upload_video')}" ,
+//				type: 'POST',
+//				data: formData,
+//				async: true,
+//				cache: false,
+//				contentType: false,
+//				processData: false,
+//				dataType:"JSON",
+//				success: function (data) {
+//				    console.log(data);
+//					layer.close(index);
+//					if(data['status'] == 'ok'){
+//						$('#url').val(data['url']);
+//						$('.url').html('上传成功！');
+//					}else{
+//						$('.url').html(data['info']);
+//					}
+//				},
+//				error: function (data) {
+//					console.log(data);
+//				}
+//			});
+//		});
+
+		$(".preview").mouseover(function(e){
+			$("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+			var data = $(this).attr('data');
+			console.log(data);
+			var img = $('#preview_'+data).val();
+			if(img.length !== 0) {
+				$("#big").html('<img src="' + img + '" width=380 height=300>');
+				$("#big").show();        //show：显示
+			}
+		});
+		$(".preview").mouseout(function(){
+			$("#big").hide();
+		});
+
+		$(".pic3").mouseover(function(e){
+			$("#big2").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+			$("#big2").html('<img src="'+this.src+'" width=380 height=300>');
+			$("#big2").show();        //show：显示
+		});
+		$(".pic3").mouseout(function(){
+			$("#big2").hide();
+		});
+	});
+	function area_linke1(value){
+		$.post("{:url('get_area')}", {value:value,type:1}, function(v){
+
+			$("#shi").html(v);
+
+		});
+	}
+	function area_linke2(value){
+		$.post("{:url('get_area')}", {value:value,type:2}, function(v){
+
+			$("#qu").html(v);
+
+		});
+	}
+
+    function textCounter(field, maxlimit) {
+        var num = $(field).val();
+        if(num.length > maxlimit){
+            $(field).val(num.substring(0,maxlimit));
+        }
+    }
+
+    var uploader = Qiniu.uploader({
+        runtimes: 'html5,flash,html4',    //上传模式,依次退化
+        browse_button: 'btn',       //上传选择的点选按钮，**必需**
+        uptoken_url: "{:url('admin/Tools/get_qiniu_token')}",            //Ajax请求upToken的Url，**强烈建议设置**（服务端提供）
+        // uptoken : '', //若未指定uptoken_url,则必须指定 uptoken ,uptoken由其他程序生成
+        // unique_names: true, // 默认 false，key为文件名。若开启该选项，SDK为自动生成上传成功后的key（文件名）。
+        // save_key: true,   // 默认 false。若在服务端生成uptoken的上传策略中指定了 `sava_key`，则开启，SDK会忽略对key的处理
+        domain: 'http://msplay.qqyswh.com',   //bucket 域名，下载资源时用到，**必需**
+        get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
+        container: 'upload',           //上传区域DOM ID，默认是browser_button的父元素，
+        max_file_size: '1000mb',           //最大文件体积限制
+        flash_swf_url: '/static/plupload/js/Moxie.swf',  //引入flash,相对路径
+        silverlight_xap_url: "/static/plupload/js/Moxie.xap",
+        max_retries: 3,                   //上传失败最大重试次数
+        dragdrop: true,                   //开启可拖曳上传
+        drop_element: 'upload',        //拖曳上传区域元素的ID，拖曳文件或文件夹后可触发上传
+        unique_names: true,
+        chunk_size: '0mb',                //分块上传时，每片的体积
+        auto_start: true,                 //选择文件后自动上传，若关闭需要自己绑定事件触发上传
+        filters: {
+            mime_types : [
+                {title : "Image files", extensions: "mp4,3gp,mp3,flv,avi,m3u8"}
+            ]
+        },
+        init: {
+            'FilesAdded': function(up, files) {
+                //do something
+                if ($("#ul_pics").children("li").length > 0) {
+                    alert("您上传的内容太多了！");
+                    uploader.destroy();
+                } else {
+                    console.log(1);
+                    var li = '';
+                    plupload.each(files, function(file) { //遍历文件
+                        li += "<li id='" + file['id'] + "'><div class='progress'><span class='bar'></span></div><div class='percent'>上传中 0%</div></li>";
+                    });
+                    $("#ul_pics").append(li);
+                    uploader.start();
+                }
+            },
+            'BeforeUpload': function(up, file) {
+                //do something
+            },
+            'UploadProgress': function(up, file) {
+                //可以在这里控制上传进度的显示
+                //可参考七牛的例子
+				console.log(file)
+                var percent = file.percent;
+                $("#" + file.id).find('.bar').css({"width": percent + "%"});
+                $("#" + file.id).find(".percent").text("上传中 "+percent + "%");
+            },
+            'UploadComplete': function() {
+                //do something
+            },
+            'FileUploaded': function(up, file, info) {
+                var str = $.parseJSON(info.response);
+                console.log(str);
+                console.log(str.key);
+                $('#url').val(str.key);
+                //每个文件上传成功后,处理相关的事情
+                //其中 info 是文件上传成功后，服务端返回的json，形式如
+                //{
+                //  "hash": "Fh8xVqod2MQ1mocfI4S4KpRL6D98",
+                //  "key": "gogopher.jpg"
+                //}
+//                var domain = up.getOption('domain');
+//                var res = eval('(' + info + ')');
+//                var sourceLink = domain + res.key;//获取上传文件的链接地址
+                //do something
+            },
+            'Error': function(up, err, errTip) {
+                alert(errTip);
+            },
+            'Key': function(up, file) {
+                //当save_key和unique_names设为false时，该方法将被调用
+                var key = "";
+                $.ajax({
+                    url: '/qiniu-token/get-key/',
+                    type: 'GET',
+                    async: false,//这里应设置为同步的方式
+                    success: function(data) {
+                        var ext = Qiniu.getFileExtension(file.name);
+                        key = data + '.' + ext;
+                    },
+                    cache: false
+                });
+                return key;
+            }
+        }
+    });
+
+    function getAnchor(v){
+        var url = "{:url('Live/getAnchor')}";
+        if(v !=''||v!=undefined||v != null)
+        $.get(url,{name:v},function(data){
+            console.log(data);
+            $("#user_id").html(data);
+        });
+    }
+</script>

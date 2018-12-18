@@ -1,0 +1,59 @@
+<div class="wrapper">
+	<!--header-->
+	<header class="p_f t0 l0 w_b100 back_fffz100">
+		<div class="box_center h45 pr10 pl10 header_back_icon col_fff">
+			<div class="grid_cell box_start">
+				<div class="left_white_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center" ng-bind="title"></div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</header>
+	<section class="pb40 pt45">
+		<!-- banner 轮播图 -->
+		<div id="bannerBox" class="h175 w_b100 p_r">
+			<div class="flexsliders h175">
+				<ul class="slides h175">
+					<li class="h_b100" ng-repeat="item in bannerInfo" repeat-finish="flexsliders('.flexsliders')">
+						<a href="{{item.url}}" class="dis_in h_b100 w_b100">
+							<img ng-src="{{item.b_img}}"/>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="box_between col_666 h50 pl15 pr15">
+			<div class="box_start">
+				<div class="address_icon w25 h30"></div>
+				<div ng-bind="city"></div>
+			</div>
+			<a href="#/cityList">点击切换地区</a>
+		</div>
+		<!-- 列表 -->
+		<div class="box_between flex_wrap p5">
+			<!-- 列表项 -->
+			<div class="w_b50 p5" ng-repeat="item in liveClassListInfo track by $index" repeat-finish="setGoodsListImgH('.liveListLi')">
+				<a ng-click="goLiveRoomClick($index)" class="box_center w_b100 p_r liveListLi"">
+					<div class="back_000 opacity1 t0 l0 r0 b0 p_a br5_top_right br5_top_left"></div>
+					<div class="p_a t0 l0 w_b100 col_fff p5 box_start">
+						<div class="backRgba_black_5 box_center br15 pl10 pr10 h20 f10 maxW_b100">
+							<div class="w_b100 wbyc" ng-bind="item.username"></div>
+						</div>
+					</div>
+					<div class="p_a b0 l0 w_b100 col_fff p5">
+						<div class="box_start mt5">
+							<div class="backRgba_black_5 box_start br3">
+								<div class="back_red br3 pl5 pr5 box_center h18 f_w" ng-show="item.live_id !=0">直播中</div>
+								<div class="pl5 pr5 box_center h18"><em ng-bind="item.watch_nums || 0"></em>观看</div>
+							</div>
+						</div>
+					</div>
+					<img class="br5_top_right br5_top_left" lazy-src="{{item.header_img}}" alt="" />
+				</a>
+				<div class="p5 back_fff h30 wbyc w_b100 br5_bottom_left br5_bottom_right" ng-bind="item.signature"></div>
+			</div>
+		</div>
+	</section>
+</div>

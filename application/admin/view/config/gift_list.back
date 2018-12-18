@@ -1,0 +1,104 @@
+{:W('public/breadcrumbs',[
+    [
+        ['href'=>U('Config/index'),'text'=>'基本设置'],
+        ['href'=>'','text'=>'礼物列表']
+    ]
+])}
+</if>
+<script type="text/javascript" src="__ROOT__/public/admin/layer/layer.js"></script>
+<script type="text/javascript" src="__ROOT__/public/admin/js/jquery-1.7.min.js"></script>
+<div class="page-content">
+<div class="row">
+<div class="col-xs-12">
+        <span style="float:left;padding-right:30px;padding-top:8px;padding-bottom:18px">
+        <a href="javascript:void(0);" style="text-decoration:none;color:#000000"><span onclick="del();" style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">删除</span></a>
+         </span>
+    <form class="search" action="{:U('index')}" method="get">
+        <input name="m" value="{:MODULE_NAME}" hidden>
+        <input name="a" value="{:ACTION_NAME}" hidden>
+        <input name="c" value="{:CONTROLLER_NAME}" hidden>
+        <span style="float:right;padding-right:30px;padding-top:8px;padding-bottom:18px">
+        <a href="{:U('Config/add_gift')}" style="text-decoration:none;color:#000000"><span style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">添加礼物</span></a>
+       </span>
+    </form>
+<table width="100%" class="tab">
+    <thead>
+    <tr>
+        <td><a href="javascript:;" id="selall">全选</a></td>
+        <td>名称</td>
+        <td>图片</td>
+        <td>价格</td>
+        <!--<td>经验</td>-->
+        <td>时间</td>
+        <td width="150">操作</td>
+    </tr>
+    </thead>
+    <volist name="list" id="vo">
+        <tr align="center" id="{$vo.id}" onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';">
+           <td><input type="checkbox" name="ids" id="ids"  value="{$vo.gift_id}"/>
+              <if condition="$_GET['p'] gt 0">
+                {$key+1+($_GET['p']-1)*15}
+                <else />
+                {$key+1}
+            </if>
+           </td>
+            <td>{$vo.name}</td>
+            <td><img src="{$vo.img}" style="width:80px;height:60px"></td>
+
+            <td>{$vo.price}</td>
+            <!--<td>{$vo.experience}</td>-->
+            <td>{$vo.intime|date='Y-m-d H:i:s',###}</td>
+            <td>
+                [ <a href="{:U('Config/edit_gift',array('gift_id'=>$vo[gift_id]))}">编辑 </a> ]
+                [ <a href="javascript:;" onclick="del({$vo.gift_id})">删除 </a> ]
+            </td>
+        </tr>
+    </volist>
+</table>
+    {$page}
+<script type="text/javascript">   
+$(function() {   
+$("#selall").toggle(function() {
+     $("input[name='ids']").each(function() {   
+     $(this).attr("checked", true); 
+     });
+},function(){
+	 $("input[name='ids']").each(function() {   
+     $(this).attr("checked", false); 
+     }); 
+});
+
+});
+
+function del(kid){
+	
+kid = kid ? kid : getChecked();
+kid = kid.toString();
+if(kid == ''){
+	layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+	return false;
+}
+if(!confirm('删除后无法恢复，确定删除？'))
+	return false;
+$.post("{:U('del_gift')}", {ids:kid}, function(v){
+	if( v == 1 ){
+		alert('删除成功！');
+		location.reload("{:U('Config/gift_list')}");
+	}else{
+		alert('删除失败！');
+	}
+});
+} 
+function getChecked() {
+var gids = new Array();
+$.each($('input:checked'), function(i, n){
+	gids.push( $(n).val() );
+});
+return gids;
+}
+
+
+</script>
+</div>
+</div>
+</div>

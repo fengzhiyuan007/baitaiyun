@@ -1,0 +1,236 @@
+.main {
+	background: url('../img/bj.jpg') center top no-repeat;
+	background:none;
+	width: 100%;
+	height: 778px;
+	/* padding-top: 210px; */
+	position: relative
+}
+.main .btn, .main .filter .item.active, .main .filter .item:hover {
+	background: #16a085
+}
+
+.main .title {
+    color: #fff;
+    font-size: 32px;
+    text-align: center;
+    font-weight: lighter;
+    letter-spacing: 2px;
+}
+.main .search-box {
+	margin: 20px auto 0;
+	width: 700px
+}
+.main .search-box.search-box2{
+	margin-top: 70px;
+}
+.main .filter .item {
+	width: 44px;
+	height: 30px;
+	font-size: 16px;
+	line-height: 30px;
+	text-align: center;
+	color: #fff;
+	float: left;
+	position: relative;
+	cursor: pointer;
+	margin-left: 20px
+}
+.main .filter .item.active:after, .main .filter .item:hover:after {
+	content: '';
+	position: absolute;
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px solid #16a085;
+	font-size: 0;
+	line-height: 0;
+	bottom: -6px;
+	left: 16px
+}
+.main .input-box {
+	-moz-box-shadow: 0 0 4px #333;
+	-webkit-box-shadow: 0 0 4px #333;
+	box-shadow: 0 0 4px #333;
+	margin-top: 20px;
+	height: 50px;
+	border: 1px solid #fff;
+}
+.main .input-box .txt {
+	outline: 0;
+	border: none;
+	float: left;
+	width: 538px;
+	padding: 15px;
+	line-height: 20px;
+	height: 20px;
+	font-size: 14px;
+	display: none;
+}
+.main .input-box .txt.txt-show{
+	display: block;
+}
+.main .input-box .txt.txt-show.txt-show2{
+	width: 120px;
+	border-right: 1px solid #e5e5e5;
+}
+.main .input-box .txt.txt-show.txt-show3{
+	width: 387px;
+}
+.main .btn {
+	float: right;
+    width: 130px;
+    line-height: 50px;
+    height: 50px;
+    color: #fff;
+    font-size: 18px;
+    text-align: center;
+    border: none;
+    padding: 0;
+    background-color: #BD0000;
+    font-family: "微软雅黑";
+}
+/* .bottom {
+	width: 100%;
+	background-color: #EDEDED;
+} */
+
+.main .bottom {
+    height: 178px;
+    width: 100%;
+    background: url(../img/opacity.png);
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+/* .bottom .item {
+	list-style: none;
+	float: left;
+	width: 168px;
+	background: url() 18px 38px no-repeat;
+	padding: 38px 30px 38px 94px;
+	margin-top: 52px;
+
+} */
+.bottom .item {
+	list-style: none;
+    float: left;
+    width: 168px;
+    background: url() 30px 38px no-repeat;
+    padding: 38px 16px 38px 106px;
+}
+.bottom .item .title {
+	color: #fff;
+	font-size: 18px;
+	text-align: left ;
+
+}
+.bottom .item .context {
+	font-size: 14px;
+	color: #969e9c;
+	margin-top: 12px;
+	line-height: 24px;
+
+}
+.bottom .item.b1 {
+	background-image: url(../img/b1.png)
+}
+.bottom .item.b2 {
+	background-image: url(../img/b2.png)
+}
+.bottom .item.b3 {
+	background-image: url(../img/b3.png)
+}
+.bottom .item.b4 {
+	background-image: url(../img/b4.png)
+}
+
+
+
+/* ..........2017-2-22....新页面........... */
+.top2{
+	background-color: #2B353A;
+}
+
+.heade-xd img{
+	padding: 7px 0px;
+}
+.right-xd{
+	float: right;
+}
+
+.right-xd a i{
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: url(../img/load222.png) left center no-repeat;
+	margin: 0 14px;
+	vertical-align: -4px;
+}
+
+
+.right-xd a span{
+	color: #0A71D9;
+	padding: 0 10px;
+	border-left:1px solid #40515B;
+	margin-left: 10px;
+}
+.xd-box{
+	width: 1170px;
+	margin: 0 auto;
+	height: 500px;
+}
+.xd-box1{
+	float: left;
+	width: 270px;
+}
+.xd-box2{
+	float: left;
+	margin-top: 130px;
+	margin-left: 90px;
+}
+.xd-box1 li{
+	width: 270px;
+	height: 200px;
+	line-height: 200px;
+	font-size: 20px;
+	color: #fffefe;
+	text-align: center;
+	background-color: rgba(255,255,255,.1);
+	cursor: pointer;
+
+}
+.xd-box1 li img{
+	width: 100px;
+	height: 100px;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.xd-box1 li.shi-xx{
+	margin: 2px 0;
+	height: 196px;
+}
+.xd-box1 li.xd-cot{
+	background:none;
+}
+.xd-box1 li:hover{
+	background:none;
+}
+.search-box p{
+	font-size: 14px;
+	color: #bbb;
+	line-height: 48px;
+}
+
+.xd-box2-2{
+	display: none;
+}
+.xd-show{
+	display: block;
+}
+.container-xd{
+	width: 1170px;
+	margin: 0 auto;
+	height: 260px;
+}

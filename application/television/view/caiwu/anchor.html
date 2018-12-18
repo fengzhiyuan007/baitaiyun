@@ -1,0 +1,221 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Finance/index'),'text'=>'充值记录'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <form class="search" action="{:url(finance/index)}" method="get">
+            <input name="p" value="" hidden>
+            <select name="member_type"  class="select select-box inlin" id="pay_type" style="width:120px">
+                <option value="">角色类型</option>
+                <option value="1" {if condition="$Request.get.member_type eq 1"}selected{else/}{/if}>主播</option>
+                <option value="2" {if condition="$Request.get.member_type eq 2"}selected{else/}{/if}>商户</option>
+            </select>
+            <input type="text" class="input-text" style="width:250px" name="username" value="{$_GET['username']}" id="username" placeholder="主播昵称、账号、直播标题">
+            <input type="text" class="input-text"  style="width:190px" name="start_time" value="{$_GET['start_time']}" id="start_time" placeholder="开始时间" readonly>
+            <input type="text" class="input-text"  style="width:190px" name="end_time" value="{$_GET['end_time']}" id="end_time" placeholder="结束时间" readonly>
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+            <span style="float:right;padding:0px 10px 10px 0" >
+                <a href="{:url('Index/index')}" class="btn btn-default radius" >
+					<i class="Hui-iconfont">&#xe625;</i>返回首页
+				</a>
+            </span>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+		</span>
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <!--<div style="float: right;padding: 5px">-->
+        <!--充值总金额-->
+        <!--<a href="javascript:void(0)">{$sum|default='0'} ￥</a>-->
+    <!--</div>-->
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <div style="float: left">
+            </div>
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="40">ID</th>
+                <th width="100">头像</th>
+                <th width="100">主播昵称</th>
+                <th width="100">主播账号</th>
+                <th width="50">会员类型</th>
+                <th width="100">直播名称</th>
+                <th width="100">礼物名称</th>
+                <th width="50">主播收益比例</th>
+                <th width="80">电视台收益额(单位：钻石)</th>
+                <th width="70">主播收益额(单位：钻石)</th>
+                <th width="100">礼物数价值</th>
+                <th width="100">送礼时间</th>
+                <th width="50">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td><input type="checkbox" value="{$vo.give_gift_id}" name="checkbox"></td>
+                <td>{$vo.give_gift_id}</td>
+                <td><img src="{$vo.header_img}"  onclick="view_play_img(this.src)" style="width: 50px;height: 50px;border-radius:50%"></td>
+                <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.member_type == 1 ? "主播" : "商户"}</td>
+                <td>{$vo.title}</td>
+                <td>{$vo.name}</td>
+                <td>
+                    {php}
+                     $arr = explode(',',$vo['dashang_scale']);
+                     echo $arr['1']."%";
+                    {/php}
+                </td>
+                <td>{$vo.platform_amount}</td>
+                <td>{$vo.anchor_amount}</td>
+                <td>{$vo.price}</td>
+                <td>{$vo.date}</td>
+                <td class="td-manage">
+                    <a title="删除" href="javascript:;" onclick="del(this,{$vo.recharge_record_id});" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <div class="pagination" style="display: block;float: right;margin:-60px 50px 0 0;">
+        </div>
+        <div style="text-align:center">
+            <span>
+                 {$list->render()}
+            </span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input[name="checkbox"]:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+    function datadel(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Finance/del_recharge')}", {ids:kid}, function(data){
+                if( data.status == 'ok' ){
+                    layer.msg(data.info,{icon:1,time:1000});
+                    window.location.href = data.url;
+                }else{
+                    layer.msg(data.info,{icon:1,time:1000});
+                }
+            },'json');
+        })
+    }
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    function member_show(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+
+
+    /*用户-删除*/
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Finance/del_recharge')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                    window.location.href = data.url;
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+    function xiazai(){
+        var download = 'download';
+        var url = "{:url(Finance/index)}";
+        window.location.href=url+"?act="+download;
+//        if(url.split("?")[1]){
+//			window.location.href=url+'&act='+download;
+//		}else{
+//			window.location.href=url+"?act="+download;
+//		}
+    }
+    function getnums(){
+        var num = $("#nus").val();
+        window.location.href="__SELF__&num="+num;
+    }
+
+    function lock(v) {
+        $.post("{:url('Horder/lock_order')}", {id: v}, function (data) {
+            console.log(data);
+            if (data['status'] == 'ok') {
+                alert(data.info);
+                window.location.href = window.location.href;
+            } else {
+                alert(data.info);
+            }
+        }, 'json');
+    }
+
+
+</script>
+<script type="text/javascript" src="/static/layui/lay/dest/layui.all.js"></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        var start = {
+            elem: '#start_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#start_time").attr("value",datas);
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#end_time").attr("value",datas);
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        document.getElementById('start_time').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        }
+        document.getElementById('end_time').onclick = function(){
+            end.elem = this
+            laydate(end);
+        }
+    });
+</script>

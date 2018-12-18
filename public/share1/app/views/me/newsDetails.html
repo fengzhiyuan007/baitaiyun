@@ -1,0 +1,46 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff pl10 pr10 z100 bor_b">
+		<div class="box_center h44">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center" ng-bind="newsType==1?'系统消息':'订单消息'"></div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</div>
+	<div class="pt45">
+		<!-- 系统消息列表 -->
+		<section ng-if="newsType==1">
+			<div class="mt10 back_fff p10 f12" ng-repeat="sys in msgListInfo track by $index">
+				<div class="col_999" ng-bind="sys.title"></div>
+				<div class="pt5 pb5" ng-bind="sys.message"></div>
+				<div ng-bind="sys.intime"></div>
+			</div>
+		</section>
+		<!-- 订单消息列表 -->
+		<section  ng-if="newsType==2">
+			<div class="mt10 back_fff p10 f12" ng-repeat="order in msgListInfo track by $index">
+				<div class="box_between">
+					<div class="f14 col_red" ng-bind="order.message"></div>
+					<div ng-bind="order.intime"></div>
+				</div>
+				<div class="box_between">
+					<div class="grid_cell">
+						<div class="h35">
+							<div class='wbyc2' ng-bind="order.goods.goods_name"></div>
+						</div>
+						<div class="box_start">
+							订单编号：<span ng-bind="order.goods.order_no"></span>
+						</div>
+					</div>
+					<div class="w50 h50">
+						<img ng-src="{{order.goods.specification_img}}" alt="">
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

@@ -1,0 +1,62 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff z100 bor_b">
+		<div class="box_center h44 pl10 pr10 header_back_icon">
+			<div class="box_start">
+				<div class="left_white_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f12 col_fff grid_cell box_center pl15 pr15">
+				<input ng-model="searchGoods" class="backRgba_fff_5 br5 pl10 pr10 w_b100 h25" type="text" placeholder="输入您要搜索的商品名称">
+			</div>
+			<div class="box_end col_fff f14" ng-click="searchGoodsClick()">搜索</div>
+		</div>
+		<!-- tab -->
+		<div class="box_between back_fff h45 f12 col_999 bor_b" ng-if="goodsListInfo.length !=0">
+			<div class="grid_cell box_center" ng-click="getGoodsListFun(1)">
+				<div ng-class="{col_red:type==1}">综合</div>
+			</div>
+			<div class="grid_cell box_center" ng-click="getGoodsListFun(2)">
+				<div ng-class="{col_red:type==2}">销量</div>
+			</div>
+			<div class="grid_cell box_center" ng-click="sortClick(sortType)">
+				<div ng-class="{col_red:type==3 || type==4}">价格</div>
+				<div class="ml5 price_sort_icon w6 h15" ng-class="{price_sort_rise_icon:type==4,price_sort_drop_icon:type==3}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- 推荐商品 -->
+	<section class="pt45" ng-if="!searchState">
+		<div class="box_start h40 f14 pl15">推荐商品</div>
+		<!-- 列表项 -->
+		<a href="#/goodsDetails?goods_id={{goods.goods_id}}" class="box_start h110 bor_b pl10 pr10 p_r back_fff" ng-repeat="goods in recommendGoodsInfo track by $index">
+			<div class="w90 h90">
+				<img lazy-src="{{goods.goods_img}}" alt="">
+			</div>
+			<div class="pl10 grid_cell box_direction h90">
+				<div class="f14 grid_cell">
+					<div class="wbyc2" ng-bind="goods.goods_name"></div>
+				</div>
+				<div class="col_red f12 ">现价：¥<em class="f16" ng-bind="goods.goods_now_price"></em></div>
+				<div class="col_999 scx box_start h20">原价：¥<em ng-bind="goods.goods_origin_price"></em></div>
+			</div>
+			<div class="p_a b10 r10 box_center back_red br15 h25 pl15 pr15 col_fff f12">立即购买</div>
+		</a>
+	</section>
+	<!-- 搜索商品 -->
+	<section class="pt90" ng-if="searchState">
+		<!-- 列表项 -->
+		<a href="#/goodsDetails?goods_id={{goods.goods_id}}" class="box_start h110 bor_b pl10 pr10 p_r back_fff" ng-repeat="goods in goodsListInfo track by $index">
+			<div class="w90 h90">
+				<img lazy-src="{{goods.goods_img}}" alt="">
+			</div>
+			<div class="pl10 grid_cell box_direction h90">
+				<div class="f14 grid_cell">
+					<div class="wbyc2" ng-bind="goods.goods_name"></div>
+				</div>
+				<div class="col_red f12 ">现价：¥<em class="f16" ng-bind="goods.goods_now_price"></em></div>
+				<div class="col_999 scx box_start h20">原价：¥<em ng-bind="goods.goods_origin_price"></em></div>
+			</div>
+			<div class="p_a b10 r10 box_center back_red br15 h25 pl15 pr15 col_fff f12">立即购买</div>
+		</a>
+	</section>
+</div>

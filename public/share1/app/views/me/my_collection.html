@@ -1,0 +1,42 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff z100">
+		<div class="box_center h45 pr10 pl10 w_b100 bor_b">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">我的收藏</div>
+			<div class="grid_cell box_end">
+				<div class="col_00AE95" ng-click="editClick(editType)" ng-bind="editType==1?'编辑':'完成'"></div>
+			</div>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="pt45 pb40">
+		<!-- 列表项 -->
+		<div class="box_start h110 bor_b pl10 pr10 p_r back_fff" ng-repeat="goods in collectionListInfo track by $index">
+			<div class="check_icon w22 h22 mr10" ng-click="collectionItemClick(goods.collection_id,$event)" ng-show="editType==2"></div>
+			<a href="#/goodsDetails?goods_id={{goods.goods_id}}" class="w90 h90 show">
+				<img lazy-src="{{goods.goods_img}}" alt="">
+			</a>
+			<a href="#/goodsDetails?goods_id={{goods.goods_id}}" class="pl10 grid_cell box_direction h90">
+				<div class="f12 grid_cell">
+					<div class="wbyc2" ng-bind="goods.goods_name"></div>
+				</div>
+				<div class="col_red f12 ">现价：¥<em class="f16" ng-bind="goods.goods_now_price"></em></div>
+				<div class="col_999 scx box_start h20">原价：¥<em ng-bind="goods.goods_origin_price"></em></div>
+			</a>
+		</div>
+	</div>
+	<div class="p_f b0 l0 w_b100 h40 back_fff bor_t" ng-show="editType==2">
+		<div class="box_between">
+			<div class="grid_cell box_start pl10">
+				<div class="box_center f12">
+					<div class="check_icon w22 h22 mr10 " id="allChenk" ng-click="allCollectionClick($event)"></div>
+					全选
+				</div>
+			</div>
+			<div class="w100 box_center h40 back_red col_fff f14" ng-click="cancelCollectionClick()">取消收藏</div>
+		</div>
+	</div>
+</div>

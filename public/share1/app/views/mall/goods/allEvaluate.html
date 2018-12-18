@@ -1,0 +1,46 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff pl10 pr10 z100 bor_b">
+		<div class="box_center h44">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">全部评价(<em ng-bind="count"></em>)</div>
+			<div class="grid_cell box_end"></div>
+		</div>
+	</div>
+	<div class="pt45">
+		<div class="pl10 pr10 back_fff box_start h50 f12 bor_b">
+			<div class="w30 h30">
+				<img ng-src="{{evaluate_goods_info.goods_img}}" alt="">
+			</div>
+			<div class="f12 wbyc2 grid_cell ml10" ng-bind="evaluate_goods_info.goods_name"></div>
+		</div>
+		<!-- 评价列表 -->
+		<section class="">
+			<!-- 列表项 -->
+			<div class="media p10 back_fff mb10" ng-repeat="item in allEvaluateListInfo track by $index">
+				<div class="w30 h30">
+					<img class="br50" ng-src="{{item.header_img}}" alt="">
+				</div>
+				<div class="ml10 grid_cell">
+					<div class="f14" ng-bind="item.username"></div>
+					<div class="box_start h25">
+						<div class="star_icon w18 h18 mr5" ng-class="{star_act_icon:item.mark >= 1}"></div>
+						<div class="star_icon w18 h18 mr5" ng-class="{star_act_icon:item.mark >= 2}"></div>
+						<div class="star_icon w18 h18 mr5" ng-class="{star_act_icon:item.mark >= 3}"></div>
+						<div class="star_icon w18 h18 mr5" ng-class="{star_act_icon:item.mark >= 4}"></div>
+						<div class="star_icon w18 h18 mr5" ng-class="{star_act_icon:item.mark >= 5}"></div>
+					</div>
+					<div class="col_999 f12 mt5 wbyc4" ng-bind="item.comment_desc"></div>
+					<div class="box_start mt5" ng-if="item.img.length !=0">
+						<div class="w40 h40 mr10" ng-repeat="img in item.img">
+							<img ng-src="{{img}}" alt="">
+						</div>
+					</div>
+					<div class="box_start col_999 mt5" ng-bind="item.create_time"></div>
+				</div>
+			</div>
+		</section>
+	</div>
+</div>

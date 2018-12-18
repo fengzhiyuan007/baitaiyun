@@ -1,0 +1,12 @@
+.progress{margin:2px auto 14px auto;color: #389dea;text-indent: 1em;box-shadow: none;cursor: pointer;
+    height: 6px;}
+.progress-link:hover{text-decoration: none;}
+.progress-bar{
+    animation: animate-positive 1.5s;
+}
+@-webkit-keyframes animate-positive{
+    0% { width: 0%; }
+}
+@keyframes animate-positive{
+    0% { width: 0%; }
+}

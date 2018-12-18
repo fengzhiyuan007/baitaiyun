@@ -1,0 +1,35 @@
+
+<div class="mainbox clearfix bg-f5 pad-b70">
+  <!--面包屑-->
+  <div class="mbx-navbox">
+    <div class="mbx-nav">
+       <div class="mbx-nav-l"><a href="#/">首页</a><a href="javascript:;">排行榜</a></div>
+    </div>
+  </div>
+  <!---->
+  <div class="box fenlei2 clearfix">
+     <ul>
+       <li><label>榜单</label><p><span><a href="#/hotshop">热卖榜</a></span><span><a href="#/hotdp">人气店铺</a></span><span><a href="#/hotjj">降价榜</a></span><span><a href="#/hotzk">折扣榜</a></span><span class="act"><a href="#/hothd">热门活动榜</a></span></p></li>
+     </ul>
+  </div>
+  <div class="box clearfix rmhdb-box bangdan-hot3 mar-t40">
+     <div class="rmhdb-list" ng-class="{act:nowpageNum==1}" style="background-image:url({{hd.activity_img}});" ng-repeat="hd in hothdlist">
+        <a href="#/hdlist?hdid={{hd.activity_id}}&hdname={{hd.activity_name}}">
+        <ul>
+          <li>{{hd.activity_name}}</li>
+          <li>{{hd.activity_desc}}</li>
+        </ul>
+        </a>
+     </div>
+  </div>
+  <div class="box">
+    <!--分页-->
+    <div class="page-box" ng-if="pageNum>1">
+      <a href="javascript:;" ng-click="pageclick(nowpageNum-1)">上一页</a>
+      <span ng-repeat="page in pageboxs" ng-click="pageclick(page)" ng-class="{act:page==nowpageNum}">{{page}}</span>
+      <a class="act" href="javascript:;" ng-click="pageclick(nowpageNum*1+1)">下一页</a>
+      跳到<input type="number" ng-model="nowpageNum2" width="20px;">/{{pageNum}}页<button ng-click="pageclick(nowpageNum2)">确定</button>
+    </div>
+  </div>
+
+</div>

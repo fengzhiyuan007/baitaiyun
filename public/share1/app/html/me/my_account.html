@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />	
+	<title>我的账户</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<!--主样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/main.css">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+		    var docEl = doc.documentElement,
+		        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		        recalc = function () {
+		            var clientWidth = docEl.clientWidth;
+		            if (!clientWidth) return;
+		            if(clientWidth>=640){
+		                docEl.style.fontSize = '100px';
+		            }else{
+		                docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+		        }
+		    };
+		    if(!doc.addEventListener) return;
+		    win.addEventListener(resizeEvt, recalc, false);
+		    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<!--header-->
+		<div class="p_f t0 l0 w_b100 back_fff pl10 pr10 z100 bor_b">
+			<div class="box_center h44">
+				<div class="grid_cell box_start">
+					<div class="left_icon w22 h28"></div>
+				</div>
+				<div class="f16 grid_cell box_center">我的账户</div>
+				<div class="grid_cell box_end">
+					<a href="" class="f12">充值记录</a>
+				</div>
+			</div>
+		</div>
+		<div class="pt45">
+			<div class="pl10 pr10 back_fff box_between h40 f12">
+				<div>账户余额</div>
+				<div class="box_end">
+					<div class="diamonds_icon w15 h12"></div>
+					<div class="ml5">4567</div>
+				</div>
+			</div>
+			<div class="box_start pl10 f12 h40">充值</div>
+			<!-- 充值列表 -->
+			<div class="back_fff pl10 pr10 f12">
+				<!-- 列表项 -->
+				<div class="box_between bor_b h40">
+					<div class="grid_cell box_start">
+						<div class="box_start">
+							<div class="diamonds_icon w15 h12"></div>
+							<div class="ml5">33</div>
+						</div>
+						<div class="ml30">赠送<em>5</em></div>
+					</div>
+					<div class="box_center br15 h25 back_red col_fff w70">¥<em>688.0</em></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</body>
+</html>

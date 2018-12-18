@@ -1,0 +1,151 @@
+
+/********** 手机相关 **********/
+@CHARSET "UTF-8";
+*,p,div,ul,ol{
+	color:#333;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+html, body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-family:tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;/*微软雅黑*/
+	color: #333;
+}
+.l{ float:left;}
+.c{ margin:0 auto;}
+.r{ float:right;}
+/********** 页面相关 **********/
+
+#content{
+	background-color:#fff;
+}
+
+html{font-size:14px;font-family:tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;}
+body{font-size:14px;font-family:tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;}
+a{text-decoration:none;}
+li{list-style:none;}
+img{border:0px;}
+.box{margin:0 auto;width:1200px;clear:both}
+
+button{font-family:tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif}
+/*颜色*/
+.blue{color:#2173c5!important}
+.orange{color:#ff9e31!important;}
+.red{color:#fd655a!important}
+.greed{color:#579f23!important}
+/*清除浮动*/
+.clear{clear:both}
+.clearfix{*zoom:1;}
+.clearfix:after{display:block; overflow:hidden; clear:both; height:0; visibility:hidden; content:".";}
+/*清楚a,button,input手机端的点击效果*/
+a,button,input{-webkit-tap-highlight-color:rgba(255,0,0,0);}
+/*简单的按钮效果*/
+input{outline:none;border-radius:0px;font-family:tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;font-size:14px}
+button{outline:none;}
+button:hover{opacity:0.9}
+button:active{opacity:1}
+input[type="button"]{outline:none;}
+input[type="button"]:hover{opacity:0.9;}
+input[type="button"]:active{opacity:1}
+
+/*img:hover*/
+.img-hover img{-webkit-transition:all linear 0.3s;-moz-transition:all linear 0.3s;-ms-transition:all linear 0.3s;}
+.img-hover img:hover{-webkit-transform:scale(1.2,1.2);-moz-transform:scale(1.2,1.2);-transform:scale(1.2,1.2);}
+/*去掉input[type="number"]的左右箭头*/
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+input[type="number"]{-moz-appearance:textfield;}
+/*处理checkbox和radio不对齐文本*/
+.checkbox {vertical-align:middle; margin-top:-2px; margin-bottom:1px;}
+.radio {vertical-align:middle; margin-top:-2px; margin-bottom:1px;}
+
+/*去掉苹果对textarea的默认样式*/
+textarea{-webkit-appearance: none;border-radius:0px;font-family:tahoma,arial,Microsoft YaHei,Hiragino Sans GB,"\u5b8b\u4f53",sans-serif;}
+/*字体*/
+.font14{font-size:14px!important}
+/*min height*/
+.min-H400{min-height:400px;}
+/**/
+.bor0{border:0px!important;}
+.mar0{margin:0px!important;}
+.mar5{margin:5px!important;}
+.mar10{margin:10px!important;}
+.mar15{margin:15px!important;}
+.mar20{margin:20px!important;}
+.mar-t10{margin-top:10px!important;}
+.mar-t15{margin-top:15px!important;}
+.mar-t20{margin-top:20px!important;}
+.mar-t30{margin-top:30px!important;}
+.mar-t40{margin-top:40px!important;}
+.mar-t60{margin-top:60px!important;}
+.mar-r10{margin-right:10px!important;}
+.mar-r15{margin-right:15px!important;}
+.mar-r20{margin-right:20px!important;}
+.mar-r30{margin-right:30px!important;}
+.mar-r60{margin-right:60px!important;}
+.mar-b10{margin-bottom:10px!important;}
+.mar-b15{margin-bottom:15px!important;}
+.mar-b20{margin-bottom:20px!important;}
+.mar-b30{margin-bottom:30px!important;}
+.mar-b40{margin-bottom:40px!important;}
+.mar-b70{margin-bottom:70px!important;}
+.mar-b80{margin-bottom:80px!important;}
+.mar-l10{margin-left:10px!important;}
+.mar-l15{margin-left:15px!important;}
+.mar-l20{margin-left:20px!important;}
+.mar-l30{margin-left:30px!important;}
+
+.pad30{padding:30px!important;}
+.pad60{padding:60px!important;}
+.pad-b0{padding-bottom:0px !important;}
+.pad-b20{padding-bottom: 20px !important;}
+.pad-t0{padding-top:0px !important;}
+.pad-t10{padding-top: 10px !important;}
+.pad-t30{padding-top: 30px !important;}
+.pad-t40{padding-top: 40px !important;}
+.pad-t50{padding-top: 50px !important;}
+.pad-t60{padding-top: 60px !important;}
+.pad-t70{padding-top: 70px !important;}
+.pad-t80{padding-top: 80px !important;}
+.pad-t100{padding-top: 100px !important;}
+.pad-b70{padding-bottom: 70px !important;}
+.pad-b100{padding-bottom: 100px !important;}
+.pad-b120{padding-bottom: 120px !important;}
+
+/*width*/
+pre{white-space:pre-line;white-space:-moz-pre-wrap;white-space:　-pre-wrap;white-space:　-o-pre-wrap;word-wrap:　break-word;}
+/*文本溢出*/
+.wbyc{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;}
+/*css3动画效果*/
+.t-linear{-webkit-transition:all linear 0.3s;-moz-transition:all linear 0.3s;-ms-transition:all linear 0.3s;-o-transition:all linear 0.3s;transition:all linear 0.3s;}
+/*旋转*/
+.xzsss{transform:rotate(7deg);-ms-transform:rotate(7deg);-moz-transform:rotate(7deg);-webkit-transform:rotate(7deg);-o-transform:rotate(7deg);}
+
+/*滚动条*/
+.scroll-bar::-webkit-scrollbar{width:6px;}
+.scroll-bar::-webkit-scrollbar-track{background-color:#dcdcdc;}
+.scroll-bar::-webkit-scrollbar-thumb{background-color:#999;}
+.scroll-bar::-webkit-scrollbar-thumb:hover {background-color:#999}
+.scroll-bar::-webkit-scrollbar-thumb:active {background-color:#999}
+
+
+
+
+
+
+
+
+
+
+
+

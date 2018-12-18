@@ -1,0 +1,32 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff z100">
+		<div class="box_center h45 pr10 pl10 w_b100 bor_b">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">资讯</div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="pt45 back_fff">
+		<!-- 列表项 -->
+		<a href="#/informationDetails?info_id={{item.id}}" class="box_start h90 bor_b pl10 pr10 p_r" ng-repeat="item in informationListInfo track by $index">
+			<div class="w70 h70">
+				<img lazy-src="{{item.img}}" alt="">
+			</div>
+			<div class="pl10 grid_cell box_direction h70">
+				<div class="f14 grid_cell">
+					<div class="wbyc2" ng-bind="item.title"></div>
+				</div>
+				<div class="box_between col_999 f12">
+					<div ng-bind="item.intime"></div>
+					<div><em ng-bind="item.browse"></em>人看过</div>
+				</div>
+			</div>
+		</a>
+	</div>
+</div>

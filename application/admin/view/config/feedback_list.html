@@ -1,0 +1,175 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>'javascript:;','text'=>'反馈列表']
+]
+])}
+<style>
+    .layui-layer-btn {
+        text-align: center!important;
+        padding: 0 10px 12px;
+        pointer-events: auto;
+    }
+</style>
+<div class="page-container">
+    <div class="text-l">
+        <form class="search"  method="get">
+            <input type="hidden"  value="1" name="p">
+            <input type="text" class="input-text" style="width:250px" placeholder="搜索反馈人" value="{$_GET['username']}" name="username">
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                <i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+            </a>
+		</span>
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="40">ID</th>
+                <th width="100">反馈人昵称</th>
+                <th width="100">手机号</th>
+                <th width="200">反馈内容</th>
+                <th width="50">反馈时间</th>
+                <th width="120">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+                <tr class="text-c">
+                    <td><input type="checkbox" value="{$vo.feedback_id}" name="checkbox"></td>
+                    <td>{$vo.feedback_id}</td>
+                    <td>{$vo.username}</td>
+                    <td>{$vo.phone}</td>
+                    <td><div class="cut_content">{$vo.content}</div></td>
+                    <td>{$vo.intime}</td>
+                    <td class="td-manage">
+                        <a href="javascript:void(0)" data="{$vo['feedback_id']}" class="popup" title="查看详情" style="text-decoration:none">
+                            <i class="Hui-iconfont">&#xe623;</i>
+                        </a>
+                        <a href="javascript:void(0)" onclick="datadel({$vo.feedback_id})" title="删除记录" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    </td>
+                </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center">
+			<span>
+				 {$list->render()}
+			</span>
+    </div>
+</div>
+<script type="text/javascript">
+    /*	$(document).ready(function(){
+     $('.table-sort').dataTable({
+     "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+     "bStateSave": true,//状态保存
+     "aoColumnDefs": [
+     {"orderable":false,"aTargets":[0,7]}// 制定列不参与排序
+     ]
+     });
+     });*/
+
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input[name="checkbox"]:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+    function datadel(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('config/feedback_del')}", {ids:kid}, function(data){
+                if( data.status == 'ok' ){
+                    layer.msg(data.info,{icon:1,time:1000});
+                    window.location.href = data.url;
+                }else{
+                    layer.msg(data.info,{icon:1,time:1000});
+                }
+            },'json');
+        })
+    }
+
+    /*用户-删除*/
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Goods/del_goods')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+
+
+    $('.popup').on("click",function(){
+        var id = $(this).attr('data');
+        $.ajax({
+            type: "GET",
+            url:"{:url('Config/feedback_view')}",
+            dataType:'json',
+            data:{id:id},
+            success:function(data){
+                if(data['status']=='ok'){
+                    console.log(data);
+                    $('#feedback').html(data.data['content']);
+                    $('#content').focus();
+                }
+            }
+        })
+        var html = '<form class="form form-horizontal" id="form" method="post">'+
+            '<div class="row cl">'+
+            '<label class="form-label col-xs-4 col-sm-2">反馈详情：</label>'+
+            '<div class="formControls col-xs-8 col-sm-9">'+
+            '<textarea name="goods_desc" cols="" id="feedback" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,200)">{$re.goods_desc}</textarea>'+
+            '<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>'+
+            '</div>'+
+            '</div>'+
+            '</form>'
+        layer.open({
+            type: 1,
+            title: '反馈详情',
+            closeBtn: 0,
+            area: ['500px','230px'],
+            skin: '', //没有背景色
+            shadeClose: true,
+            content: html,
+            btn:['关闭窗口'],
+            yes:function(){
+//            var content = $('#content').val();
+//            $.ajax({
+//                url:"{:url('Hotel/reply')}",
+//                type:'post',
+//                data:{id:id,content:content},
+//                dataType:'json',
+//                success:function(data){
+//                    if(data.status=='ok'){
+//                        alert(data['info']);
+//                        window.location.href = window.location.href
+//                    }else{
+//                        alert(data.info);
+//                    }
+//                }
+//            })
+                $('.layui-layer').hide();
+                window.location.href = window.location.href
+            }
+        });
+
+    });
+
+</script>

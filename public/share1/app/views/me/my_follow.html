@@ -1,0 +1,31 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff z100">
+		<div class="box_center h45 pr10 pl10 w_b100 bor_b">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">我的关注</div>
+			<div class="grid_cell box_end">
+				<div class="col_00AE95" ng-click="delAllFollowClick()">全部取消</div>
+			</div>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="pt45">
+		<!-- 列表项 -->
+		<div class="box_start h90 bor_b pl10 pr10 p_r back_fff" ng-repeat="item in followListInfo track by $index">
+			<a href="#/shopDetails?merchants_id={{item.member_id}}" class="w70 h70 show">
+				<img lazy-src="{{item.merchants_img}}" alt="">
+			</a>
+			<a href="#/shopDetails?merchants_id={{item.member_id}}" class="pl10 grid_cell box_direction h70 w_b50">
+				<div class="f12 grid_cell">
+					<div class="wbyc" ng-bind="item.merchants_name"></div>
+				</div>
+				<div class="col_red f12 ">等级<em class="f16"></em></div>
+				<div class="col_999 box_start h20">月销量：<em ng-bind="item.month_sales"></em></div>
+			</a>
+			<div class="borCol_red box_center pl15 pr15 h25 br15 col_red" ng-click="delFollowClick(item.follow_id)">取消关注</div>
+		</div>
+	</div>
+</div>

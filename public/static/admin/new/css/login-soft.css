@@ -1,0 +1,55 @@
+/* CSS Document */
+body{font-family:Arial,"Microsoft Yahei";text-align:center;margin:0 auto;padding:0;font-size:13px;line-height:24px; color:#666;}
+body > div{text-align:left;margin-right:auto;margin-left:auto;color:#666;} 
+div,form,ul,ol,li,span,dl,dt,dd{margin:0;padding:0;border:0;text-align:left;}
+img,a img,p{border:0;margin:0;padding:0;}
+h1,h2,h3,h4{margin:0;padding:0;}
+ul,ol,li{list-style:none;text-align:left;}
+table,td,input{font-size:12px; color:#777;}
+input,img{ vertical-align:middle;}
+
+a{outline-style:none;color:#666;text-decoration:none}
+a:hover{color:#00aceb}
+
+/**/
+a,area {blur:expression(this.onFocus=this.blur())}
+button{border:none;}
+
+.none{ display:none;}
+.left{float:left;}
+.right{float:right;}
+pre{ margin:0;}
+.clear{clear:both;font-size:1px;width:1px;visibility:hidden;margin-top:0px!important;*margin-top:-1px;height:0;line-height:0}/*ie and firefox1.5 updata */
+
+
+.login .content { overflow:hidden;zoom:1; background: url(../images/bg-white-lock.png) repeat; width: 360px; margin:180px auto 0 auto;  padding: 30px;}
+.login .content h3 {color: #eee;}
+.login .content h4  { color: #eee;}
+.login .content p,.login .content label { color: #fff; font-size:16px;}
+.login .content .login-form,.login .content .forget-form { padding: 0px; margin: 0px;}
+.login .content .form-control { background-color: #fff;}
+.login .content .forget-form {  display: none;}
+.login .content .register-form { display: none;}
+.login .content .form-title { font-weight: 300; font-size:26px; margin-bottom: 25px; font-family:"Microsoft YaHei";}
+
+.form-group{ margin-bottom:10px;}
+.form-control{display:block;width:330px;height:34px;padding:0 12px;font-size:14px;line-height:34px;color:#555;vertical-align:middle;background-color:#fff;border:1px solid #ccc;}
+.form-control:focus{border-color:#66afe9;outline:0;-webkit-box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6);box-shadow:inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(102,175,233,0.6)}
+.form-control:-moz-placeholder{color:#999}
+.form-control::-moz-placeholder{color:#999}
+.form-control:-ms-input-placeholder{color:#999}
+.form-control::-webkit-input-placeholder{color:#999}
+.form-control[disabled],.form-control[readonly],fieldset[disabled] .form-control{cursor:not-allowed;background-color:#eee}
+
+
+.dl_btn{ float:right;padding:7px 14px;font-size: 14px;vertical-align: middle;cursor: pointer;background-color: #4D90FE;color: white;}
+.dl_btn:hover{filter:alpha(opacity=30);opacity:0.9;}
+.m-icon-swapright { width:14px; height:14px; margin-left:5px; display: inline-block; float:right; background-image: url(../images/syncfusion-icons-white.png);background-position: -27px -10px;}
+
+
+
+
+
+
+
+

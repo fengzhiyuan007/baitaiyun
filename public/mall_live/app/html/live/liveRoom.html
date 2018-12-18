@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<title>直播间</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<!--主样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/main.css">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+		    var docEl = doc.documentElement,
+		        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		        recalc = function () {
+		            var clientWidth = docEl.clientWidth;
+		            if (!clientWidth) return;
+		            if(clientWidth>=640){
+		                docEl.style.fontSize = '100px';
+		            }else{
+		                docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+		        }
+		    };
+		    if(!doc.addEventListener) return;
+		    win.addEventListener(resizeEvt, recalc, false);
+		    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+	<div class="liveRoom_warp">
+		<div class="liveRoom_app box_direction over_hidden">
+			<section>
+				<!-- video box -->
+				<div class="h220">
+					<img src="../../images/banner1.png" alt="">
+				</div>
+				<!-- tab -->
+				<div class="box_between h40 back_fff f14">
+					<div class="grid_cell box_center">购物</div>
+					<div class="w1 back_ccc h_b50"></div>
+					<div class="grid_cell box_center col_3BB20B">聊天室</div>
+				</div>
+			</section>
+			<section class="grid_cell p_r">
+				<!-- 购物 -->
+				<div class="p_a t0 b0 l0 w_b100 liveRoom_touch grid_cell">
+					<!-- 主播信息 -->
+					<div class="back_fff mt10 box_between pl10 pr10 h55">
+						<div class="box_start">
+							<div class="w35 h35">
+								<img src="../../images/user_header.png" alt="">
+							</div>
+							<div class="pl10">
+								<div class="pb5 f14">主播名</div>
+								<div><em>456789</em>人在看</div>
+							</div>
+						</div>
+						<div class="col_3BB20B f12">正在直播</div>
+					</div>
+					<!-- 商品 -->
+					<div class="mt10 back_fff">
+						<div class="box_between h40 pl10 pr10 col_3BB20B bor_b">
+							<div class="f14">全部商品</div>
+							<div class="f12">共<em class="col_red">45</em>件商品</div>
+						</div>
+						<!-- 商品列表 -->
+						<section>
+							<!-- 列表项 -->
+							<a href="../mall/goods/goodsDetails.html" class="box_start h120 bor_b pl10 pr10 p_r">
+								<div class="w100 h100">
+									<img src="../../images/tmp2.png" alt="">
+								</div>
+								<div class="pl10 grid_cell box_direction h100">
+									<div class="f14 grid_cell">
+										<div class="wbyc2 ">太平鸟女装2017夏装新款 纯棉短袖女t恤 上衣体恤宽松短款半袖潮</div>
+									</div>
+									<div class="col_red f12 ">直播价：¥<em class="f14">999</em></div>
+									<div class="col_999 scx box_start h20">原价：¥<em>9999</em></div>
+								</div>
+								<div class="p_a b10 r10 box_center back_red br15 h25 pl15 pr15 col_fff f12">立即购买</div>
+							</a>
+						</section>
+					</div>
+				</div>
+				<!-- 聊天室 -->
+				<div class="w_b100 p_a t0 b0 box_direction hide">
+					<div class="grid_cell liveRoom_touch p10">
+						<!-- 消息列表 box-->
+						<div id="chatInfoBox" class="f12 col_3BB20B">
+							<!-- 列表项 -->
+							<div class="box_start media mb10">
+								<div class="">用户名：</div>
+								<div class="grid_cell">消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息消息</div>
+							</div>
+						</div>
+						<div id="nwsBottom"></div>
+					</div>
+					<!-- 输入框 -->
+					<div class="box_between back_fff h50 bor_t pl10 pr10">
+						<div class="box_center grid_cell pl10 pr10 br15 bor">
+							<input class="w_b100 h30 f12" type="text" placeholder="说些什么吧">
+						</div>
+						<div class="box_center w60 h30 br15 col_fff f12 ml10 back_3BB20B">发送</div>
+					</div>
+				</div>
+			</section>
+		</div>		
+	</div>
+</body>
+</html>

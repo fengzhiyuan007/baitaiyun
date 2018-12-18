@@ -1,0 +1,20 @@
+/*navbar的样式*/
+#navbar a{
+    text-decoration:none;
+}
+
+/*container的样式*/
+#container a{
+    text-decoration:none;
+    color:gray
+}
+#container a:hover{
+    text-decoration:underline;
+    color:black
+}
+#container a:visited{
+    color:black
+}
+#register a{
+    color:#464531;
+}

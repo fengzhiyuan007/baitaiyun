@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+  <!-- 清理缓存 -->
+  <meta http-equiv="pragma" content="no-cache"> 
+	<meta http-equiv="Cache-Control" content="no-cache, must-revalidate"> 
+	<meta http-equiv="expires" content="0">
+	<title>直播电商</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="app/css/reset.css?v=1.0.0">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="app/css/common.css?v=1.0.0">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+	    var docEl = doc.documentElement,
+      resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+      recalc = function () {
+        var clientWidth = docEl.clientWidth;
+        if (!clientWidth) return;
+        if(clientWidth>=640){
+          docEl.style.fontSize = '100px';
+        }else{
+          docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+      	}
+	    };
+	    if(!doc.addEventListener) return;
+	    win.addEventListener(resizeEvt, recalc, false);
+	    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.min.js"></script>
+</head>
+<body>
+	<div class="h_b100" ng-view></div>
+	<!-- 提示弹框 -->
+	<div class="hide" id="promptBox">
+		<div class="p_f t0 b0 l0 r0 box_center z102">
+			<div class="backRgba_black_8 p10 br3 box_center max_w70 col_fff" id="promptTxt"></div>
+		</div>
+	</div>
+	<!--angular-->
+	<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-cookies.min.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-route.min.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-touch.min.js"></script>
+	
+	<!--逻辑代码-->
+	<script src="app/js/router.js?v=1.0.0"></script>
+	<script src="app/js/main.js?v=1.0.0"></script>
+</body>
+</html>

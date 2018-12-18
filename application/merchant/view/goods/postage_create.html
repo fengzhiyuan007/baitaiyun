@@ -1,0 +1,214 @@
+{php}
+$uid = input('uuid');
+$uid?$text=$re['brand_name']:$text='添加模板';
+{/php}
+{:widget('Base/breadcrumbs',[
+[
+['href'=>url('Goods/postage'),'text'=>'模板列表'],
+['href'=>'','text'=>$text]
+]
+])}
+
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <form class="form form-horizontal" id="form" method="post">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>模板名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="postage_name" class="input-text" value="{$re['postage_name']}" placeholder="" id="postage_name" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">是否包邮：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div class="radio-box">
+                    <input name="postage_way" type="radio" value="1" checked >
+                    <label>自定义运费</label>
+                </div>
+                <div class="radio-box">
+                    <input name="postage_way" type="radio" value="2" {$re['postage_way']== 2 ? 'checked' : ''}>
+                    <label>卖家承担运费</label>
+                </div>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">计价方式：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <div class="radio-box">
+                    <input name="postage_type" type="radio" value="1" checked >
+                    <label>按件</label>
+                </div>
+                <div class="radio-box">
+                    <input name="postage_type" type="radio" value="2" disabled>
+                    <label>按重</label>
+                </div>
+                <div class="radio-box">
+                    <input name="postage_type" type="radio" value="3" disabled>
+                    <label>按体积</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabBar cl">
+            <span class="current">邮费规则</span>
+            <a style="float:right;" onClick="addPostage()" href="javascript:;" class="btn btn-default radius" type="button">添加</a>
+
+        </div>
+        <div>
+            <div class="cl pd-30 bg-1 bk-gray mt-20">
+                <table class="table table-border table-bordered table-bg table-hover table-sort">
+                    <thead>
+                    <tr class="text-c">
+                        <!--<th width="80">地区id</th>-->
+                        <th width="120">地区名称</th>
+                        <th width="80">默认范围</th>
+                        <th width="80">默认运费价格</th>
+                        <th width="80">增加运费范围</th>
+                        <th width="80">增加运费价格</th>
+                        <th width="150">操作</th>
+                    </tr>
+                    </thead>
+                    <link href="/static/postage_city/css/style.css" type="text/css" rel="stylesheet">
+
+                    <script type="text/javascript" src="/static/postage_city/js/jquery.min.js"></script>
+                    <script type="text/javascript" src="/static/postage_city/js/City_data.js"></script>
+                    <script type="text/javascript" src="/static/postage_city/js/areadata.js"></script>
+                    <script type="text/javascript" src="/static/postage_city/js/auto_area.js"></script>
+                    <tbody id="postage">
+                    {volist name="re['list']" id="vo"}
+                        <tr class="text-c tr_specification">
+                            <input type="hidden"  name="postage_city_id[]"  value="{$vo.postage_city_id}" class="input-text">
+                            <!--<td style="display: none"><input type="hidden"  name="city_ids[]"  placeholder="地区id" value="{$vo.city_ids}" class="input-text"></td>-->
+                            <td>
+                                <input type="text" class="area-duoxuan" value="<?php echo str_replace(',','-',$vo['city_names']);?>" data-value="<?php echo str_replace(',','-',$vo['city_names']);?>" style="width:90%" name="city_names[]"  placeholder="地区名称"/>
+                                <!--<input type="hidden" name="city_names[]"  placeholder="地区名称" value="{$vo.city_names}" class="input-text" style="width:90%">-->
+                            </td>
+                            <td><input type="text" name="postage_range[]" placeholder="默认范围" value="{$vo.postage_range}" class="input-text tc" style="width:90%"></td>
+                            <td><input type="text" name="postage_price[]" placeholder="默认运费价格" value="{$vo.postage_price}" class="input-text tc" style="width:90%"></td>
+                            <td><input type="text" name="postage_add_range[]" placeholder="增加运费范围" value="{$vo.postage_add_range}" class="input-text tc" style="width:90%"></td>
+                            <td><input type="text" name="postage_add_price[]" placeholder="增加运费价格" value="{$vo.postage_add_price}" class="input-text tc" style="width:90%"></td>
+                            <td>
+                                <!--<a title="地区选择" href="javascript:;" onclick="postage_city(this,{$vo.postage_city_id})" class="ml-5" style="text-decoration:none">选择地区</a>-->
+                                <a title="删除" href="javascript:;" onclick="del(this,'{$vo.postage_city_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                            </td>
+                        </tr>
+                    {/volist}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+                <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                <input type="hidden" class="input-text" value="{$re.postage_city_id?$re.postage_city_id:''}" placeholder=""  name="id">
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    function addPostage() {
+        $('#postage').append(
+            '<tr class="text-c">\n' +
+            '       <input type="hidden"  name="postage_city_id[]"  value="" class="input-text">'+
+            '       <td><input type="text" class="area-duoxuan" value="" data-value="" style="width:90%" name="city_names[]"  placeholder="地区名称"/></td>\n' +
+            '       <td><input type="text" name="postage_range[]" placeholder="默认范围" value="" class="input-text tc" style="width:90%"></td>\n' +
+            '       <td><input type="text" name="postage_price[]"  placeholder="默认运费价格" value="" class="input-text tc" style="width:90%"></td>\n' +
+            '       <td><input type="text" name="postage_add_range[]" placeholder="增加运费范围" value="" class="input-text tc" style="width:90%"></td>\n' +
+            '       <td><input type="text" name="postage_add_price[]" placeholder="增加运费价格" value="" class="input-text tc" style="width:90%"></td>\n' +
+            '       <td>\n' +
+            '           <a title="删除" href="javascript:;" onclick="del(this,"")" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>\n' +
+            '       </td>\n' +
+            '</tr>'
+        );
+    }
+
+    function del(obj,id) {
+        if (id) {   //从数据库删
+            layer.confirm('确认要删除吗？',function(index){
+                $.post("{:url('Goods/del_postage_city')}", {ids:id}, function(data){
+                    if( data.status == 'ok' ){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }else{
+                        layer.msg(data.data,{icon:5,time:1000});
+                    }
+                },'json');
+            });
+        } else {    //html 删
+            console.log(obj);
+            $(obj).parent().parent().remove();
+        }
+    }
+
+    // function postage_city(obj,id) {
+    //     //iframe层-父子操作
+    //     layer.open({
+    //         type: 2,
+    //         area: ['700px', '450px'],
+    //         fixed: false, //不固定
+    //         maxmin: true,
+    //         content: '{:url("Goods/postage_city")}?'+'id='+id
+    //     });
+    // }
+
+</script>
+<script type="text/javascript">
+    $(function() {
+        var content;
+        KindEditor.ready(function (K) {
+            content = K.create('#content', {
+                allowFileManager: true,
+                uploadJson: "{:url('Tools/upload_save_thumb',['dirname'=>'goods'])}"
+            });
+        });
+
+        KindEditor.ready(function (K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager: true,
+                uploadJson: "{:url('Tools/upload_save_thumb',['dirname'=>'goods'])}"
+                //sdl:false
+            });
+
+            K('#uparea1').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: K('#image_1').val(),
+                        clickFn: function (url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image', 'url(' + url + ')').css('background-size', '220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+            $(".submit").click(function () {
+                commonAjaxSubmit('', 'form');
+                return false;
+            });
+
+            $("#uparea1").mouseover(function (e) {
+                $("#big").css({top: e.pageY, right: e.pageX});//鼠标定位一个点
+                var img = $('#image_1').val();
+                if (img.length !== 0) {
+                    $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                    $("#big").show();        //show：显示
+                }
+            });
+            $("#uparea1").mouseout(function () {
+                $("#big").hide();
+            });
+
+        });
+
+    });
+
+</script>

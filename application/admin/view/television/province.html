@@ -1,0 +1,180 @@
+{:widget('Base/breadcrumbs',[
+[
+['href'=>'','text'=>'平台管理'],
+['href'=>url('Television/province'),'text'=>'省级电视台'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <form class="search"  method="get">
+            <input type="text" class="input-text" style="width:250px" placeholder="输入电视台名称、账号" value="{$_GET['username']?$_GET['username']:''}" name="username">
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索电视台</button>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+			<a href="{:url('Television/add_province_television')}"  class="btn btn-primary radius">
+				<i class="Hui-iconfont">&#xe600;</i> 添加电视台
+			</a>
+		</span>
+        <span class="r">共有数据：<strong>{$count}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-hover table-bg table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="80">ID</th>
+                <th width="100">头像</th>
+                <th width="100">二维码</th>
+                <th width="100">电视台名称</th>
+                <th width="90">登陆账号</th>
+                <th width="150">直播收益</th>
+                <th width="150">商品销售收益</th>
+                <th width="130">加入时间</th>
+                <!--<th width="70">状态</th>-->
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td><input type="checkbox" value="{$vo.tv_id}" name="checkbox"></td>
+                <td>{$vo.tv_id}</td>
+                <td><img src="{$vo.header_img}" style="width:50px; height:50px; border-radius:25px;"></td>
+                <td><img src="{$vo.qrcode_img}" onclick="view_play_img('{:url('Television/qrcode_img',['tv_id'=>$vo.tv_id])}')" style="width:50px; height:50px; border-radius:25px;"></td>
+                <td>{$vo.username}</td>
+                <!--<td><u style="cursor:pointer" class="text-primary" onclick='member_show("{$vo.username}","{:url('Member/Member_show',['mid'=>$vo['member_id']])}","360","400")'>{$vo.username}</u></td>-->
+                <td>{$vo.phone}</td>
+                <td>{$vo.dashang_scale|default='0'}%</td>
+                <td>{$vo.sell_scale|default='0'}%</td>
+                <td>{$vo.create_time}</td>
+                <td class="td-manage">
+                    <a title="个人详情" href="{:url('Television/television_view',['tv_id'=>$vo['tv_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe705;</i></a>
+                    <a title="编辑" href="{:url('Television/edit_province_television',['tv_id'=>$vo['tv_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <!--<a style="text-decoration:none" class="ml-5"  href="{:url('Member/change_account',['mid'=>$vo['member_id']])}" title="账户安全"><i class="Hui-iconfont">&#xe63f;</i></a>-->
+                    <a title="删除" href="javascript:;" onclick="del(this,'{$vo.tv_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center">
+            <span>
+                {$list->render()}
+            </span>
+    </div>
+</div>
+<script type="text/javascript">
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input[name="checkbox"]:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+    function datadel(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        console.log(kid);
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Television/del_television')}", {ids:kid}, function(data){
+                if( data.status == 'ok' ){
+                    layer.msg(data.info,{icon:1,time:1000});
+                    window.location.href = data.url;
+                }else{
+                    layer.msg(data.info,{icon:1,time:1000});
+                }
+            },'json');
+        })
+    }
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    function member_show(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要停用吗？',function(index){
+            $.post("{:url('Member/change_stop_status')}",{id:id},function(data){
+                if(data.info == 1){
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_start(this,'+id+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+                    $(obj).remove();
+                    layer.msg('已停用!',{icon: 5,time:1000});
+                }
+            },'json')
+        });
+    }
+
+    /*用户-启用*/
+    function member_start(obj,id){
+        layer.confirm('确认要启用吗？',function(index){
+            $.post("{:url('Member/change_stop_status')}",{id:id},function(data){
+                if(data.info == 2){
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="member_stop(this,'+id+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
+                    $(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+                    $(obj).remove();
+                    layer.msg('已启用!',{icon: 6,time:1000});
+                }
+            },'json');
+
+        });
+    }
+    /*用户-编辑*/
+    function member_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*密码-修改*/
+    function change_password(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-删除*/
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Television/del_television')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+
+    /*用户-删除*/
+    function changeType(id,obj){
+        layer.confirm('确认要改变状态，变成导师吗？',function(index){
+            $.post("{:url('Member/change_type')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已变更为导师!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+    function view_play_img(v){
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['500px', '500px'],
+            shade: 0.1,
+            closeBtn: 1,
+            shadeClose: false,
+            content: v,
+        });
+    }
+</script>

@@ -1,0 +1,77 @@
+<div class="wrapper">
+	<header class=" w_b100 pr15 pl15 header_back_icon">
+		<div class="box_between h45">
+			<div class="w20"></div>
+			<div class="grid_cell box_center">
+				<a href="#/searchGoods" class="w_b80 h25 br15 box_start col_fff f12 w_b100 backRgba_black_5 pl15 pr15">
+					<div class="search_white_icon w20 h20"></div>
+					请输入关键字搜索
+				</a>
+			</div>
+			<div class="backRgba_black_5 box_center br50 w25 h25">
+				<a href="#/goodsClass" class="class_white_icon w18 h18"></a>
+			</div>
+		</div>
+	</header>
+	<section class="pb40">
+		<!-- banner 轮播图 -->
+		<div class="h175 w_b100 p_r">
+			<div class="flexsliders h175">
+				<ul class="slides h175">
+					<li class="h_b100" ng-repeat="item in bannerInfo" repeat-finish="flexsliders('.flexsliders')">
+						<a href="{{item.url}}" class="dis_in h_b100 w_b100">
+							<img ng-src="{{item.b_img}}"/>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 分类 -->
+		<div class="box_start  back_fff">
+			<div class="box_start flex_wrap">
+				<div class="w_b20 box_center" ng-repeat="class in mallClassInfo track by $index">
+					<a href="#/goodsList?class_uuid={{class.class_uuid}}&title={{class.title}}" class="w75 h70 m0a show">
+						<img ng-src="{{class.img}}" alt="">
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- 推荐信息 -->
+		<div>
+			<div ng-repeat="item in dressInfo track by $index">
+				<a href="{{item.href}}" class="w_b100 h120 show">
+					<img lazy-src="{{item.img}}" alt="" />
+				</a>
+				<div ng-if="item.layout==3" mall-three-html data3="item.seedBeans"></div>
+				<div ng-if="item.layout==4" mall-four-html data4="item.seedBeans"></div>
+				<div ng-if="item.layout==5" mall-five-html data5="item.seedBeans"></div>
+				<div ng-if="item.layout==6" mall-six-html data6="item.seedBeans"></div>
+			</div>
+		</div>
+		<!-- 推荐商品 -->
+		<div class="">
+			<div class="box_center h50 f18 col_666">-&nbsp<span>推荐商品</span>&nbsp-</div>
+			<div class="box_start flex_wrap p5">
+				<!--列表项-->
+				<div class="w_b50 p5" ng-repeat="m in maybeEnjoyInfo track by $index" repeat-finish="setGoodsListImgH('.goodsListImgBox')">
+					<a href="#/goodsDetails?goods_id={{m.goods_id}}" class="show">
+						<div class="w_b100 goodsListImgBox">
+							<img ng-src="{{m.goods_img}}" alt="">
+						</div>
+						<div class="back_fff p5">
+							<div class="wbyc2 f12 h30 lh15" ng-bind="m.goods_name"></div>
+							<div class="pt5">
+								<span class="col_red f12">现价：¥<em class="f14" ng-bind="m.goods_now_price"></em></span>
+								<span class="scx col_999 ml10">¥<em ng-bind="m.goods_origin_price"></em></span>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- footer -->
+	<footer class="p_f b0 l0 w_b100">
+		<div ng-include="'app/views/template/footer.html'"></div>
+	</footer>
+</div>

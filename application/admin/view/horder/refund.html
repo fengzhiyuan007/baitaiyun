@@ -1,0 +1,231 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Horder/refund'),'text'=>'售后订单'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <form class="search"  method="get">
+            <input name="p" value="" hidden>
+            <span class="select-box" style="width:150px">
+            <select name="refund_state"  class="select select-box inlin" id="refund_state" style="width:120px">
+                <option value="">请选择状态</option>
+                <option value="wait_review" {if condition="$Request.get.refund_state eq 'wait_review'"}selected{/if}>待支付</option>
+                <option value="accept" {if condition=" $Request.get.refund_state eq 'accept'"}selected{/if}>接受</option>
+                <option value="refuse" {if condition="$Request.get.refund_state eq 'refuse'"}selected{/if}>拒绝</option>
+                <option value="end" {if condition="$Request.get.refund_state eq 'end'"}selected{/if}>结束</option>
+            </select>
+            </span>
+            <span class="select-box" style="width:150px">
+            <select name="refund_type"  class="select select-box inlin" id="refund_type" style="width:120px">
+                <option value="">请选择类型</option>
+                <option value="1" {if condition="$Request.get.refund_type eq '1'"}selected{/if}>换货</option>
+                <option value="2" {if condition=" $Request.get.refund_type eq '2'"}selected{/if}>退货</option>
+            </select>
+            </span>
+            <input type="text" class="input-text" style="width:200px" name="order_no" value="{$Request.get.order_no}" id="order_no" placeholder="搜索订单号/申请人">
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+            <br/>
+            <div class="mt-5">
+             <span class="select-box" style="width:250px">
+                <select name="merchants_id"  class="select select-box inlin" id="merchants_id" style="width:220px">
+                    <option value="">请选择店铺</option>
+                    {volist name="merchant" id="vo"}
+                    <option value="{$vo.member_id}" {if condition="$Request.get.merchants_id eq $vo['member_id']"}selected{/if}>{$vo.merchants_name}</option>
+                    {/volist}
+                </select>
+            </span>
+                <input type="text" class="input-text "  id="merchant_name" style="width:180px"  value=""  placeholder="店铺关键字">
+                <button type="button" onclick="searchMerchant($('#merchant_name').val())" class="btn btn-default radius" id="" name="">搜店铺</button>
+                <span style="float:right;padding:0px 10px 10px 0" >
+                <a href="javascript:void(0)" title="导出Excl"  onclick="xiazai()" class="btn btn-default radius" >
+                    <i class="Hui-iconfont">&#xe644;</i>导出
+                </a>
+            </span>
+            </div>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                <i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+            </a>
+		</span>
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="120">售后编号</th>
+                <th width="120">商品订单</th>
+                <th width="70">申请人</th>
+                <th width="70">申请人电话</th>
+                <th width="50">类型</th>
+                <th width="50">店铺</th>
+                <th width="60">状态</th>
+                <th width="120">申请时间</th>
+                <th width="80">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+                <tr class="text-c">
+                    <td><input type="checkbox" value="{$vo.refund_id}" name="checkbox"></td>
+                    <td>{$vo.refund_no}</td>
+                    <td><a href="{:url('Horder/order_view',['id'=>$vo['order_no']])}"><u style="cursor:pointer" class="text-primary" >{$vo.order_no}</u></a></td>
+                    <td>{$vo.username}</td>
+                    <td>{$vo.phone}</td>
+                    <!--<td>{$vo['cost']}</td>-->
+                    <td>
+                        {switch name="$vo['refund_type']"}
+                        {case value="1"}退款{/case}
+                        {case value="2"}退货{/case}
+                        {/switch}
+                    </td>
+                    <td>{$vo['merchants_name']}</td>
+                    <td>
+                        {switch name="$vo['refund_state']"}
+                        {case value="wait_review"}待审核{/case}
+                        {case value="accept"}接收审核{/case}
+                        {case value="refuse"}拒绝{/case}
+                        {case value="end"}结束{/case}
+                        {/switch}
+                    </td>
+                    <td>{$vo.create_time}</td>
+                    <td class="td-manage">
+                        <a title="订单详情" class="check_lock" data="{$vo.refund_no}" data-action="{:url('Horder/refund_view',array('id'=>$vo['refund_no']))}"   style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                        <a title="订单删除" href="javascript:;" onclick="del(this,{$vo.refund_id});" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    </td>
+                </tr>
+            {/volist}
+            </tbody>
+        </table>
+        {$page}
+    </div>
+</div>
+<script type="text/javascript">
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input[name="checkbox"]:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+    function datadel(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Horder/del_refund')}", {ids:kid}, function(data){
+                if( data.status == 'ok' ){
+                    layer.msg(data.data.info,{icon:1,time:1000});
+                    window.location.href = data.data.url;
+                }else{
+                    layer.msg(data.data,{icon:1,time:1000});
+                }
+            },'json');
+        })
+    }
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    function member_show(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+
+
+    /*用户-删除*/
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Horder/del_refund')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.data,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+    function xiazai(){
+        var download = 'download';
+        var url = window.location.href;
+        var a = url.split(".html")[0];
+        var b = url.split(".html")[1];
+        if(a.split("?")[1]){
+            window.location.href=a+"&act="+download+b;
+        }else{
+            window.location.href=a+"/act/"+download+b;
+        }
+    }
+    function getnums(){
+        var num = $("#nus").val();
+        window.location.href="__SELF__&num="+num;
+    }
+
+    function lock(v) {
+        $.post("{:url('Horder/lock_order')}", {id: v}, function (data) {
+            console.log(data);
+            if (data['status'] == 'ok') {
+                alert(data.info);
+                window.location.href = window.location.href;
+            } else {
+                alert(data.info);
+            }
+        }, 'json');
+    }
+
+</script>
+<script type="text/javascript" src="/static/layui/lay/dest/layui.all.js"></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        var start = {
+            elem: '#start_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#start_time").attr("value",datas);
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#end_time").attr("value",datas);
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        document.getElementById('start_time').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        }
+        document.getElementById('end_time').onclick = function(){
+            end.elem = this
+            laydate(end);
+        }
+    });
+</script>

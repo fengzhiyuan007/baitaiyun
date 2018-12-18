@@ -1,0 +1,66 @@
+<div class="header" id="hddb">
+  <div class="header-top-box">
+    <div class="header-top box">
+       <div ng-include="'public/headertop.html'"></div>
+       <div class="site-nav-box" site-navshow hidden>
+         <div ng-include="'public/daohang.html'"></div>
+       </div>
+    </div>
+  </div>
+  <div class="logo2-box box clearfix">
+     <div class="logo">
+        <a href="index.html#/"><img src="images/corelogo.png" /></a>
+        <a href="core.html#/" ng-if="h3_nav==1" ng-class="{act:h3_navact==0}" tab>个人中心</a>
+        <a href="core.html#/grzl" ng-if="h3_nav==1" ng-class="{act:h3_navact==1}" tab>账户设置</a>
+        <a href="javascript:;" ng-if="h3_nav==2">帮助中心</a>
+        <a href="core.html#/yhfk" ng-if="h3_nav==3" ng-class="{act:h3_navact==3}" tab>用户反馈</a>
+        <a href="javascript:;" ng-if="h3_nav==4">波洱守则</a>
+     </div>
+     <div class="gwc"><a target="_blank" href="gwc.html#/gwc">购物车<span ng-if="gwc_nums>0">{{gwc_nums}}</span></a></div>
+  </div>
+</div>
+<!--alert tck 优化-->
+<div class="tck alert" ng-if="alertshow==1">
+  <i ng-click="alerttxt('',1)"></i>
+  <div class="alert-box">
+    <p class="tit">友情提示<span ng-click="alerttxt('',1)">&times;</span></p>
+    <p class="txt">{{alerttxts}}</p>
+  </div>
+</div>
+<!--用户登录 注册-->
+<div class="tck sign" ng-if="tcksign==1">
+  <i ng-click="tckhide()"></i>
+  <div class="sign-box">
+     <p class="tit"><span class="act" signtab>会员登录</span><span signtab>注册</span><i class="tck-btn" ng-click="tckhide()">&times</i></p>
+     <ul class="sign-ul" >
+       <li><label>手机号码：</label><input type="text" ng-model="signphone" placeholder="请输入手机号码" /></li>
+       <li><label>密码：</label><input type="password" ng-model="signpwd" placeholder="请输入密码" /></li>
+       <li><label>&nbsp;</label><a href="gwc.html#/wjmm" ng-click="tckhide()">忘记密码?</a></li>
+       <li><label>&nbsp;</label><button ng-click="signbtn(signphone,signpwd)">登录</button></li>
+     </ul>
+     <ul class="reg-ul" hidden>
+       <li><label>手机号码：</label><input type="text" ng-model="regphone" placeholder="请输入手机号码" /><p id="regphone"><!--请输入规范的手机号--></p></li>
+       <li><label>验证码：</label><input ng-model="regcode" style="width: 170px" type="text" placeholder="短信验证码" /><input type="button" id="btnSendCode" ng-click="sendMessage(regphone)" value="获取验证码"/><p><!--请输入正确的验证码--></p></li>
+       <li><label>输入密码：</label><input ng-model="regpwd" type="password" placeholder="请输入6-20位字母数字的组合" /><p id="regpwd"><!--请输入规范的密码--></p></li>
+       <li><label>确认密码：</label><input ng-model="regpwd2" type="password" placeholder="请再次输入密码" /><p id="regpwd2"><!--2次密码不一致--></p></li>
+       <li class="mar-b30"><label>&nbsp;</label><div class="fwtk"><span class="act"></span>我已同意牛烘烘的<a target="_blank" href="core.html#rule?act=4&tit=用户注册协议">《用户注册协议》</a></div></li>
+       <li><label>&nbsp;</label><button ng-click="regbtn(regphone,regcode,regpwd,regpwd2)">注册</button></li>
+     </ul>
+  </div>
+</div>
+<!--弹出框end-->
+<!--右悬浮-->
+<div class="fixd-right">
+ <a target="_blank" href="gwc.html#/">购物车</a>
+ <a target="_blank" href="http://kefu.easemob.com/webim/im.html?tenantId={{sw_p.custom_id}}">咨询</a>
+ <a target="_blank" href="core.html#/yjfk">反馈</a>
+ <a href="javascript:;" ng-click="scrolltop(0)">顶部</a>
+</div>
+<script type="text/javascript">
+  //调用新浪的IP地址查询
+$.getScript('http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js',function(){
+  // alert(remote_ip_info.country);//国家
+  $(".header-top .add").text(remote_ip_info.province);//省份
+  // alert(remote_ip_info.city);//城市
+});
+</script>

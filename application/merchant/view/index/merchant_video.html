@@ -1,0 +1,240 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Index/video'),'text'=>'导购视频'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <form class="search"  method="get">
+            <input name="p" type="hidden" value="1" />
+            <input type="text" class="input-text" style="width:250px" placeholder="搜索标题" value="{$_GET['name']}" name="name">
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        	<span style="float:right;padding:0px 10px 10px 0" >
+                <a href="{:url('Index/add_video')}" class="btn btn-primary radius" >
+                    <i class="Hui-iconfont">&#xe600;</i>添加视频
+                </a>
+            </span>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                <i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+            </a>
+		</span>
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="100">标题</th>
+                <th width="70">封面</th>
+                <th width="160">地址</th>
+                <th width="60">观看人数</th>
+                <th width="40">点赞数</th>
+                <th width="40">状态</th>
+                <th width="60">时间</th>
+                <th width="120">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="l"}
+                <tr class="text-c">
+                    <td><input type="checkbox" value="{$l.video_id}" name="checkbox"></td>
+                    <!--<td align="center" class="onerow"><img src="{$l.img}" style="width: 50px;height: 50px;border-radius:50%"></td>-->
+                    <td>{$l.title}</td>
+                    <td><img  src="{$l.video_img}" style="width: 50px;height: 50px;border-radius:50%"></td>
+                    <td>{$l.url}</td>
+                    <td>{$l.watch_nums}</td>
+                    <td>{$l.zan}</td>
+                    <td>
+                        {if condition="$l['is_shenhe'] eq 2"}
+                        <u><a href="javascript:;;" onClick="change_review(this,{$vo.goods_id})"><span class="label label-success radius">已审核</span></a></u>
+                        {else/}
+                        <u><a href="javascript:;;" onClick="change_review(this,{$vo.goods_id})"><span class="label label-defaunt radius">未审核</span></a></u>
+                        {/if}
+                    </td>
+                    <td>{$l.intime|date="Y-m-d H:i:s",###}</td>
+                    <td class="td-manage" style="text-align: center">
+                        <!--<if condition="$l['is_shenhe'] eq 2">-->
+                            <!--<a   onClick="member_stop(this,'{$l.video_id}')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>-->
+                            <!--<else/>-->
+                            <!--<a   onClick="member_start(this,'{$l.video_id}')" href="javascript:;" title="审核"><i class="Hui-iconfont">&#xe603;</i></a>-->
+                        <!--</if>-->
+                        <a title="编辑" href="{:url('Index/edit_video',['id'=>$l['video_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                        <a title="播放" href="javascript:;" onclick="view_url('{$l.url}')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e6;</i></a>
+                        <!--<a title="举报列表" href="{:url('Live/report',['id'=>$l['live_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe692;</i></a>-->
+                        <a title="删除" href="javascript:;" onclick="del(this,'{$l.video_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                    </td>
+                </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <div style="text-align:center">
+            {$page}
+        </div>
+    </div>
+    <div id="made"  class="hide">
+        <img style="width:100%" id="zhubo" src="">
+    </div>
+</div>
+<script src="/static/admin/js/layer/layer.js"></script>
+<script type="text/javascript">
+    /*	$(document).ready(function(){
+     $('.table-sort').dataTable({
+     "aaSorting": [[ 1, "desc" ]],//默认第几个排序
+     "bStateSave": true,//状态保存
+     "aoColumnDefs": [
+     {"orderable":false,"aTargets":[0,7]}// 制定列不参与排序
+     ]
+     });
+     });*/
+
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input[name="checkbox"]:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+    function datadel(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Index/del_video')}", {ids:kid}, function(data){
+                if( data.status == 'ok' ){
+                    layer.msg(data.info,{icon:1,time:1000});
+                    window.location.href = data.url;
+                }else{
+                    layer.msg(data.info,{icon:1,time:1000});
+                }
+            },'json');
+        })
+    }
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    function member_show(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-停用*/
+    function member_stop(obj,id){
+        layer.confirm('确认要下架吗？',function(index){
+            $.post("{:url('Index/change_video_shenhe')}",{id:id},function(data){
+                if(data.info == 1){
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none"  onClick="member_start(this,'+id+')" href="javascript:;" title="审核"><i class="Hui-iconfont">&#xe603;</i></a>');
+                    $(obj).remove();
+                    layer.msg('已下架成功!',{icon: 5,time:1000});
+                }
+            },'json')
+        });
+    }
+
+    /*用户-启用*/
+    function member_start(obj,id){
+        layer.confirm('确认要审核吗？',function(index){
+            $.post("{:url('Live/change_video_shenhe')}",{id:id},function(data){
+                if(data.info == 2){
+                    $(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="ml-5" onClick="member_stop(this,'+id+')" href="javascript:;" title="下架"><i class="Hui-iconfont">&#xe6de;</i></a>');
+                    $(obj).remove();
+                    layer.msg('已审核成功!',{icon: 6,time:1000});
+                }
+            },'json');
+
+        });
+    }
+    /*用户-删除*/
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Index/del_video')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+
+    function offline(id) {
+        layer.confirm('确定强制下线？',function(index){
+            $.post("{:url('Live/offline')}", {id:id}, function(v){
+                if( v == 1 ){
+                    layer.msg('已强制下线！',{icon:1,time:1000});
+                    window.location.href = window.location.href;
+
+                }else{
+                    layer.msg('强制下线失败！',{icon:5,time:1000});
+                }
+            });
+        });
+    }
+
+    function view_url(v){
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['800px', '500px'],
+            shade: 0.8,
+            closeBtn: 0,
+            shadeClose: true,
+            content: v
+        });
+    }
+
+
+    function view_play_img(v){
+        $("#zhubo").attr('src',v);
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: '516px',
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: $('#made')
+        });
+    }
+
+    function view_img(v,id){
+        var url = "{:url('Live/check_img')}";
+        $.post(url,{img:v},function(data){
+            if(data.status == 'ok'){
+                $("#zhubo").attr('src',v);
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    area: '384px',
+                    skin: 'layui-layer-nobg', //没有背景色
+                    shadeClose: true,
+                    content: $('#zhubo')
+                });
+            }else{
+                layer.msg('该直播已经结束!',{icon:5,time:1000});
+                window.location.href = window.location.href;
+            }
+        },'json');
+        return false;
+    }
+
+    function sel(id) {
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['1020px', '587px'],
+            shade: 0.1,
+            closeBtn: 1,
+            shadeClose: false,
+            content: id,
+        });
+    }
+</script>

@@ -1,0 +1,234 @@
+{:widget('public/breadcrumbs',[
+[
+['href'=>url('User/index'),'text'=>'会员列表'],
+['href'=>'javascript:;;','text'=>'会员详情'],
+]
+])}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray">基础信息</div>
+        <div class="cl pd-20" style="height:180px;background-color:#5bacb6">
+        <div style="float:left;height:150px;width:113px">
+            <img src="{$view.header_img}" class="avatar size-XL l" style="width:113px;height:111px;margin-bottom:10px">
+        </div>
+        <div style="float:left;padding-left:50px">
+            <div>
+                <ul style="line-height:30px;color:#fff">
+                    <li>昵称：{$view.username}</li>
+                    <li>性别：{$view['sex'] == 1 ? '男' : ($view['sex'] == 2 ? '女' : '未知')}</li>
+                    <li>账号：{$view.phone}</li>
+                    <li>地址：{$view.address}</li>
+                </ul>
+            </div>
+        </div>
+        <div style="float:left;padding-left:50px">
+            <div>
+                <ul style="line-height:30px;color:#fff">
+                    <li>引流电视台：{$view['tv']}</li>
+                    <li>账户钻石余额：{$view.b_diamond|default=0} 钻石</li>
+                    <li>充值钻石总数：{$view.meters_count|default=0} 钻石</li>
+                    <li>充值金额：{$view.amount_count|default=0} 元</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="pd-20">
+        <div class="tabBar cl">
+            <span  {if condition="$Request.param.type eq 1"}class='sign current'{else/}class='sign'{/if} type="1">充值记录</span>
+            <span class='sign {if condition="$Request.param.type eq 5"}current{/if}' type="5">关注列表</span>
+            <span class='sign {if condition="$Request.param.type eq 7"}current{/if}' type="7">送礼记录</span>
+            <span class='sign {if condition="$Request.param.type eq 8"}current{/if}' type="8">订单记录</span>
+        </div>
+        <!---------充值--------->
+        <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 1"}hidden{/if}>
+        <thead>
+        <tr class="text-c">
+            <th width="100">充值编号</th>
+            <th width="100">充值金额</th>
+            <th width="100">充值钻石</th>
+            <th width="100">充值途径</th>
+            <th width="100">充值时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.pay_number}</td>
+                <td>¥{$vo.amount}</td>
+                <td>{$vo.meters}</td>
+                <td>{$vo.pay_type}</td>
+                <td>{$vo.intime}</td>
+            </tr>
+        {/volist}
+        </tbody>
+        </table>
+        <!---------关注--------->
+        <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 5"}hidden{/if}>
+        <thead>
+        <tr class="text-c">
+            <th width="100">关注用户</th>
+            <th width="100">用户手机</th>
+            <th width="100">关注时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.intime|date="Y-m-d H:i",###}</td>
+            </tr>
+        {/volist}
+        </tbody>
+        </table>
+        <!---------送礼记录--------->
+        <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 7"}hidden{/if}>
+        <thead>
+        <tr class="text-c">
+            <th width="100">收礼对象</th>
+            <th width="100">用户手机</th>
+            <th width="100">直播名称</th>
+            <th width="100">礼物名称</th>
+            <th width="100">礼物数价值</th>
+            <th width="100">送礼时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.title}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.jewel}</td>
+                <td>{$vo.intime|date="Y-m-d H:i:s",###}</td>
+            </tr>
+        {/volist}
+        </tbody>
+        </table>
+        <!---------订单记录--------->
+        <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 8"}hidden{/if}>
+        <thead>
+        <tr class="text-c">
+            <th width="100">店铺logo</th>
+            <th width="100">店铺名称</th>
+            <th width="100">订单号</th>
+            <th width="100">订单状态</th>
+            <th width="100">商品价格(单位:元)</th>
+            <th width="100">支付价格(单位:元)</th>
+            <th width="100">下单时间</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="list" id="vo"}
+        <tr class="text-c">
+            <td><img src="{$vo.merchants_img}" style="width: 50px;height: 50px;border-radius:50%"></td>
+            <td>{$vo.merchants_name}</td>
+            <td>{$vo.order_no}</td>
+            <td>{$vo.order_state}</td>
+            <td>{$vo.goods_total_price}</td>
+            <td>{$vo.order_actual_price}</td>
+            <td>{$vo.create_time}</td>
+        </tr>
+        {/volist}
+        </tbody>
+        </table>
+        <div style="text-align:center">
+            <span>
+                 {$list->render()}
+            </span>
+        </div>
+
+    </div>
+</div>
+<div id="made" class="hide" style="display: none;">
+    <img style="width:100%" id="zhubo" src="">
+</div>
+<script type="text/javascript">
+    $(".sign").click(function(){
+        var type = $(this).attr('type');
+        $(this).siblings().removeClass('current');
+        $(this).addClass('current');
+        var url = "/admin/member/member_view/mid/{$mid}/type/"+type;
+        window.location.href = url;
+        $('.all').addClass("Height0");
+        $('.all').removeClass('hide');
+        $('.tag'+type.removeClass("Height0"));
+    });
+
+    function offline(id) {
+        layer.confirm('确定强制下线？',function(index){
+            $.post("{:url('Live/offline')}", {id:id}, function(v){
+                if( v == 1 ){
+                    layer.msg('已强制下线！',{icon:1,time:1000});
+                    window.location.href = window.location.href;
+
+                }else{
+                    layer.msg('强制下线失败！',{icon:5,time:1000});
+                }
+            });
+        });
+    }
+
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Live/del_live_store')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+
+    function del_video(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Live/del_video')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+
+    function view_play_img(v){
+        $("#zhubo").attr('src',v);
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            area: '516px',
+            skin: 'layui-layer-nobg', //没有背景色
+            shadeClose: true,
+            content: $('#made')
+        });
+    }
+
+    function sel(id) {
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['1020px', '587px'],
+            shade: 0.1,
+            closeBtn: 1,
+            shadeClose: false,
+            content: id,
+        });
+    }
+
+    function view_url(v){
+        layer.open({
+            type: 2,
+            title: false,
+            area: ['800px', '500px'],
+            shade: 0.8,
+            closeBtn: 0,
+            shadeClose: true,
+            content: v
+        });
+    }
+</script>

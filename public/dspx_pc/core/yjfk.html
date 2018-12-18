@@ -1,0 +1,71 @@
+
+<!--header end-->
+<div class="mainbox bg-f5 clearfix pad-b70 pad-t40">
+  <div class="box bg-fff yjfk-box">
+    <div class="tit">牛烘烘-用户反馈调查</div>
+    <div class="fk-txt">
+      <p>尊敬的用户：</p>
+      <p>您好！为了给你更好的服务，我们希望收集您使用<span class="blue">牛烘烘</span>时的看法或建议，对您的支持和配合表示衷心感谢！</p>
+    </div>
+    <div class="fk-center">
+      <p class="tit2">如果你在使用<span class="blue">牛烘烘</span>时，有什么好或不好的地方，请大声说出来！我们会关注你的反馈，不断优化产品，为你提供更好的服务！</p>
+      <textarea ng-model="fk_desc"></textarea>
+      <ul>
+        <li class="p-l-r-3of clearfix"><span><form class="uploadForm" ><input onchange="preview(this)" type="file" name="file" /></form></span><p id='img'></p></li>
+        <li class="p-l-r-4of">*最多上传<span class="red">3</span>张图片</li>
+      </ul>
+    </div>
+    <div class="fk-sel">
+      <p class="tit2">你对<span class="blue">牛烘烘</span>的整体感觉如何？</p>
+      <ul>
+        <li><span ng-click="yj==1" class="act" fktab>非常满意</span></li>
+        <li><span ng-click="yj==2" fktab>满意</span></li>
+        <li><span ng-click="yj==3" fktab>一般</span></li>
+        <li><span ng-click="yj==4" fktab>不满意</span></li>
+        <li><span ng-click="yj==5" fktab>非常不满意</span></li>
+      </ul>
+    </div>
+    <div class="fk-inp">
+      <p class="tit2">我们会不定期邀请用户参与面对面的交流。如果你有意参加，请填写如下信息，方便我们和你联系，谢谢！（信息作为内部资料绝不外泄）</p>
+      <ul>
+        <li><label>姓名：</label><input ng-model="fk_name" type="text" ></li>
+        <li><label>手机号：</label><input ng-model="fk_mobile" type="number"></li>
+      </ul>
+    </div>
+    <button ng-click="yjfkbtn()">提交</button>
+  </div>
+</div>
+<script type="text/javascript">
+ function preview(file){
+    var this1=$(file);
+    if($(this1).parents('.p-l-r-3of').find('p b').length>2){
+      alert('最多上传3张哦');
+      return false;
+    }
+    var formData = new FormData($( ".uploadForm")[0]);
+    formData.append("img",formData);
+    $.ajax({
+      url: '../adviceInterfaces.api?uploadAdviceImg',
+      type: 'POST',
+      data: formData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (returndata) {
+         returndata=JSON.parse(returndata);
+         console.log(returndata);
+         if(returndata["status"] == "ok"){
+           $(this1).parents('.p-l-r-3of').find('p').append('<b val="'+returndata['data']+'"><img src='+returndata['data']+'></b>');
+         }else {
+          alert(returndata['error']);
+        }
+      },
+      error: function (returndata) {
+        console.log(returndata);
+      }
+    });
+ }
+</script>
+
+

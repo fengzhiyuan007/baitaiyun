@@ -1,0 +1,104 @@
+{php}
+	$uid = input('uuid');
+	$uid?$text=$re['brand_name']:$text='添加品牌';
+{/php}
+{:widget('Base/breadcrumbs',[
+[
+['href'=>url('Goods/brand'),'text'=>'品牌列表'],
+['href'=>'','text'=>$text]
+]
+])}
+<div class="page-container">
+	<div id="big"></div>
+	<div id="big2"></div>
+	<form class="form form-horizontal" id="form" method="post">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>品牌名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="brand_name" class="input-text" value="{$re['brand_name']}" placeholder="" id="brand_name" />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">品牌logo：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="droparea spot" id="image1" style="background-image: url('{$re.brand_img?$re.brand_img:''}');background-size: 220px 160px;" >
+					<div class="instructions" onclick="del_image('1')">删除</div>
+					<div id="uparea1"></div>
+					<input type="hidden" name="brand_img" id="image_1" value="{$re['brand_img']?$re['brand_img']:''}" />
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">品牌简介：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="brand_desc" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,200)">{$re.brand_desc}</textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+				<!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+				<button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				<input type="hidden" class="input-text" value="{$re.brand_id?$re.brand_id:''}" placeholder=""  name="brand_id">
+				<input type="hidden" class="input-text" value="{$re.brand_uuid?$re.brand_uuid:''}" placeholder=""  name="brand_uuid">
+			</div>
+		</div>
+	</form>
+</div>
+<script type="text/javascript">
+	$(function() {
+		var content;
+		KindEditor.ready(function (K) {
+			content = K.create('#content', {
+				allowFileManager: true,
+				uploadJson: "{:url('Tools/upload_save_thumb',['dirname'=>'goods'])}"
+			});
+		});
+
+		KindEditor.ready(function (K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager: true,
+                uploadJson: "{:url('Tools/upload_save_thumb',['dirname'=>'goods'])}"
+                //sdl:false
+            });
+
+            K('#uparea1').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: K('#image_1').val(),
+                        clickFn: function (url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image', 'url(' + url + ')').css('background-size', '220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+            $(".submit").click(function () {
+                commonAjaxSubmit('', 'form');
+                return false;
+            });
+
+            $("#uparea1").mouseover(function (e) {
+                $("#big").css({top: e.pageY, right: e.pageX});//鼠标定位一个点
+                var img = $('#image_1').val();
+                if (img.length !== 0) {
+                    $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                    $("#big").show();        //show：显示
+                }
+            });
+            $("#uparea1").mouseout(function () {
+                $("#big").hide();
+            });
+
+        });
+
+        });
+
+</script>

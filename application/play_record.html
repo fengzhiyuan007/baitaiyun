@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">
+
+    <!-- If you'd like to support IE8 -->
+    <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+</head>
+<body>
+<div style="height: 100%">
+    <video id="my-video" class="video-js" controls preload="auto" style="width: 1004px;height: 560px;"
+           poster="{$re['play_img']}" data-setup="{}">
+        <source src="{$re['url']}" type='video/mp4'>
+        <source src="{$re['url']}" type='video/webm'>
+    </video>
+</div>
+
+<script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
+</body>
+</html>
+
+
+<!--<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">-->
+<!--<html xmlns="http://www.w3.org/1999/xhtml">-->
+<!--<head>-->
+<!--</head>-->
+<!--<body>-->
+<!--<div id="a1" style="width: 1004px;height: 560px;">{$re['play_img']}</div>-->
+<!--</body>-->
+<!--</html>-->
+<!--<script type="text/javascript" src="/static/chplayer/chplayer.js" charset="utf-8"></script>-->
+<!--<script type="text/javascript">-->
+    <!--var videoObject = {-->
+        <!--container: '#a1',-->
+        <!--variable: 'player',-->
+        <!--volume: 0.6, //默认音量，范围是0-1-->
+        <!--poster: "{$re['play_img']}", //封面图片地址-->
+        <!--autoplay: true,-->
+        <!--loop: false,-->
+        <!--live: false, //是否是直播，默认false=点播放，true=直播-->
+        <!--flashplayer: false, //制使用flashplayer-->
+        <!--html5m3u8: true, //是否使用hls，默认不选择，如果此属性设置成true，则不能设置flashplayer:true,-->
+        <!--debug: false, //是否开启调试模式，默认false，不开启-->
+        <!--video: {-->
+            <!--url: "{$re['url']}",-->
+            <!--type: ['video/m3u8','video/mp4']-->
+        <!--}-->
+    <!--};-->
+    <!--var player = new chplayer(videoObject); //实例化播放器-->
+<!--</script>-->

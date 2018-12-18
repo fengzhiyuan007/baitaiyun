@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />	
+	<title>订单评价</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/reset.css">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/common.css">
+	<!--主样式表-->
+	<link rel="stylesheet" type="text/css" href="../../../css/main.css">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+		    var docEl = doc.documentElement,
+		        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		        recalc = function () {
+		            var clientWidth = docEl.clientWidth;
+		            if (!clientWidth) return;
+		            if(clientWidth>=640){
+		                docEl.style.fontSize = '100px';
+		            }else{
+		                docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+		        }
+		    };
+		    if(!doc.addEventListener) return;
+		    win.addEventListener(resizeEvt, recalc, false);
+		    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+	<script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<!--header-->
+		<div class="p_f t0 l0 w_b100 back_fff z100">
+			<div class="box_center h45 pr10 pl10 w_b100 bor_b">
+				<div class="grid_cell box_start">
+					<div class="left_icon w22 h28"></div>
+				</div>
+				<div class="f16 grid_cell box_center">发布评价</div>
+				<div class="grid_cell box_end">
+					<div class=""></div>
+				</div>
+			</div>
+		</div>
+		<!-- content -->
+		<div class="pt45 pb50">
+			<!-- 列表项 -->
+			<div class="mb10 back_fff">
+				<div class="box_between h50 bor_b pl10 pr10">
+					<div class="w_b50 box_start">
+						<div class="w30 h30">
+							<img src="../../../images/goods1.png" alt="">
+						</div>
+						<div class="ml10 f12 w_b70 wbyc">商品名称商品名称商品名称商品名称</div>
+					</div>
+					<div class="w_b50 box_end">
+						<div class="star_act_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+					</div>
+				</div>
+				<div class="w_b100 h80 p10">
+					<textarea class="w_b100 maxW_b100 minH_b100 maxH_b100 f12" maxlength="200" placeholder="您的意见对我们非常重要"></textarea>
+				</div>
+				<div class="box_start h50 pl10 pr10">
+					<div class="photograph_icon w40 h40"></div>
+					<div class="ml10 box_start">
+						<div class="w40 h40 mr10">
+							<img src="../../../images/tmp1.png" alt="">
+						</div>
+						<div class="w40 h40 mr10">
+							<img src="../../../images/tmp1.png" alt="">
+						</div>
+						<div class="w40 h40 mr10">
+							<img src="../../../images/tmp1.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 列表项 -->
+			<div class="mb10 back_fff">
+				<div class="box_between h50 bor_b pl10 pr10">
+					<div class="w_b50 box_start">
+						<div class="w30 h30">
+							<img src="../../../images/goods1.png" alt="">
+						</div>
+						<div class="ml10 f12 w_b70 wbyc">商品名称商品名称商品名称商品名称</div>
+					</div>
+					<div class="w_b50 box_end">
+						<div class="star_act_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+					</div>
+				</div>
+				<div class="w_b100 h80 p10">
+					<textarea class="w_b100 maxW_b100 minH_b100 maxH_b100 f12" maxlength="200" placeholder="您的意见对我们非常重要"></textarea>
+				</div>
+				<div class="box_start h50 pl10 pr10">
+					<div class="photograph_icon w40 h40"></div>
+					<div class="ml10 box_start">
+						<div class="w40 h40 mr10">
+							<img src="../../../images/tmp1.png" alt="">
+						</div>
+						<div class="w40 h40 mr10">
+							<img src="../../../images/tmp1.png" alt="">
+						</div>
+						<div class="w40 h40 mr10">
+							<img src="../../../images/tmp1.png" alt="">
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 店铺评分 -->
+			<div class="back_fff p10 f12">
+				<div class="box_start">
+					<div class="shop_icon w30 h30 mr10"></div>
+					店铺评分
+				</div>
+				<div class="box_start mt10">
+					物流评分
+					<div class="box_start ml20">
+						<div class="star_act_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+					</div>
+				</div>
+				<div class="box_start mt10">
+					服务评分
+					<div class="box_start ml20">
+						<div class="star_act_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+						<div class="star_icon w18 h18 mr5"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="p_f b0 l0 w_b100">
+			<div class="box_center h40 f14 col_fff back_red">立即发布</div>
+		</div>
+	</div>
+</body>
+</html>

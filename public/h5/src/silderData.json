@@ -1,0 +1,16 @@
+[
+	{
+		"img": "images/1-1.jpg",
+		"link": "http://www.baidu.com",
+		"alt": "这是一张图片"
+	},
+	{
+		"img": "images/2-1.jpg",
+		"alt": "这还是刚才那张图片"
+	},
+	{
+		"img": "images/3-1.png",
+		"link": "http://www.baidu.com",
+		"alt": "我将跳转到百度"
+	}
+]

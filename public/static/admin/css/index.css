@@ -1,0 +1,82 @@
+body {
+    background-color: white
+}
+
+header {
+    width:1350px;
+    height: 38px;
+    background-color: gray;
+    line-height: 38px;
+    text-align: center;
+    margin-left: 200px;
+}
+
+#header a {
+    text-decoration: none;
+}
+
+#header li a {
+    display: block;
+    width: 100px;
+    color: #000000;
+    line-height: 30px;
+    background-color: #BCBCBC;
+    margin: 4px 20px 0px 0px;
+    border-radius: 3px;
+}
+
+#header li a:hover {
+    background: #FFFFFF
+}
+#header li a:active{
+    background-color:#FFFFFF
+}
+
+/*lmenu����ʽ*/
+.main-container > .main-container-inner {
+    position: relative
+}
+.main-content{
+    margin-left:200px;
+    margin-right:0;
+    margin-top:0;
+    min-height:100%;
+    padding:0
+}
+.container.main-container .sidebar.sidebar-fixed,.container.main-container .sidebar.sidebar-fixed:before{
+    left:auto
+}
+#area{width:100px;height:800px;background-color:#F2F2F2;}
+#area a{text-decoration:none;color:#333333}
+#area a:hover{background-color:white;}
+
+table a{text-decoration:none;color:#333333}
+table{border-collapse:collapse;border:none;}
+td{border:solid gray 1px;}
+hr{height:1px;}
+
+#info table{border-collapse:collapse;border:1px solid gray}
+.tab-tr{border:1px solid gray;}
+#info td{border:0px;}
+
+/*menu区样式*/
+#menu span{
+    color:#333333;
+    background: url('../images/plus.gif') no-repeat;
+    background-position:left;
+    padding-left:10px;
+}
+#menu a{
+    text-decoration:none;
+}
+#menu a:hover{
+    background:#CCEBF8;
+}
+
+#submenu  a{
+    text-decoration:none;
+    color:#333333;
+}
+#submenu  a:hover{
+    background:#CCEBF8;
+}

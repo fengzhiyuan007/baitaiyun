@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+a{
+	cursor:pointer;
+}
+.padding-20{ padding-left:20px; }
+
+.image-list div.box{
+	padding:5px;
+	float:left;
+}
+.table img,
+.image-list div.box img{max-width:150px;max-height:150px;}
+.employee{position:relative;width:100px;}
+.employee .titlepic{display:none;}
+.employee:hover .titlepic{display:block;position: absolute;right: -100px;top: 0;}
+.employee .titlepic img { min-width: 150px;}
+h2.col-sm-12.control-label.btn-info {padding: .5em;}
+.form-horizontal.order-form .control-label{
+	text-align:left;
+}
+.ajax-form{
+	border:1px solid #dedede;
+}
+.ajax-form .row-pic{
+	max-height:100px;
+}
+.help-inline{
+	position:relative;
+}
+.help-inline img {
+	position:absolute;
+	width:100px;
+	bottom:0;
+}
+.toolbar{
+	display:table;
+}
+.toolbar form,.toolbar button{
+	display:table-cell;
+	padding-right:5px;
+}
+.toolbar .button{
+	color: buttontext;
+    padding: 2px 6px 2px;
+    box-sizing: border-box;
+    border: 2px outset buttonface;
+	background-color: buttonface;
+    display: inline-block;
+}

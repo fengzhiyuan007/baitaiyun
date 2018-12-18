@@ -1,0 +1,294 @@
+{:widget('public/breadcrumbs',[
+[
+['href'=>url('User/index'),'text'=>'电视台列表'],
+['href'=>'javascript:;;','text'=>'电视台详情'],
+]
+])}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray">基础信息</div>
+        <div class="cl pd-20" style="height:160px;background-color:#5bacb6">
+            <div style="float:left;height:150px;width:113px">
+                <img src="{$view.header_img}" class="avatar size-XL l" style="width:113px;height:111px;margin-bottom:10px">
+            </div>
+            <div style="float:left;padding-left:50px">
+                <div>
+                    <ul style="line-height:30px;color:#fff">
+                        <li>电视台名称：{$view.username}</li>
+                        <li>电视台账号：{$view.phone}</li>
+                        <li>账户钻石余额：{$view.e_ticket|default=0} 钻石</li>
+                    </ul>
+                </div>
+            </div>
+            <div style="float:left;padding-left:50px">
+                <div>
+                    <ul style="line-height:30px;color:#fff">
+                        <li>预估可兑现金额：{$view.case_money|default=0} 元</li>
+                        <li>总收益额：{$view.ticket_count|default=0} 钻石</li>
+                        <li>可提现：{$view.spending|default=0} RMB</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="pd-20">
+            <div class="tabBar cl">
+                <span class='sign {if condition="$type eq 1"}current{/if}' type="1">商家列表</span>
+                <span class='sign {if condition="$_GET['type'] eq 2"}current{/if}' type="2">主播列表</span>
+                <span class='sign {if condition="$_GET['type'] eq 3"}current{/if}' type="3">直播打赏记录</span>
+            </div>
+            <!--------商户列表--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 1"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="40">ID</th>
+                <th width="100">头像</th>
+                <th width="90">商户账号(登录)</th>
+                <th width="100">商家姓名</th>
+                <th width="90">联系方式</th>
+                <th width="100">店铺名称</th>
+                <th width="100">公司名称</th>
+                <th width="100">店铺照片</th>
+                <th width="100">直播打赏分润比(%)</th>
+                <th width="100">商家销售分润比(%)</th>
+                <th width="130">加入时间</th>
+                <!--<th width="100">操作</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.merchants_id}</td>
+                <td><img src="{$vo.header_img}" style="width:50px; height:50px; border-radius:25px;"></td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.contact_name}</td>
+                <td>{$vo.contact_mobile}</td>
+                <td>{$vo.merchants_name}</td>
+                <td>{$vo.company_name}</td>
+                <td><img src="{$vo.merchants_img}" style="width:50px; height:50px; border-radius:25px;"></td>
+                <td>{$vo.dashang_scale}</td>
+                <td>{$vo.sell_scale}</td>
+                <td>{$vo.create_time}</td>
+                <!--<td>-->
+                    <!--<a title="商户详情" href="{:url('Member/view',['mid'=>$vo['member_id'],'type'=>1])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe705;</i></a>-->
+                    <!--<a title="编辑" href="{:url('Merchants/edit_merchants',['member_id'=>$vo['member_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>-->
+                    <!--<a style="text-decoration:none" class="ml-5"  href="{:url('Member/change_account',['mid'=>$vo['member_id']])}" title="账户安全"><i class="Hui-iconfont">&#xe63f;</i></a>-->
+                    <!--<a title="删除" href="javascript:;" onclick="del(this,'{$vo.merchants_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>-->
+                <!--</td>-->
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+            <!---------主播列表--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 2"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="80">ID</th>
+                <th width="100">头像</th>
+                <th width="100">昵称</th>
+                <th width="40">性别</th>
+                <th width="90">手机</th>
+                <th width="150">别名</th>
+                <th width="60">打赏分润比</th>
+                <th width="60">销量分润比</th>
+                <th width="130">加入时间</th>
+                <!--<th width="100">操作</th>-->
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.member_id}</td>
+                <td><img src="{$vo.header_img}" style="width:50px; height:50px; border-radius:25px;"></td>
+                <td><u style="cursor:pointer" class="text-primary" onclick='member_show("{$vo.username}","{:url('Member/Member_show',['mid'=>$vo['member_id']])}","360","400")'>{$vo.username}</u></td>
+                <td>
+                    {switch name=$vo['sex'] }
+                    {case value="1" }男{/case}
+                    {case value="2" }女{/case}
+                    {case value="3" }保密{/case}
+                    {/switch}
+                </td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.alias}</td>
+                <td>{$vo.dashang_scale}</td>
+                <td>{$vo.sell_scale}</td>
+                <td>{$vo.intime|date="Y-m-d H:i:s",###}</td>
+                <!--<td class="td-manage">-->
+                    <!--<a title="个人详情" href="{:url('Member/view',['mid'=>$vo['member_id'],'type'=>1])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe705;</i></a>-->
+                    <!--<a title="编辑" href="{:url('Anchor/edit_anchor',['member_id'=>$vo['anchor_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>-->
+                    <!--<a style="text-decoration:none" class="ml-5"  href="{:url('Member/change_account',['mid'=>$vo['member_id']])}" title="账户安全"><i class="Hui-iconfont">&#xe63f;</i></a>-->
+                    <!--<a title="删除" href="javascript:;" onclick="del(this,'{$vo.member_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>-->
+                <!--</td>-->
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+            <!----------打赏记录-------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 3"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="40">ID</th>
+                <th width="100">头像</th>
+                <th width="100">主播昵称</th>
+                <th width="100">主播账号</th>
+                <th width="50">会员类型</th>
+                <th width="100">直播名称</th>
+                <th width="100">礼物名称</th>
+                <th width="50">主播收益比例</th>
+                <th width="90">收益额(单位：钻石)</th>
+                <th width="50">礼物价值</th>
+                <th width="100">送礼时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.give_gift_id}</td>
+                <td><img src="{$vo.header_img}"  onclick="view_play_img(this.src)" style="width: 50px;height: 50px;border-radius:50%"></td>
+                <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.member_type == 1 ? "主播" : "商户"}</td>
+                <td>{$vo.title}</td>
+                <td>{$vo.name}</td>
+                <td>
+                    {php}
+                    $arr = explode(',',$vo['dashang_scale']);
+                    echo $arr['1']."%";
+                    {/php}
+                </td>
+                <th width="50">{$vo.amount}</th>
+                <td>{$vo.price}</td>
+                <td>{$vo.date}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+            <!---------销售提成分润--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$_GET['type'] neq 4"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">升级金额</th>
+                <th width="100">导师</th>
+                <th width="100">导师账号</th>
+                <th width="100">升级类型</th>
+                <th width="100">升级时间</th>
+                <th width="100">到期时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.amount}</td>
+                <td>{$vo.tusername}</td>
+                <td>{$vo.tphone}</td>
+                <td>
+                    {php}
+                    $vo['state'] == '1' && print "待支付";
+                    $vo['state'] == '2' && print "已支付";
+                    $vo['state'] == '3' && print "已退款";
+                    {/php}
+                </td>
+                <td>{$vo.intime}</td>
+                <td>{$vo.date_value}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+            <div style="text-align:center">
+            <span>
+                {$list->render()}
+            </span>
+            </div>
+
+        </div>
+    </div>
+    <div id="made" class="hide" style="display: none;">
+        <img style="width:100%" id="zhubo" src="">
+    </div>
+    <script type="text/javascript">
+        $(".sign").click(function(){
+            var type = $(this).attr('type');
+            $(this).siblings().removeClass('current');
+            $(this).addClass('current');
+            var url = "/admin/television/television_view/tv_id/{$tv_id}/type/"+type;
+            window.location.href = url;
+            $('.all').addClass("Height0");
+            $('.all').removeClass('hide');
+            $('.tag'+type.removeClass("Height0"));
+        });
+
+        function offline(id) {
+            layer.confirm('确定强制下线？',function(index){
+                $.post("{:url('Live/offline')}", {id:id}, function(v){
+                    if( v == 1 ){
+                        layer.msg('已强制下线！',{icon:1,time:1000});
+                        window.location.href = window.location.href;
+
+                    }else{
+                        layer.msg('强制下线失败！',{icon:5,time:1000});
+                    }
+                });
+            });
+        }
+
+        function del(obj,id){
+            layer.confirm('确认要删除吗？',function(index){
+                $.post("{:url('Live/del_live_store')}", {ids:id}, function(data){
+                    if( data.status == 'ok' ){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }else{
+                        layer.msg(data.info,{icon:5,time:1000});
+                    }
+                },'json');
+            });
+        }
+
+        function del_video(obj,id){
+            layer.confirm('确认要删除吗？',function(index){
+                $.post("{:url('Live/del_video')}", {ids:id}, function(data){
+                    if( data.status == 'ok' ){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }else{
+                        layer.msg(data.info,{icon:5,time:1000});
+                    }
+                },'json');
+            });
+        }
+
+        function view_play_img(v){
+            $("#zhubo").attr('src',v);
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                area: '516px',
+                skin: 'layui-layer-nobg', //没有背景色
+                shadeClose: true,
+                content: $('#made')
+            });
+        }
+
+        function sel(id) {
+            layer.open({
+                type: 2,
+                title: false,
+                area: ['1020px', '587px'],
+                shade: 0.1,
+                closeBtn: 1,
+                shadeClose: false,
+                content: id,
+            });
+        }
+
+        function view_url(v){
+            layer.open({
+                type: 2,
+                title: false,
+                area: ['800px', '500px'],
+                shade: 0.8,
+                closeBtn: 0,
+                shadeClose: true,
+                content: v
+            });
+        }
+    </script>

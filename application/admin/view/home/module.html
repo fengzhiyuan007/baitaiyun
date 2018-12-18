@@ -1,0 +1,108 @@
+{:W('public/breadcrumbs',[
+    [
+        ['href'=>U('Home/Module'),'text'=>'首页模块'],
+    ]
+])}
+</if>
+<script type="text/javascript" src="__ROOT__/public/admin/layer/layer.js"></script>
+<script type="text/javascript" src="__ROOT__/public/admin/js/jquery-1.7.min.js"></script>
+<div class="page-content">
+<div class="row">
+<div class="col-xs-12">
+        <span style="float:left;padding-right:30px;padding-top:8px;padding-bottom:18px">
+        <!--<a href="javascript:void(0);" style="text-decoration:none;color:#000000"><span onclick="del();" style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">删除</span></a>-->
+         </span>
+    <form class="search" action="__SELF__" method="get">
+        <input name="m" value="{:MODULE_NAME}" hidden>
+        <input name="a" value="{:ACTION_NAME}" hidden>
+        <input name="c" value="{:CONTROLLER_NAME}" hidden>
+        <span style="float:right;padding-right:30px;padding-top:8px;padding-bottom:18px">
+        <!--<a href="{:U('Topical/add_module')}" style="text-decoration:none;color:#000000">-->
+            <!--<span style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">添加模块</span>-->
+        <!--</a>-->
+       </span>
+    </form>
+<table width="100%" class="tab">
+    <thead>
+    <tr>
+        <td><a href="javascript:;" id="selall">全选</a></td>
+        <td>背景图片</td>
+        <td>模块名称</td>
+        <td>创建时间</td>
+        <td width="150">操作</td>
+    </tr>
+    </thead>
+    <volist name="list" id="vo">
+        <tr align="center" id="{$vo.id}" onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';"> 
+           <td><input type="checkbox" name="ids" id="ids"  value="{$vo.module_id}"/>
+              <if condition="$_GET['p'] gt 0">
+                {$key+1+($_GET['p']-1)*15}
+                <else />
+                {$key+1}
+            </if>
+           </td>
+           <td><img src="{$vo.picture}" style="width:80px;height:60px"></td>
+            <td>{$vo.title}</td>
+            <td>{$vo.intime}</td>
+            <td>
+                [ <a href="{:U('Home/edit_module',array('id'=>$vo['module_id']))}">编辑 </a> ]
+            </td>
+        </tr>
+    </volist>
+</table>
+<script type="text/javascript">   
+$(function() {   
+$("#selall").toggle(function() {
+     $("input[name='ids']").each(function() {   
+     $(this).attr("checked", true); 
+     });
+},function(){
+	 $("input[name='ids']").each(function() {   
+     $(this).attr("checked", false); 
+     }); 
+});
+});
+
+function del(kid){
+    kid = kid ? kid : getChecked();
+    kid = kid.toString();
+    if(kid == ''){
+        layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+        return false;
+    }
+    if(!confirm('确定要删除该记录？'))
+        return false;
+    $.post("{:U('Topical/del_module')}", {ids:kid}, function(data){
+        if( data['status'] == 'ok' ){
+            alert(data.info);
+            window.location.href = data.url;
+        }else{
+            alert(data.info);
+        }
+    },'json');
+    return false;
+}
+
+function getChecked() {
+    var gids = new Array();
+    $.each($('input:checked'), function(i, n){
+        gids.push( $(n).val() );
+    });
+    return gids;
+}
+
+function change_status(id,v){
+    var id = id;
+    $.post("{:U('Topical/change_module_tuijian')}",{id:id},function(data){
+        if(data['status'] == 'ok'){
+            $(v).html(data['info']);
+        }else{
+            alert(data['info']);
+        }
+    },'json');
+    return false;
+}
+</script>
+</div>
+</div>
+</div>

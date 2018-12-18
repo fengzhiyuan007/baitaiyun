@@ -1,0 +1,216 @@
+<?php
+    $uid = $_GET['id'];
+    $_GET['id']?$text='编辑':$text='添加';
+?>
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Auth/authGroup'),'text'=>'规则分组'],
+['href'=>'','text'=>$text.'分组规则']
+]
+])}
+<style>
+    .rules{vertical-align: top;}
+    .rules_label{ margin-right:8px;}
+</style>
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <form class="form form-horizontal" id="form" method="post">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>分组规则名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" id="title" name="title" class="input-text" value="{$d['title']}" placeholder="分组规则名称"  />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>状态：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				<select name="status" id="status"  class="select">
+                    <option value="1" {if condition="$d['status'] == '1'"}selected{/if}>开启</option>
+                    <option value="0" {if condition="$d['status'] == '0'"}selected{/if}>关闭</option>
+                </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>规则列表：</label>
+            <div class="formControls col-xs-8 col-sm-8">
+                <textarea id="rules" name="rules" cols="" rows="" class="textarea"  placeholder="规则列表" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,200)">{$d['rules']}</textarea>
+            </div>
+            <button class="btn btn-default radius beizhu_btn" data-toggle="modal" data-target="#rules-modal" style="margin-top: 65px; " type="button">
+                节点列表
+            </button>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" name="id" value="{$_GET['id']}" />
+                <button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                <button onClick="javascript:history.back(-1);" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="rules-modal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="rules-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">
+                    &times;
+                </button>
+                权限列表
+            </div>
+            <div class="modal-body">
+                <div id="box-rules">
+                    {foreach name="list" item="v"}
+                        <dl class="permission-list">
+                            <dt>
+                                <label>
+                                    <input class="role" type="checkbox" value="{$v.id}"  {php}if(in_array($v['id'], $rules)) echo 'checked';{/php}>
+                                    {$v.title}
+                                </label>
+                            </dt>
+                            {php}if($v['son']){{/php}
+                            <dd>
+                                <dl class="cl permission-list2">
+                                    {foreach name="v.son" item="v1"}
+                                    <dt>
+                                        <label class="">
+                                            <input type="checkbox" name="rules" {php}if(in_array($v1['id'], $rules)) echo 'checked';{/php} value="{$v1.id}">
+                                            {$v1.title}
+                                        </label>
+                                    </dt>
+                                        {php}if($v1['son']){{/php}
+                                    <dd>
+                                        {foreach name="v1.son" item="v2"}
+                                            <label class="rules_label"><input type="checkbox" class="rules" name="rules" {php}if(in_array($v2['id'], $rules)) echo 'checked';{/php} value="{$v2.id}">{$v2.title}</label>
+                                        {/foreach}
+                                    </dd>
+                                        {php}}{/php}
+                                    {/foreach}
+                                </dl>
+                            </dd>
+                            {php}}{/php}
+                        </dl>
+                    {/foreach}
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-danger pull-left" id="choose-all">
+                    全选
+                </button>
+
+                <button class="btn btn-sm btn-danger pull-left" data-dismiss="modal" aria-label="Close" aria-hidden="true" id="choose">
+                    确定
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var  content ;
+        KindEditor.ready(function(K) {
+            content = K.create('#content',{
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'goods'])}"
+            });
+        });
+
+        KindEditor.ready(function(K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'goods'])}"
+                //sdl:false
+            });
+            K('#uparea1').click(function() {
+                console.log(1);
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".submit").click(function(){
+            commonAjaxSubmit('','form');
+            return false;
+        });
+
+        $("#uparea1").mouseover(function(e){
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_1').val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $("#uparea1").mouseout(function(){
+            $("#big").hide();
+        });
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+
+        $("#choose-all").click(function(){
+            $("#box-rules input[type='checkbox']").each(function(i,n){
+                var ischeck = $(n).prop("checked");
+                if(ischeck){
+                    $(n).prop("checked",false);
+                } else {
+                    $(n).prop("checked",true);
+                }
+            });
+        });
+
+        $('.role').click(function(){
+            var _this = $(this);
+            var ischeck = $(this).prop("checked");
+            if(ischeck){
+                $(this).prop("checked",false);
+            } else {
+                $(this).prop("checked",true);
+            }
+            var _c = _this.parent().parent().next().find("input[type='checkbox']");
+            console.log(_c);
+
+            _this.parent().parent().parent().find("input[type='checkbox']").each(function(i,n){
+                var ischeck = $(n).prop("checked");
+                if(ischeck){
+                    $(n).prop("checked",false);
+                } else {
+                    $(n).prop("checked",true);
+                }
+            });
+        });
+
+        $("#choose").click(function(){
+            var ids = '';
+            $("#box-rules input:checked").each(function(i,n){
+                if(i==0){
+                    ids += $(n).val();
+                } else {
+                    ids += ',' + $(n).val();
+                }
+            });
+            $("#rules").val(ids);
+            $("#rules-modal").modal("hide");
+        });
+    });
+
+</script>

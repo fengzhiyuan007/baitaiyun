@@ -1,0 +1,224 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>'','text'=>'基础配置']
+]
+])}
+<div class="page-container">
+	<form class="form form-horizontal" id="form"     method="post">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">后台名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="title" placeholder="网站名称" value="{$tem.title}" id="title" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">微信appid：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="appid" placeholder="微信appid" value="{$tem.appid}" id="wx_appid" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">微信appsecret：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="appsecret" placeholder="ping++支付appsecret" value="{$tem.appsecret}" id="wx_secretkey" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">ping++APP_Id：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="apiid" placeholder="ping++支付appid" value="{$tem.apiid}" id="pappid" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">ping++SecretKey：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="secretkey" placeholder="ping++支付secretkey" value="{$tem.secretkey}" id="psecretkey" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">极光appkey：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="jg_appkey" placeholder="极光appkey" value="{$tem.jg_appkey}" id="jg_appkey" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">极光secret：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="jg_secret" placeholder="极光secret" value="{$tem.jg_secret}" id="jg_secret" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">环信client_id：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="hx_client_id" placeholder="环信client_id" value="{$tem.hx_client_id}" id="hx_client_id" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">环信secret：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="hx_secret" placeholder="环信secret" value="{$tem.hx_secret}" id="hx_secret" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">环信appkey_1：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="hx_appkey_1" placeholder="环信appkey_1" value="{$tem.hx_appkey_1}" id="hx_appkey_1" >
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">环信appkey_2：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="hx_appkey_2" placeholder="环信appkey_2" value="{$tem.hx_appkey_2}" id="hx_appkey_2" >
+			</div>
+		</div>
+		</label>
+			<!--<div class="formControls col-xs-8 col-sm-9">-->
+				<!--<input type="text" class="input-text" name="zuan_watch_num" placeholder="钻石会员观看导师直播次数" value="{$tem.zuan_watch_num}" id="zuan_watch_num" >-->
+			<!--</div>-->
+		<!--</div>-->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">押金金额：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="deposit" placeholder="体现比例" value="{$tem.deposit}" id="deposit" >
+			</div>
+		</div>
+		<div class="row cl hidden">
+			<label class="form-label col-xs-4 col-sm-2">钻石兑换赏票比：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span>
+				<input type="text" class="input-text" name="convert_scale1" placeholder="钻石值" value="{$tem.convert_scale1}" id="convert_scale1" style="width: 100px" >
+				:
+				<input type="text" class="input-text" name="convert_scale2" placeholder="赏票值" value="{$tem.convert_scale2}" id="convert_scale2" style="width: 100px" >
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">云点兑换人民币比例：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span>
+				<input type="text" class="input-text" name="convert_scale3" placeholder="钻石值" value="{$tem.convert_scale3}" id="convert_scale3" style="width: 100px" >
+				:
+				<input type="text" class="input-text" name="convert_scale4" placeholder="人民币" value="{$tem.convert_scale4}" id="convert_scale4" style="width: 100px" >
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">默认直播打赏比：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="dashang_scale" placeholder="默认直播打赏比" value="{$tem.dashang_scale}" id="dashang_scale" style="width: 50px">%
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">平台默认商家提成：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="sell_scale" placeholder="平台默认商家提成" value="{$tem.sell_scale}" id="sell_scale" style="width: 50px">%
+			</div>
+		</div>
+		<!--<div class="row cl">-->
+			<!--<label class="form-label col-xs-4 col-sm-2">电视台推广提成：</label>-->
+			<!--<div class="formControls col-xs-8 col-sm-9">-->
+				<!--<input type="text" class="input-text" name="tv_sell_scale" placeholder="电视台推广提成" value="{$tem.tv_sell_scale}" id="tv_sell_scale" style="width: 50px">%-->
+			<!--</div>-->
+		<!--</div>-->
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">默认供货电视台：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="spread_scale" placeholder="默认供货电视台" value="{$tem.spread_scale}" id="spread_scale" style="width: 50px">%
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">默认引流方：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="spread_scale1" placeholder="默认引流方" value="{$tem.spread_scale1}" id="spread_scale1" style="width: 50px">%
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">短信默认：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="default_verify" placeholder="短信默认验证码" value="{$tem.default_verify}" id="default_verify" >
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  class="submit btn btn-primary radius"  type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存修改</button>
+				<!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+				<button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				<button onClick="clearCache();" class="btn btn-default radius" type="button">&nbsp;&nbsp;清除缓存&nbsp;&nbsp;</button>
+				<input type="hidden" class="input-text" value="{$_GET['id']}" placeholder=""  name="b_id">
+			</div>
+		</div>
+	</form>
+</div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+		$(document).ready(function(){
+			var  content ;
+			KindEditor.ready(function(K) {
+				content = K.create('#content',{
+					allowFileManager : true,
+					uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+				});
+			});
+
+			KindEditor.ready(function(K) {
+				K.create();
+				var editor = K.editor({
+					allowFileManager : true,
+					uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+					//sdl:false
+				});
+				K('#uparea1').click(function() {
+					console.log(1);
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							imageUrl : K('#image_1').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								console.log(url);
+								$('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+								K('#image_1').val(url);
+								// K('#getImgUrl').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+
+			});
+
+			$(".submit").click(function(){
+				commonAjaxSubmit('','form');
+				return false;
+			});
+
+			$("#uparea1").mouseover(function(e){
+				$("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+				var img = $('#image_1').val();
+				if(img.length !== 0) {
+					$("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+					$("#big").show();        //show：显示
+				}
+			});
+			$("#uparea1").mouseout(function(){
+				$("#big").hide();
+			});
+
+
+			$('.skin-minimal input').iCheck({
+				checkboxClass: 'icheckbox-blue',
+				radioClass: 'iradio-blue',
+				increaseArea: '20%'
+			});
+		})
+
+	function clearCache() {
+		var url = "{:url('Config/clean_cache')}";
+		$.get(url,function(data){
+			if(data.status == 'ok'){
+                layer.msg('清除缓存成功！',{icon:1,time:1000});
+			}
+		},'json');
+    }
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->

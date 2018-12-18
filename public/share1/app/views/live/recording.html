@@ -1,0 +1,25 @@
+<div class="liveRoom_warp" id="videoBody">
+	<div class="liveRoom_app over_hidden">
+		<div class="p_a t0 l0 r0 b0">
+			<div class="p_r w_b100 h_b100">
+				<!-- 视频盒子 -->
+				<div class="w_b100 h_b100 over_hidden back_000">
+					<video id="vieoPlayer" controls="controls"  autoplay="autoplay" width="100%" height="100%" preload="auto" poster="" src="" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" class="IIV" style="object-fit: cover; border: 0px; background: rgb(0, 0, 0);"></video>
+					<!-- 封面图 -->
+					<div class="p_a t0 l0 w_b100 h_b100 p_r" id="playImgBox">
+						<img ng-src="{{recordingInfo.play_img}}" class="liveRoomPlayImg" style="" alt="">
+						<div class="play_icon w30 h30 p_a t_b50 l_b50"></div>
+					</div>
+				</div>
+				<div class="p_a t0 l0 w_b100 h_b100">
+					<!-- 底部功能区 -->
+					<div class="p_a b0 l0 w_b100">
+						<div class="box_end pl15 pr15 pb10">
+							<div class="liveRoom_close_icon w30 h30 ml20" ng-click="backFun()"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>		
+</div>

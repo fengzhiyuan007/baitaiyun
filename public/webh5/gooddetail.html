@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <!-- 清理缓存 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <title>商品详情</title>
+    <!--初始化样式表-->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css?v=1.0.6">
+    <!--公共样式表-->
+    <link rel="stylesheet" type="text/css" href="./css/style.css?v=1.0.6">
+    <!--主样式表-->
+    <link rel="stylesheet" type="text/css" href="./css/main.css?v=1.0.6">
+    <!-- 轮播图flexslider.css -->
+    <!--<link rel="stylesheet" href="./css/flexslider.css">-->
+    <!--rem单位js-->
+    <script type="text/javascript">
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if(clientWidth>=640){
+                        docEl.style.fontSize = '100px';
+                    }else{
+                        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+                    }
+                };
+            if(!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <!--jquery-->
+    <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+    <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+
+<div class="wrapper">
+    <!--数据加载中-->
+    <div id="loading" class="hide">
+        <div class="toast">
+            <div class="loading">
+                <i class=""></i>
+            </div>
+            <p class="">数据加载中</p>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="">
+
+        <div class="w_b100 box_center over_hidden">
+            <div ng-bind-html="goods_url_desc"></div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--angular-->
+<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-cookies.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-route.min.js"></script>
+<!--<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-touch.min.js"></script>-->
+<!--<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-animate.min.js"></script>-->
+
+<!-- 轮播图 flexslider.js -->
+<!--<script src="./js/jquery.flexslider-min.js"></script>-->
+<!--逻辑代码-->
+<!--<script src="../../js/router.js"></script>-->
+<script src="./js/goodetail.js"></script>
+</body>
+</html>

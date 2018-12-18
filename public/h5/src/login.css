@@ -1,0 +1,89 @@
+.sign-box-login{
+    transition: all linear 0.2s;
+    width: 540px;
+    min-height: 420px;
+    margin-left: -270px;
+    margin-top: -25%;
+    padding: 0px 50px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background: #fff;
+    max-height: 98%;
+}
+.tck-btn{
+    font-style: normal;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    float: right;
+    line-height: 60px;
+    font-size: 30px;
+    text-align: center;
+    cursor: default;
+    margin-right: -50px;
+    position: absolute;
+    right: 45px;
+    top:0;
+}
+.login-options-show-style{
+    border-bottom: 2px solid red;
+}
+.login-options-show{
+    height: 60px;
+    line-height: 60px;
+    border-bottom: 1px solid #e5e5e5;
+    font-size: 18px;
+}
+.login-options-show li{
+    display: inline-block;
+    margin-right: 20px;
+    line-height: 60px;
+    cursor: default;
+}
+.login-options-show_content{
+    margin-top: 50px;
+}
+.login-options-show_content ul{
+    display: none;
+}
+.login-options-show_content .login-options-show_content-show{
+    display: block;
+}
+.login-options-show_content li{
+    margin-bottom: 40px;
+}
+.login-options-show_content li label{
+    width: 96px;
+    text-align: right;
+    display: inline-block;
+    padding-right: 10px;
+}
+.login-options-show_content li input{
+    width: 300px;
+    height: 38px;
+    border: 1px solid #ebebeb;
+    padding-left: 10px;
+    background: #fbfbfb;
+}
+.login-options-show_content li a{
+    color: #999;
+}
+.login-options-show_content li button{
+    font-size: 16px;
+    width: 160px;
+    height: 42px;
+    background: #3f8fdf;
+    color: #fff;
+    border: 0px;
+}
+
+.loginBodyShow{
+    width: 100%;;
+    height:100%;
+    background: rgba(173, 173, 173, 0.45);
+    position: absolute;
+    left: 0;
+    top:0;
+    z-index: 10;
+}

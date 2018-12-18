@@ -1,0 +1,196 @@
+{:widget('public/breadcrumbs',[
+[
+['href'=>U('Home/news'),'text'=>'系统新闻'],
+]
+])}
+</if>
+<script type="text/javascript" src="__ROOT__/public/admin/layer/layer.js"></script>
+<script type="text/javascript" src="__ROOT__/public/admin/js/jquery-1.7.min.js"></script>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <form class="search" action="__SELF__" method="get">
+                <input name="m" value="{:MODULE_NAME}" hidden>
+                <input name="a" value="{:ACTION_NAME}" hidden>
+                <input name="c" value="{:CONTROLLER_NAME}" hidden>
+                <input type="text" name="content" value="{$_GET['title']}" id="title" placeholder="搜索消息" size="40" style="margin-right: 20px;">
+                <input type="submit"  class="btn" value="搜索">
+        <span style="float:right;padding-right:30px;padding-top:8px;padding-bottom:18px">
+        <a href="{:U('Home/add_news')}" style="text-decoration:none;color:#000000">
+            <span style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">添加文章</span>
+        </a>
+       </span>
+            </form>
+            <table width="100%" class="tab">
+                <thead>
+                <tr><td colspan="7" align="left">
+          <span style="float:left;padding-right:30px;padding-top:8px;padding-bottom:18px">
+        <a href="javascript:void(0);" style="text-decoration:none;color:#000000"><span onclick="del();" style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">删除</span></a>
+         </span>
+        <span style="float:left;padding-top:8px;">每页显示
+				<select id="nus" onchange="getnums();">
+                    <volist name="nums" id="l">
+                        <option value="{$l}" <if condition=" $l eq $nus ">selected<else/></if>>{$l}</option>
+                    </volist>
+                </select>
+		条</span>
+                </td>
+                </tr>
+                <tr>
+                    <td><a href="javascript:;" id="selall">全选</a></td>
+                    <td>主题</td>
+                    <td>生成地址</td>
+                    <td>操作</td>
+                    <td>创建时间</td>
+                    <td width="150">操作</td>
+                </tr>
+                </thead>
+                <volist name="list" id="vo">
+                    <tr align="center" id="{$vo.id}" onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';">
+                        <td><input type="checkbox" name="ids" id="ids"  value="{$vo.id}"/>
+                            <if condition="$_GET['p'] gt 0">
+                                {$key+1+($_GET['p']-1)*15}
+                                <else />
+                                {$key+1}
+                            </if>
+                        </td>
+                        <td>{$vo.title}</td>
+                        <td>
+                            <input  id="copy{$vo.id}" value="<php>echo C('IMG_PREFIX').'/mobile/index.html#/myNewsDetails?n='.$vo['id']</php>" style="border:0px" />
+                        </td>
+                        <td>
+                            <a href="javascript:void(0)" onclick="change_state({$vo.id},this)" <if condition="$vo['is_top'] eq 2">style="color:red"</if>>
+                            <php>
+                                $vo['is_top'] == '1' && print "默认状态";
+                                $vo['is_top'] == '2' && print "头条状态";
+                            </php></a>
+                        </td>
+                        <td>
+                            <php>
+                            !empty($vo['uptime']) ? print $vo['uptime'] : print $vo['intime'];
+                            </php>
+                        </td>
+                        <td width="200px;">
+                            [ <a href="{:U('Home/edit_news',array('id'=>$vo['id']))}">编辑 </a> ]
+                            [ <a href="javascript:;;" onclick="copy({$vo.id})">复制链接 </a> ]
+                            [ <a href="javascript:;" onclick="del({$vo.id})">删除 </a> ]
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+            {$page}
+        </div>
+    </div>
+</div>
+<script src="__ROOT__/assets/js/asyncbox/asyncbox.js"></script>
+<!--<script src="/assets/js/ZeroClipboard.js"></script>-->
+<script type="text/javascript">
+    $(function() {
+        $("#selall").toggle(function() {
+            $("input[name='ids']").each(function() {
+                $(this).attr("checked", true);
+            });
+        },function(){
+            $("input[name='ids']").each(function() {
+                $(this).attr("checked", false);
+            });
+        });
+
+    });
+
+    function del(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        if(!confirm('删除后无法恢复，确定删除？'))
+            return false;
+        $.post("{:U('Home/del_notice')}", {ids:kid}, function(data){
+            if( data.status == 'ok' ){
+                popup.success(data.info);
+                setTimeout(function(){
+                    popup.close("asyncbox_success");
+                },2000);
+                window.location.href = data.url;
+            }else{
+                popup.error(data.info);
+                setTimeout(function(){
+                    popup.close("asyncbox_error");
+                },2000);
+            }
+        },'json');
+    }
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+
+    function send_notice(id,v){
+        var url = $(v).attr('data-action');
+        var id = id;
+        $.post(url,{id:id},function(data){
+            console.log(data);
+            if( data.status == 'ok' ){
+                popup.success(data.info);
+                setTimeout(function(){
+                    popup.close("asyncbox_success");
+                },2000);
+                window.location.href = window.location.href;
+            }else{
+                popup.error(data.info);
+                setTimeout(function(){
+                    popup.close("asyncbox_error");
+                },2000);
+            }
+        },'json');
+        return false;
+    }
+
+    function change_istop(id,v){
+        var id = id;
+        $.post("{:U('Home/change_notice_top')}",{id:id},function(data){
+            if(data['status'] == 'ok'){
+                $(v).html(data['info']);
+            }else{
+                alert(data['info']);
+            }
+        },'json');
+        return false;
+    }
+
+    function change_state(id,v){
+        var id = id;
+        $.post("{:U('Home/change_notice_top')}",{id:id},function(data){
+            if(data['status'] == 'ok'){
+                $(v).html(data['info']);
+            }else{
+                alert(data['info']);
+            }
+        },'json');
+        return false;
+    }
+    function send(id,v){
+        var id = id;
+        $.post("{:U('Home/send_notice')}",{id:id},function(data){
+            if(data['status'] == 'ok'){
+                $(v).html(data['info']);
+            }else{
+                alert(data['info']);
+            }
+        },'json');
+        return false;
+    }
+
+    function copy(v)
+    {
+        var Url2=document.getElementById("copy"+v);
+        Url2.select(); // 选择对象
+        document.execCommand("Copy");  // 执行浏览器复制命令
+    }
+
+</script>

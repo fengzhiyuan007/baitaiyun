@@ -1,0 +1,249 @@
+body{
+    text-rendering: optimizelegibility;
+    -webkit-font-smoothing: antialiased;
+}
+.loader {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 200;
+    /*display: inline-block;*/
+    padding: 0px;
+    border-radius: 100%;
+    border: 5px dashed;
+    display: none;
+    border-top-color: rgba(254, 168, 23, 0.65);
+    border-bottom-color: rgba(57, 154, 219, 0.65);
+    border-left-color: rgba(188, 84, 93, 0.95);
+    border-right-color: rgba(137, 188, 79, 0.95);
+    -webkit-animation: loader2 2s ease-in-out infinite alternate;
+    animation: loader2 2s ease-in-out infinite alternate;
+}
+@keyframes loader2 {
+    from {transform: rotate(0deg);}
+    to {transform: rotate(720deg);}
+}
+@-webkit-keyframes loader2 {
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(720deg);}
+}
+
+.loader_mask{
+    height: 100%;width: 100%;background: #0f0f0f;opacity: 0.5;position: absolute;top: 0;
+    left: 0;z-index:100;display: none;
+}
+.loader{position: absolute;}
+
+.percent-row{margin-bottom: 10px;}
+.percent-row-normal
+{
+    background: skyblue;
+    width: 100%;
+    z-index:10
+}
+.percent-row-emphasis
+{
+    background: #0db1f5;
+    width: 60%;
+    z-index:20
+}
+.percent-row-emphasis,
+.percent-row-normal
+{
+    position: absolute;
+    height: 6px;
+    border-radius: 10px;
+    top: 9px;
+}
+
+/**pagination**/
+
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{
+    z-index: 2;
+}
+.pagination>li>a, .pagination>li>span{
+    z-index: 2;
+}
+/*.ui-pagination {*/
+    /*width: 100%;*/
+    /*text-align: right;*/
+/*}*/
+/*.ui-pagination-container {*/
+    /*display: inline-block;*/
+    /**display: inline;*/
+    /*zoom:1;*/
+    /*padding-left: 0;*/
+    /*margin: 20px auto;*/
+    /*border-radius: 4px;*/
+    /*min-width: 28%;*/
+/*}*/
+/*.ui-pagination-container>li {*/
+    /*display: inline*/
+/*}*/
+/*.ui-pagination-container>li>a,.ui-pagination-container>li>span {*/
+    /*position: relative;*/
+    /*float: left;*/
+    /*padding: 8px 14px;*/
+    /*line-height: 1.42857;*/
+    /*text-decoration: none;*/
+    /*color: #333;*/
+    /*background-color: #f6f6f6;*/
+    /*border: 1px solid #f6f6f6;*/
+    /*margin-left: -1px;*/
+    /*font-size: 12px;*/
+/*}*/
+/*.ui-pagination-container>li>a {*/
+    /*cursor: pointer*/
+/*}*/
+/*.ui-pagination-container>li>a,.ui-pagination-container>li>span {*/
+    /*margin-left: 10px*/
+/*}*/
+/*.ui-pagination-container>li:first-child>a,.ui-pagination-container>li:first-child>span {*/
+    /*margin-left: 0;*/
+    /*border-bottom-left-radius: 2px;*/
+    /*border-top-left-radius: 2px*/
+/*}*/
+/*.ui-pagination-container>li:last-child>a,.ui-pagination-container>li:last-child>span {*/
+    /*border-bottom-right-radius: 2px;*/
+    /*border-top-right-radius: 2px*/
+/*}*/
+/*.ui-pagination-container>li>a:hover,.ui-pagination-container>li>a:focus,.ui-pagination-container>li>span:hover,.ui-pagination-container>li>span:focus {*/
+    /*color: #fff;*/
+    /*background-color: #20aa73;*/
+    /*border-color: #20aa73;*/
+/*}*/
+/*.ui-pagination-container>.active>a,.ui-pagination-container>.active>a:hover,.ui-pagination-container>.active>a:focus,.ui-pagination-container>.active>span,.pagination>.active>span:hover,.ui-pagination-container>.active>span:focus {*/
+    /*z-index: 3;*/
+    /*color: #fff;*/
+    /*background-color: #20aa73;*/
+    /*border-color: #20aa73;*/
+    /*cursor: default*/
+/*}*/
+/*.ui-pagination-container>.disabled>span,.ui-pagination-container>.disabled>span:hover,.ui-pagination-container>.disabled>span:focus,.ui-pagination-container>.disabled>a,.ui-pagination-container>.disabled>a:hover,.ui-pagination-container>.disabled>a:focus {*/
+    /*color: #999;*/
+    /*background-color: #f6f6f6;*/
+    /*border-color: #f6f6f6;*/
+    /*pointer-events: none;*/
+    /*cursor: not-allowed;*/
+/*}*/
+.input-group-btn>.btn:active, .input-group-btn>.btn:focus, .input-group-btn>.btn:hover{
+    z-index: 3;
+}
+
+a{text-decoration: none}
+a:hover{text-decoration: underline}
+a:focus{text-decoration: none}
+a:visited{text-decoration: none}
+/*右边栏*/
+#right-nav{
+    width:40px;
+    height: 100%;
+    position: fixed;
+    top:0;
+    right:0;
+    z-index: 20;
+    /*border-right: 5px solid  #7A6E6E;*/
+}
+#right-nav .w{
+    position: fixed;
+    bottom:22px;
+    right:0;
+    width:40px;
+    height: 76%;
+}
+#right-nav-list1{
+    position: relative;
+    right: 10px;
+    top: 0;
+    z-index: 20;
+}
+#right-nav-list2{
+    position: fixed;
+    right: 10px;
+    bottom: 0;
+    z-index: 20;
+}
+#right-nav li{
+    position: relative;
+    left: 0;
+    top: 0;
+    height: 34px;
+    width: 40px;
+    margin-bottom: 1px;
+    cursor: pointer;
+}
+#right-nav li a{
+    width: 100%;
+    height: 100%;
+    display: block;
+    text-align: center;
+    background: #7A6E6E;
+    padding: 7px;
+    box-sizing: border-box;
+    border-radius: 3px;
+    transition: all linear 150ms;
+}
+#right-nav li div{
+    position: absolute;
+    left: -20px;
+    top: 0;
+    z-index: -1;
+    font-size: 12px;
+    background: #df3232;
+    color: #fff;
+    height: 34px;
+    width: 60px;
+    line-height: 31px;
+    text-align: center;
+    border-radius: 3px;
+    transition: all linear 150ms;
+    visibility: hidden;
+}
+#right-nav li:hover,#right-nav li:hover a{
+    background-color: #df3232;
+}
+#right-nav li:hover div{
+    left:-58px;
+    visibility: visible;
+}
+/*右边栏结束*/
+
+/*飘红*/
+high{color: red}
+.container{padding:0px}
+
+
+
+.right_menu_loader {
+    width: 40px;
+    height: 40px;
+    margin: 0 auto;
+    z-index: 200;
+    /*display: inline-block;*/
+    border-radius: 100%;
+    border: 5px dashed;
+    display: block;
+    border-top-color: rgba(254, 168, 23, 0.65);
+    border-bottom-color: rgba(57, 154, 219, 0.65);
+    border-left-color: rgba(188, 84, 93, 0.95);
+    border-right-color: rgba(137, 188, 79, 0.95);
+    -webkit-animation: loader2 2s ease-in-out infinite alternate;
+    animation: loader2 2s ease-in-out infinite alternate;
+}
+#relResult .empty{
+    font-size: 18px;
+    margin: 20px auto;
+    text-align: center;
+}
+#rel_content{
+    max-height: 80%;
+    overflow: auto;
+}
+
+.search_group #search_form #do_search_btn{
+    cursor: pointer;
+}
+.search_group #search_form #do_search_btn:hover{
+    color: #999999;
+}

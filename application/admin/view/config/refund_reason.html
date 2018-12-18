@@ -1,0 +1,152 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>'','text'=>'退换货原因']
+]
+])}
+<div class="page-container">
+	<div class="text-l">
+		<form class="search"  method="get">
+			<!--<input type="text" class="input-text" style="width:250px" placeholder="搜索礼物名称" value="{$_GET['name']}" name="name">-->
+			<!--<button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜商品</button>-->
+			<div style="padding-bottom:20px;">
+				<span style="float:right;padding:0px 10px 10px 0" >
+					<a href="{:url('Config/add_refund_reason')}"   class=" btn btn-primary radius" >
+						<i class="Hui-iconfont">&#xe600;</i>添加
+					</a>
+				</span>
+			</div>
+		</form>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+		</span>
+		<span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-bg table-hover table-sort">
+			<thead>
+			<tr class="text-c">
+				<th width="50"><input type="checkbox" name="" value=""></th>
+				<th width="200">原因</th>
+				<th width="200">排序</th>
+				<th width="120">创建时间</th>
+				<th width="120">操作</th>
+			</tr>
+			</thead>
+			<tbody>
+			{volist name="list" id="vo"}
+				<tr class="text-c">
+					<td><input type="checkbox" value="{$vo.refund_reason_id}" name="checkbox"></td>
+					<td>{$vo.reason_name}</td>
+					<td>
+						<a href="javascript:void(0)" onclick="plus({$vo['refund_reason_id']})" title="上移">
+							<i class="Hui-iconfont">&#xe679;</i>
+						</a>
+						<a href="javascript:void(0)" onclick="minus({$vo['refund_reason_id']})" title="下移">
+							<i class="Hui-iconfont">&#xe674</i>
+						</a>
+					</td>
+					<td>{$vo.create_time}</td>
+					<td class="td-manage">
+						<a title="编辑" href="{:url('Config/edit_refund_reason',array('id'=>$vo.refund_reason_id))}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:;" onclick="del(this,'{$vo.refund_reason_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					</td>
+				</tr>
+			{/volist}
+			</tbody>
+		</table>
+		{$page}
+	</div>
+</div>
+<script type="text/javascript">
+/*	$(document).ready(function(){
+		$('.table-sort').dataTable({
+			"aaSorting": [[ 1, "desc" ]],//默认第几个排序
+			"bStateSave": true,//状态保存
+			"aoColumnDefs": [
+				{"orderable":false,"aTargets":[0,7]}// 制定列不参与排序
+			]
+		});
+	});*/
+
+function plus(v){
+    $.post("{:url('Config/plus_refund_sort')}",{id:v},function(data){
+        if(data['status'] == 'ok'){
+            layer.msg(data.data,{icon:1,time:2000})
+            window.location.href = window.location.href;
+        }else{
+            layer.msg(data.data,{icon:5,time:2000})
+        }
+    },'json');
+}
+
+function minus(v){
+    $.post("{:url('Config/minus_refund_sort')}",{id:v},function(data){
+        if(data['status'] == 'ok'){
+            layer.msg(data.data,{icon:1,time:2000})
+            window.location.href = window.location.href;
+        }else{
+            layer.msg(data.data,{icon:5,time:2000})
+        }
+    },'json');
+}
+
+	function getChecked() {
+		var gids = new Array();
+		$.each($('input[name="checkbox"]:checked'), function(i, n){
+			gids.push( $(n).val() );
+		});
+		return gids;
+	}
+	function datadel(kid){
+		kid = kid ? kid : getChecked();
+		kid = kid.toString();
+		if(kid == ''){
+			layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+			return false;
+		}
+		layer.confirm('确认要删除吗？',function(index){
+			$.post("{:url('Config/del_refund_reason')}", {ids:kid}, function(data){
+				if( data.status == 'ok' ){
+					layer.msg(data.info,{icon:1,time:1000});
+					window.location.href = data.url;
+				}else{
+					layer.msg(data.info,{icon:1,time:1000});
+				}
+			},'json');
+		})
+	}
+	/*用户-添加*/
+	function member_add(title,url,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*用户-查看*/
+	function member_show(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+
+	/*用户-编辑*/
+	function member_edit(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*密码-修改*/
+	function change_password(title,url,id,w,h){
+		layer_show(title,url,w,h);
+	}
+	/*用户-删除*/
+function del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.post("{:url('Config/del_refund_reason')}", {ids:id}, function(data){
+			if( data.status == 'ok' ){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			}else{
+				layer.msg(data.info,{icon:5,time:1000});
+			}
+		},'json');
+	});
+}
+
+</script>

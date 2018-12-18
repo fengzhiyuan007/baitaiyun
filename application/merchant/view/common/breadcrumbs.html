@@ -1,0 +1,9 @@
+<nav class="breadcrumb">
+	<i class="Hui-iconfont">&#xe67f;</i><a href="{:url('Index/index')}"> 网站首页</a>
+	{foreach item="v" name="action"}
+			<span class="c-gray en">&gt;</span><a href="{$v['href']}">{$v['text']}</a>
+	{/foreach}
+	<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" >
+		<i class="Hui-iconfont">&#xe68f;</i>
+	</a>
+</nav>

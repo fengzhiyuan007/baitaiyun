@@ -1,0 +1,121 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Index/withdraw'),'text'=>'提现记录'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <form class="search"  method="get">
+            <span class="select-box" style="width:150px">
+            <select name="order_state"  class="select select-box inlin" id="state" style="width:120px">
+                <option value="">请选择类型</option>
+                <option value="1" {if condition="$Request.get.type eq '1'"}selected{/if}>钻石提现</option>
+                <option value="2" {if condition="$Request.get.type eq '2'"}selected{/if}>余额提现</option>
+            </select>
+            </span>
+            <input type="text" class="input-text "  id="start_time" style="width:180px" name="start_time" value="{php}echo urldecode(input('start_time')){/php}"  placeholder="开始时间" readonly>
+            <input type="text" class="input-text "  id="end_time" style="width:180px" name="end_time" value="{php}echo urldecode(input('end_time')){/php}"  placeholder="结束时间" readonly>
+            <button type="submit" class="btn btn-success radius"  name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+            <div style="float: right">
+                提现总金额
+                <a href="javascript:void(0)">{$sum|default='0'} ￥</a>
+            </div>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="60">提现余额(钻石)</th>
+                <th width="60">提现类型</th>
+                <th width="60">获得金额</th>
+                <th width="70">提现账户</th>
+                <th width="70">账户类型</th>
+                <th width="70">真实姓名</th>
+                <th width="70">状态</th>
+                <th width="100">申请时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+                <tr class="text-c">
+                    <td>{$vo.k|default='0'}</td>
+                    <td>
+                        {switch name="$vo.type"}
+                        {case value="1"}钻石提现{/case}
+                        {case value="2"}余额提现{/case}
+                        {/switch}
+                    </td>
+                    <td>{$vo.money|default ='0'}</td>
+                    <td>{$vo.withdraw_way}</td>
+                    <td>{$vo.withdraw_type}</td>
+                    <td>{$vo.relname}</td>
+                    <td>
+                        {switch name="$vo.status"}
+                        {case value="1"}申请中{/case}
+                        {case value="2"}驳回{/case}
+                        {case value="2"}返现{/case}
+                        {/switch}
+                    </td>
+                    <td>{$vo.intime|date='Y-m-d H:i',###}</td>
+                </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <div style="text-align: center">
+            {$page}
+        </div>
+    <div id="made"  class="hide">
+        <img style="width:100%" id="zhubo" src="">
+    </div>
+</div>
+<script src="/static/admin/js/layer/layer.js"></script>
+<script type="text/javascript" src="/static/layui/lay/dest/layui.all.js"></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        var start = {
+            elem: '#start_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#start_time").attr("value",datas);
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#end_time").attr("value",datas);
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        document.getElementById('start_time').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        }
+        document.getElementById('end_time').onclick = function(){
+            end.elem = this
+            laydate(end);
+        }
+    });
+</script>

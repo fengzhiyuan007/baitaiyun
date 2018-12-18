@@ -1,0 +1,54 @@
+
+<div class="mainbox clearfix bg-f5 pad-b70">
+  <!--面包屑-->
+  <div class="mbx-navbox">
+    <div class="mbx-nav">
+       <div class="mbx-nav-l"><a href="#/">首页</a><a href="javascript:;">排行榜</a></div>
+    </div>
+  </div>
+  <!---->
+  <div class="box fenlei2 clearfix">
+     <ul>
+       <li><label>榜单</label><p><span><a href="#/hotshop">热卖榜</a></span><span><a href="#/hotdp">人气店铺</a></span><span class="act"><a href="#/hotjj">降价榜</a></span><span><a href="#/hotzk">折扣榜</a></span><span><a href="#/hothd">热门活动榜</a></span></p></li>
+       <li><label>分类</label><p><span class="act" ng-click="hotjj('',1)" tab>全部</span><span ng-click="hotjj(hjj.goods_uuid,1)" ng-repeat="hjj in hotjjsort" tab>{{hjj.goods_name}}</span></p></li>
+     </ul>
+  </div>
+  <div class="box loading-box">
+    <div class="loading" ng-if="loading==1||loading==2">
+       <div class="loader">
+         <div class="loader-inner line-spin-fade-loader">
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+         </div>
+       </div>
+       <span ng-if="loading==1">加载中...</span>
+       <span ng-if="loading==2" class="red">请求超时...</span>
+     </div>
+  </div>
+  <div class="cnxh-listbox mar-t40 clearfix bangdan-hot">
+     <div class="sj-r-list" ng-class="{act:nowpageNum==1}" ng-repeat="shop in hotjjs">
+        <ul>
+          <li class="sj-l-1of5"><a target="_blank" href="index.html#/shop?shopid={{shop.goods_id}}"><img lazy-src="{{shop.goods_img!=''?shop.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+          <li class="sj-l-2of5">￥{{shop.goods_pc_price}}<span ng-if="shop.goods_origin_price!=0">￥{{shop.goods_origin_price}}</span></li>
+          <li class="sj-l-3of5">{{shop.goods_name}}</li>
+          <li class="sj-l-4of5"><span ng-if="shop.is_directly==1">自营</span><span ng-if="shop.brand_name!=''">{{shop.brand_name}}</span><span ng-if="(shop.price_cut)>0">直降&nbsp;{{shop.price_cut | number :2}}</span></li>
+          <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{shop.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{shop.year_sales}}</a></span></li>
+        </ul>
+     </div>
+  </div>
+  <div class="box">
+    <!--分页-->
+    <div class="page-box" ng-if="pageNum>1">
+      <a href="javascript:;" ng-click="pageclick(nowpageNum-1)">上一页</a>
+      <span ng-repeat="page in pageboxs" ng-click="pageclick(page)" ng-class="{act:page==nowpageNum}">{{page}}</span>
+      <a class="act" href="javascript:;" ng-click="pageclick(nowpageNum*1+1)">下一页</a>
+      跳到<input type="number" ng-model="nowpageNum2" width="20px;">/{{pageNum}}页<button ng-click="pageclick(nowpageNum2)">确定</button>
+    </div>
+  </div>
+</div>

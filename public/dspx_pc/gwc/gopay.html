@@ -1,0 +1,74 @@
+<link rel="stylesheet" type="text/css" href="../src/banklist.css" />
+<div class="mainbox pad-b100 bg-f5">
+  <div class="box">
+    <div class="success-message">
+      <ul>
+        <li class="red">订单提交成功，还差一步就能买到心爱的商品，快快支付吧~</li>
+        <li>请在<span class="red">1小时内</span>支付,否则系统将自动取消你的订单</li>
+        <li>待支付：￥{{paynum}}</li>
+      </ul>
+    </div>
+    <div class="paylist-box">
+      <!--<div class="banklist-box">-->
+        <!--<span class="banksel act" val='kj' payshow></span>-->
+        <!--<div class="select-bank">-->
+           <!--<b selectbank></b>-->
+           <!--<p><span title="{{bank.bank_name}}"><span class="bank-logo" i2d="bank-{{bank.bank_pinyin==''?1:bank.bank_pinyin}}"></span></span>储蓄卡（2014）<em>快捷</em> </p>-->
+           <!--<ul hidden>-->
+             <!--<li><span title="{{bank.bank_name}}"><span class="bank-logo" i2d="bank-{{bank.bank_pinyin==''?1:bank.bank_pinyin}}"></span></span>储蓄卡（2014）<em>快捷</em> </li>-->
+             <!--<li><span title="{{bank.bank_name}}"><span class="bank-logo" i2d="bank-{{bank.bank_pinyin==''?1:bank.bank_pinyin}}"></span></span>储蓄卡（2014）<em>快捷</em> </li>-->
+             <!--<li><span title="{{bank.bank_name}}"><span class="bank-logo" i2d="bank-{{bank.bank_pinyin==''?1:bank.bank_pinyin}}"></span></span>储蓄卡（2014）<em>快捷</em> </li>-->
+           <!--</ul>-->
+       <!--</div>-->
+      <!--</div>-->
+      <div class="select-pay">
+        <!-- <div class="tab-tit clearfix"><span ng-if="yeopen.percent_value=='true'" val='ye' payshow>余额支付</span><span ng-if="xyopen.percent_value=='true'" val='xy' payshow>信用支付</span><span val='yhk' payshow>银行卡</span><span val='dsf' payshow>第三方支付</span></div> -->
+        <div class="tab-tit clearfix">
+          <ul>
+            <li ng-if="yeopen.percent_value=='true'" val='ye' payshow>余额支付<i tips tip="<a target='_blank' href='core.html#/rule?act=1&tit=余额支付规则'>余额支付规则</a>"></i></li>
+            <li ng-if="xyopen.percent_value=='true'" val='xy' payshow>信用支付<i tips tip="<a target='_blank' href='core.html#rule?act=2&tit=信用支付规则'>信用支付规则</a>"></i></li>
+            <li val='yhk' payshow>银行卡<i tips tip="<a target='_blank' href='core.html#rule?act=3&tit=银联快捷支付规则'>银联快捷支付规则</a>"></i></li>
+            <li val='dsf' payshow>第三方支付<i tips tip="提交订单之后，使用微信或支付宝扫描二维码完成支付"></i></li>
+          </ul>
+          <div class="pay-tips" tipshover hidden></div>
+        </div>
+        <div class="tab-center-box">
+          <div class="kj"><!--快捷支付-->
+            <button ng-click="pay(orderids)">前往支付</button>
+          </div>
+          <div class="ye" hidden><!--余额支付-->
+            <ul>
+              <li><label>账户余额：</label>￥{{grxx_centers.balance}}<span ng-if="grxx_centers.balance*1<1*paynum" class="red mar-l10">账户余额不足</span></li>
+              <li><label>手机号码：</label>{{grxx_centers.member_account}}</li>
+              <li ng-if="grxx_centers.balance*1>1*paynum"><label>支付密码：</label><input type="password" id="yepwd" ng-model="yepwd"><a class="red mar-l10" href="core.html#/aqsz">忘记密码</a></li>
+              <li ng-if="grxx_centers.balance*1>1*paynum"><label>验证码：</label><input type="text" id="yecode" ng-model="yecode"><input type="button" id="btnSendCode1" ng-click="sendMessage1(grxx_centers.member_account)" value="获取验证码"/></li>
+            </ul>
+            <button ng-if="grxx_centers.balance*1>1*paynum" ng-click="balancePay(orderids)">前往支付</button>
+          </div>
+          <div class="xy" hidden><!--信用额支付-->
+            <ul>
+              <li><label>账户余额：</label>￥{{grxx_centers.trust_balance}}<span ng-if="grxx_centers.trust_balance*1<1*paynum" class="red mar-l10">账户余额不足</span></li>
+              <li><label>手机号码：</label>{{grxx_centers.member_account}}</li>
+              <li ng-if="grxx_centers.balance*1>1*paynum" ><label>支付密码：</label><input id="xypwd" ng-model="xypwd" type="password"><a class="red mar-l10" href="core.html#/aqsz">忘记密码</a></li>
+              <li ng-if="grxx_centers.balance*1>1*paynum" ><label>验证码：</label><input id="xycode" type="text" ng-model="xycode"><input type="button" id="btnSendCode2" ng-click="sendMessage2(grxx_centers.member_account)" value="获取验证码"/></li>
+            </ul>
+            <button ng-if="grxx_centers.balance*1>1*paynum" ng-click="trustPay(orderids)">前往支付</button>
+          </div>
+          <div class="yhk" hidden><!--快捷支付-->
+            <a href="#/kjbank"><button>前往支付</button></a>
+          </div>
+          <div class="dsf" hidden><!--第三方支付-->
+            <span ng-click="_payfs='wx_pub_qr'" tab><img src="images/wxpay2.png"></span><span ng-click="_payfs='alipay_pc_direct'" tab><img src="images/alpay.png"></span>
+            <!-- <button ng-click="pingpay(orderids,'alipay_pc_direct')">前往支付</button> -->
+            <button ng-click="pingpay(orderids,_payfs)">前往支付</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

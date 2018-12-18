@@ -1,0 +1,180 @@
+{:W('public/breadcrumbs',[
+    [
+        ['href'=>U('Config/index'),'text'=>'基础设置'],
+        ['href'=>'javascript:;','text'=>'热词设置']
+    ]
+])}
+</if>
+<script type="text/javascript" src="__ROOT__/public/admin/js/jquery-1.7.min.js"></script>
+<script type="text/javascript" src="__ROOT__/public/admin/layer/layer.js"></script>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <form class="search" action="__SELF__" method="get">
+                <input name="m" value="{:MODULE_NAME}" hidden>
+                <input name="c" value="{:CONTROLLER_NAME}" hidden>
+                <input name="a" value="{:ACTION_NAME}" hidden>
+                热词类型：<select name="type" id="type">
+                <option value="">请选择</option>
+                <option value="1" <if condition=" $_GET['type'] eq 1 ">selected<else/></if>>网红</option>
+                <option value="4" <if condition=" $_GET['type'] eq 4 ">selected<else/></if>>商城</option>
+                <option value="5" <if condition=" $_GET['type'] eq 5 ">selected<else/></if>>众筹</option>
+                <option value="6" <if condition=" $_GET['type'] eq 6 ">selected<else/></if>>VR</option>
+                <option value="7" <if condition=" $_GET['type'] eq 7 ">selected<else/></if>>活动</option>
+            </select>&nbsp;
+                <input type="text" name="name" value="{$_GET['name']}" id="nickname" placeholder="搜索热词" size="40" style="margin:0 20px 0 20px;">
+                <input type="submit"  class="btn" value="搜索">
+                
+                <span style="float:right;padding-right:30px;padding-top:10px">
+		           <a href="{:U('Config/add_hot_word')}"  style="text-decoration:none;color:#000000">
+                       <span style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">添加搜索热词</span>
+                   </a>
+		        </span>
+            </form>
+
+            <table width="100%" class="tab" style="margin-top:10px;">
+                <thead>
+                <tr><td colspan="8" align="left">
+                <span style="float:left;padding-right:30px;padding-top:8px;padding-bottom:18px">
+	              <a href="javascript:void(0);" style="text-decoration:none;color:#000000">
+                      <span onclick="del();" style="padding:10px 10px 10px 10px;background-color:#DDDDDD;">删除</span></a>
+	            </span>
+                <span style="float:left;padding-top:8px;">每页显示
+				<select id="nus" onchange="getnums();">
+				  <volist name="nums" id="l">
+				     <option value="{$l}" <if condition=" $l eq $nus ">selected<else/></if>>{$l}</option>
+				  </volist>
+				</select>
+				条</span>
+				</td></td>
+                </tr>
+                    <tr>
+                        <td><a href="javascript:;" id="selall">全选</a></td>
+                        <td>搜索热词</td>
+                        <td>类型</td>
+                        <td>默认状态</td>
+                        <td>添加时间</td>
+                        <td width="190">操作</td>
+                    </tr>
+                </thead>
+                <volist name="list" id="vo">
+                    <tr align="center" onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';">
+                        <td align="center"><input type="checkbox" name="ids" id="ids"  value="{$vo.user_id}"/>
+                            <if condition="$_GET['p'] gt 0">
+                                {$key+1+($_GET['p']-1)*15}
+                            <else />
+                                {$key+1}
+                            </if>
+                        </td>
+                        <td>{$vo.name}</td>
+                        <td>热词场景---<php>
+                            switch($vo['type']){
+                                case 1:
+                                    echo "网红";
+                                    break;
+                                case 4:
+                                    echo "商城";
+                                    break;
+                                case 5:
+                                    echo "众筹";
+                                    break;
+                                case 6:
+                                    echo "VR";
+                                    break;
+                                case 7:
+                                    echo "活动";
+                                    break;
+                            }
+                        </php></td>
+                        <td><a href="javascript:void(0)" onclick="change_state({$vo.hot_word_id},this)">
+                            <php>if($vo['state']==1)echo"默认";else echo"普通";</php></a></td>
+                        <td>{$vo.intime|date="Y-m-d H:i",###}</td>
+                        <td>
+                            [ <a href="{:U('Config/edit_hot_word',array('id'=>$vo['hot_word_id'], 'str'=>CONTROLLER_NAME.'/'.ACTION_NAME))}">编辑</a> ]
+                            <!--[ <a href="{:U('User/view',array('uid'=>$vo['user_id'],'type'=>1, 'str'=>CONTROLLER_NAME.'/'.ACTION_NAME))}">详情</a> ]-->
+                            [ <a href="javascript:;"  onclick="del({$vo.hot_word_id});">删除</a> ]
+
+                        </td>
+                    </tr>
+                </volist>
+                <!--<tr><td colspan="7" align="right">{$page}</td></td></tr>-->
+            </table>
+            {$page}
+        </div>
+    </div>
+</div>
+<!--<script src="__ROOT__/public/admin/js/common.js"></script>-->
+<script type="text/javascript">   
+$(function() {   
+$("#selall").toggle(function() {
+     $("input[name='ids']").each(function() {   
+     $(this).attr("checked", true); 
+     });
+},function(){
+	 $("input[name='ids']").each(function() {   
+     $(this).attr("checked", false); 
+     }); 
+});
+
+});
+
+function del(kid){
+	
+kid = kid ? kid : getChecked();
+kid = kid.toString();
+if(kid == ''){
+	layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+	return false;
+}
+if(!confirm('确定要删除该记录？'))
+	return false;
+$.post("{:U('del_hot_words')}", {ids:kid}, function(data){
+	if( data['status'] == 'ok' ){
+        alert(data.info);
+		window.location.href = data.url;
+	}else{
+        alert(data.info);
+	}
+},'json');
+    return false;
+} 
+function getChecked() {
+var gids = new Array();
+$.each($('input:checked'), function(i, n){
+	gids.push( $(n).val() );
+});
+return gids;
+}
+
+function xiazai(){
+	   var nickname=$("#nickname").val();
+	   var download = 'download';
+	   window.location.href="__URL__/index?act="+download+"&nickname="+nickname;
+}
+function getnums(){
+	var nickname=$("#nickname").val();
+	var num = $("#nus").val();
+	window.location.href="{:U('User/index')}&num="+num+"&nickname="+nickname;
+}
+
+//$('.check_auth').click(function(){
+//    var url = $(this).attr('data-action');
+//    console.log(url+'&chek=1');
+//    $.get(url+'&chek=1',function(data){
+//
+//    })
+//})
+    function change_state(id,v){
+        var id = id;
+        console.log(id);
+        $.post("{:U('Config/change_word_state')}",{id:id},function(data){
+            console.log(data);
+            if(data['status'] == 'ok'){
+                window.location.href=window.location.href;
+            }else{
+                alert(data['info']);
+            }
+        },'json');
+        return false;
+    }
+</script>

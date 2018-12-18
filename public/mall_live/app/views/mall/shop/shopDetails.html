@@ -1,0 +1,170 @@
+<div class="liveRoom_warp">
+	<div class="liveRoom_app box_direction over_hidden">
+		<div class="h120 w_b100 p_r">
+			<div class="p_a w_b100 h_b100 z100 box_direction">
+				<div class="h45 w_b100 box_between pl10 pr10">
+					<div class="left_white_icon w22 h28" ng-click="backFun()"></div>
+					<div class="grid_cell ml20 borCol_fff_b box_start">
+						<div class="w22 h22 search_white_icon"></div>
+						<a href="#/searchGoods?merchants_id={{shopDetailsInfo.member_id}}" class="grid_cell box_start col_fff f12 col_fff">输入您要搜索的商品名称</a>
+					</div>
+					<a href="#/shoppingCart?cartType=2" class="cart_white_icon show w22 h22 ml20 mr20"></a>
+					<div class="info_white_icon w22 h22" ng-click="rightTopBtnClick(rightTopBtnState)"></div>
+				</div>
+				<div class="box_between grid_cell pl15 pr15">
+					<div class="box_start w_b75">
+						<div class="w50 h50">
+							<img ng-src="{{shopDetailsInfo.merchants_img}}" alt="">
+						</div>
+						<div class="ml10 w_b70 col_fff">
+							<div class="f14 wbyc w_b100" ng-bind="shopDetailsInfo.merchants_name"></div>
+							<div class="f12 box_start h20 wbyc w_b100" ng-bind="shopDetailsInfo.merchants_content"></div>
+						</div>
+					</div>
+					<div ng-hide="shopDetailsInfo.is_follow == 3" class="borCol_red f12 br15 box_center h25 col_red pl10 pr10" ng-click="followClick(shopDetailsInfo.is_follow)" ng-bind="shopDetailsInfo.is_follow ==1?'取消关注': '关注'"></div>
+				</div>
+			</div>
+			<img src="app/images/wode_beijin@2x.png" alt="">
+		</div>
+		<!-- tab -->
+		<div class="box_between back_fff h45 f14 col_999 bor_b over_x">
+			<div class="grid_cell box_center ">
+				<span class="box_center h42 pl10 pr10" ng-class="{nav_act:shopTabType==1,col_red:shopTabType==1}" ng-click="shopTabClick(1)">全部商品</span>
+			</div>
+			<div class="grid_cell box_center ml10 mr10">
+				<span class="box_center h42 pl10 pr10" ng-class="{nav_act:shopTabType==2,col_red:shopTabType==2}" ng-click="shopTabClick(2)">直播&回放</span>
+			</div>
+			<div class="grid_cell box_center ml10 mr10">
+				<span class="box_center h42 pl10 pr10" ng-class="{nav_act:shopTabType==3,col_red:shopTabType==3}" ng-click="shopTabClick(3)">导购视频</span>
+			</div>
+		</div>
+		<div id="shop_body" class="grid_cell p_r">
+			<section id="shop_touchBox" class="liveRoom_touch p_a t0 l0 b0 w_b100">
+				<div id="shop_docBox">
+					<!-- 商品列表 -->
+					<div class="" ng-show="shopTabType==1">
+						<div class="box_start flex_wrap p5 pb40 ">
+							<!--列表项-->
+							<div class="w_b50 p5" ng-repeat="m in shopAllGoods track by $index" repeat-finish="setGoodsListImgH('.goodsListImgBox')">
+								<a href="#/goodsDetails?goods_id={{m.goods_id}}" class="show">
+									<div class="w_b100 goodsListImgBox">
+										<img ng-src="{{m.goods_img}}" alt="">
+									</div>
+									<div class="back_fff p5">
+										<div class="wbyc2 f12 h30 lh15" ng-bind="m.goods_name"></div>
+										<div class="pt5">
+											<span class="col_red f12">现价：¥<em class="f14" ng-bind="m.goods_now_price"></em></span>
+											<span class="scx col_999 ml10">¥<em ng-bind="m.goods_origin_price"></em></span>
+										</div>
+									</div>
+								</a>
+							</div>
+						</div>
+					</div>
+					<!-- 直播&回放 -->
+					<div class="" ng-show="shopTabType==2">
+						<!-- 正在直播 -->
+						<a href="#/liveRoom_mobile?live_id={{merchantsLiveInfo.live_id}}&room_id={{merchantsLiveInfo.room_id}}" class="back_fff box_start h120 pl10 pr10" ng-show="merchantsLiveInfo.live_id">
+							<div class="w100 h100 p_r">
+								<img class="br5" ng-src="{{merchantsLiveInfo.play_img}}" alt="">
+								<div class="p_a t0 l0 r0 b0 backRgba_black_5 br5 box_center">
+									<div class="play_icon w30 h30"></div>
+								</div>
+							</div>
+							<div class="ml10 grid_cell h100">
+								<div class="h35">
+									<div class="wbyc2 f12" ng-bind="merchantsLiveInfo.title"></div>
+								</div>
+								<div class="h50">
+									<div class="wbyc3 f10 col_999" ng-bind="merchantsLiveInfo.lebel"></div>
+								</div>
+								<div class="box_between f10">
+									<div class="box_start col_red">状态：<span>正在直播</span></div>
+									<div class="box_end col_999">在线人数：<span ng-bind="merchantsLiveInfo.watch_nums"></span></div>
+								</div>
+							</div>
+						</a>
+						<!-- 回放 -->
+						<div class="mt10" ng-show="recordingInfo !=0">
+							<div class="box_center back_fff h40 f14 bor_b">- 往期回放(<em ng-bind="recordingCount || 0"></em>) -</div>
+							<div class="back_fff">
+								<!-- 列表项 -->
+								<div class="box_start bor_b h90 pl10 pr10 col_999" ng-click="goRecordingClick(r)" ng-repeat="r in recordingInfo track by $index">
+									<div class="w70 h70 p_r">
+										<img class="br5" ng-src="{{r.play_img}}" alt="">
+										<div class="p_a t0 l0 r0 b0 backRgba_black_5 br5 box_center">
+											<div class="play_icon w20 h20"></div>
+										</div>
+									</div>
+									<div class="ml10 h70 grid_cell w_b60">
+										<div class="f12 wbyc w_b100 h25" ng-bind="r.title"></div>
+										<div class="box_between f10 h30">
+											<div class="box_start">状态：<span>已结束</span></div>
+											<div class="box_end">在线人数：<span ng-bind="r.play_number"></span></div>
+										</div>
+										<div>开播时间：<span ng-bind="r.date"></span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- 导购视频 -->
+					<div class="p10" ng-show="shopTabType==3 && (shopVideoInfo.length !=0)">
+						<!-- 列表项 -->
+						<div class="show br5 mb10" ng-click="goRecordingClick(v)" ng-repeat="v in shopVideoInfo track by $index">
+							<div class="w_b100 h120 p_r">
+								<img class="br5_top_right br5_top_left" ng-src="{{v.video_img}}" alt="">
+								<div class="p_a t0 l0 r0 b0 box_center backRgba_black_5 br5_top_right br5_top_left">
+									<div class="play_icon w40 h40 "></div>
+								</div>
+							</div>
+							<div class="back_fff br5_bottom_right br5_bottom_left p10">
+								<div class="f12 wbyc" ng-bind="v.title"></div>
+								<div class="box_between col_999 mt5">
+									<div class="box_start">上传时间：<span ng-bind="v.date"></span></div>
+									<div class="box_end">播放次数：<span ng-bind="v.watch_nums"></span></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+			<!-- 店铺所有分类 -->
+			<!-- <div class="p_a b0 l0 w_b100 back_fff z100" ng-show="shopTabType==1">
+				<div class="h40 box_direction" ng-click="classToogleClick(classType)">
+					<div class="box_center grid_cell">
+						<div class=" w18 h12" ng-class="{top_icon:classType==1,bottom_icon:classType==2}"></div>
+					</div>
+					<div class="box_center f12 grid_cell" ng-bind="classType==1?'查看所有分类':'收起所有分类'"></div>
+				</div>
+				<div class="" ng-show="classType==2">
+					<div class="maxH200 liveRoom_touch bor_t box_start flex_wrap p10 f12 col_666">
+						<div class="h30 pl10 pr10 br5 box_center back_ mr10 mb10 bor" ng-bind="c.class_name" ng-repeat="c in merchants_class track by $index" ng-click="goShopGoodsClassClick(c.class_uuid)"></div>
+					</div>
+				</div>
+			</div> -->
+		</div>
+	</div>
+	<!---->
+	<div class="p_a t0 l0 r0 b0 z99 over_hidden" ng-show="rightTopBtnState">
+		<div class="p_r w_b100 h_b100">
+			<div class="back_tm p_a t0 l0 r0 b0" ng-click="rightTopBtnClick(rightTopBtnState)"></div>
+			<div class="box_end">
+				<div class="back_fff w150 br5 mt40 z100">
+					<a href="#/news" class="box_start h40 bor_b">
+						<div class="mr10 ml10 w22 h22 msg_black_icon"></div>消息
+					</a>
+					<a href="#/" class="box_start h40 bor_b">
+						<div class="mr10 ml10 w22 h22 home_black_icon"></div>首页
+					</a>
+					<a href="#/shopIntroduce?merchants_id={{shopDetailsInfo.member_id}}" class="box_start h40 bor_b">
+						<div class="mr10 ml10 w22 h22 shop_synopsis_icon"></div>店铺简介
+					</a>
+					<a href="tel:{{shopDetailsInfo.contact_mobile}}" class="box_start h40">
+						<div class="mr10 ml10 w22 h22 kf_black_icon"></div>联系卖家
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,119 @@
+<!--header end-->
+<div class="mainbox pad-b100">
+  <div class="box gwc-tabbox clearfix mar-b40">
+    <div class="gwc-tab fl"><a href="#/">本地</a>|<a class="act" href="#/gwcin">购物车IN</a>|<a href="#/gwcout">购物车OUT</a></div>
+  </div>
+  <div class="box gwc-search-box"></div>
+  <div class="box" ng-if="gwcinlists.length>0">
+     <div class="gwc-tit">
+       <ul>
+         <li>&nbsp;<!-- <span class="" ng-click="qxact()"></span>全选 --></li>
+         <li>商品</li>
+         <li>单价</li>
+         <li>数量</li>
+         <li>金额</li>
+         <li>操作</li>
+       </ul>
+     </div>
+  </div>
+  <div class="share-list" ng-repeat="gwcin in gwcinlists" ng-if="gwcinlists.length>0" id="share{{gwcin.member_car_id}}">
+      <div class="gwc-box box">
+         <div class="gwc-listbox2">
+           <div class="gwc-share-tit mar-t40">
+             <span ng-if="gwcin.order_state!=1" class="sel" val="{{gwcin.member_car_id}}" ng-click="shareact(gwcin.member_car_id)"></span>来自<span class="red">{{gwcin.memberBean.nick_name}}（{{gwcin.memberBean.member_account}}）
+             </span>的分享
+              <a href="javascript:;" sharegd>收起<i></i></a>
+           </div>
+           <div class="gwc-dp-box table" ng-repeat="mlist in gwcin.shoppingCarShareBeans" id="mid{{mlist.merchants_id}}">
+              <div class="gwc-dp-tit">
+                 <i class="dpimg"></i>
+                 <!-- <span ng-click="gwcdpact(mlist.merchants_id)"></span> -->{{mlist.merchantsBean.merchants_name}}<!-- <small>自营</small> -->
+                 <p>{{mlist.merchantsBean.express_free_price==0?'免运费':'购满￥'+mlist.merchantsBean.express_free_price+'免运费'}}</p>
+              </div>
+              <table cellpadding="0" cellspacing="0">
+                <tr ng-repeat="slist in mlist.shoppingCarBeans" id="gwc{{slist.car_id}}">
+                  <td class="td1"><!-- <span val="{{slist.car_id}}" ng-click="gwcshopact(slist.car_id)"></span> --><p ng-if="gwcin.order_state!=1"><span>最后修改时间：{{slist.update_time | limitTo: 19}}</p></td>
+                  <td class="td2"><a target="_blank" href="index.html#/shop?shopid={{slist.goods_id}}"><i><img ng-src="{{slist.goodsBean.goods_img}}" /></i></a></td>
+                  <td class="td3"><a target="_blank" href="index.html#/shop?shopid={{slist.goods_id}}">{{slist.goodsBean.goods_name}}</a></td><!--<span>{{slist.goods_parameters_name}}</span>-->
+                  <td class="td4 red">￥<span class="red">{{slist.car_total_pc_price}}</span></td>
+                  <td class="td5" val="{{slist.goods_num}}">ｘ{{slist.goods_num}}<br><span val="{{slist.goodsBean.goods_stock}}" ng-if="gwcin.order_state!=1">{{slist.goodsBean.goods_stock>0?'有货':'无货'}}</span><span class="red" val="{{slist.goodsBean.goods_stock}}" ng-if="gwcin.order_state==1">已购买</span></td>
+                  <td class="td6">￥<span class="red">{{slist.car_total_pc_price*slist.goods_num | number:2}}</span>
+                    <div class="cx-select" ng-show="slist.goodsBean.activityBeans.length!=0" sel-cx>
+                      <span>促销优惠</span>
+                      <ul hidden>
+                        <li ng-repeat="sel in slist.goodsBean.activityBeans">{{sel.activity_name}}</li>
+                      </ul>
+                    </div>
+                  </td>
+                  <td class="td7"><a target="_blank" ng-if="gwcin.order_state==1" href="core.html#/ddxq?orderid={{slist.order_id}}">查看详情</a></span><!-- <a href="javascript:;" ng-click="delgwc(slist.car_id)">删除</a><br /> --><!-- <a href="javascript:;">移到我的收藏</a> --></td>
+                </tr>
+              </table>
+           </div>
+
+         </div>
+      </div>
+  </div>
+  <div class="box" ng-if="gwcinlists.length>0">
+     <!--gwc-listbox end-->
+     <div class="gwc-btn clearfix">
+       <ul>
+         <li class="g-b-1of4">&nbsp;<!-- <span ng-click="qxact()"></span>全选 --></li>
+         <li class="g-b-2of4">&nbsp;<!-- <a href="javascript:;" class="act" ng-click="delgwc(0)">删除选中商品</a> --></li>
+         <li class="g-b-3of4"><label>共{{znums}}件商品，总价：</label><span>{{zmoneys | currency : '￥'}}</span></li>
+         <li class="g-b-4of4"><button ng-click="goqrdd()">结算</button></li>
+       </ul>
+     </div>
+  </div>
+
+
+  <div class="gwc-box box" ng-if="gwcinlists.length==0">
+    <div class="gwc-k-box">
+      <div>
+        购物车空空的哦~快去看看心仪的商品吧
+        <a href="index.html#/shoplist">去购物></a>
+      </div>
+    </div>
+    <div class="guess-you-like box mar-t60" ng-if="guessyouliketotal>0">
+     <div class="tit"><h1>猜你喜欢</h1><p ng-if="guessyoulikepagenum>1">{{guessyoulikepage}}/{{guessyoulikepagenum>4?'4':guessyoulikepagenum}}<span ng-click="guessyoulike(guessyoulikepage*1-1*1)"><</span><span class="act" ng-click="guessyoulike(guessyoulikepage*1+1*1)">></span></p></div>
+     <div class="g-y-l-listbox clearfix">
+       <div class="sj-r-list" ng-repeat="gyl in guessyoulikes">
+          <ul>
+            <li class="sj-l-1of5"><a href="index.html#/shop?shopid={{gyl.goods_id}}"><img ng-src="{{gyl.goods_img!=''?gyl.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+            <li class="sj-l-2of5">￥{{gyl.goods_pc_price}}<span ng-if="gyl.goods_origin_price!=0">￥{{gyl.goods_origin_price}}</span></li>
+            <li class="sj-l-3of5">{{gyl.goods_name}}</li>
+            <li class="sj-l-4of5"><span ng-if="gyl.is_directly==1">自营</span><span ng-if="gyl.brand_name!=''">{{gyl.brand_name}}</span></li>
+            <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{gyl.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{gyl.year_sales}}</a></span></li>
+          </ul>
+       </div>
+
+     </div>
+     <!--g-y-l-listbox end-->
+    </div>
+  </div>
+
+  <div class="gwc-box box" ng-if="membershow==0">
+    <div class="gwc-k-box">
+      <div>
+        你还没登录哦！
+        <a href="javacript:;" ng-click="tckshow(1)">去登录></a>
+      </div>
+    </div>
+    <div class="guess-you-like box mar-t60" ng-if="guessyouliketotal>0">
+     <div class="tit"><h1>猜你喜欢</h1><p ng-if="guessyoulikepagenum>1">{{guessyoulikepage}}/{{guessyoulikepagenum>4?'4':guessyoulikepagenum}}<span ng-click="guessyoulike(guessyoulikepage*1-1*1)"><</span><span class="act" ng-click="guessyoulike(guessyoulikepage*1+1*1)">></span></p></div>
+     <div class="g-y-l-listbox clearfix">
+       <div class="sj-r-list" ng-repeat="gyl in guessyoulikes">
+          <ul>
+            <li class="sj-l-1of5"><a href="index.html#/shop?shopid={{gyl.goods_id}}"><img ng-src="{{gyl.goods_img!=''?gyl.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+            <li class="sj-l-2of5">￥{{gyl.goods_pc_price}}<span ng-if="gyl.goods_origin_price!=0">￥{{gyl.goods_origin_price}}</span></li>
+            <li class="sj-l-3of5">{{gyl.goods_name}}</li>
+            <li class="sj-l-4of5"><span ng-if="gyl.is_directly==1">自营</span><span ng-if="gyl.brand_name!=''">{{gyl.brand_name}}</span></li>
+            <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{gyl.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{gyl.year_sales}}</a></span></li>
+          </ul>
+       </div>
+
+     </div>
+     <!--g-y-l-listbox end-->
+    </div>
+  </div>
+</div>
+

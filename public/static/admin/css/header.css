@@ -1,0 +1,10 @@
+.body {
+	BACKGROUND-COLOR: #eef2fb; BOTTOM: 0px; TOP: 0px; RIGHT: 0px; LEFT: 0px
+}
+
+.admin_topbg {
+	BACKGROUND-IMAGE: url(../images/header_bg.jpg); BACKGROUND-REPEAT: repeat-x
+}
+.admin_txt {
+	LINE-HEIGHT: 38px; WIDTH: 100%; FONT-FAMILY: Arial, Helvetica, sans-serif; HEIGHT: 38px; COLOR: #ffffff; FONT-SIZE: 12px; TEXT-DECORATION: none
+}

@@ -1,0 +1,80 @@
+
+<div class="width100 pull-left">
+    <div class="con_left">
+        <?php  require_once(dirname(Yii::app()->BasePath).'/protected/views/site/con_left.php'); ?>
+    </div>
+    <div class="con_right">
+        <div class="col-md-12 rightcon_tit">
+            界面管理 > <a href="/site/message">课程列表</a> > 添加课程
+        </div>
+        <div class="col-md-12 col-xs-12">
+            <div class="col-md-12 col-xs-12 pd0 margin-top-15  bordertop">
+
+                <div class="col-md-12 col-xs-12 pd0 margin-top-30">
+                    <form action='/site/message' method='post' id='course'>
+                        <div class="col-md-12 col-xs-12 pd0 form-group">
+                            <div class="course_label price_label_marg">
+                                <div class="pull-right">
+                                    <span class="required">*</span>
+                                    <label for="">系统内容：</label>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div style="width:200px;float:left;height:20px;margin-left:625px;width:200px;float:left;height:20px;margin-left: 625px;">
+                            <?php if(Yii::app()->user->hasFlash("success")){ ?>
+                            <span style="color: #00a0e9"><?php echo Yii::app()->user->getFlash('success'); ?></span>
+                            <?php }?>
+                        </div>
+                        <div class="course_content input_check">
+                            <div class="pull-left">
+                                <label for="">状态：</label>
+                            </div>
+                            <div class="pull-left">
+                                <input type="radio" value="1" id="course_state1" name="is_show" <?php if ($is_show == 1): ?> checked<?php endif ?>>
+                                <label for="course_state1">显示</label>
+                            </div>
+                            <div class="pull-left margin-left-20">
+                                <input type="radio" value="2" id="course_state2" name="is_show" <?php if ($is_show == 2): ?> checked<?php endif ?>>
+                                <label for="course_state2">不显示</label>
+                            </div>
+                        </div>
+
+                        <div class="row cl">
+                            <label class="form-label col-xs-4 col-sm-2">头像：</label>
+                            <div class="formControls col-xs-8 col-sm-9">
+                                <div class="droparea spot" id="image1" style="background-image: url('{$re.header_img?$re.header_img:''}');background-size: 220px 160px;" >
+                                    <div class="instructions" onclick="del_image('1')">删除</div>
+                                    <div id="uparea1"></div>
+                                    <input type="hidden" name="header_img" id="image_1" value="{$re['header_img']?$re['header_img']:''}" />
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12 col-xs-12 pd0 form-group margin-top-20">
+                            <div class="course_label">&nbsp;</div>
+                            <div class="course_content">
+                                <a href="javascript:void(0)" class="btn green" onclick="courseFormSubmit();">保存</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/scripts/add_teacher.js?time=<?php echo JS_TEACHER_ADD;?>"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/scripts/validate_form.js?time=<?php echo VALIDATE_FORM;?>"></script>
+<script src="<?php echo Yii::app()->request->baseUrl; ?>/assets/scripts/validate_extend.js?time=<?php echo JS_VALIDATE_EXTEND;?>"></script>
+<script type="text/javascript" src="<?php echo Yii::app()->request->baseUrl; ?>/assets/scripts/validate_samename.js"></script>
+<script type="text/javascript">
+    $(function(){
+        ValidateSameName();
+        OutlineSet.init();
+        AddTeacher("keynote");
+        $('#outlineadd_submit').click(function(){
+            OutlineSetFormSubmit()
+        });
+    });
+</script>

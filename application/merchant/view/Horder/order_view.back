@@ -1,0 +1,429 @@
+{:W('public/breadcrumbs',[
+[
+['href'=>$url,'text'=>'私人订制'],
+['href'=>'','text'=>'订单详情']
+]
+])}
+</if>
+<style>
+    .layui-layer-btn {
+        text-align: center!important;
+        padding: 0 10px 12px;
+        pointer-events: auto;
+    }
+    .ibutton { padding: 3px 15px; *padding: 0 15px; *height: 24px;  font-size: 12px; text-align: center; text-shadow: #CF510B 0 1px 0; border:1px solid #ec5c0d; border-radius: 2px; background: #FC750A; background-image: -webkit-linear-gradient(top, #fc8746, #ec5d0e); color:#FFF; cursor: pointer; display: inline-block; }
+    .ibutton2 { padding: 3px 15px; *padding: 0 15px; *height: 24px;  font-size: 12px; text-align: center; text-shadow: #CF510B 0 1px 0; border:1px solid #ec5c0d; border-radius: 2px; background: #FC750A; background-image: -webkit-linear-gradient(top, #fc8746, #ec5d0e); color:#FFF; cursor: pointer; display: inline-block; }
+    .beizhu_btn { padding: 3px 3px; *padding: 0 3px; *height: 24px;  font-size: 12px; text-align: center; border:1px solid #4898d5; border-radius: 2px; background-color: #2e8ded; color:#fff;cursor: pointer; display: inline-block; }
+    .blue_btn { padding: 3px 3px; *padding: 0 3px; *height: 24px;  font-size: 12px; text-align: center; border:1px solid #4898d5; border-radius: 2px; background-color: #2e8ded; color:#fff;cursor: pointer; display: inline-block; }
+    .mt-20{margin-top:20px;}
+</style>
+<script type="text/javascript" src="__ROOT__/public/admin/layer/layer.js"></script>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div><b>订单信息</b></div>
+            <table width="100%" class="tab" style="margin-top:10px;">
+                <thead>
+                <tr>
+                    <td>订单号</td>
+                    <td>订单联系人</td>
+                    <td>下单会员</td>
+                    <td>订单总金额</td>
+                    <td>实收金额</td>
+                    <td>成本价</td>
+                    <td>使用积分</td>
+                    <td>使用优惠券</td>
+                    <td>订单状态</td>
+                    <td>收货地址</td>
+                    <td>取货方式</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tr align="center" onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';">
+                    <td>{$re.order_no}</td>
+                    <td>{$re.name} --- {$re.phone}</td>
+                    <td>{$re.nickname} --- {$re.m_phone}</td>
+                    <td>{$re['amount']|default=0}</td>
+                    <td>{$re['paid']|default=0}</td>
+                    <td>{$re['cost']|default=0}</td>
+                    <td>
+                        <php>
+                            empty($re['score']) && print "0";
+                            !empty($re['score']) && print $re['coupon_title'].'(抵扣:'.$re['deduction'].')';
+                        </php>
+                    </td>
+                    <td><php>
+                        empty($re['coupon_amount']) && print "0";
+                        !empty($re['coupon_amount']) && print '(抵扣:'.$re['coupon_amount'].')';
+                    </php></td>
+                    <td>
+                        <php>
+                            $re['state'] == '1' && print "待支付";
+                            $re['state'] == '2' && print "待发货";
+                            $re['state'] == '3' && print "待收货";
+                            $re['state'] == '4' && print "待评价";
+                            $re['state'] == '5' && print "已完成";
+                            $re['state'] == '6' && print "已取消";
+                            $re['state'] == '7' && print "退换货";
+                        </php>
+                    </td>
+                    <td>{$re['address']}</td>
+                    <td>
+                        <php>
+                            $re['is_take'] == '1' ? print "自取"  : print "快递";
+                        </php>
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)" onclick="change_paid({$re['id']},this)">[ 改价 ]</a>
+                    </td>
+                </tr>
+            </table>
+
+            <div style="margin-top:20px; "><b>订制商品信息</b></div>
+            <table width="100%" class="tab" style="margin-top:10px;">
+                <thead>
+                <tr>
+                    <td>商品编号</td>
+                    <td>商品名称</td>
+                    <td>商品图片</td>
+                    <td>商品价格</td>
+                    <td>型号参数</td>
+                    <td>订制数量</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <volist name="goods" id="vo">
+                    <tr align="center" onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';">
+                        <td>{$vo.code}</td>
+                        <td>{$vo.name}</td>
+                        <td><img src="{$vo.thumb}" style="width:50px; height:50px; border-radius:25px;" /></td>
+                        <td>{$vo['sale_price']}</td>
+                        <td>
+                            <if condition="!empty($vo['kinds_detail']) AND !empty($vo['kinds1'])">
+                                {$vo['kinds1']}:{$vo['kinds_detail']}
+                            </if>
+                            <if condition="!empty($vo['kinds_detail2']) AND !empty($vo['kinds2'])">
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                {$vo['kinds2']}:{$vo['kinds_detail2']}
+                            </if>
+                        </td>
+                        <td>{$vo['number']}</td>
+                        <td>
+                            [ <a href="{$re['down_url']}"  title="下载pdf生产文件">下载pdf <i class="glyphicon glyphicon-download-alt"></i></a> ] |
+                            [ <a href="http://www.kkmove.com/appadmin/designview/{$re['uuid']}"  title="查看生产文件">查看</a> ]
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+
+        <div  <if condition="$re['state'] eq 7">style="margin-top:20px;"<else/>style='display:none;' </if>><b>退换货</b></div>
+        <table width="100%" class="tab" <if condition="$re['state'] eq 7">style="margin-top:10px;"<else/>style='display:none;' </if>>
+        <thead>
+        <tr>
+            <td>编号</td>
+            <td>退换货商品</td>
+            <td>类型</td>
+            <td>退款账号类型</td>
+            <td>退款账号</td>
+            <td>退款金额</td>
+            <td>退换货原因</td>
+            <td>凭证图片</td>
+            <td>联系电话</td>
+            <td>快递单号</td>
+            <td>退换地址</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <volist name="returns" id="vo">
+            <tr align="center" onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';">
+                <td>{$vo['number']}</td>
+                <td>{$vo['name']}  &nbsp;&nbsp;x{$vo['count']}</td>
+                <td>
+                    <php>
+                        $vo['type'] == '1' && print "退货";
+                        $vo['type'] == '2' && print "换货";
+                    </php>
+                </td>
+                <td>
+                    <php>
+                        if($vo['type'] == 1){
+                        $vo['pay_type'] == '1' && print "支付宝";
+                        $vo['pay_type'] == '2' && print "银行卡";
+                        }
+                    </php>
+                </td>
+                <td>{$vo['bank_card']}<php>!empty($vo['bank_name']) && print "(".$vo.bank_name."开户行:".$vo.bank_username.")"</php></td>
+                <td>{$vo['amount']}</td>
+                <td>{$vo['reason']}</td>
+                <td><a href="javascript:void(0)" onclick="view_img({$vo['id']})">查看</a></td>
+                <td>{$vo['phone']}</td>
+                <td>{$vo['kuaidi_company']} -- {$vo['kuaidi']}</td>
+                <td>{$vo['address']}</td>
+                <td>
+                    <select onchange="change_returns_state({$vo['id']},this.value)" style="width:100px;">
+                        <option value="1" <if condition="$vo['status'] eq 1">selected</if>>申请</option>
+                        <option value="2" <if condition="$vo['status'] eq 2">selected</if>>同意</option>
+                        <option value="3" <if condition="$vo['status'] eq 3">selected</if>>拒绝</option>
+                    </select>
+                </td>
+            </tr>
+        </volist>
+        </table>
+
+        <!--快递编辑-->
+        <div class="mt-20" <if condition="$re['state'] lt 2">style='display:none;' </if> ><b>快递信息</b>
+        <table width="100%"   style="margin-top:10px;border:0">
+            <form data-action="{:U('Horder/edit_kuaidi',['id'=>$re['id']])}" class="ajax-form">
+                <tr>
+                    <td style="vertical-align: middle;">物流公司</td>
+                    <td width="65%"><input value="{$re['kuaidi_name']}" name="kuaidi_name" id="kuaidi_name" type="text" size="50"></td>
+                </tr>
+                <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                <tr>
+                    <td style="vertical-align: middle;">物流单号</td>
+                    <td width="65%"><input value="{$re['kuaidi']}" name="kuaidi" id="kuaidi" type="text" size="50"></td>
+                </tr>
+                <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                <tr>
+                    <td style="vertical-align: middle;">物流状态</td>
+                    <td width="65%">
+                        <select name="kuaidi_state" id="kuaidi_state" style="width:327px;">
+                            <option value="1" <if condition="$re['kuaidi_state'] eq 1">selected</if>>待发货</option>
+                            <option value="2" <if condition="$re['kuaidi_state'] eq 2">selected</if>>已出货</option>
+                            <option value="3" <if condition="$re['kuaidi_state'] eq 3">selected</if>>派送中</option>
+                            <option value="4" <if condition="$re['kuaidi_state'] eq 4">selected</if>>已签收</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                <tr>
+                    <td style="vertical-align: middle;"></td>
+                    <td width="65%">
+                        <button class="blue_btn" type="submit"> 保存信息 </button>
+                        <span class="blue_btn view_kuaidi" style="margin-left:50px"> 查看物流 </span>
+                    </td>
+                </tr>
+            </form>
+        </table>
+    </div>
+
+    <div style="margin-top:20px;"><b>订单状态编辑</b></div>
+    <table width="100%" border="0" class="all">
+        <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+        <tr>
+            <td style="vertical-align: middle;">会员留言</td>
+            <td><textarea name="beizhu" style="width:400px;height:100px;" id="remark" readonly>{$re['remark']}</textarea>
+            </td>
+            <td></td>
+        </tr>
+        <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+        <tr>
+            <td style="vertical-align: middle;">备注信息</td>
+            <td><textarea name="beizhu" style="width:400px;height:100px;" id="beizhu">{$re['beizhu']}</textarea>
+                <span class="beizhu_btn"> 提交备注 </span>
+            </td>
+            <td></td>
+        </tr>
+        <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+    </table>
+    <input type="hidden" name="id" value="{$_GET['id']}" />
+    <button <if condition="$re['state'] neq 2"> style='display:none;'</if>class="ibutton submit"  data=3 type="button">&emsp;待&emsp;收&emsp;货&emsp;</button>
+    <button <if condition="$re['state'] neq 3"> style='display:none;'</if>class="ibutton submit"  data=4 type="button">&emsp;待&emsp;评&emsp;价&emsp;</button>
+    <button <if condition="$re['state'] neq 4"> style='display:none;'</if>class="ibutton submit"  data=5 type="button">&emsp;已&emsp;完&emsp;成&emsp;</button>
+    <button <if condition="$re['state'] eq 1">class="ibutton2 submit"<else/>style='display:none;' </if>  data=6 type="button">&emsp;取消订单&emsp;</button>
+    <hr/>
+    <volist name="log" id="vo">
+        <div style="margin-bottom: 5px;">
+            <span style="margin-left:50px; width:100px;display:inline-block"><a href='javascript:void(0)'>{$vo.uname}</a></span>
+            <span style="margin-left: 5px;display:inline-block">{$vo.title}</span>
+            <span style="margin-left:50px;">{$vo.intime}</span>
+        </div>
+    </volist>
+</div>
+</div>
+</div>
+<script src="__ROOT__/assets/js/asyncbox/asyncbox.js"></script>
+<script src="/public/admin/js/layer/extend/layer.ext.js"></script>
+<script>
+    $(function(){
+        $('.ibutton').click(function(){
+            if(!confirm("您是否要改变订单状态\n状态一旦改变将不能回退，请谨慎操作")){
+                return false;
+            }
+            var state = $(this).attr('data');
+            $.post("{:U('Horder/change_order_status')}",{id:{$_GET["id"]},state:state},function(data){
+                if(data.status == 'ok'){
+                    alert(data.info);
+                    window.location.href = data.url;
+                }else{
+                    alert(data.info);
+                }
+            },'json');
+            return false;
+        });
+        $('.ibutton2').click(function(){
+            if(!confirm("您是否要取消订单，订单一旦取消将不能往下操作\n请谨慎操作")){
+                return false;
+            }
+            var status = $(this).attr('data');
+            $.post("{:U('Horder/change_order_status')}",{id:{$_GET["id"]},status:status},function(data){
+                if(data.status == 'ok'){
+                    alert(data.info);
+                    window.location.href = data.url;
+                }else{
+                    alert(data.info);
+                }
+            },'json');
+            return false;
+        });
+
+        $('.beizhu_btn').click(function(){
+            var beizhu = $('#beizhu').val();
+            $.post("{:U('Horder/beizhu')}",{id:{$_GET["id"]},beizhu:beizhu},function(data){
+                console.log(data);
+                if(data.status == 'ok'){
+                    alert(data.info);
+                }else{
+                    alert(data.info);
+                }
+            },'json');
+        });
+
+        $(".ajax-form").submit(function(){
+            var obj = $(this);
+            var url = obj.attr("data-action");
+            $.get(url,obj.serializeArray(),function(data){
+                if(data.status == 'ok'){
+                    window.location.href = window.location.href;
+                }else{
+                    alert(data.info);
+                }
+            },'json');
+        })
+
+        $(".view_kuaidi").click(function(){
+            var kuaidi_name = $('#kuaidi_name').val();
+            var kuaidi = $('#kuaidi').val();
+            var url = document.URL;
+            if(kuaidi.length < 5){
+                alert("单号不能小于5个字符");
+                return false;
+            }else{
+                window.location.href = 'http://m.kuaidi100.com/index_all.html?type='+kuaidi_name+'&postid='+kuaidi+'&callbackurl='+url;
+            }
+        });
+
+    });
+
+
+    function change_paid(id,v){
+        $.ajax({
+            type: "GET",
+            url:"{:U('Horder/change_paid')}",
+            dataType:'json',
+            data:{id:id},
+            success:function(data){
+                if(data['status']=='ok'){
+                    $('#paid').val(data['info']['paid']);
+                    $('#cost').val(data['info']['cost']);
+                }
+            }
+        })
+        var html='<table class="table table-striped table-hover">' +
+                '<tr>' +
+                '<td style="vertical-align: middle;">实收价格</td>' +
+                '<td><input type="text" name="paid" value="" id="paid" style="width:320px;"/>' +
+                '<span class="red important"> * </span> ' +
+                '</td>' +
+                '<td></td> ' +
+                '</tr>' +
+                '<tr>' +
+                '<td style="vertical-align: middle;">成本价格</td>' +
+                '<td><input type="text" name="cost" value="" id="cost" style="width:320px;"/>' +
+                '<span class="red important"> * </span> ' +
+                '</td>' +
+                '<td></td> ' +
+                '</tr>' +
+                '<tr>' +
+                '<td></td>' +
+                '<td>' +
+                '</td>' +
+                '<td></td> ' +
+                '</tr>' +
+                '</table>'
+        layer.open({
+            type: 1,
+            title: '修改订单价格',
+            closeBtn: 0,
+            area: ['500px','200px'],
+            skin: '', //没有背景色
+            shadeClose: true,
+            content: html,
+            btn:['保存'],
+            yes:function(){
+                var paid = $('#paid').val();
+                var cost = $('#cost').val();
+                $.ajax({
+                    url:"{:U('Horder/change_paid')}",
+                    type:'post',
+                    data:{id:id,paid:paid,cost:cost},
+                    dataType:'json',
+                    success:function(data){
+                        if(data.status=='ok'){
+                            alert(data['info']);
+                            window.location.href = window.location.href
+                        }else{
+                            alert(data.info);
+                        }
+                    }
+                })
+            }
+        });
+    }
+
+    //相册层
+    function view_img(e) {
+        var url = "{:U('Horder/get_returns_img')}";
+        $.get(url, {id: e}, function (json) {
+            layer.photos({
+                photos: json, //格式见API文档手册页
+                anim: 5 //0-6的选择，指定弹出图片动画类型，默认随机
+            });
+        },'json');
+    }
+
+    function change_returns_state(id,e){
+        var url = "{:U('Horder/change_returns_state')}";
+        $.post(url,{id:id,status:e},function(data){
+            if(data.status == 'ok'){
+                window.location.href = window.location.href;
+            }else{
+                alert("操作失败");
+            }
+        },'json');
+    }
+
+    function down(v,e){
+        window.location.href = "system.php?m=Admin&c=Horder&a=down_diy&order_no="+v+"&url="+e;
+    }
+    $("#start_time").datetimepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        minView: 2
+    }).on('changeDate', function(ev) {
+        $("#end_time").datetimepicker('setStartDate', $(this).val());
+    });
+
+    $("#end_time").datetimepicker({
+        format: 'yyyy-mm-dd',
+        weekStart: 1,
+        autoclose: true,
+        todayBtn: 'linked',
+        language: 'zh-CN',
+        minView: 2
+    });
+</script>
+

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)http://lbs.amap.com/others/demo_list/demos/map_drawcust.html -->
+<html style="height:100%;"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><link rel="stylesheet" type="text/css" href="http://webapi.amap.com/theme/v1.3/style1503546983737.css"><style type="text/css">.amap-indoor-map .label-canvas{position:absolute;top:0;left:0}.amap-indoor-map .highlight-image-con *{pointer-events:none}.amap-indoormap-floorbar-control{position:absolute;margin:auto 0;bottom:165px;right:12px;width:35px;text-align:center;line-height:1.3em;overflow:hidden;padding:0 2px}.amap-indoormap-floorbar-control .panel-box{background-color:rgba(255,255,255,.9);border-radius:3px;border:1px solid #ccc}.amap-indoormap-floorbar-control .select-dock{position:absolute;top:0;left:0;width:100%;box-sizing:border-box;height:30px;border:solid #4196ff;border-width:0 2px;border-radius:2px;pointer-events:none;background:linear-gradient(to bottom,#f6f8f9 0,#e5ebee 50%,#d7dee3 51%,#f5f7f9 100%)}.amap-indoor-map .transition{transition:opacity .2s},.amap-indoormap-floorbar-control .transition{transition:top .2s,margin-top .2s}.amap-indoormap-floorbar-control .select-dock:after,.amap-indoormap-floorbar-control .select-dock:before{content:"";position:absolute;width:0;height:0;left:0;top:10px;border:solid transparent;border-width:4px;border-left-color:#4196ff}.amap-indoormap-floorbar-control .select-dock:after{right:0;left:auto;border-left-color:transparent;border-right-color:#4196ff}.amap-indoormap-floorbar-control.is-mobile{width:37px}.amap-indoormap-floorbar-control.is-mobile .floor-btn{height:35px;line-height:35px}.amap-indoormap-floorbar-control.is-mobile .select-dock{height:35px;top:36px}.amap-indoormap-floorbar-control.is-mobile .select-dock:after,.amap-indoormap-floorbar-control.is-mobile .select-dock:before{top:13px}.amap-indoormap-floorbar-control.is-mobile .floor-list-box{height:105px}.amap-indoormap-floorbar-control .floor-list-item .floor-btn{color:#555;font-family:"Times New Roman",sans-serif,"Microsoft Yahei";font-size:16px}.amap-indoormap-floorbar-control .floor-list-item.selected .floor-btn{color:#000}.amap-indoormap-floorbar-control .floor-btn{height:28px;line-height:28px;overflow:hidden;cursor:pointer;position:relative;-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.amap-indoormap-floorbar-control .floor-btn:hover{background-color:rgba(221,221,221,.4)}.amap-indoormap-floorbar-control .floor-minus,.amap-indoormap-floorbar-control .floor-plus{position:relative;text-indent:-1000em}.amap-indoormap-floorbar-control .floor-minus:after,.amap-indoormap-floorbar-control .floor-plus:after{content:"";position:absolute;margin:auto;top:9px;left:0;right:0;width:0;height:0;border:solid transparent;border-width:10px 8px;border-top-color:#777}.amap-indoormap-floorbar-control .floor-minus.disabled,.amap-indoormap-floorbar-control .floor-plus.disabled{opacity:.3}.amap-indoormap-floorbar-control .floor-plus:after{border-bottom-color:#777;border-top-color:transparent;top:-3px}.amap-indoormap-floorbar-control .floor-list-box{max-height:153px;position:relative;overflow-y:hidden}.amap-indoormap-floorbar-control .floor-list{margin:0;padding:0;list-style:none}.amap-indoormap-floorbar-control .floor-list-item{position:relative}.amap-indoormap-floorbar-control .floor-btn.disabled,.amap-indoormap-floorbar-control .floor-btn.disabled *,.amap-indoormap-floorbar-control.with-indrm-loader *{-webkit-pointer-events:none!important;pointer-events:none!important}.amap-indoormap-floorbar-control .with-indrm-loader .floor-nonas{opacity:.5}.amap-indoor-map-moverf-marker{color:#555;background-color:#FFFEEF;border:1px solid #7E7E7E;padding:3px 6px;font-size:12px;white-space:nowrap;display:inline-block;position:absolute;top:1em;left:1.2em}.amap-indoormap-floorbar-control .amap-indrm-loader{-moz-animation:amap-indrm-loader 1.25s infinite linear;-webkit-animation:amap-indrm-loader 1.25s infinite linear;animation:amap-indrm-loader 1.25s infinite linear;border:2px solid #91A3D8;border-right-color:transparent;box-sizing:border-box;display:inline-block;overflow:hidden;text-indent:-9999px;width:13px;height:13px;border-radius:7px;position:absolute;margin:auto;top:0;left:0;right:0;bottom:0}@-moz-keyframes amap-indrm-loader{0%{-moz-transform:rotate(0);transform:rotate(0)}100%{-moz-transform:rotate(360deg);transform:rotate(360deg)}}@-webkit-keyframes amap-indrm-loader{0%{-webkit-transform:rotate(0);transform:rotate(0)}100%{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}@keyframes amap-indrm-loader{0%{-moz-transform:rotate(0);-ms-transform:rotate(0);-webkit-transform:rotate(0);transform:rotate(0)}100%{-moz-transform:rotate(360deg);-ms-transform:rotate(360deg);-webkit-transform:rotate(360deg);transform:rotate(360deg)}}</style>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, minimal-ui">
+<title>高德地图JavaScript API</title> 
+<style type="text/css" rel="stylesheet">
+	header{position:absolute;height:60px;top:0;width:100%;background-color:#F4F4F4;z-index:999;text-align:center;line-height:60px;color:#666666;font-weight:bold;border-bottom:1px solid #BBBBBB;}
+	header div:nth-child(1){position:absolute;z-index:1000;width:40px;cursor:pointer;}
+	header div:nth-child(1) img{width:40px;height:40px;margin-left:3px;margin-top:10px;}
+	header div:nth-child(2){width:100%}
+	html body{height:100%;margin:0;}
+	#map{position:absolute;top:60px;width:100%;}
+</style><style type="text/css">.amap-container{cursor:url(http://webapi.amap.com/theme/v1.3/openhand.cur),default;}.amap-drag{cursor:url(http://webapi.amap.com/theme/v1.3/closedhand.cur),default;}</style></head>
+
+<body>
+	<header>
+		<div>
+			<img src="http://webapi.amap.com/theme/v1.3/mapinfo_05.png" onclick="location.href=&#39;../js_demo.html&#39;">
+		</div>
+		<div>
+			<span>手势绘制</span>
+		</div>
+	</header>
+	
+	<div id="map" style="height: 508px; background: rgb(252, 249, 242);" class="amap-container"><object style="display: block; position: absolute; top: 0; left: 0; height: 100%; width: 100%; overflow: hidden; pointer-events: none; z-index: -1;" type="text/html" data="./高德地图JavaScript API_files/saved_resource.html"></object><div class="amap-maps"><div class="amap-drags" style=""><div class="amap-layers" style="transform: translateZ(0px);"><div class="amap-layer" style="position: absolute; z-index: 0; top: 254px; left: 160px;"><canvas height="512" width="512" style="position: absolute; top: 209px; left: 77px; width: 256px; height: 256px; z-index: 13;"></canvas><canvas height="512" width="512" style="position: absolute; top: -47px; left: 77px; width: 256px; height: 256px; z-index: 13;"></canvas><canvas height="512" width="512" style="position: absolute; top: -303px; left: 77px; width: 256px; height: 256px; z-index: 13;"></canvas><canvas height="512" width="512" style="position: absolute; top: 209px; left: -179px; width: 256px; height: 256px; z-index: 13;"></canvas><canvas height="512" width="512" style="position: absolute; top: -47px; left: -179px; width: 256px; height: 256px; z-index: 13;"></canvas><canvas height="512" width="512" style="position: absolute; top: -303px; left: -179px; width: 256px; height: 256px; z-index: 13;"></canvas></div><div class="amap-markers" style="position: absolute; z-index: 120; top: 254px; left: 160px;"></div><canvas class="amap-layer" width="640" height="1016" style="position: absolute; z-index: 1; height: 508px; width: 320px; top: 0px; left: 0px;"></canvas><canvas class="amap-labels" draggable="false" width="640" height="1016" style="position: absolute; z-index: 99; height: 508px; width: 320px; top: 0px; left: 0px;"></canvas></div><div class="amap-overlays" style=""></div></div></div><div style="display: none;"></div><div class="amap-controls"></div><a class="amap-logo"><img src="./高德地图JavaScript API_files/mapinfo_05.png"></a><div class="amap-copyright" style="display: none;"></div></div>	
+
+<script language="javascript" src="http://webapi.amap.com/maps?v=1.3&key=e8496e8ac4b0f01100b98da5bde96597"></script>
+<script type="text/javascript">
+    var mapHeight = document.body.clientHeight - 60;
+    document.getElementById('map').style.height = mapHeight + 'px';
+      var map = new AMap.Map('map',{
+        dragEnable:false, 
+        zoomEnable:false,
+            center: new AMap.LngLat(116.397771,39.903581),
+            zoom:   13,
+            rotation:0
+      });
+      //通过touchstart和touchmove，捕获手势坐标，连接为多边形的边线
+      var polyline,
+          arr = [];
+       AMap.event.addListener(map, 'touchstart', function(e){
+         polyline = new AMap.Polyline({
+          map:map,
+          path:[]
+        });
+      });
+      
+      AMap.event.addListener(map, 'touchmove', function(e){
+          if (arr.length <= 1) {
+             arr.push(e.lnglat);
+          }
+          var len = arr.length, obj = arr[len-1];
+          if(len >= 1 && (obj.lng !== e.lnglat.lng || obj.lat !== e.lnglat.lat)){
+            arr.push(e.lnglat);
+          }    
+          polyline.setPath(arr);  
+      });
+
+      AMap.event.addListener(map, 'touchend', function(e){
+        var polygon = new AMap.Polygon({
+          map:map,
+          path:arr
+        });
+        arr = [];
+        polyline.setMap(null);
+      });
+    </script>
+
+</body></html>

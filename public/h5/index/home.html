@@ -1,0 +1,62 @@
+<div class="homeContent">
+    <div class="js-silder" >
+        <div class="silder-scroll">
+            <div class="silder-main">
+                <div class="silder-main-img" ng-repeat="banner in banner_img" repeat-finish="js_silder('.js-silder')">
+                    <a href={{banner.jump}}>
+                        <img ng-src={{banner.b_img}} alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="LoginContent">
+        <div class="LoginHeadContent" ng-show="LoginContentShowHide">
+            <div class="LoginHeadButton">
+                <div class="LoginGetValidation">
+                    <input type="text" ng-model="signphone" placeholder="请输入手机号码" id="phoneNum" class="ng-pristine ng-untouched ng-valid ng-empty">
+                    <div class="validation" ng-click="validationButton(signphone)">获取验证码</div>
+                </div>
+
+                <input type="text" name="password" ng-model="signpwd" placeholder="请输入验证码" class="ng-pristine ng-untouched ng-valid ng-empty">
+                <div class="LoginButtonContent">
+                    <div class="LoginContentShow" ng-click="loginContent(signphone,signpwd)">
+                        登录
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="LoginShowDataContent" ng-show="LogoutContentShowHide">
+            <div class="LoginShowDataContentImg">
+                <img ng-src="images/default_head.png">
+                <div class="LoginShowContent">
+                    <p class="LoginShowWelcomeFont">欢迎 <span ng-bind="hx_username" style="color: #a2a2a2;margin: 0 4px;"></span>登入</p>
+                    <p class="LoginShowWelcomeAccount">账号内容: <span ng-bind="phone" style="color: #a2a2a2;margin: 0 4px;"></span></p>
+                </div>
+            </div>
+            <div class="LogoutContentShow" ng-click="validationOut()">注销</div>
+        </div>
+
+
+        <div class="show_data_name">
+            显示商品内容
+        </div>
+        <div class="show_data_name_content">
+            <ul class="show_data_name_data_banner">
+                <li><a href="http://www.baidu.com">数据1</a></li>
+                <li><a href="http://www.baidu.com">数据2</a></li>
+                <li><a href="http://www.baidu.com">数据3</a></li>
+                <li><a href="http://www.baidu.com">数据4</a></li>
+                <li><a href="http://www.baidu.com">数据5</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+
+</script>

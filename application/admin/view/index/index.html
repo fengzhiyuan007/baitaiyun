@@ -1,0 +1,25 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Index/index'),'text'=>'网站管理'],
+['href'=>'','text'=>'系统信息']
+]
+])}
+<div class="page-container">
+    <p>登录次数：{$user['login_times']|default=0} </p>
+    <p>上次登录IP：{$user['last_login_ip']}  上次登录时间：{$user['last_login_date']}</p>
+    <table class="table table-border table-bordered table-bg mt-20">
+        <thead>
+        <tr>
+            <th colspan="2" scope="col">服务器信息</th>
+        </tr>
+        </thead>
+        <tbody>
+        {volist name="server_info" id="vo" key="k"}
+        <tr>
+            <td>{$key}</td>
+            <td>{$vo}</td>
+        </tr>
+        {/volist}
+        </tbody>
+    </table>
+</div>

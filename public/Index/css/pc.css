@@ -1,0 +1,83 @@
+.pageBg{
+	background: url(../img/pcbg.jpeg) no-repeat center;
+	background-size: cover;
+}
+.logoImg{
+	width: 110px;
+	height: 40px;
+	margin: 30px 40px;
+}
+.titleIcon{
+	width: 580px;
+	height: 80px;
+	margin: 40px auto;
+}
+.contentBox{
+	width: 560px;
+	padding-top: 20px;
+	margin: 0 auto;
+}
+.userBox,.shopBox{
+	zoom:1;
+	margin-bottom: 25px;
+}
+.userBox:after,
+.shopBox:after{display: block;visibility: hidden;voerflow: hidden;content: ".";clear: both;height: 0;}
+.itemTitle{
+	width: 56px;
+	height: 32px;
+	line-height: 32px;
+	border-radius: 3px;
+	background-color: #999;
+	margin: 8px;
+	text-align: center;
+	color: #fff;
+	float: left;
+	font-size: 14px;
+}
+.itemBtn{
+	width: 135px;
+	height: 48px;
+	float: left;
+	margin-left: 10px;
+	position: relative; 
+}
+.userBox .codeImgBox{
+	bottom: 60px;
+	left: 0;
+	width: 135px;
+	height: 135px;
+	z-index: 100;
+}
+.shopBox .codeImgBox{
+	top: 60px;
+	left: 0;
+	width: 135px;
+	height: 135px;
+}
+.itemBtn:hover .codeImgBox{
+	display: block;
+}
+.footerBox{
+	position: fixed;
+	bottom: 15px;
+	left: 0;
+	width: 100%;
+	color: #fff;
+	font-size: 12px;
+}
+.footer_item{
+	margin: 0 auto;
+	text-align: center;
+	color: #fff;
+	padding-bottom: 10px;
+}
+.footer_item a{
+	padding: 0 20px;
+	height: 20px;
+	line-height: 20px;
+	color: #fff;
+}
+.footer_item a:hover{
+	color: red
+}

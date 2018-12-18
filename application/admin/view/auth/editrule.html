@@ -1,0 +1,133 @@
+<?php
+    $uid = $_GET['id'];
+    $_GET['id']?$text='编辑':$text='添加';
+?>
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Auth/index'),'text'=>'规则列表'],
+['href'=>'','text'=>$text.'规则']
+]
+])}
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <form class="form form-horizontal" id="form" method="post">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>模块：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				<select name="pid" id="pid"  class="select">
+                    <option value="0">--模块--</option>
+                    {foreach item="v" name="blocks"}
+                        <option value="{$v['id']}" {if condition="$d['pid'] eq $v['id']"}selected="selected"{/if}>{$v['title']}</option>
+                    {/foreach}
+                </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>规则名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" id="title" name="title" class="input-text" value="{$d['title']}" placeholder="规则名称"  />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>节点：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" id="name" name="name"  class="input-text" value="{$d['name']}" placeholder="节点" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>状态：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+				<select name="status" id="status"  class="select">
+                    <option value="1" {if condition="$d['status'] == '1'"}selected="selected"{/if}>开启</option>
+                    <option value="2" {if condition="$d['status'] == '2'"}selected="selected"{/if}>关闭</option>
+                </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>节点类型：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                 <span class="select-box">
+				<select name="is_button"  class="select">
+                    <option value="0" {if condition="$d['is_button'] == '0'"}selected="selected"{/if}>视图</option>
+                    <option value="1" {if condition="$d['is_button'] == '1'"}selected="selected"{/if}>操作</option>
+                    <option value="2" {if condition="$d['is_button'] == '2'"}selected="selected"{/if}>模块</option>
+                </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" name="id" value="{$Request.param.id}" />
+                <button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                <button onClick="javascript:history.back(-1);" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        var  content ;
+        KindEditor.ready(function(K) {
+            content = K.create('#content',{
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'goods'])}"
+            });
+        });
+
+        KindEditor.ready(function(K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'goods'])}"
+                //sdl:false
+            });
+            K('#uparea1').click(function() {
+                console.log(1);
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".submit").click(function(){
+            commonAjaxSubmit('','form');
+            return false;
+        });
+
+        $("#uparea1").mouseover(function(e){
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_1').val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $("#uparea1").mouseout(function(){
+            $("#big").hide();
+        });
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+    });
+
+</script>

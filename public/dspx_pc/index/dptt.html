@@ -1,0 +1,61 @@
+
+<div class="mainbox clearfix bg-f5 pad-b70">
+  <!--面包屑-->
+  <div class="mbx-navbox">
+    <div class="mbx-nav">
+       <div class="mbx-nav-l"><a href="#">首页</a><a href="#">店铺头条</a></div>
+    </div>
+  </div>
+  <!---->
+  <div class="box fenlei2 clearfix">
+     <ul>
+       <li><label>分类</label><p><span class="act" ng-click="hotdp('dynamic',1)" tab>动态</span><span ng-click="hotdp('hot',1)" tab>热门</span></p></li>
+     </ul>
+  </div>
+  <div class="sssj-dp-listbox box clearfix dptt-listbox">
+     <div class="sssj-dp-list clearfix" ng-repeat="tt in hotdps" id="m{{tt.merchants_id}}">
+        <div class="tit" ng-if="delshow==1">猜你喜欢<span ng-click="dpttdel(tt.merchants_id)">&times;</span></div>
+        <div class="s-d-l-left">
+           <div class="center">
+              <ul>
+                <li class="sdl-l-1of5"><img ng-src="{{tt.merchants_img}}" /></li>
+                <li class="sdl-l-2of5"><label>店铺名：</label>{{tt.merchants_name}}</li>
+                <li class="sdl-l-3of5"><label>综合评分：</label>{{tt.merchants_star1/3*2+tt.merchants_star2/3*2+tt.merchants_star3/3*2| number:2}}</li>
+                <li class="sdl-l-4of5 mar-b20"><label>店铺简介：</label>{{tt.merchants_desc}}</li>
+                <li class="sdl-l-5of5">销量：<span class="blue">{{tt.year_sales}}</span><span class="mar-l20">共<span class="blue">{{tt.goods_total_num}}</span>件商品</span></li>
+                <!-- <li class="sdl-l-6of5"><a href="javascript:;" ng-click="dpsc(tt.merchants_id,tt.collection_id,tt.is_collection)">{{tt.is_collection==1?'取消收藏':'收藏店铺'}}</a></li> -->
+                <li class="sdl-l-6of5"><a href="#/dianpu?mid={{tt.merchants_id}}" >进入店铺</a></li>
+              </ul>
+           </div>
+        </div>
+        <!--s-d-l-left end-->
+        <div class="s-d-l-right">
+           <div class="sdl-listbox">
+              <div class="sj-r-list" ng-repeat="shop in tt.goodsBeans" ng-if="$index<3">
+                <ul>
+                  <li class="sj-l-1of5"><a target="_blank" href="index.html#/shop?shopid={{shop.goods_id}}"><img ng-src="{{shop.goods_img!=''?shop.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+                  <li class="sj-l-2of5">￥{{shop.goods_pc_price}}<span ng-if="shop.goods_origin_price!=0">￥{{shop.goods_origin_price}}</span></li>
+                  <li class="sj-l-3of5">{{shop.goods_name}}</li>
+                  <li class="sj-l-4of5"><span ng-if="shop.is_directly==1">自营</span><span ng-if="shop.brand_name!=''">{{shop.brand_name}}</span></li>
+                  <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{shop.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{shop.year_sales}}</a></span></li>
+                </ul>
+             </div>
+           </div>
+        </div>
+        <!--s-d-l-right end-->
+     </div>
+     <!--sssj-dp-list end-->
+
+  </div>
+  <div class="box">
+    <!--分页-->
+    <div class="page-box" ng-if="pageNum>1">
+      <a href="javascript:;" ng-click="pageclick(nowpageNum-1)">上一页</a>
+      <span ng-repeat="page in pageboxs" ng-click="pageclick(page)" ng-class="{act:page==nowpageNum}">{{page}}</span>
+      <a class="act" href="javascript:;" ng-click="pageclick(nowpageNum*1+1)">下一页</a>
+      跳到<input type="number" ng-model="nowpageNum2" width="20px;">/{{pageNum}}页<button ng-click="pageclick(nowpageNum2)">确定</button>
+    </div>
+  </div>
+
+</div>
+

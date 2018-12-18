@@ -1,0 +1,16 @@
+@CHARSET "UTF-8";
+.window .search{
+	padding:10px;
+}
+.row {
+    margin:0;
+}
+.space-30{
+	padding:10px 0;
+}
+.thumbnail.img {
+    min-height: 90px;
+}
+.image-list img{
+	max-width:160px;
+}

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="indexApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <script src="http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js"></script>
+</head>
+<body ng-controller="indexCtrl">
+    <em order-time='2'
+        order-time-ser='vm.serverTime'
+        order-time-ord='vm.createTime'
+        order-time-state=''
+    ></em>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+    {{testDate}}
+    <script>
+        angular.module('indexApp',[])
+                .controller('indexCtrl',function($scope){
+                    $scope.vm = {
+                        serverTime:1475043580,             //服务器时间戳
+                        createTime:'2016-09-28 13:00:00'   //创建时间
+                    };
+                    $scope.testDate = new Date( parseInt($scope.vm.serverTime) * 1000).toLocaleDateString();
+                })
+                .directive('orderTime',function($interval,$timeout){
+                    return{
+                        restrict:'EA',
+                        scope:{       //独立作用域
+                            orderTimeSer : '=',
+                            orderTimeOrd : '=',
+                            orderTimeState : '=',
+                            orderTime : '@' //按小时算
+                        },
+                        template:'{{time}}',  //模板
+
+                        link:function(scope,element,attrs){
+                            //TODO ios不支持new Data('2016-09-09 10:10:10').getTime()
+                            function js_strto_time(str_time){
+                                //replace：用于在字符串中替换另一些字符，或替换一个正则表达式匹配的子串
+                                var new_str = str_time.replace(/:/g,"-");
+                                new_str = new_str.replace(/ /g,"-");
+
+                                //split：把一个 字符串 分割成 字符串数组
+                                var arr = new_str.split("-");
+
+                                //Date.UTC() :是一个静态方法必须传入 年    月     日，可选   小时    分钟   秒
+                                // 用来获取 传入时间到1970年1月1日午夜的毫秒数 如：Date.UTC(2008,8,8)
+                                // 就是2008年8月8号到1970年1月1日之间的毫秒数
+
+                                var datum = new Date(Date.UTC(arr[0],arr[1]-1,arr[2],arr[3]-8,arr[4],arr[5]));
+
+                                //setTime() :往某一个时间 加上或减去 一些毫秒数
+                                //getTime() : 返回距离1970年1月1号的毫秒数
+
+                                return datum.getTime()/1000;
+                            }
+
+                            //Math.floor 对值进行 下舍入， 比如 0.6 Math.floor(0.6)值是0
+                            scope.chazhi = Math.floor(scope.orderTimeSer - Math.floor(Math.floor(new Date().getTime())/1000));
+                            var ord = new Date(scope.orderTimeOrd);
+                            scope.order = Math.floor(js_strto_time(scope.orderTimeOrd));
+                            /*规定有效时间-已过时间（差值（服务-本地）+现在时间-订单时间）*/
+                            scope.guidingyouxiaoTime = 60*60*Number(scope.orderTime);
+                            var ts = $interval(function(){
+                                var yiguo =scope.guidingyouxiaoTime - (scope.chazhi + Math.floor(new Date().getTime()/1000) - scope.order);
+                                console.log(666,yiguo);
+                                if(yiguo>0){
+                                    var d=Math.floor(yiguo/(24*3600));
+                                    var h=Math.floor((yiguo-d*24*3600)/3600);
+                                    var m =Math.floor((yiguo-d*24*3600-h*3600)/60);
+                                    var s=Math.floor(yiguo-d*24*3600-h*3600-m*60);
+                                    if(d<=0){
+                                        scope.time = h+'时'+m+'分'+s+'秒';
+                                    }else {
+                                        scope.time = d+'天'+h+'时'+m+'分'+s+'秒';
+                                    }
+                                    if(h==0&&m==0&&s==1){
+                                        $interval.cancel(ts);
+                                        $timeout(function(){
+                                            scope.time = '0时0分0秒';
+                                            scope.orderTimeState = true
+                                        },1000)
+                                    }
+                                }else {
+                                    scope.time = '0时0分0秒';
+                                }
+                            },1000)
+                        }
+                    }
+                })
+    </script>
+</body>
+</html>

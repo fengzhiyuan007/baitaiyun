@@ -1,0 +1,110 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Charts/month'),'text'=>'月活跃度'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <input type="text" class="input-text" name="start_time" value="{$month}" id="start_time" placeholder="月份时间"  style="width:250px">
+        <button type="submit" type="submit"  class="btn btn-success radius" onclick="code($('#start_time').val())"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+    </div>
+    <div class="cl mt-20 pd-5 bg-1 bk-gray">
+        <div id="container" style="min-width:700px;height:400px"></div>
+    </div>
+    <div>当月总活跃：<span id="count"></span>人</div>
+</div>
+<script type="text/javascript" src="/static/layui/lay/dest/layui.all.js"></script>
+<script type="text/javascript">
+    var url = "{:url('Charts/month_code')}";
+    function code(e) {
+        $.get(url,{code:e},function (data) {
+            if (data['status'] = 'ok') {
+                var a = data.data.a;
+                var b = data.data.b;
+                $("#count").html(data.data.c);
+                $('#container').highcharts({
+                    title: {
+                        text: "平台月活跃度统计",
+                        x: -20 //center
+                    },
+                    subtitle: {
+                        text: '',
+                        x: -20
+                    },
+                    xAxis: {
+                        categories: b
+                    },
+                    yAxis: {
+                        title: {
+                            text: '人数(人)'
+                        },
+                        plotLines: [{
+                            value: 0,
+                            width: 1,
+                            color: '#808080'
+                        }]
+                    },
+                    tooltip: {
+                        valueSuffix: '人数'
+                    },
+                    legend: {
+                        layout: 'vertical',
+                        align: 'right',
+                        verticalAlign: 'middle',
+                        borderWidth: 0
+                    }, series: [{
+                        name: '日活跃度',
+                        data: a
+                    }]
+                });
+            }
+        }, 'json');
+    }
+    code();
+
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        var start = {
+            elem: '#start_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM', //日期格式
+            istime: false, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#start_time").attr("value",datas);
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM', //日期格式
+            istime: false, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#end_time").attr("value",datas);
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        document.getElementById('start_time').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        }
+//        document.getElementById('end_time').onclick = function(){
+//            end.elem = this
+//            laydate(end);
+//        }
+    });
+</script>
+<script type="text/javascript" src="/static/layui/lay/dest/layui.all.js"></script>

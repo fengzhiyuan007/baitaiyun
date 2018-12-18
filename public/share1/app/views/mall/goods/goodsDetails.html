@@ -1,0 +1,216 @@
+<div class="liveRoom_warp">
+	<div class="liveRoom_app box_direction over_hidden">
+		<div class="grid_cell p_r">
+			<section class="liveRoom_touch p_a t0 l0 b0 w_b100">
+				<!-- banner -->
+				<div class="h375 w_b100 p_r">
+					<div class="flexsliders h375">
+						<ul class="slides h375">
+							<li class="h_b100" ng-repeat="item in goodsInfoObj.imgs track by $index" repeat-finish="flexsliders('.flexsliders')">
+								<a href="JavaScript:void(0)" class="dis_in h_b100 w_b100">
+									<img ng-src="{{item}}"/>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- 商品信息 -->
+				<div class="p10 back_fff">
+					<div class="f14 wbyc2" ng-bind="goodsInfoObj.goods_name"></div>
+					<div class=""></div>
+					<div class="f14 pt5">
+						<span class="col_red">现价：¥<em class="f18" ng-bind="goodsInfoObj.goods_now_price"></em></span>
+						<span class="col_999 scx f12">原价：¥<em ng-bind="goodsInfoObj.goods_origin_price"></em></span>
+					</div>
+					<div class="box_between f12 col_666 pt5">
+						<div>库存:<em ng-bind="goodsInfoObj.goods_stock"></em></div>
+						<div>已售:<em ng-bind="goodsInfoObj.total_sales"></em></div>
+						<div ng-bind="goodsInfoObj.goods_address"></div>
+					</div>
+				</div>
+				<!-- 保证 -->
+				<div class="box_start back_fff bor_t h40 f12 col_red pl10 pr10">
+					<div class="box_start mr10">
+						<div class="ensure_icon w20 wbyc h20 mr5"></div>正品保证
+					</div>
+					<div class="box_start mr10">
+						<div class="ensure_icon w20 wbyc h20 mr5"></div>微信支付
+					</div>
+					<div class="box_start mr10">
+						<div class="ensure_icon w20 wbyc h20 mr5"></div>快递免邮
+					</div>
+					<div class="box_start mr10">
+						<div class="ensure_icon w20 wbyc h20 mr5"></div>七天退换货
+					</div>
+				</div>
+				<!-- 评价 -->
+				<div class="mt10" ng-show="goodsInfoObj.comment_count !=0">
+					<div class="back_fff box_center h40 f14 pl10 pr10 bor_b">- 评价 -</div>
+					<div class="back_fff pl10 pr10">
+						<div class="h30 box_start f14">宝贝评价(<em ng-bind="goodsInfoObj.comment_count || 0"></em>):</div>
+						<div class="media">
+							<div class="w30 h30">
+								<img class="br50" ng-src="{{goodsInfoObj.comment[0].header_img}}" alt="">
+							</div>
+							<div class="ml10 grid_cell">
+								<div class="f14" ng-bind="goodsInfoObj.comment[0].username"></div>
+								<div class="col_999 f12 mt5 wbyc4" ng-bind="goodsInfoObj.comment[0].comment_desc"></div>
+								<div class="box_start mt5" ng-if="goodsInfoObj.comment[0].img.length !=0">
+									<div class="w40 h40 mr10" ng-repeat="i in goodsInfoObj.comment[0].img track by $index">
+										<img ng-src="{{i}}" alt="">
+									</div>
+								</div>
+								<div class="box_start col_999 mt5" ng-bind="goodsInfoObj.comment[0].create_time"></div>
+							</div>
+						</div>
+						<div class="box_center back_fff h40">
+							<div ng-click="seeAllEvaluateClick()" class="pl10 pr10 br15 col_red borCol_red f12 box_center h25">查看全部评论</div>
+						</div>
+					</div>
+				</div>
+				<!-- 店铺详情 -->
+				<div class="back_fff mt10 pl10 pr10">
+					<div class="box_between h80 bor_b">
+						<div class="box_start w_b80">
+							<div class="w60 h60">
+								<img ng-src="{{merchantsInfo.merchants_img}}" alt="">
+							</div>
+							<div class="ml10 w_b70 col_666">
+								<div class="f14 wbyc w_b100" ng-bind="merchantsInfo.merchants_name"></div>
+								<div class="f12 box_start h20 wbyc w_b100" ng-bind="merchantsInfo.merchants_content"></div>
+								<div class="f10 col_999">月销量：<em ng-bind="merchantsInfo.month_sales"></em></div>
+							</div>
+						</div>
+						<div ng-hide="merchantsInfo.is_follow == 3" class="borCol_red wbyc f12 br15 box_center h25 col_red pl10 pr10" ng-bind="merchantsInfo.is_follow ==1?'取消关注': '关注'" ng-click="followClick(merchantsInfo.is_follow)"></div>
+					</div>
+					<div class="box_between h40 col_999 f10">
+						<div class="grid_cell box_center">
+							<div class="t_c">
+								<div class="col_red" ng-bind="merchantsInfo.merchants_star1 || 0"></div>
+								<div>商品描述</div>
+							</div>
+						</div>
+						<div class="w1 h_b50 back_ccc"></div>
+						<div class="grid_cell box_center">
+							<div class="t_c">
+								<div class="col_red" ng-bind="merchantsInfo.merchants_star2 || 0"></div>
+								<div>卖家服务</div>
+							</div>
+						</div>
+						<div class="w1 h_b50 back_ccc"></div>
+						<div class="grid_cell box_center">
+							<div class="t_c">
+								<div class="col_red" ng-bind="merchantsInfo.merchants_star3 || 0"></div>
+								<div>物流服务</div>
+							</div>
+						</div>
+					</div>
+					<div class="box_between f12 h40">
+						<div class="grid_cell box_center">
+							<a href="#/shopDetails?merchants_id={{merchantsInfo.member_id}}" class="box_center h25 br15 borCol_red pl15 pr15 col_red">进入店铺</a>
+						</div>
+						<div class="grid_cell box_center">
+							<a href="#/shopDetails?merchants_id={{merchantsInfo.member_id}}&live=1" class="box_center h25 br15 borCol_red pl15 pr15 col_red">去看直播</a>
+						</div>
+					</div>
+				</div>
+				<!-- 商品详情 -->
+				<div class="mt10" id="goodsDetailsBox">
+					<!-- title -->
+					<div class="box_center h40 back_fff f16">- 商品详情 -</div>
+					<div ng-bind-html="goods_detail"></div>
+				</div>
+			</section>
+		</div>
+		<div class="w_b100 box_between bor_t back_fff h40">
+			<div class="grid_cell box_center f10 h40">
+				<div class="grid_cell box_center">
+					<a href="tel:{{merchantsInfo.contact_mobile}}" class="t_c show">
+						<div class="kf_icon w22 h22 m0a"></div>
+						<div>客服</div>
+					</a>
+				</div>
+				<div class="w1 h_b50 back_ccc"></div>
+				<div class="grid_cell box_center">
+					<a href="#/shopDetails?merchants_id={{merchantsInfo.member_id}}" class="t_c show">
+						<div class="shop_icon w22 h22 m0a"></div>
+						<div>店铺</div>
+					</a>
+				</div>
+				<div class="w1 h_b50 back_ccc"></div>
+				<div class="grid_cell box_center">
+					<div class="t_c" ng-click="collectionClick(goodsInfoObj.is_collect)">
+						<div class="w22 h22 m0a" ng-class="{true:'collection_act_icon',false:'collection_icon'}[goodsInfoObj.is_collect==1]"></div>
+						<div>收藏</div>
+					</div>
+				</div>
+			</div>
+			<div class="grid_cell box_between f14 col_fff" ng-if="goodsInfoObj.is_stop !=1">
+				<div class="grid_cell box_center h40 back_a93c5f" ng-click="specificationModelClick(1,'cart')">加入购物车</div>
+				<div class="grid_cell box_center h40 back_red" ng-click="specificationModelClick(1,'pay')">立即购买</div>
+			</div>
+			<div class="grid_cell box_center back_ccc f14 col_666 h40" ng-if="goodsInfoObj.is_stop ==1">商品已下架</div>
+		</div>
+	</div>
+	<!-- 这下面写fixed定位元素 -->
+	<!-- header -->
+	<header class="p_f t0 l0 w_b100 z102 pl10 pr10 backRgba_black_5">
+		<div class="box_between h45">
+			<div class="left_white_icon w22 h28" ng-click="backFun()"></div>
+			<div class="grid_cell box_center f14 col_fff">
+				<span class="pl10 pr10 h30 box_center" ng-class="{nav_white_act:headerType==1}" ng-click="goodsHeaderClick(1)">商品</span>
+				<span class="ml10 mr10 h30 box_center pl10 pr10" ng-class="{nav_white_act:headerType==2}" ng-click="goodsHeaderClick(2)">详情</span>
+				<span class="pl10 pr10 h30 box_center" ng-click="seeAllEvaluateClick()">评价</span>
+			</div>
+			<a href="#/shoppingCart?cartType=2" class="cart_white_icon w22 h22 show"></a>
+		</div>
+	</header>
+	<!-- 规格 model -->
+	<div class="hide" id="specificationBox">
+		<div class="mk" ng-click="specificationModelClick(2)"></div>
+		<div class="specBox p_f b0 l0 w_b100 back_fff z101">
+			<div class="pl15 pr15 pb20">
+				<div class="p_r box_start h90">
+					<div class="w100"></div>
+					<div class="f12 ml10">
+						<div><em class="col_red f16">￥<em ng-bind="specInfo.specification_price ? specInfo.specification_price : goodsInfoObj.goods_now_price"></em></em></div>
+						<div class="col_999 pt5 pb5">库存<em ng-bind="specInfo.specification_stock ? specInfo.specification_stock : goodsInfoObj.goods_stock"></em>件</div>
+						<div class="col_999" ng-bind="specInfo.specification_names ? specInfo.specification_names : '请选择规格' "></div>
+					</div>
+					<div class="p_a w100 h100 t_f10 l0 p3 back_fff br3">
+						<img ng-src="{{goodsInfoObj.goods_img}}" alt="" />
+					</div>
+					<div class="p_a t10 r0 w30 h30 close_red_icon" ng-click="specificationModelClick(2)"></div>
+				</div>
+				<!-- 规格 -->
+				<div class="maxH220 over_y">	
+					<div class="mt20 bor_b pb5 specBeans" ng-repeat="specBeans in goodsInfoObj.goodsSpecificationBeans track by $index">
+						<div class="f14 h22 mb10" ng-bind="specBeans.specification_value"></div>
+						<div class="box_start flex_wrap f12">
+							<div class="h30 pl15 pr15 br15 box_center back_ mr10 mb10 bor" ng-repeat="spec in specBeans.specificationBeans" ng-bind="spec.specification_value" ng-class="{specItem_act:spec.specification_id == specObj.paIdArr[$parent.$index]}" ng-click="specOption(spec.specification_id,spec.specification_value,$parent.$index)"></div>
+						</div>
+					</div>
+				</div>
+				<div class="mt10 mb10 box_between f14">
+					<div>选择购买数量：</div>
+					<div class="box_center">
+						<div class="w22 h22 back_ccc box_center" ng-click="numberfn(gmnum,specInfo.specification_stock,1)">-</div>
+						<div class="w40 h22 box_center">
+							<input readonly ng-model="gmnum" ng-change="numberfn(gmnum,specInfo.specification_stock)" class="w_b100 h20 t_c" type="text">
+						</div>
+						<div class="w22 h22 back_ccc box_center" ng-click="numberfn(gmnum,specInfo.specification_stock,2)">+</div>
+					</div>
+				</div>
+			</div>
+			<div ng-show="goodsInfoObj.goodsSpecificationBeans ==''">
+				<div class="box_center h45 col_fff back_red f16" ng-click="determineFun(0)" ng-hide="goodsInfoObj.goods_stock == 0">确定</div>
+				<div class="box_center h45 col_666 back_ccc f16" ng-show="goodsInfoObj.goods_stock == 0">库存不足</div>
+			</div>
+			<div ng-show="goodsInfoObj.goodsSpecificationBeans !=''">
+				<div class="box_center h45 col_fff back_red f16" ng-click="determineFun(1)" ng-show="specInfo.specification_names && specInfo.specification_stock!=0">确定</div>
+				<div class="box_center h45 col_666 back_ccc f16" ng-hide="specInfo.specification_names && specInfo.specification_stock!=0" ng-bind="specInfo.specification_stock==0 ? '库存不足' : !specInfo.specification_names ? '请选择规格' : '确定'"></div>
+			</div>
+			
+		</div>
+	</div>
+</div>

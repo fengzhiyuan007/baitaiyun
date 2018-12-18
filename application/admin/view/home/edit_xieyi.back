@@ -1,0 +1,82 @@
+{:W('public/breadcrumbs',[
+[
+['href'=>U('Home/xieyi'),'text'=>'用户协议'],
+]
+])}
+</if>
+<style>
+    .ibutton {
+        padding: 3px 15px;
+        font-size: 12px;
+        text-align: center;
+        text-shadow: #CF510B 0 1px 0;
+        border: 1px solid #ec5c0d;
+        border-radius: 2px;
+        background: #FC750A;
+        background-image: -webkit-linear-gradient(top, #fc8746, #ec5d0e);
+        color: #FFF;
+        cursor: pointer;
+        display: inline-block;
+    }
+</style>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <form  method="post" onsubmit="return checked()">
+                <table width="100%" border="0" class="all">
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="10%">协议内容</td>
+                        <td colspan="2">
+                            {:W('Unit/ueditor',['content',$re['content']])}
+                        </td>
+                    </tr>
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                </table>
+                <input type="hidden" name="id" value="{$re['id']}" />
+                <button class="ibutton submit" type="button">&emsp;保&emsp;存&emsp;</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function() {
+        var content;
+        KindEditor.ready(function (K) {
+            content = K.create('#content', {
+                allowFileManager: true,
+                uploadJson: 'system.php/tools/upload?dirname=banner'
+            });
+        });
+
+        KindEditor.ready(function (K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager: true,
+                uploadJson: 'system.php/tools/upload?dirname=banner'
+                //sdl:false
+            });
+            K('#uparea1').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: K('#image_1').val(),
+                        clickFn: function (url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image', 'url(' + url + ')').css('background-size', '220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".submit").click(function () {
+            commonAjaxSubmit();
+            return false;
+        });
+    });
+</script>

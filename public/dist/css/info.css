@@ -1,0 +1,70 @@
+.info-main {
+	margin: 20px auto
+}
+.info-main .sub-title {
+	position: relative;
+	line-height: 20px;
+	padding-left: 25px;
+	height: 20px;
+	margin-top: 10px;
+	margin-bottom:10px;
+}
+.info-main .sub-title .box {
+	background: #1d90e7;
+	width: 12px;
+	height: 12px;
+	position: absolute;
+	left: 0;
+	top: 4px
+}
+.info-main .left {
+	width: 818px;
+	border: 1px solid #e5e5e5;
+	padding: 20px 15px 40px;
+	float: left;
+	background: #fff
+}
+.info-main .left .header {
+	color: #999;
+	border-bottom: 1px dashed #ccc;
+	position: relative;
+	font-size: 14px;
+	line-height: 25px;
+	padding-bottom: 15px
+}
+.info-main .left .header .tool {
+	bottom: 0
+}
+.info-main .left .title {
+	font-size: 20px;
+	color: #333;
+	margin-bottom: 10px
+}
+.info-main .left .sentence {
+	color: #555;
+	font-size: 16px;
+	line-height: 20px
+}
+.info-main .left .sentence p {
+	margin: 0px 15px 0px 25px;
+	padding: 5px 0 5px 0px;
+	line-height: 30px;
+	border-top:1px dashed #ccc;
+}
+.info-main .left .sentence .indent {
+	text-indent: 2em
+}
+.info-main .right {
+	float: right;
+	width: 278px;
+	border: 1px solid #e5e5e5;
+	background: #fff;
+	padding: 10px 15px 20px;
+	line-height: 25px
+}
+.info-main .right .sub-title {
+	margin-bottom: 5px
+}
+.info-main .right a.text-blue {
+	font-size: 14px
+}

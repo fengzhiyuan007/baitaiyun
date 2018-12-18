@@ -1,0 +1,215 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Finance/index'),'text'=>'充值记录'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <form class="search" action="{:url(finance/index)}" method="get">
+            <input name="p" value="" hidden>
+            <select name="order_state"  class="select select-box inlin" id="order_state" style="width:120px">
+                <option value="">订单状态</option>
+                <option value="wait_send" {if condition="$Request.get.order_state eq wait_send "}selected{else/}{/if}>待发货</option>
+                <option value="wait_receive" {if condition="$Request.get.order_state eq wait_receive "}selected{else/}{/if}>待确认收货</option>
+                <option value="wait_assessment" {if condition="$Request.get.order_state eq wait_assessment "}selected{else/}{/if}>确认收货</option>
+                <option value="end" {if condition="$Request.get.order_state eq end "}selected{else/}{/if}>已结束</option>
+            </select>
+            <input type="text" class="input-text" style="width:250px" name="order_no" value="{$_GET['order_no']}" id="order_no" placeholder="店铺名称、会员昵称、订单号、会员账号">
+            <input type="text" class="input-text"  style="width:190px" name="start_time" value="{$_GET['start_time']}" id="start_time" placeholder="开始时间" readonly>
+            <input type="text" class="input-text"  style="width:190px" name="end_time" value="{$_GET['end_time']}" id="end_time" placeholder="结束时间" readonly>
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+            <span style="float:right;padding:0px 10px 10px 0" >
+                <a href="{:url('Index/index')}" class="btn btn-default radius" >
+					<i class="Hui-iconfont">&#xe625;</i>返回首页
+				</a>
+            </span>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+				<i class="Hui-iconfont">&#xe6e2;</i> 批量删除
+			</a>
+		</span>
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <div style="float: left">
+            </div>
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="100">店铺logo</th>
+                <th width="100">店铺名称</th>
+                <th width="100">联系人姓名</th>
+                <th width="100">联系电话</th>
+                <th width="100">会员账号</th>
+                <th width="100">会员昵称</th>
+                <th width="150">订单号</th>
+                <th width="150">订单状态</th>
+                <th width="100">时间</th>
+                <th width="50">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td><input type="checkbox" value="{$vo.give_gift_id}" name="checkbox"></td>
+                <td><img src="{$vo.merchants_img}" style="width: 50px;height: 50px;border-radius:50%"></td>
+                <td>{$vo.merchants_name}</td>
+                <td>{$vo.contact_name}</td>
+                <td>{$vo.contact_mobile}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.username}</td>
+                <td>{$vo.order_no}</td>
+                <td>
+                {switch name=$vo.order_state}
+                    {case value="wait_send"}待发货{/case}
+                    {case value="wait_receive"}待确认收货{/case}
+                    {case value="wait_assessment"}确认收货{/case}
+                    {case value="end"}已结束{/case}
+                {/switch}
+                </td>
+                <td>{$vo.create_time}</td>
+                <td class="td-manage">
+                    <a title="删除" href="javascript:;" onclick="del(this,{$vo.recharge_record_id});" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <div class="pagination" style="display: block;float: right;margin:-60px 50px 0 0;">
+        </div>
+        <div style="text-align:center">
+            <span>
+                 {$page}
+            </span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input[name="checkbox"]:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+    function datadel(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Finance/del_recharge')}", {ids:kid}, function(data){
+                if( data.status == 'ok' ){
+                    layer.msg(data.info,{icon:1,time:1000});
+                    window.location.href = data.url;
+                }else{
+                    layer.msg(data.info,{icon:1,time:1000});
+                }
+            },'json');
+        })
+    }
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    function member_show(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+
+
+    /*用户-删除*/
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Finance/del_recharge')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                    window.location.href = data.url;
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+    function xiazai(){
+        var download = 'download';
+        var url = "{:url(Finance/index)}";
+        window.location.href=url+"?act="+download;
+//        if(url.split("?")[1]){
+//			window.location.href=url+'&act='+download;
+//		}else{
+//			window.location.href=url+"?act="+download;
+//		}
+    }
+    function getnums(){
+        var num = $("#nus").val();
+        window.location.href="__SELF__&num="+num;
+    }
+
+    function lock(v) {
+        $.post("{:url('Horder/lock_order')}", {id: v}, function (data) {
+            console.log(data);
+            if (data['status'] == 'ok') {
+                alert(data.info);
+                window.location.href = window.location.href;
+            } else {
+                alert(data.info);
+            }
+        }, 'json');
+    }
+
+
+</script>
+<script type="text/javascript" src="/static/layui/lay/dest/layui.all.js"></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        var start = {
+            elem: '#start_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#start_time").attr("value",datas);
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#end_time").attr("value",datas);
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        document.getElementById('start_time').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        }
+        document.getElementById('end_time').onclick = function(){
+            end.elem = this
+            laydate(end);
+        }
+    });
+</script>

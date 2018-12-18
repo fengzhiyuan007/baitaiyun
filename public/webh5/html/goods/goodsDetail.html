@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <title>商品详情</title>
+    <!--初始化样式表-->
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <!--公共样式表-->
+    <link rel="stylesheet" type="text/css" href="../../css/style.css">
+    <!--主样式表-->
+    <link rel="stylesheet" type="text/css" href="../../css/main.css">
+    <!--rem单位js-->
+    <script type="text/javascript">
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if(clientWidth>=640){
+                        docEl.style.fontSize = '100px';
+                    }else{
+                        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+                    }
+                };
+            if(!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <!--jquery-->
+    <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+    <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body>
+<div class="wrapper">
+    <!--Details - header-->
+   <!-- <div class="p_f t0 l0 w_b100 z99">
+        <div class="box_center h44 backRgba_black_5 p_r">
+            <div class="f16 col_fff box_center">
+                <div class="ml15 mr15">商品</div>
+                <div class="ml15 mr15 details_header_act">详情</div>
+            </div>
+            <div class="p_a l10 details_left_icon"></div>
+        </div>
+    </div>-->
+    <!-- content -->
+    <div class="pb50">
+        <!--banner-->
+        <div class="h375 w_b100 p_r">
+            <img src="../../images/shangping-maizi0@2x.png" alt="">
+        </div>
+        <div class="back_fff pl10 pr10 pb10">
+            <div class="box_between pt10">
+                <div class="box_start w_b80">
+                    <div class="col_000 f16 w_b100 wbyc2">沽源藜麦沽源藜麦沽源藜麦沽源藜麦沽源藜麦沽源藜麦</div>
+                </div>
+                <div class="box_center bor_l w_b15">
+                    <div class="">
+                        <div class="share_icon w30 h30"></div>
+                        <div class="t_c">分享</div>
+                    </div>
+                </div>
+            </div>
+            <div class="back_fff mt10">
+                <div class="box_start w_b100">
+                    <div class="col_9E9E9E f12 w_b100">沽源藜麦沽源藜麦沽源藜麦沽源藜麦沽源藜沽源藜麦沽源藜沽源藜麦沽源藜沽源藜麦沽源藜沽源藜麦沽源藜麦沽源藜麦</div>
+                </div>
+            </div>
+
+            <div class="box_start pt10 pb10">
+                <div class="f12 mr40 col_red">现价: ￥<em class="f16 ">2600.0</em></div>
+                <div class="f12 col_9E9E9E scx">原价：￥<em class="">80.0</em></div>
+            </div>
+            <div class="box_between f12 col_999">
+                <div>库存：<em>20000</em></div>
+                <div><em>4000</em>人购买</div>
+                <div>赞皇</div>
+            </div>
+        </div>
+
+        <!--支付icon Box-->
+        <div class="back_fff mt10 pl10 pr10">
+            <div class="box_start h40 bor_b over_x col_red">
+                <div class="box_center mr15">
+                    <div class="hook_icon w20 h20 mr5"></div>
+                    <div>正品保证</div>
+                </div>
+                <div class="box_center mr15">
+                    <div class="hook_icon w20 h20 mr5"></div>
+                    <div>快捷支付</div>
+                </div>
+                <div class="box_center mr15">
+                    <div class="hook_icon w20 h20 mr5"></div>
+                    <div>快递免邮</div>
+                </div>
+                <div class="box_center">
+                    <div class="hook_icon w20 h20 mr5"></div>
+                    <div>七天退换货</div>
+                </div>
+            </div>
+            <div class="h40 box_start">
+                <div class="box_center h20 mr5 f10 pl5 pr5 borCol_red br5 col_red">积分</div>
+                <div class="ml5 col_red">可领积分 <em>68</em></div>
+            </div>
+        </div>
+        <!-- 选择规格分类 -->
+        <div class="mt10">
+            <!-- title -->
+            <div class="pl10 pr10 h40 box_between f14 back_fff">
+                <div>选择规格分类</div>
+                <a href="../fuPoor/fuPoorDetails.html" class="box_center col_999">
+                    <div class="s_right_icon"></div>
+                </a>
+            </div>
+
+        </div>
+        <!--评论-->
+        <div class="h40 box_center f12 col_666">— 评 价 —</div>
+         <div class=" back_fff pr10 pl10 pt15 pb15">
+            <div>宝贝评价 (<em>200</em>) :</div>
+             <div class="media mt10 ">
+                 <div class="w20 h20 over_hidden br50">
+                     <img src="../../images/shangping-maizi0@2x.png" alt="">
+                 </div>
+                 <div class="ml10 w_b90">
+                     <div class="f13 box_start">
+                         我是小毛呢
+                     </div>
+                     <div class="f10 col_666 mt5 mb5">
+                         评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容评论内容
+                     </div>
+                     <div class="box_start">
+                         <div class=" w40 h40 mr10">
+                             <img src="../../images/shangping-maizi0@2x.png" alt="">
+                         </div>
+                         <div class=" w40 h40 mr10">
+                             <img src="../../images/shangping-maizi0@2x.png" alt="">
+                         </div>
+                         <div class=" w40 h40 mr10">
+                             <img src="../../images/shangping-maizi0@2x.png" alt="">
+                         </div>
+                     </div>
+                     <div class="box_start mt10">
+                        <em class="col_999 f10">2016-09-09 15:38</em>
+                     </div>
+                    <div class="box_center mt20">
+                        <div class="box_center h30 pl20 pr20 br15 f14 col_red borCol_red">查看全部评论</div>
+                    </div>
+                 </div>
+             </div>
+         </div>
+        <!--店铺-->
+        <div class="back_fff mt10 pr10 pl10 pt15 pb15">
+            <div class="box_center bor_b pb10">
+                <div class="">
+                    <div class="grid_cell w60 h60 box_start">
+                        <img src="../../images/shangping-maizi0@2x.png" alt="">
+                    </div>
+                </div>
+                <div class="grid_cell ml10 w_b50">
+                    <div class="f14">
+                        <em>小馋猫美味零食店</em>
+                    </div>
+                    <div class="f12 wbyc mt5 mb5">
+                        小馋猫美味零馋猫美味零馋猫wbyc2wbyc2wbyc2w
+                    </div>
+                    <div class="f10 col_999">
+                        月销量：<em>3234234</em>
+                    </div>
+                </div>
+                <div class="grid_cell box_end">
+                    <div class="h25 pl15 pr15 col_fff br15 box_center borCol_yellow back_yellow">已关注</div>
+                </div>
+            </div>
+            <div class=" pt10 pb10 box_between">
+                <div class="grid_cell ">
+                    <div class="box_center w_b100 col_red">5.0</div>
+                    <div class="box_center w_b100 col_999 mt5">商品描述</div>
+                </div>
+                <div class="grid_cell  bor_l bor_r">
+                    <div class="box_center w_b100 col_red">5.0</div>
+                    <div class="box_center w_b100 col_999 mt5">卖家服务</div>
+                </div>
+                <div class="grid_cell ">
+                    <div class="box_center w_b100 col_red">5.0</div>
+                    <div class="box_center w_b100 col_999 mt5">物流服务</div>
+                </div>
+            </div>
+            <div class=" box_arou mt10">
+                <div class="h25 pl30 pr30 col_red br15 box_center borCol_red ">进入店铺</div>
+                <div class="h25 pl30 pr30 col_red br15 box_center borCol_red ">去看直播</div>
+            </div>
+        </div>
+        <!--详情-->
+        <div class="h40 box_center f12 col_666">— 详 情 —</div>
+        <div class="w_b100">
+            <img src="../../images/shangping-maizi0@2x.png" alt="">
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+</body>
+</html>

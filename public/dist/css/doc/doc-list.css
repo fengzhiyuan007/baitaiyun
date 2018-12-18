@@ -1,0 +1,562 @@
+.help-container {
+    width: 1140px;
+    margin: 20px auto 0;
+    padding: 15px;
+    display: none;
+    line-height: 25px;
+    background: #fff;
+    font-size: 12px;
+    position: relative
+}
+.help-container ul {
+    margin-top: 5px
+}
+.help-container .main-title {
+    text-align: center;
+    font-size: 16px;
+    color: #333
+}
+.help-container .tips {
+    margin-top: 20px;
+    padding: 5px 10px;
+    font-size: 12px;
+    border: 1px solid #e5e5e5
+}
+.help-container .title {
+    color: #1d90e7;
+    margin-top: 5px;
+    font-size: 14px
+}
+.help-container .close2 {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    right: 20px;
+    background: url(../../img/close1.png) no-repeat;
+    top: 20px
+}
+.search-filter {
+    background: #fff;
+    padding: 25px 15px;
+    margin-top: 20px;
+    width: 1140px
+}
+.search-filter .input-box {
+    border: 1px solid #e5e5e5;
+    width: 700px;
+    line-height: 20px;
+    height: 40px;
+    float: left
+}
+.search-filter .input-box .txt {
+    background-color: #fff;
+    border: none;
+    width: 600px;
+    height: 20px;
+    line-height: 20px;
+    padding: 10px 20px;
+    outline: 0;
+    float: left
+}
+.search-filter .input-box .icon-submit {
+    height: 40px;
+    width: 60px;
+    background: url(../../img/search.png) center no-repeat #e5e5e5;
+    cursor: pointer;
+    float: right
+}
+.search-filter .btn {
+    padding: 10px 15px;
+    margin-left: 20px;
+    line-height: 20px;
+    height: 40px;
+    border-width: 1px;
+    float: left;
+    font-size: 16px
+}
+.search-filter .btn.high {
+    color: #fff;
+    background: #16a085;
+    border-color: #16a085
+}
+.search-filter .btn.result {
+    background: #fff;
+    color: #16a085;
+    border-color: #16a085
+}
+.high-search {
+    display: none;
+    background: #fff;
+    padding: 25px 15px;
+    margin-top: 20px;
+    position: relative;
+    width: 1140px
+}
+.high-search .h-left {
+    width: 700px;
+    float: left;
+    position: relative;
+    min-height: 300px;
+    padding-bottom: 50px
+}
+.high-search .h-left .row {
+    width: 100%;
+    line-height: 30px;
+    margin-bottom: 10px
+}
+.high-search .h-left .row .label {
+    width: 80px;
+    margin-right: 20px;
+    float: left;
+    font-size: 14px;
+    text-align: right
+}
+.high-search .h-left .row .txt {
+    border: 1px solid #e5e5e5;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    width: 498px;
+    padding: 0 15px;
+    outline: 0
+}
+.high-search .h-left .row select.txt {
+    width: 530px;
+    height: 32px
+}
+.high-search .h-left .row .close2 {
+    float: left;
+    margin-left: 10px;
+    cursor: pointer;
+    background: url(../../img/cha1.png) 0 8px no-repeat;
+    width: 14px;
+    height: 30px
+}
+.high-search .h-left .row option[disabled] {
+    color: #000;
+    font-weight: 700
+}
+.high-search .h-left .buttons {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    bottom: 0
+}
+.high-search .h-left .buttons .btn {
+    padding: 8px 25px;
+    margin-left: 20px;
+    display: inline;
+    border-width: 1px;
+    font-size: 14px
+}
+.high-search .h-left .buttons .btn.b1 {
+    color: #fff;
+    background: #16a085;
+    border-color: #16a085
+}
+.high-search .h-left .buttons .btn.b2 {
+    background: #fff;
+    color: #16a085;
+    border-color: #16a085
+}
+.high-search .shou {
+    position: absolute;
+    background: url(../../img/shou.png) no-repeat;
+    width: 28px;
+    height: 35px;
+    cursor: pointer;
+    bottom: 20px;
+    left: 50%;
+    margin-left: -14px
+}
+.high-search .h-right {
+    width: 418px;
+    float: right;
+    background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    padding: 10px
+}
+.high-search .h-right .title {
+    font-size: 16px
+}
+.high-search .h-right .title img {
+    margin-left: 5px;
+    vertical-align: middle;
+    cursor: pointer
+}
+.high-search .h-right .item {
+    border: 1px solid #ddd;
+    width: 82px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #fff;
+    float: left;
+    cursor: pointer;
+    color: #555;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-right: 15px;
+    position: relative
+}
+.high-search .h-right .item.active, .high-search .h-right .item:hover {
+    border-color: #1d90e7
+}
+.high-search .h-right .item.active:after, .high-search .h-right .item:hover:after {
+    content: '';
+    background: url(../../img/y.png) no-repeat;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 16px;
+    height: 16px
+}
+.main2 .company, .main2 .no-data {
+    background: #fff
+}
+.hide-filter {
+    display: none
+}
+.main2 {
+    margin-top: 10px;
+    margin-bottom: 20px
+}
+.main2 .con {
+    padding: 25px 15px
+}
+.main2 .no-data {
+    margin: 0 auto;
+    width: 1170px;
+    font-size: 16px;
+    color: #333;
+    line-height: 25px
+}
+.main2 .no-data .title {
+    font-size: 20px
+}
+.main2 .company .list {
+    border-bottom: 1px dotted #e5e5e5;
+    padding-bottom: 6px;
+    line-height: 20px;
+    margin-bottom: 20px
+}
+.main2 .company .list .title {
+    font-size: 18px;
+    color: #1d90e7;
+    margin-bottom: 10px
+}
+
+.main2 .company .item {
+    text-decoration: none;
+    font-size: 14px;
+    padding: 3px 5px;
+    float: left;
+    margin:0 15px 10px 0;
+    border: 1px solid #e5e5e5;
+    cursor: pointer;
+}
+.main2 .star-search {
+    background: #fff;
+    padding: 25px 15px;
+    line-height: 25px;
+    width: 1140px;
+    font-size: 14px;
+    color: #555;
+    margin: 0 auto
+}
+.select-wrap a.active{
+    color: #DD2828;
+}
+.main2 .star-search .img-box {
+    background: url(../../img/searchBtn.png) no-repeat;
+    width: 240px;
+    height: 240px;
+    margin: 20px auto;
+}
+.pagination{
+    text-align: center;
+}
+.main2 .star-search .title {
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    color: #16a085
+}
+.main2 .star-search .tips {
+    font-size: 14px;
+    color: #777;
+    margin-top: 20px
+}
+.main2 .left {
+    width: 248px;
+    float: left;
+    padding: 14px 0 14px 15px;
+    background: #fff;
+    border: 1px solid #E5E5E5;
+}
+.main2 .left .title {
+    position: relative;
+    line-height: 20px;
+    font-size: 16px;
+    color: #333;
+    padding-left: 23px;
+    height: 40px;
+    margin-top: 4px
+}
+.main2 .left .title .box {
+    background: #DD2828;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: 0;
+    top: 4px
+}
+.main2 .left .title .line {
+    background: url(../../img/line.png) no-repeat;
+    height: 10px;
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    left: 0
+}
+.main2 .left .content {
+    padding: 10px 28px;
+    font-size: 14px;
+    color: #666;
+}
+.main2 .left .select-wrap {
+    padding: 10px 0 3px;
+}
+.select-wrap a{
+    display: block;
+    padding-left: 28px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+}
+.select-wrap a:hover{
+    text-decoration: none;
+}
+
+.main2 .left .one {
+    position: relative;
+    line-height: 20px;
+    padding-left: 22px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #666;
+}
+.main2 .left .one:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 14px;
+    height: 2px;
+    background: url(../../img/open.png) no-repeat
+}
+.main2 .left .one.close2:after {
+    left: 0;
+    top: 3px;
+    width: 14px;
+    height: 14px;
+    background: url(../../img/close.png) no-repeat
+}
+.main2 .left .one.close2 .two {
+    display: none
+}
+.main2 .left .two {
+    padding-left: 10px;
+    line-height: 20px;
+    display: block
+}
+.main2 .result-title, .main .search-condition {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e5e5e5
+}
+.main2 .left .two a {
+    margin-top: 10px;
+    text-decoration: none;
+    font-size: 14px;
+    color: #666;
+    display: block
+}
+.main2 .left a.more {
+    display: block;
+    text-align: right;
+    font-size: 12px;
+    color: #1d90e7
+}
+.main2 .result-title {
+    font-size: 16px;
+    color: #333;
+    background: #f8f8f8
+}
+.main2 .search-condition {
+    font-size: 16px;
+    line-height: 35px
+}
+.main2 .search-condition .item {
+    display: inline-block;
+    font-size: 14px;
+    color: #1d90e7;
+    height: 35px;
+    cursor: pointer;
+    margin-left: 15px;
+    background: #f1f1f1;
+    padding: 0 15px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px
+}
+.main2 .search-condition .item img {
+    vertical-align: middle
+}
+.main2 .right {
+    width: 907px;
+    float: right;
+    background: #fff;
+    border: 1px solid #e5e5e5
+}
+.main2 .right .sortDown {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 15px 12px
+}
+.main2 .right .sortDown .down-btn {
+    font-size: 14px;
+    color: #fff;
+    width: 120px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0;
+    border: none;
+    text-align: center;
+    background: #1d90e7
+}
+.main2 .right .sortDown .sort {
+    float: right;
+    margin-right: 30px;
+    font-size: 0
+}
+.main2 .right .sortDown .sort .sort-btn {
+    background: #fff;
+    border-radius: 0;
+    border: 1px solid #1d90e7;
+    color: #1d90e7;
+    padding: 0 15px;
+    line-height: 30px;
+    height: 30px;
+    font-size: 14px
+}
+.main2 .right .sortDown .sort .sort-btn.active, .main2 .right .sortDown .sort .sort-btn:hover {
+    background: #d2e9fa
+}
+.main2 .right .sortDown .sort .sort-btn+.sort-btn {
+    border-left: none
+}
+.main2 .right .result .item {
+    border-bottom: 1px solid #e5e5e5;
+    padding: 20px 12px 60px;
+    position: relative
+}
+.main2 .right .result .title {
+    font-size: 16px;
+    color: #1d90e7;
+    margin-bottom: 0
+}
+.main2 .right .result .info {
+    padding:8px 0 10px 0;
+    font-size: 14px;
+    color: #999;
+}
+.main2 .right .result .lead {
+    position: relative;
+    line-height: 20px;
+    color: #333;
+    padding-left: 23px;
+    height: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px
+}
+.main2 .right .result .lead .box {
+    background: #1d90e7;
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    left: 0;
+    top: 4px
+}
+.main2 .right .result .text {
+    color: #666;
+    font-size: 12px;
+    line-height: 22px
+}
+.main2 .right .result .type {
+    width: 130px;
+    height: 42px;
+    position: absolute;
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    top: 0;
+    right: -10px;
+    background: url(../../img/resultitemr.png) no-repeat;
+    color: #fff
+}
+.main2 .right .result.company-result .item {
+    padding-bottom: 20px
+}
+.main2 .right .result.company-result .text {
+    margin-top: 10px
+}
+.con .list h5{
+    margin:0 0 6px;
+    font-size: 14px;
+    color: #666;
+    font-weight: normal;
+}
+.container{
+    padding: 0;
+}
+.bt-btn2 .btn{
+    border-radius: 0 !important;
+    color: #999;
+    font-size: 12px;
+}
+.bt-btn2 .btn-default:hover{
+    background: #fff;
+}
+.law17{
+    font-size: 14px;
+    color: #999;
+    margin: 0px 0;
+}
+.bt-btn2>.btn, .btn-sm{
+    padding: 0px 5px;
+}
+.text a{
+    color: #6b6a6a;
+}
+.text a:hover{
+    color: #333;
+}
+.info a{
+    color: #999;
+}
+.info a:hover{
+    color: #333;
+}
+@media (max-width: 767px) {
+    .main2 .left{
+        width: 100%;
+    }
+    .main2 .right{
+        width: 100%;
+        margin-top: 20px;
+    }
+    .container{
+        padding:0 10px
+    }
+}

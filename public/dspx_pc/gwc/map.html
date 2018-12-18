@@ -1,0 +1,88 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自提点查询</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.3"></script>
+</head>
+<body style="background:#CBE1FF">
+    <div style="width:730px;margin:auto;">
+        要查询的地址：<input id="text_" type="text" value="宁波天一广场" style="margin-right:100px;"/>
+        查询结果(经纬度)：<input id="result_" type="text" />
+        <input type="button" value="查询" onclick="searchByStationName();"/>
+        <div id="container"
+            style="position: absolute;
+                margin-top:30px;
+                width: 730px;
+                height: 590px;
+                top: 50;
+                border: 1px solid gray;
+                overflow:hidden;">
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+function getRequest() {
+   var url = window.location.search; //获取url中"?"符后的字串
+   var theRequest = new Object();
+   if (url.indexOf("?") != -1) {
+      var str = url.substr(1);
+      strs = str.split("&");
+      for(var i = 0; i < strs.length; i ++) {
+          //就是这句的问题
+         theRequest[strs[i].split("=")[0]]=decodeURI(strs[i].split("=")[1]);
+         //之前用了unescape()
+         //才会出现乱码
+      }
+   }
+   return theRequest;
+}
+
+
+
+    var map = new BMap.Map("container");
+    map.centerAndZoom("上海", 16);
+    map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+    map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+
+    map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+    map.addControl(new BMap.OverviewMapControl()); //添加默认缩略地图控件
+    map.addControl(new BMap.OverviewMapControl({ isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT }));   //右下角，打开
+
+    var localSearch = new BMap.LocalSearch(map);
+    localSearch.enableAutoViewport(); //允许自动调节窗体大小
+function searchByStationName() {
+    map.clearOverlays();//清空原来的标注
+    var keyword =document.getElementById("text_").value;
+    localSearch.setSearchCompleteCallback(function (searchResult) {
+        var poi = searchResult.getPoi(0);
+        document.getElementById("result_").value = poi.point.lng + "," + poi.point.lat;
+        map.centerAndZoom(poi.point, 16);
+        var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));  // 创建标注，为要查询的地方对应的经纬度
+        map.addOverlay(marker);
+        var content = document.getElementById("text_").value + "<br/><br/>经度：" + poi.point.lng + "<br/>纬度：" + poi.point.lat;
+        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+        marker.addEventListener("click", function () { this.openInfoWindow(infoWindow); });
+        // marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+    });
+    localSearch.search(keyword);
+}
+function searchByStationName2() {
+    map.clearOverlays();//清空原来的标注
+    var keyword =getRequest().add; //document.getElementById("text_").value;
+    localSearch.setSearchCompleteCallback(function (searchResult) {
+        var poi = searchResult.getPoi(0);
+        document.getElementById("result_").value = poi.point.lng + "," + poi.point.lat;
+        map.centerAndZoom(poi.point, 20);
+        var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));  // 创建标注，为要查询的地方对应的经纬度
+        map.addOverlay(marker);
+        var content = document.getElementById("text_").value + "<br/><br/>经度：" + poi.point.lng + "<br/>纬度：" + poi.point.lat;
+        var infoWindow = new BMap.InfoWindow("<p style='font-size:14px;'>" + content + "</p>");
+        marker.addEventListener("click", function () { this.openInfoWindow(infoWindow); });
+        // marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+    });
+    localSearch.search(keyword);
+}
+document.getElementById("text_").value=getRequest().add;
+searchByStationName2()
+</script>
+</html>

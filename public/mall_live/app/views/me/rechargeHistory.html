@@ -1,0 +1,23 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff pl10 pr10 z100 bor_b">
+		<div class="box_center h44">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">充值记录</div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</div>
+	<div class="pt45">
+		<div class="box_between h50 back_fff bor_b pl10 pr10" ng-repeat="item in rechargeHistoryInfo track by $index">
+			<div class="">
+				<div>充值成功：金额<em ng-bind="item.amount"></em>元</div>
+				<div class="f10 col_999" ng-bind="item.uptime"></div>
+			</div>
+			<div class="f14 col_red">+<em ng-bind="item.meters"></em>钻石</div>
+		</div>
+	</div>
+</div>

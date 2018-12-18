@@ -1,0 +1,81 @@
+body{font-size: 0.2rem;background:rgba(204, 204, 204, 0.28);}
+.wrapper{width: 100%;overflow: hidden;min-height: 100%;}
+
+.left_icon{background:url(../icon/fanhui-hei@2x.png) no-repeat;background-position:center;background-size: cover;width: 0.32rem;height: 0.56rem;}
+.s_right_icon{background: url(../icon/xiangzuo-hui@2x.png) no-repeat;background-size: cover;background-position: center;width: 0.28rem;height: 0.48rem;}
+.s_time_icon{background: url(../icon/shenyushijian@2x.png) no-repeat;background-position:center;background-size: cover;}
+.s_buy_backImg_icon{background: url(../icon/lijigoumai-anniu@2x.png) no-repeat;background-position:center;background-size: cover;}
+
+
+
+/*商品详情页*/
+.share_icon{background:url(../icon/xiangqing_fenxiang@2x.png) no-repeat;background-size: cover;background-position: center;}
+.hook_icon{background:url(../icon/gouwuche_xuanze@2x.png) no-repeat;background-size: cover;background-position: center;}
+.diamonds_icon{background:url(../icon/xiangqing-jifen@2x.png) no-repeat;background-position: center;background-size: cover;}
+.specClose_icon{background:url(../icon/guanbi22@2x.png) no-repeat;background-size: cover;background-position: center;}
+.specOption_act{background-color: #59AC95;color: #fff}
+
+
+
+/*首页*/
+.grade_icon{background: url(../icon/wode-yijihuiyuan@2x.png) no-repeat;background-size: cover;background-position: center;width: 0.4rem;height: 0.4rem;}
+.home_nav_act{font-size: 0.32rem;color: #00AE95;border-bottom:2px solid #00AE95;}
+.nav_act{color: #00AE95;border-bottom: 2px solid #00AE95;}
+.home_icon{background:url(../icon/weixuanzhoong@2x.png) no-repeat;background-size: cover;background-position: center;}
+.home_act_icon{background:url(../icon/xuanzhoong@2x.png) no-repeat;background-size: cover;background-position: center;}
+.me_icon{background:url(../icon/weixuanzhong@2x.png) no-repeat;background-size: cover;background-position: center;}
+.me_act_icon{background: url(../icon/xuanzhong@2x.png) no-repeat;background-size: cover;background-position: center;}
+
+/*************************
+* 这段样式表的顺序不能随意更改
+*************************/
+.home_goodsBox .grid_cell:nth-child(odd){ /*奇数*/
+	padding:.2rem .2rem .2rem 0;
+	border-right: 1px solid #e5e5e5;
+}
+
+.home_goodsBox .grid_cell:nth-last-child(2) { /*倒数第二个列表*/
+    border-bottom: none;
+    padding:.2rem .2rem 0 0;
+}
+.home_goodsBox .grid_cell:nth-child(even){ /*偶数*/
+	border-right: none;
+	padding: .2rem 0 .2rem .2rem;
+	border-bottom: 1px solid #e5e5e5;
+}
+.home_goodsBox .grid_cell:nth-last-child(1) { /*倒数第一个列表*/
+  border-bottom: none;
+  padding-bottom: 0;
+}
+.home_goodsBox .grid_cell:first-child{ /*第一个列表*/
+	padding-right: 0.2rem;
+	padding-top: 0;
+	padding-bottom: 0.2rem;
+	border-right: 1px solid #e5e5e5;
+	border-bottom: 1px solid #e5e5e5;
+}
+.home_goodsBox .grid_cell:nth-child(2){ /*第二个列表*/
+	padding-top: 0;
+	padding-bottom: .2rem;
+	border-bottom:1px solid #e5e5e5;
+}
+
+/*个人中心*/
+.stay_payment_icon{background:url(../icon/wode_daifukuan@2x.png) no-repeat;background-size: cover;background-position: center;}
+.stay_delivery_icon{background:url(../icon/wode_daifahuo@2x.png) no-repeat;background-size: cover;background-position: center;}
+.stay_Goods_receipt_icon{background:url(../icon/wode_daishouhuo@2x.png) no-repeat;background-size: cover;background-position: center;}
+.complete_icon{background:url(../icon/wode_daipingjia@2x.png) no-repeat;background-size: cover;background-position: center;}
+.refund_icon{background:url(../icon/wode_tuikuanshou@2x.png) no-repeat;background-size: cover;background-position: center;}
+
+.about_icon{background: url(../icon/wode-guanyulelong@2x.png) no-repeat;background-size: cover;background-position: center;}
+.group_icon{background:url(../icon/wopingtuan@2x.png) no-repeat;background-size: cover;background-position: center;}
+.commonweal_icon{background:url(../icon/wode-gongyi@2x.png) no-repeat;background-size: cover;background-position: center;}
+.my_address_icon{background:url(../icon/wode-dizhi@2x.png) no-repeat;background-size: cover;background-position: center;}
+.invoice_icon{background:url(../icon/wode-fapiao@2x.png) no-repeat;background-size: cover;background-position: center;}
+.sys_msg_icon{background:url(../icon/wode-xiaoxi@2x.png) no-repeat;background-size: cover;background-position: center;}
+.replacePhone_icon{background: url(../icon/wode-genhuanshouji@2x.png) no-repeat;background-size: cover;background-position: center;}
+.opinion_icon{background: url(../icon/wode-yijianfankui@2x.png) no-repeat;background-size: cover;background-position: center;}
+
+
+
+.bg_coupon{background: url(../images/youhuiquan@2x.png) no-repeat;background-size: cover;background-position: center;}

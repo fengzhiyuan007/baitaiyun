@@ -1,0 +1,25 @@
+<aside class="Hui-aside" style="position:fixed;">
+	<input runat="server" id="divScrollValue" type="hidden" value="" />
+	<div class="menu_dropdown bk_2" style="overflow: scroll">
+		{volist name="nav" id="vo" key="key"}
+		<dl id="menu-article">
+			<dt menu_key="{$key}"><i class="Hui-iconfont">{$vo.icon|default="&#xe616;"}</i> {$vo.title}<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd class="hide  _menu{$key}">
+				<ul>
+					{volist name="vo['menu']" id="k"}
+					<li><a href="{:url($k.name)}" title="{$k.title}">{$k.title}</a></li>
+					{/volist}
+				</ul>
+			</dd>
+		</dl>
+		{/volist}
+	</div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>
+<script>
+	$(function(){
+		var height = $(window).height() - 100;
+		console.log(height);
+		$('.menu_dropdown').css('height',height);
+	});
+</script>

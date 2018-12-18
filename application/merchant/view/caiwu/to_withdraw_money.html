@@ -1,0 +1,139 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Index/index'),'text'=>'商户信息'],
+['href'=>'','text'=>'余额提现'],
+
+]
+])}
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <form class="form form-horizontal" id="form" method="post">
+        <div class="row cl" style="padding-left: 320px">
+            <span style="font-size: 20px;">商户余额提现申请</span>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商户余额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="amount" readonly class="input-text" value="{$re['amount']}" placeholder="" id="amount" readonly style="width: 50%"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>账户姓名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="realname" readonly class="input-text" value="{$bank['realname']}" placeholder="" id="realname" readonly style="width: 50%"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>提现银行：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="bank_name" readonly class="input-text" value="{$bank['bank_name']}" placeholder="" id="bank_name" readonly style="width: 50%"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>银行卡号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="bank_card" readonly class="input-text" value="{$bank['bank_card']}" placeholder="" id="bank_card" readonly style="width: 50%"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开户信息：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="message" readonly class="input-text" value="{$bank['message']}" placeholder=""  id="message" style="width: 50%"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>转化比例：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="cash_money" readonly class="input-text" value="1:1" placeholder="转化比"  id="cashmoney" style="width: 50%"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>提现余额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="money"  class="input-text" value="" placeholder="" id="money" style="width: 50%"/>
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe6b7; </i>余额提现</button>
+            </div>
+        </div>
+    </form>
+</div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        var  content ;
+        KindEditor.ready(function(K) {
+            content = K.create('#content',{
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+            });
+        });
+
+        KindEditor.ready(function(K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+                //sdl:false
+            });
+            K('#uparea1').click(function() {
+                console.log(1);
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".submit").click(function(){
+            commonAjaxSubmit('','form');
+            return false;
+        });
+
+        $("#uparea1").mouseover(function(e){
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_1').val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $("#uparea1").mouseout(function(){
+            $("#big").hide();
+        });
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+    });
+    function area_linke1(value){
+        $.post("{:url('Member/get_area')}", {value:value,type:1}, function(v){
+            $("#shi").html(v);
+        });
+    }
+    function area_linke2(value) {
+        $.post("{:url('Member/get_area')}", {value: value, type: 2}, function (v) {
+            $("#qu").html(v);
+        });
+    }
+
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->

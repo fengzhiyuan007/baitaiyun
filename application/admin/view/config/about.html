@@ -1,0 +1,44 @@
+{:W('public/breadcrumbs',[
+	[
+		['href'=>U('Config/index'),'text'=>'基本设置'],
+		['href'=>'javascript:;','text'=>'关于我们']
+	]
+])}
+<div class="page-content">
+	<div class="row">
+		<div class="col-xs-12">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table1">
+				<tr>
+					<th width="150">关于我们：</th>
+					<td>
+						{:W('Unit/ueditor',['extend',$extend])}
+					</td>
+				</tr>
+				<tr><td colspan="2" style="text-align:right;"><button class="btn" id="btn">修改</button></td></tr>
+			</table>
+		</div>
+		<!-- ./ end col-xs-12 -->
+	</div>
+	<!-- ./ end row -->
+</div>
+
+<script>
+$(function(){
+	$("#btn").click(function () {
+		var extend = editor.getContent();
+		if(!extend){
+			alert('请先填写点内容!');
+			return false;
+		}
+		if(confirm('您确认要修改吗?')){
+			$.post("{:U('about')}",{extend:extend}, function (data) {
+				if(data){
+					alert('修改成功');
+				}else{
+					alert('修改失败');
+				}
+			});
+		}
+	});
+});
+</script>

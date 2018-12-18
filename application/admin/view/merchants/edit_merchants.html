@@ -1,0 +1,193 @@
+{php}
+$mid = input('get.mid');
+$mid?$text='编辑审核商户信息':$text='编辑审核商户信息';
+{/php}
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('merchants/index'),'text'=>'商户列表列表'],
+['href'=>'','text'=>$text]
+]
+])}
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <form class="form form-horizontal" id="form" method="post">
+        <div class="row cl" style="text-align: center">
+            <span style="font-size: 20px;">商户入驻提交信息如下</span>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="username" class="input-text" value="{$re['contact_name']?$re['contact_name']:''}" readonly="readonly" id="username" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>联系电话：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$re['contact_mobile']?$re['contact_mobile']:''}" readonly="readonly" id="phone" name="phone" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>店铺名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$re['merchants_name']?$re['merchants_name']:''}" readonly="readonly" id="phone" name="phone" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box" style="width: 33%">
+                    <select name="sheng" onchange="area_linke1(this.value)" class="select">
+                        <option value="">请选择</option>
+                        {volist name="sheng" id="l"}
+                            <option value="{$l.id}" {if condition=" $re.merchants_province eq $l.name "}selected{else/}{/if}>{$l.name}</option>
+                        {/volist}
+                    </select>
+				</span>
+                <span class="select-box" style="width: 33%">
+                    <select name="shi" id="shi" onchange="area_linke2(this.value)" class="select">
+                            <option value=''>请选择（市）</option>
+                            {volist name="re.shi" id="s"}
+                                <option value="{$s.id}" {if condition=" $re.city_id eq $s.id "}selected{else/}{/if}>{$s.name}</option>
+                        {/volist}
+                    </select>
+                </span>
+                <span class="select-box" style="width: 33%">
+                    <select name="qu" id="qu" class="select">
+                        <option value=''>请选择（区/县）</option>
+                        {volist name="re.qu" id="s"}
+                            <option value="{$s.id}" {if condition=" $re.area_id eq $s.id "}selected{else/}{/if}>{$s.name}</option>
+                        {/volist}
+                    </select>
+                </span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>店铺地址：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$re['merchants_address']?$re['merchants_address']:''}"readonly="readonly" id="phone" name="phone" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">身份证：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <img style="width: 200px;height: 170px;" src="{$re['legal_img']}"/>
+                <img style="width: 200px;height: 170px;" src="{$re['legal_face_img']}"/>
+                <img style="width: 200px;height: 170px;" src="{$re['legal_opposite_img']}"/>
+                <img style="width: 200px;height: 170px;" src="{$re['legal_hand_img']}"/>
+            </div>
+            
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2">三证合一：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <img style="width: 200px;height: 170px;" src="{$re['business_img']}"/>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>直播打赏比例：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$re['dashang_scale']?$re['dashang_scale']:''}" placeholder="" id="dashang_scale" name="dashang_scale" style="width: 50%"/>&nbsp;%
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>平台销售比例提成：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$re['sell_scale']?$re['sell_scale']:''}" placeholder="" id="sell_scale" name="sell_scale" style="width: 50%"/>&nbsp;%
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red"></span>审核状态：</label>
+            <div class="formControls col-xs-8 col-sm-9" style="display: inline-block">
+                <select name="apply_state" class="select input-text" >
+                    <option value="1" {if condition=" $re['apply_state'] eq 1 "}selected{/if}>审核中</option>
+                    <option value="2" {if condition=" $re['apply_state'] eq 2 "}selected{/if}>审核通过</option>
+                    <option value="3" {if condition=" $re['apply_state'] eq 3 "}selected{/if}>拒绝</option>
+                </select>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                <input type="hidden" class="input-text" value="{$re.member_id?$re.member_id:''}" placeholder=""  name="mid">
+            </div>
+        </div>
+    </form>
+</div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        var  content ;
+        KindEditor.ready(function(K) {
+            content = K.create('#content',{
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+            });
+        });
+
+        KindEditor.ready(function(K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+                //sdl:false
+            });
+            K('#uparea1').click(function() {
+                console.log(1);
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".submit").click(function(){
+            commonAjaxSubmit('','form');
+            return false;
+        });
+        $("")
+        $("#uparea1").mouseover(function(e){
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_1').val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $("#uparea1").mouseout(function(){
+            $("#big").hide();
+        });
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+    });
+    function area_linke1(value){
+        $.post("{:url('Member/get_area')}", {value:value,type:1}, function(v){
+            $("#shi").html(v);
+        });
+    }
+    function area_linke2(value) {
+        $.post("{:url('Member/get_area')}", {value: value, type: 2}, function (v) {
+            $("#qu").html(v);
+        });
+    }
+
+
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->

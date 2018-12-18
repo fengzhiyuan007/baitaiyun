@@ -1,0 +1,148 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff pr10 pl10 z100 bor_b">
+		<div class="box_center h45">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">订单详情</div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="pt45 pb50">
+		<!-- 正常订单显示这里 -->
+		<div class="back_DEF3ED col_00AE95 h80 box_start">
+			<!-- 未付款 -->
+			<div class="ml30" ng-show="orderInfo.order_state == 'wait_pay'">
+				<div class="f16">等待小主付款</div>
+				<div class="box_start">
+					<div times-name="{{payEnd_time}}" count-down></div>
+					后未支付，订单将自动关闭
+				</div>
+			</div>
+			<!-- 待发货 -->
+			<div class="ml30" ng-show="orderInfo.order_state == 'wait_send'">
+				<div class="f16">等待商家发货</div>
+				<div class="f14">商家正在积极备货中，请耐心等待</div>
+			</div>
+			<!-- 待收货 -->
+			<div class="ml30" ng-show="orderInfo.order_state == 'wait_receive'">
+				<div class="f16">等待收货</div>
+				<div class="f14" ng-bind="orderInfo.send_time"></div>
+			</div>
+			<!-- 待评价 -->
+			<div class="ml30" ng-show="orderInfo.order_state == 'wait_assessment'">
+				<div class="f16">交易成功</div>
+				<div class="f14">买家已确认收货</div>
+			</div>
+			<!-- 已完成 -->
+			<div class="ml30" ng-show="orderInfo.order_state == 'end'">
+				<div class="f16">恭喜您，交易成功</div>
+				<div class="f14" ng-bind="orderInfo.receive_time"></div>
+			</div>
+			<!-- 已取消 -->
+			<div class="ml30" ng-show="orderInfo.order_state == 'cancel'">
+				<div class="f16">订单已取消</div>
+				<div class="f14" ng-bind="orderInfo.cancel_time"></div>
+			</div>
+			<!-- 退款成功 -->
+			<div class="ml30" ng-show="orderInfo.order_state == 'returns'">
+				<div class="f16">退款成功</div>
+				<div class="f14"></div>
+			</div>
+		</div>
+		<!-- 地址 -->
+		<div class="back_fff pl15 pr15 box_between h80 bor_t">
+			<div class="address_icon w25 h30"></div>
+			<div class="f12 ml10 mr10 grid_cell">
+				<div class="box_between">
+					<div>收货人：<span ng-bind="orderInfo.address.address_name"></span></div>
+					<div ng-bind="orderInfo.address.address_mobile"></div>
+				</div>
+				<div class="mt5">
+					收货地址：
+					<span ng-bind="orderInfo.address.address_province"></span>
+					<span ng-bind="orderInfo.address.address_city"></span>
+					<span ng-bind="orderInfo.address.address_country"></span>
+					<span ng-bind="orderInfo.address.address_detailed"></span>
+				</div>
+			</div>
+			<div class="w25"></div>
+		</div>
+		<div class="h5 w_b100 colour_line_icon"></div>
+		<div>
+			<div class="box_between back_fff h40 pl10 pr10">
+				<div class="box_start">
+					<div class="w30 h30">
+						<img ng-src="{{orderInfo.merchants_img}}" alt="">
+					</div>
+					<div class="ml10" ng-bind="orderInfo.merchants_name"></div>
+				</div>
+				<div class="box_end hide">
+					<div>等级：</div>
+					<div></div>
+				</div>
+			</div>
+			<div class="bor_t back_fa">
+				<!-- 商品信息 -->
+				<div ng-repeat="goods in orderInfo.orderBeans track by $index">
+					<a href="#/goodsDetails?goods_id={{goods.goods_id}}">
+						<div class="h105 box_start pl10 pr10">
+							<div class="w85 h85">
+								<img ng-src="{{goods.goods_img}}" alt="">
+							</div>
+							<div class="ml10 grid_cell">
+								<div class="f12 wbyc2" ng-bind="goods.goods_name"></div>
+								<div class="f12 col_999" ng-bind="goods.specification_names"></div>
+								<div class="box_between f12 col_999">
+									<div class="f12 mt5 col_red">¥<em class="f16 " ng-bind="goods.specification_price"></em></div>
+									<div>x<em ng-bind="goods.goods_num"></em></div>
+								</div>
+							</div>
+						</div>
+					</a>
+					<div class="box_end h40 pl10 pr10" ng-if="(orderInfo.order_state=='wait_assessment' || orderInfo.order_state=='wait_receive') && goods.has_refund == 0">
+						<a href="#/orderRefund?order_merchants_id={{orderInfo.order_merchants_id}}&order_goods_id={{goods.order_goods_id}}" class="box_center bor f12 br15 h25 pl10 pr10 ml10">申请售后</a>
+					</div>
+					<div class="box_end h40 pl10 pr10 col_e4c931" ng-if="(orderInfo.order_state=='wait_assessment' || orderInfo.order_state=='wait_receive') && goods.has_refund == 1">退款中</div>
+					<div class="back_fff w_b100 h3"></div>
+				</div>
+			</div>
+		</div>
+		<div class="f12 back_fff">
+			<div class="h40 box_between bor_b pl15 pr15">
+				<div>配送方式</div>
+				<div>快递免邮</div>
+			</div>
+			<div class="box_start h40 pl15 pr15">社员留言：<span class="col_666" ng-bind="orderInfo.order_remark"></span></div>
+		</div>
+		<div class="back_fff h40 box_end mt10 f14 pr15">
+			实际支付：<span class="col_red">¥<em ng-bind="orderInfo.order_actual_price"></em></span>
+		</div>
+		<div class="back_fff mt10 p15 f12 lh25">
+			<div>订单编号：<span ng-bind="orderInfo.order_no"></span></div>
+			<div>创建时间：<span ng-bind="orderInfo.create_time"></span></div>
+			<div ng-hide="orderInfo.pay_time == '0000-00-00 00:00:00'">支付时间：<span ng-bind="orderInfo.pay_time"></span></div>
+			<div ng-hide="orderInfo.send_time == '0000-00-00 00:00:00'">发货时间：<span ng-bind="orderInfo.send_time"></span></div>
+			<div ng-hide="orderInfo.receive_time == '0000-00-00 00:00:00'">收货时间：<span ng-bind="orderInfo.receive_time"></span></div>
+		</div>
+	</div>
+	<!-- 底部按钮 -->
+	<div class="box_end pl10 pr10 h40 back_fff p_f b0 l0 w_b100 bor_t col_999">
+		<a href="tel:{{orderInfo.contact_mobile}}">
+			<div class="box_center bor f12 br15 h25 pl10 pr10 ml10 col_999">联系商家</div>
+		</a>
+		<div class="box_center bor f12 br15 h25 pl10 pr10 ml10" ng-show="orderInfo.order_state=='wait_send'"  refresh="getOrderInfoFun()" order-type="4" order-merchants-id="{{orderInfo.order_merchants_id}}" order-operation >退款</div>
+		<a href="#/logisticsDetails?goods_img={{orderInfo.orderBeans[0].goods_img}}&logistics_no={{orderInfo.logistics_no}}&logistics_pinyin={{orderInfo.logistics_pinyin}}&order_no={{orderInfo.order_no}}" class="box_center bor f12 br15 h25 pl10 pr10 ml10 col_999" ng-show="orderInfo.order_state=='wait_receive' || orderInfo.order_state=='wait_assessment'">查看物流</a>
+		<div class="box_center bor f12 br15 h25 pl10 pr10 ml10" ng-show="orderInfo.order_state=='wait_pay'" refresh="getOrderInfoFun()" order-type="1" order-merchants-id="{{orderInfo.order_merchants_id}}" order-operation >取消订单</div>
+
+		<!-- 红色背景按钮 -->
+		<div class="box_center borCol_red col_red f12 br15 h25 pl10 pr10 ml10" ng-show="orderInfo.order_state=='wait_receive'" refresh="getOrderInfoFun()" order-type="2" order-merchants-id="{{orderInfo.order_merchants_id}}" order-operation>确认收货</div>
+		<div class="box_center borCol_red col_red f12 br15 h25 pl10 pr10 ml10" ng-show="orderInfo.order_state=='wait_pay'" refresh="getOrderInfoFun()" parameter="{{orderInfo.pay_no}}" pay-type='2' payment>付款</div>
+		<div class="box_center hide borCol_red col_red f12 br15 h25 pl10 pr10 ml10" ng-show="orderInfo.order_state=='wait_send'">催单</div>
+		<div class="box_center borCol_red col_red f12 br15 h25 pl10 pr10 ml10" ng-show="orderInfo.order_state=='wait_assessment'" order-merchants-id="{{orderInfo.order_merchants_id}}" order-beans="orderInfo.orderBeans" go-evaluate>评价</div>
+	</div>
+</div>

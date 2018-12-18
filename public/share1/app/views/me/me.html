@@ -1,0 +1,170 @@
+<div class="wrapper">
+	<div class="pb60">
+		<!-- 个人资料 -->
+		<div class="h180 p_r">
+			<div class="back_000 p_a t0 l0 w_b100 h_b100 opacity6"></div>
+			<div class="p_a t0 l0 w_b100 h_b100 z100 pl15 pr15 col_fff">
+				<div class="box_between h40">
+					<div class="grid_cell box_start"></div>
+					<div class="grid_cell box_center">
+						<div class="box_center f14">送出<em class="mr5" ng-bind="userInfo.give_count"></em><div class="diamonds_icon w15 h12"></div></div>
+					</div>
+					<div class="grid_cell box_end p_r">
+						<a href="#/news" class="msg_white_icon w24 h24 p_r">
+							<div class="p_a r_f5 t0 back_red w5 h5 br50" ng-show="has_msg==1"></div>
+						</a>
+					</div>
+				</div>
+				<a href="#/userDetails" class="box_between mt10 h70 f12 col_fff">
+					<div class="w50 h50">
+						<img class="br50" ng-src="{{userInfo.header_img}}" alt="">
+					</div>
+					<div class="grid_cell ml10 w_b80">
+						<div class="box_between">
+							<div class="box_start maxW_b80">
+								<div class="wbyc grid_cell f14" ng-bind="userInfo.username"></div>
+								<div class="w20 h20 ml5" ng-class="{true:'man_icon',false:'woman_icon'}[userInfo.sex==0]"></div>
+							</div>
+							<div class="hide"><em>3</em>积分</div>
+						</div>
+						<div class="wbyc mt5 hide">用户地址</div>
+					</div>
+				</a>
+				<div class="f12 mt10 wbyc2" ng-bind="userInfo.signature?userInfo.signature:'这个人很懒，什么都没有留下！'"></div>
+			</div>
+			<img src="app/images/wode_beijin@2x.png" alt="">
+		</div>
+		<div class="back_fff box_between h40 pl10 pr10 bor_b" ng-click="orderTypeClick('')">
+			<div class="f14">我的订单</div>
+			<div class="box_end">
+				<div class="f12 col_999">查看全部订单</div>
+				<div class="right_icon w22 h24"></div>
+			</div>
+		</div>
+		<div class="back_fff h90 box_between f12">
+			<div class="grid_cell box_center">
+				<div class="p_r" ng-click="orderTypeClick('wait_pay')">
+					<div class="w24 h24 stay_payment_icon m0a"></div>
+					<div class="mt5">待付款</div>
+					<div ng-show="userInfo.wait_count !=0 " class="p_a f10 r_f5 t_f5 back_red col_fff br50 w18 h18 box_center" ng-bind="userInfo.wait_count"></div>
+				</div>
+			</div>
+			<div class="grid_cell box_center">
+				<div class="p_r" ng-click="orderTypeClick('wait_send')">
+					<div class="w24 h24 stay_delivery_icon m0a"></div>
+					<div class="mt5">待发货</div>
+					<div ng-show="userInfo.seed_count !=0 " class="p_a f10 r_f5 t_f5 back_red col_fff br50 w18 h18 box_center" ng-bind="userInfo.seed_count"></div>
+				</div>
+			</div>
+			<div class="grid_cell box_center">
+				<div class="p_r" ng-click="orderTypeClick('wait_receive')">
+					<div class="w24 h24 stay_Goods_receipt_icon m0a"></div>
+					<div class="mt5">待收货</div>
+					<div ng-show="userInfo.receive_count !=0 " class="p_a f10 r_f5 t_f5 back_red col_fff br50 w18 h18 box_center" ng-bind="userInfo.receive_count"></div>
+				</div>
+			</div>
+			<div class="grid_cell box_center">
+				<div class="p_r" ng-click="orderTypeClick('wait_assessment')">
+					<div class="w24 h24 complete_icon m0a"></div>
+					<div class="mt5">待评价</div>
+					<div ng-show="userInfo.assessment_count !=0 " class="p_a f10 r_f5 t_f5 back_red col_fff br50 w18 h18 box_center" ng-bind="userInfo.assessment_count"></div>
+				</div>
+			</div>
+			<div class="refund_line_icon h_b80 w5"></div>
+			<div class="grid_cell box_center">
+				<a href="#/saleAfterOrderList" class="p_r show">
+					<div class="w24 h24 refund_icon m0a"></div>
+					<div class="mt5">退款售后</div>
+					<div ng-show="userInfo.returns_count !=0 " class="p_a f10 r_f5 t_f5 back_red col_fff br50 w18 h18 box_center" ng-bind="userInfo.returns_count"></div>
+				</a>
+			</div>
+		</div>
+		<!-- 功能区 -->
+		<div class="mt10 back_fff f12 flex_wrap box_between ">
+			<a href="#/my_account" class="w_b33 h95 box_center bor_b bor_r">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 my_account_icon"></div>
+					</div>
+					<div class="t_c mt5">我的账户</div>
+				</div>
+			</a>
+			<a href="#/my_collection" class="w_b33 h95 box_center bor_b bor_r">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 my_collection_icon"></div>
+					</div>
+					<div class="t_c mt5">我的收藏</div>
+				</div>
+			</a>
+			<a href="#/my_follow" class="w_b33 h95 box_center bor_b">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 my_followt_icon"></div>
+					</div>
+					<div class="t_c mt5">我的关注</div>
+				</div>
+			</a>
+			<a href="#/my_address" class="w_b33 h95 box_center bor_b bor_r">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 my_address_icon"></div>
+					</div>
+					<div class="t_c mt5">我的地址</div>
+				</div>
+			</a>
+			<a href="#/my_coupon" class="w_b33 h95 box_center bor_b bor_r">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 my_coupon_icon"></div>
+					</div>
+					<div class="t_c mt5">我的优惠券</div>
+				</div>
+			</a>
+			<a href="#/feeback" class="w_b33 h95 box_center bor_b">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 becoming_a_seller_icon"></div>
+					</div>
+					<div class="t_c mt5">反馈建议</div>
+				</div>
+			</a>
+			<!-- <a href="#/becomeSeller" class="w_b33 h95 box_center bor_b">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 becoming_a_seller_icon"></div>
+					</div>
+					<div class="t_c mt5">成为卖家</div>
+				</div>
+			</a> -->
+			<!-- <a href="#/setUp" class="w_b33 h95 box_center bor_r">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 set_up_icon"></div>
+					</div>
+					<div class="t_c mt5">设置</div>
+				</div>
+			</a> -->
+			<!-- <a href="" class="w_b33 h95 box_center bor_r">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 help_icon"></div>
+					</div>
+					<div class="t_c mt5">帮助</div>
+				</div>
+			</a> -->
+			<a href="#/about?id=13&title=关于我们" class="w_b33 h95 box_center bor_r">
+				<div>
+					<div class="box_center">
+						<div class="w25 h25 about_icon"></div>
+					</div>
+					<div class="t_c mt5">关于我们</div>
+				</div>
+			</a>
+		</div>
+	</div>
+	<!-- footer -->
+	<footer class="p_f b0 l0 w_b100">
+		<div ng-include="'app/views/template/footer.html'"></div>
+	</footer>
+</div>

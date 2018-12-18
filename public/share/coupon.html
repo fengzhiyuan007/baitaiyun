@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <!-- 清理缓存 -->
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <title></title>
+    <!--初始化样式表-->
+    <link rel="stylesheet" type="text/css" href="./css/reset.css?v=1.0.6">
+    <!--公共样式表-->
+    <link rel="stylesheet" type="text/css" href="./css/style.css?v=1.0.6">
+    <!--主样式表-->
+    <link rel="stylesheet" type="text/css" href="./css/main.css?v=1.0.6">
+    <!-- 轮播图flexslider.css -->
+    <link rel="stylesheet" href="./css/flexslider.css">
+    <!--rem单位js-->
+    <script type="text/javascript">
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    if(clientWidth>=640){
+                        docEl.style.fontSize = '100px';
+                    }else{
+                        docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+                    }
+                };
+            if(!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            doc.addEventListener('DOMContentLoaded', recalc, false);
+        })(document, window);
+    </script>
+    <!--jquery-->
+    <script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+    <script src="http://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body ng-controller="mainCtrl">
+
+<div class="wrapper">
+    <!--数据加载中-->
+    <div id="loading" class="hide ">
+        <div class="toast">
+            <div class="loading">
+                <i class=""></i>
+            </div>
+            <p class="">数据加载中</p>
+        </div>
+    </div>
+    <!--提示框-->
+    <div id="tips" class="hide ">
+        <div class="toast box_center">
+           <span class="text "></span>
+        </div>
+    </div>
+    <!-- content -->
+    <div class="">
+       <!-- banner 轮播图 -->
+        <div class="h200 w_b100 p_r">
+            <div class="flexsliders h200">
+                <ul class="slides h200">
+                    <li class="h_b100" ng-repeat="item in bannerInfo" repeat-finish="flexsliders('.flexsliders')">
+                        <a href="{{item.url}}" class="dis_in h_b100 w_b100">
+                            <img ng-src="{{item.b_img}}"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!--couponlist-->
+        <div class="p15 w_b100 ">
+            <div class=" h90 w_b100 mb15 box_between bg_coupon" ng-repeat="item in couponInfo track by $index">
+                <div class="grid_cell u_1of4 box_center " ng-class="{true:'col_red',false:'col_9E9E9E'}[item.is_check==2]"><span class="f10">&yen;</span><span class="f22" ng-bind="item.value"></span></div>
+                <div class="grid_cell u_1of2 col_999 ">
+                    <div class="f18 mt5 mb5" ng-bind="item.title"></div>
+                    <div class="f12" ng-bind="item.name"></div>
+                    <div class="f12" ><span ng-bind="item.start_time | limitTo:10"></span>至<span ng-bind="item.end_time | limitTo:10"></span></div>
+                </div>
+                <!--<a ng-href="{{JavaScript:android.getcoupon+(item.coupon_id,0)}}" class="grid_cell u_1of4 col_red f22 box_center pl25 pr10 " ng-show="item.is_check==2" ng-click="getcoupon(item.coupon_id)">立即领取</a>-->
+                <!--<a ng-href="{{'JavaScript:android.getcoupon('+item.coupon_id+','+0+')'}}" class="grid_cell u_1of4 col_red f22 box_center pl25 pr10 " ng-show="item.is_check==2" ng-click="getcoupon(item.coupon_id)">立即领取</a>-->
+                <!--<a href="JavaScript:android.appcoupon({{item.coupon_id}},{{isload}})"  class="grid_cell u_1of4 col_red f22 box_center pl25 pr10 " ng-show="item.is_check==2" ng-click="getcoupon(item.coupon_id)">立即领取</a>-->
+                <div  class="grid_cell u_1of4 col_red f22 box_center pl25 pr10 " ng-show="item.is_check==2 && wxOf == 0" ng-click="appcoupon(item.coupon_id,1)">立即领取</div>
+                <div class="grid_cell u_1of4 col_9E9E9E f22 box_center pl25 pr10 "  ng-show="item.is_check != 2" >立即领取</div>
+                <div class="grid_cell u_1of4 col_red f22 box_center pl25 pr10"  ng-show="item.is_check == 2 && wxOf == 1" ng-click="drawCoupon(item.coupon_id)">立即领取</div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<!--angular-->
+<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-cookies.min.js"></script>
+<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-route.min.js"></script>
+<!--<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-touch.min.js"></script>-->
+<!--<script src="http://cdn.bootcss.com/angular.js/1.5.8/angular-animate.min.js"></script>-->
+
+<!-- 轮播图 flexslider.js -->
+<script src="./js/jquery.flexslider-min.js"></script>
+<!--逻辑代码-->
+<!--<script src="../../js/router.js"></script>-->
+<script src="./js/coupon.js"></script>
+</body>
+</html>

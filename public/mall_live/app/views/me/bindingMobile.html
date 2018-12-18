@@ -1,0 +1,33 @@
+<div class="wrapper back_fff">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff pl10 pr10 bor_b">
+		<div class="box_center h45">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">绑定手机号</div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</div>
+	<!-- center -->
+	<div class="pt45">
+		<div class="pl15 pr15 mt60">
+			<div class="box_center w_b100 h50 back_ef br3">
+				<input ng-model="mobile" class="w_b100 back_ef pl10" type="text" placeholder="请输入您的电话号码">
+			</div>
+			<div class="box_between w_b100 h50 mt20">
+				<div class="grid_cell f14">
+					<div class="w_b90 back_ef h50 br3 box_start">
+						<input ng-model="code" class="w_b100 back_ef pl10" type="text" placeholder="请输入您的验证码">
+					</div>
+				</div>
+				<div class="w100 box_center h50 br3 back_DEF3ED col_00AE95 f16" ng-show="codeObj.type==1" ng-bind="codeObj.txt" ng-click="getCode()"></div>
+				<div class="w100 box_center h50 br3 back_ccc col_fff f16" ng-show="codeObj.type == 2" ng-bind="codeObj.count"></div>
+			</div>
+			<div class="box_start col_red f12 h20 mt10" ng-bind="errorPrompt"></div>
+			<div class="w_b100 h50 box_center back_59AC95 col_fff f16 br3 mt30" ng-click="bindingPhoneClick()">立即绑定</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />	
+	<title>个人中心</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<!--主样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/main.css">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+	    var docEl = doc.documentElement,
+        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+        recalc = function () {
+          var clientWidth = docEl.clientWidth;
+          if (!clientWidth) return;
+          if(clientWidth>=640){
+            docEl.style.fontSize = '100px';
+          }else{
+            docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+        }
+	    };
+	    if(!doc.addEventListener) return;
+	    win.addEventListener(resizeEvt, recalc, false);
+	    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+	<div class="wrapper">
+		<div class="pb60">
+			<!-- 个人资料 -->
+			<div class="h180 p_r">
+				<div class="back_000 p_a t0 l0 w_b100 h_b100 opacity6"></div>
+				<div class="p_a t0 l0 w_b100 h_b100 z100 pl15 pr15 col_fff">
+					<div class="box_between h40">
+						<div class="grid_cell box_start"></div>
+						<div class="grid_cell box_center">
+							<div class="box_center f14"><em class="mr5">0</em><div class="diamonds_icon w15 h12"></div></div>
+						</div>
+						<div class="grid_cell box_end">
+							<a href="" class="msg_white_icon w24 h24 show"></a>
+						</div>
+					</div>
+					<div class="box_between mt10 h70 f12">
+						<div class="w50 h50">
+							<img class="br50" src="../../images/user_header.png" alt="">
+						</div>
+						<div class="grid_cell ml10 w_b80">
+							<div class="box_between">
+								<div class="box_start maxW_b80">
+									<div class="wbyc grid_cell f14">用户名用户名用户名用户名用户名用户名用户名用户名用户名用户名用户名</div>
+									<div class="man_icon w20 h20"></div>
+								</div>
+								<div><em>3</em>积分</div>
+							</div>
+							<div class="wbyc mt5">用户地址用户地址用户地址用户地址用户地址用户地址用户地址用户地址用户地址用户地址</div>
+						</div>
+					</div>
+					<div class="f12 mt10 wbyc2">这个人很懒，什么都没有留下！这个人很懒，什么都没有留下！这个人很懒，什么都没有留下！这个人很懒，什么都没有留下！</div>
+				</div>
+				<img src="../../images/wode_beijin@2x.png" alt="">
+			</div>
+			<a href="" class="back_fff box_between h40 pl10 pr10 bor_b">
+				<div class="f14">我的订单</div>
+				<div class="box_end">
+					<div class="f12 col_999">查看全部订单</div>
+					<div class="right_icon w22 h24"></div>
+				</div>
+			</a>
+			<div class="back_fff h90 box_between f12">
+				<div class="grid_cell box_center">
+					<a href="" class="box_center">
+						<div>
+							<div class="w24 h24 stay_payment_icon m0a"></div>
+							<div class="mt5">待付款</div>
+						</div>
+					</a>
+				</div>
+				<div class="grid_cell box_center">
+					<a href="" class="box_center">
+						<div>
+							<div class="w24 h24 stay_delivery_icon m0a"></div>
+							<div class="mt5">待发货</div>
+						</div>
+					</a>
+				</div>
+				<div class="grid_cell box_center">
+					<a href="" class="box_center">
+						<div>
+							<div class="w24 h24 stay_Goods_receipt_icon m0a"></div>
+							<div class="mt5">待收货</div>
+						</div>
+					</a>
+				</div>
+				<div class="grid_cell box_center">
+					<a href="" class="box_center">
+						<div>
+							<div class="w24 h24 complete_icon m0a"></div>
+							<div class="mt5">已完成</div>
+						</div>
+					</a>
+				</div>
+				<div class="refund_line_icon h_b80 w5"></div>
+				<div class="grid_cell box_center">
+					<a href="" class="box_center">
+						<div>
+							<div class="w24 h24 refund_icon m0a"></div>
+							<div class="mt5">退款售后</div>
+						</div>
+					</a>
+				</div>
+			</div>
+			<div class="mt10 back_fff f12 flex_wrap box_between ">
+				<a href="" class="w_b33 h95 box_center bor_b bor_r">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 my_account_icon"></div>
+						</div>
+						<div class="t_c mt5">我的账户</div>
+					</div>
+				</a>
+				<a href="" class="w_b33 h95 box_center bor_b bor_r">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 my_collection_icon"></div>
+						</div>
+						<div class="t_c mt5">我的收藏</div>
+					</div>
+				</a>
+				<a href="" class="w_b33 h95 box_center bor_b">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 my_followt_icon"></div>
+						</div>
+						<div class="t_c mt5">我的关注</div>
+					</div>
+				</a>
+				<a href="" class="w_b33 h95 box_center bor_b bor_r">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 my_address_icon"></div>
+						</div>
+						<div class="t_c mt5">我的地址</div>
+					</div>
+				</a>
+				<a href="" class="w_b33 h95 box_center bor_b bor_r">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 my_coupon_icon"></div>
+						</div>
+						<div class="t_c mt5">我的优惠券</div>
+					</div>
+				</a>
+				<a href="" class="w_b33 h95 box_center bor_b">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 becoming_a_seller_icon"></div>
+						</div>
+						<div class="t_c mt5">成为卖家</div>
+					</div>
+				</a>
+				<a href="" class="w_b33 h95 box_center bor_r">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 set_up_icon"></div>
+						</div>
+						<div class="t_c mt5">设置</div>
+					</div>
+				</a>
+				<a href="" class="w_b33 h95 box_center bor_r">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 help_icon"></div>
+						</div>
+						<div class="t_c mt5">帮助</div>
+					</div>
+				</a>
+				<a href="" class="w_b33 h95 box_center">
+					<div>
+						<div class="box_center">
+							<div class="w30 h30 about_icon"></div>
+						</div>
+						<div class="t_c mt5">关于我们</div>
+					</div>
+				</a>
+			</div>
+				<!-- <a href="my_address.html" class="box_between back_fff h44 mt10 pl10 pr10 bor_b">
+					<div class="box_start">
+						<div class="w24 h24 my_address_icon"></div>
+						<div class="f12 ml10">我的地址</div>
+					</div>
+					<div class="box_end">
+						<div class="right_icon w22 h24"></div>
+					</div>
+				</a> -->
+		</div>
+		<!-- footer -->
+		<footer class="p_f b0 l0 w_b100 back_fff box_between h40 bor_t">
+			<a href="../home/home.html" class="box_center grid_cell f12 ">首页</a>
+			<div class="w1 h_b50 back_ccc"></div>
+			<a href="../me/me.html" class="box_center grid_cell f12 col_red">我的</a>
+		</footer>
+	</div>
+</body>
+</html>

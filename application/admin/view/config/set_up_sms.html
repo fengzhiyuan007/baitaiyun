@@ -1,0 +1,36 @@
+<php>
+    $text = '编辑短信';
+</php>
+{:W('public/breadcrumbs',[
+[
+['href'=>U('Config/sms'),'text'=>'短信设置'],
+['href'=>'','text'=>$text]
+]
+])}
+<div class="page-content">
+    <form action="" method="post" class="form form-horizontal mt-20" id="form-article-add">
+        <div class="row cl" style="margin-bottom: 50px;">
+            <label class="form-label col-xs-4 col-sm-2">短信内容：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="sms" cols="" rows="" class="textarea"  placeholder="说点什么...最少输入10个字符" datatype="*10-100" dragonfly="true" nullmsg="备注不能为空！" onKeyUp="textarealength(this,200)">{$re.sms}</textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <input type="hidden" name="id" value="{$_GET['id']}" />
+                <button  class="submit btn btn-primary radius"  type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存修改</button>
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $(".submit").click(function () {
+            commonAjaxSubmit();
+            return false;
+        });
+    });
+</script>

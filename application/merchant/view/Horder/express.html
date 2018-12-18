@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <LINK rel="Bookmark" href="/favicon.ico" >
+    <LINK rel="Shortcut Icon" href="/favicon.ico" />
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/static/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+    <script src="https://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <!--[if IE 6]>
+    <script>DD_belatedPNG.fix('*');</script>
+    <![endif]-->
+    <title>{$system['title']}-后台管理系统</title>
+</head>
+<style>
+    .ctextarea {
+        /*height: 100px;*/
+        resize: none;
+        font-size: 14px;
+        padding: 4px;
+    }
+</style>
+<body>
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <form class="form form-horizontal" id="form" method="post">
+        <!--<div class="cl pd-5 bg-1 bk-gray mt-5" {if condition="!in_array($re['order_state'],array('wait_send','wait_receive','wait_assessment','end'))"}style='display:none;' {/if}>-->
+        <div class="cl pd-5 bg-1 bk-gray mt-5">
+        <div><b>快递物流信息</b></div>
+        <div class="mt-5">
+            <form data-action="{:url('Horder/edit_kuaidi',['id'=>$re['id']])}"  method="post" class="ajax-form form form-horizontal mt-5" id="form-article-add">
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">物流公司：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                    <span class="select-box" style="width: 60%">
+                    <select name="logistics_name" id="logistics_name"  class="select" onchange="getExpressNode(this.value)">
+                        <option value="">请选择快递</option>
+                        {volist name="express_node" id="vo"}
+                            <option value="{$vo.express}" {if condition="$re['logistics_name'] eq $vo['express']"}selected{/if}>{$vo.express}</option>
+                        {/volist}
+                    </select>
+                    </span>
+                        <input type="text" value="" name="" id="express" placeholder="物流公司" style="width: 21%" class="input-text">
+                        <button type="button" onclick="getExpress($('#express').val())" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">企业标志：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" value="{$re['logistics_pinyin']}" name="logistics_pinyin" id="logistics_pinyin" placeholder="物流公司标志" readonly class="input-text" style="width:90%">
+                    </div>
+                </div>
+                <div class="row cl">
+                    <label class="form-label col-xs-4 col-sm-2">物流单号：</label>
+                    <div class="formControls col-xs-8 col-sm-9">
+                        <input type="text" value="{$re['logistics_no']}" name="logistics_no" id="logistics_no" placeholder="物流快递单号" class="input-text" style="width:90%">
+                    </div>
+                </div>
+                <!--<div class="row cl">-->
+                    <!--<label class="form-label col-xs-4 col-sm-2">物流状态：</label>-->
+                    <!--<div class="formControls col-xs-8 col-sm-8"> <span class="select-box">-->
+				<!--<select name="kuaidi_state" id="kuaidi_state"  class="select">-->
+                    <!--<option value="1" {if condition="$re['kuaidi_state'] eq 1"}selected{/if}>待发货</option>-->
+                    <!--<option value="2" {if condition="$re['kuaidi_state'] eq 2"}selected{/if}>已出货</option>-->
+                    <!--<option value="3" {if condition="$re['kuaidi_state'] eq 3"}selected{/if}>派送中</option>-->
+                    <!--<option value="4" {if condition="$re['kuaidi_state'] eq 4"}selected{/if}>已签收</option>-->
+                <!--</select>-->
+				<!--</span> </div>-->
+                <!--</div>-->
+                <div class="row cl">
+                    <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                        <button  class="submit btn btn-primary radius blue_btn"  type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+                        <input type="hidden" value="{$re['order_no']}" name="order_no" id="order_no"  class="input-text" style="width:90%">
+                        <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                        <button  class="btn btn-default radius view_kuaidi" type="button">&nbsp;&nbsp;查看快递&nbsp;&nbsp;</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+  </form>
+</div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+    $(document).ready(function(){
+        var  content ;
+        KindEditor.ready(function(K) {
+            content = K.create('#content',{
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'goods'])}"
+            });
+        });
+
+        KindEditor.ready(function(K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager : true,
+                uploadJson:"{:url('Tools/upload',['dirname'=>'goods'])}"
+                //sdl:false
+            });
+            K('#uparea1').click(function() {
+                console.log(1);
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+            K('#uparea2').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_2').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image2').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_2').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".view_kuaidi").click(function(){
+            var kuaidi_name = $('#logistics_name').val();
+            var kuaidi = $('#logistics_no').val();
+            var url = document.URL;
+            var url = 'http://m.kuaidi100.com/index_all.html?type='+kuaidi_name+'&postid='+kuaidi+'&callbackurl=';
+            layer_show('查看快递',url,'','510');
+            return false;
+            if(kuaidi.length < 5){
+                layer.msg("物流单号不能小于5个字符",{icon:5,time:1000})
+                return false;
+            }else{
+                var url = 'http://m.kuaidi100.com/index_all.html?type='+kuaidi_name+'&postid='+kuaidi+'&callbackurl=';
+                layer_show('查看快递',url,'','510');
+            }
+        });
+
+        $(".submit").click(function(){
+            commonAjaxSubmit('','form');
+            return false;
+        });
+
+        $("#uparea1").mouseover(function(e){
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_1').val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $("#uparea1").mouseout(function(){
+            $("#big").hide();
+        });
+
+
+        $('.skin-minimal input').iCheck({
+            checkboxClass: 'icheckbox-blue',
+            radioClass: 'iradio-blue',
+            increaseArea: '20%'
+        });
+    });
+
+    function down(v,e){
+        window.location.href = "system.php?m=Admin&c=Horder&a=down_diy&order_no="+v+"&url="+e;
+    }
+    function getExpressNode(v){
+        var url = "{:url('Horder/getExpressNode')}";
+        $.get(url,{express:v},function(data){
+            $("#logistics_pinyin").val(data);
+        });
+    }
+    function getExpress(v){
+        var url = "{:url('Horder/getExpress')}";
+        $.get(url,{express:v},function(data){
+            console.log(data);
+            $("#logistics_name").html(data);
+        });
+    }
+
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+<script type="text/javascript" src="/static/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="/static/common/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="/static/layer/2.1/layer.js"></script>
+<script type="text/javascript" src="/static/jquery/jquery.form.js"></script>
+<script type="text/javascript" src="/static/icheck/jquery.icheck.min.js"></script>
+<script type="text/javascript" src="/static/asyncbox/asyncbox.js"></script>
+<script type="text/javascript" src="/static/kindeditor/kindeditor-all-min.js"></script>
+<script type="text/javascript" src="/static/kindeditor/lang/zh_CN.js"></script>
+<script type="text/javascript" src="/static/h-ui/js/H-ui.js"></script>
+<script type="text/javascript" src="/static/h-ui.admin/js/H-ui.admin.js"></script>
+<script type="text/javascript" src="/static/common.js"></script>
+</html>

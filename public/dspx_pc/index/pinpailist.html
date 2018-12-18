@@ -1,0 +1,50 @@
+
+<!--主体内容-->
+<div class="mainbox clearfix bg-f5 pad-b70">
+  <!--面包屑-->
+  <div class="mbx-navbox">
+    <div class="mbx-nav">
+       <div class="mbx-nav-l"><a href="#/">首页</a><a href="javascript:;">品牌馆</a></div>
+    </div>
+  </div>
+  <!---->
+  <!-- <div class="box fenlei2 clearfix">
+     <ul>
+       <li><label>分类：</label><p><span class="act" ng-click="shoppinpai('')" tab>全部</span><span ng-repeat="sort in shoplistsorts" ng-click="shoppinpai(sort.goods_uuid)" tab>{{sort.goods_name}}</span></p></li>
+     </ul>
+  </div> -->
+  <div class="box ppsort clearfix">
+     <label>分类</label>
+     <div class="sortbox1">
+        <ul>
+          <li class="act" tab><span ng-click="shoppinpai('')">全部</span></li>
+          <li ng-repeat="sort in pinpaisorts" sort-top tab>
+            <span ng-click="shoppinpai(sort.goods_uuid)" ng-mouseover="pinpaisort2(2,sort.goods_id,$index)">{{sort.goods_name}}</span>
+            <div class="sortbox2" hidden>
+              <ul>
+                <li ng-repeat="sort2 in sort.sort2" sort-top2>
+                  <span ng-click="shoppinpai(sort2.goods_uuid)" ng-mouseover="pinpaisort3(3,sort2.goods_id,$index)">{{sort2.goods_name}}</span>
+                  <div class="sortbox3" hidden>
+                    <ul>
+                      <li ng-repeat="sort3 in sort2.sort3" ng-click="shoppinpai(sort3.goods_uuid)" tab>{{sort3.goods_name}}</li>
+                    </ul>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+     </div>
+  </div>
+  <div class="pinpai-listbox box mar-t40" ng-repeat="pps in shoppinpais" ng-if="pps.type=='brand'">
+  	 <div class="pinpai-list" ng-repeat="pp in pps.brandBeans">
+        <ul>
+          <li class="pp-l-2of3"><a href="index.html#/pinpai?bid={{pp.brand_id}}"><span><img ng-src="{{pp.brand_img}}" /></span></a></li>
+          <li class="pp-l-3of3">{{pp.brand_name}}</li>
+        </ul>
+     </div>
+
+  </div>
+</div>
+
+

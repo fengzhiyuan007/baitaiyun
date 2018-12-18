@@ -1,0 +1,46 @@
+<!--footer-->
+<div class="footer" ng-if="footer">
+    <div class="about-listbox clearfix">
+        <div class="about-list box">
+            <div>
+                <p class=""><img src="images/btom1.png"/>{{footer[0].html_name}}</p>
+                <ul>
+                    <li ng-repeat="f1 in footer[0].htmlBeans" ng-if="$index<6"><a target="_blank"
+                                                                                  href="core.html#/bzzx?b={{f1.html_id}}&c=0&type={{f1.html_type}}&tit={{f1.html_name}}">{{f1.html_name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p class=""><img src="images/btom2.png"/>{{footer[1].html_name}}</p>
+                <ul>
+                    <li ng-repeat="f1 in footer[1].htmlBeans" ng-if="$index<6"><a target="_blank"
+                                                                                  href="core.html#/bzzx?b={{f1.html_id}}&c=1&type={{f1.html_type}}&tit={{f1.html_name}}">{{f1.html_name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p class=""><img src="images/btom3.png"/>{{footer[2].html_name}}</p>
+                <ul>
+                    <li ng-repeat="f1 in footer[2].htmlBeans" ng-if="$index<6"><a target="_blank"
+                                                                                  href="core.html#/bzzx?b={{f1.html_id}}&c=2&type={{f1.html_type}}&tit={{f1.html_name}}">{{f1.html_name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <!--<div>-->
+            <!--<p class=""><img src="images/btom4.png" />{{footer[3].html_name}}</p>-->
+            <!--<ul>-->
+            <!--<li ng-repeat="f1 in footer[3].htmlBeans" ng-if="$index<6"><a target="_blank" href="core.html#/bzzx?b={{f1.html_id}}&c=3&type={{f1.html_type}}&tit={{f1.html_name}}">{{f1.html_name}}</a></li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <div>
+                <p class=""><img src="images/btom5.png"/>{{footer[4].html_name}}</p>
+                <ul>
+                    <li ng-repeat="f1 in footer[4].htmlBeans" ng-if="$index<6"><a target="_blank"
+                                                                                  href="core.html#/bzzx?b={{f1.html_id}}&c=4&type={{f1.html_type}}&tit={{f1.html_name}}">{{f1.html_name}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="copy">版权所有&copy;<a target="_blank" href="http://www.miitbeian.gov.cn">沪ICP备17003666号</a></div>
+</div>

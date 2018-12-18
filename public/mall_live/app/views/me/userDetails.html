@@ -1,0 +1,61 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff pl10 pr10 bor_b">
+		<div class="box_center h45">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">个人信息</div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</div>
+	<div class="pt45">
+		<div class="h80 back_fff box_between pl10 pr10 bor_t">
+			<div class="f12">头像</div>
+			<div class="w60 h60 p_r">
+				<img class="br50" ng-src="{{userInfo.header_img}}" alt="" />	
+				<form id="txFileFoem">
+					<input class="p_a l0 t0 w_b100 h_b100 opacity" id="txFile" type="file" name="img" onchange="angular.element(this).scope().uploadUserImg('txFileFoem','txFile')" >
+				</form>
+			</div>
+		</div>
+		<div class="pb40">
+			<div class="back_fff mt10">
+				<div class="box_between h44 pl10 pr10 bor_b">
+					<div class="f12">手机号码</div>
+					<div ng-show="userInfo.phone" class="col_666" ng-bind="userInfo.phone"></div>
+					<a ng-show="!userInfo.phone" href="#/bindingMobile" class="col_666">未绑定手机</a>
+				</div>
+				<div class="box_between h44 pl10 pr10 bor_b">
+					<div class="f12">昵称</div>
+					<div class="w_b30 col_333">
+						<input ng-model="userInfo.username" class="w_b100 t_r" type="text" placeholder="用户名">
+					</div>
+				</div>
+				<div class="box_between h44 pl10 pr10 bor_b">
+					<div class="f12">性别</div>
+					<div class="p_r h20 w30">
+						<div class="f12 w_b100 h_b100 box_center t_r" ng-bind="userInfo.sex=='1'?'男':'女'"></div>
+            <select ng-model="userInfo.sex" class="w_b100 h_b100 p_a b0 l0 opacity">
+              <option value="1">男</option>
+              <option value="2">女</option>
+            </select>
+					</div>
+				</div>
+			</div>
+			<div class="back_fff mt10">
+				<div class="box_start h40 f12 pl10">签名</div>
+				<div class=" br3">
+					<div class="h80 p10">	
+						<textarea ng-model="userInfo.signature" class="w_b100 maxW_b100 minH_b100 maxH_b100" maxlength="200" placeholder="请留下您的个性签名吧"></textarea>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="box_center mt30">
+		<div class="w_b90 box_center h40 col_fff f16 back_red br3" ng-click="editUserInfo()">保存修改</div>
+	</div>
+</div>

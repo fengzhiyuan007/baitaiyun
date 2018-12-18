@@ -1,0 +1,79 @@
+{:W('public/breadcrumbs',[
+[
+['href'=>U('Config/xieyi'),'text'=>'用户协议'],
+]
+])}
+</if>
+<script type="text/javascript" src="__ROOT__/public/admin/layer/layer.js"></script>
+<script type="text/javascript" src="__ROOT__/public/admin/js/jquery-1.7.min.js"></script>
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <table width="100%" class="tab">
+                <thead>
+                </td>
+                </tr>
+                <tr>
+                    <td>协议标题</td>
+                    <td>摘要</td>
+                    <td>创建时间</td>
+                    <td width="150">操作</td>
+                </tr>
+                </thead>
+                <volist name="list" id="vo">
+                    <tr align="center"  onmouseout="this.style.background='#FFFFFF';" onmouseover="this.style.background='#FFFFBB';">
+                        <td>{$vo.title}</td>
+                        <td width="600px;" align="left">{$vo.summary}</td>
+                        <td>{$vo.ctime|date='Y-m-d H:i:s',###}</td>
+                        <td width="200px;">
+                            [ <a href="{:U('Config/edit_xieyi',array('id'=>$vo['aid']))}">编辑 </a> ]
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+            {$page}
+            <script type="text/javascript">
+                $(function() {
+                    $("#selall").toggle(function() {
+                        $("input[name='ids']").each(function() {
+                            $(this).attr("checked", true);
+                        });
+                    },function(){
+                        $("input[name='ids']").each(function() {
+                            $(this).attr("checked", false);
+                        });
+                    });
+
+                });
+
+                function del(kid){
+                    kid = kid ? kid : getChecked();
+                    kid = kid.toString();
+                    if(kid == ''){
+                        layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+                        return false;
+                    }
+                    if(!confirm('删除后无法恢复，确定删除？'))
+                        return false;
+                    $.post("{:U('Config/del_notice')}", {ids:kid}, function(data){
+                        if( data.status == 'ok' ){
+                            alert(data.info);
+                            window.location.href = data.url;
+                        }else{
+                            alert(data.info);
+                        }
+                    },'json');
+                }
+                function getChecked() {
+                    var gids = new Array();
+                    $.each($('input:checked'), function(i, n){
+                        gids.push( $(n).val() );
+                    });
+                    return gids;
+                }
+
+
+            </script>
+        </div>
+    </div>
+</div>

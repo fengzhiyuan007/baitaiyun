@@ -1,0 +1,74 @@
+
+<div class="mainbox bg-f5 clearfix pad-b70 pad-t40">
+  <div class="box">
+     <div class="main-leftbox nav2">
+        <ul>
+          <li class="act1">订单中心</li>
+          <li><a href="#wddd">我的订单</a></li>
+          <li><a href="#tkdd">退款订单</a></li>
+          <li><a href="#pjdd">评价晒单</a></li>
+          <li class="act1">我的收藏</li>
+          <li><a href="#spsc">商品收藏</a></li>
+          <li class="act"><a href="#dpsc">店铺收藏</a></li>
+          <li class="act1">资产中心</li>
+          <li><a href="#wdqb">我的钱包</a></li>
+          <li><a href="#xyed">信用额度</a></li>
+          <li><a href="#wdjf">我的积分</a></li>
+          <li><a href="#yhq">优惠券</a></li>
+          <li><a href="#yhk">银行卡</a></li>
+        </ul>
+     </div>
+     <div class="main-rightbox">
+        <div class="bg-fff spsc-box">
+          <div class="dd-tit">我的收藏</div>
+          <div class="dd-nav2">
+             <a href="#spsc">收藏的商品</a>
+             <a href="#dpsc" class="act">收藏的店铺</a>
+          </div>
+        </div>
+        <div class="dpsc-listbox bg-fff mar-t20" ng-repeat="m in dpsclists" id="m{{m.merchantsBean.merchants_id}}">
+          <div class="sssj-dp-list clearfix">
+            <div class="s-d-l-left">
+               <div class="center">
+                  <ul>
+                    <li class="sdl-l-1of5"><a target="_blank" href="index.html#/dianpu?mid={{m.merchantsBean.merchants_id}}"><img ng-src="{{m.merchantsBean.merchants_img}}" /></a></li>
+                    <li class="sdl-l-2of5"><label>店铺名：</label>{{m.merchantsBean.merchants_name}}</li>
+                    <li class="sdl-l-3of5"><label>综合评分：</label>{{m.merchantsBean.merchants_star1/3*2+m.merchantsBean.merchants_star2/3*2+m.merchantsBean.merchants_star3/3*2| number:2}}</li>
+                    <li class="sdl-l-4of5 mar-b20"><label>店铺简介：</label>{{m.merchantsBean.merchants_desc}}</li>
+                    <li class="sdl-l-5of5">销量：<span class="blue">{{m.merchantsBean.year_sales}}</span><span class="mar-l20">共<span class="blue">{{m.merchantsBean.goods_total_num}}</span>件商品</span></li>
+                    <li class="sdl-l-7of5"><a href="javascript:;" ng-click="dpscsc(m.merchantsBean.merchants_id,m.collection_id)">取消收藏</a><a target="_blank" href="http://kefu.easemob.com/webim/im.html?tenantId={{m.merchantsBean.custom_id}}">联系客服</a></li>
+                  </ul>
+               </div>
+            </div>
+            <!--s-d-l-left end-->
+            <div class="s-d-l-right">
+               <div class="dpsc-tit2"><span class="act" ng-click="dpscfun(m.merchantsBean.merchants_id,$index,0,1)" tab>推荐</span><span ng-click="dpscfun(m.merchantsBean.merchants_id,$index,1,0)" tab>新品</span><a target="_blank" href="index.html#/dianpu?mid={{m.merchantsBean.merchants_id}}">查看更多></a><!-- <p>1/4<span><</span><span class="act">></span></p> --></div>
+               <div class="sdl-listbox">
+                  <div class="sj-r-list" ng-repeat="shop in m.data">
+                    <ul>
+                      <li class="sj-l-1of5"><a href="index.html#/shop?shopid={{shop.goods_id}}"><img ng-src="{{shop.goods_img!=''?shop.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+                      <li class="sj-l-2of5">￥{{shop.goods_pc_price}}<span ng-if="shop.goods_origin_price!=0">￥{{shop.goods_origin_price}}</span></li>
+                      <li class="sj-l-3of5">{{shop.goods_name}}</li>
+                      <li class="sj-l-4of5"><span ng-if="shop.is_directly==1">自营</span><span ng-if="shop.brand_name!=''">{{shop.brand_name}}</span></li>
+                      <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{shop.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{shop.year_sales}}</a></span></li>
+                    </ul>
+                  </div>
+               </div>
+            </div>
+            <!--s-d-l-right end-->
+         </div>
+         <!--sssj-dp-list end-->
+        </div>
+        <!--分页-->
+        <div class="page-box" ng-if="pageNum>1">
+          <a href="javascript:;" ng-click="pageclick(nowpageNum-1)">上一页</a>
+          <span ng-repeat="page in pageboxs" ng-click="pageclick(page)" ng-class="{act:page==nowpageNum}">{{page}}</span>
+          <a class="act" href="javascript:;" ng-click="pageclick(nowpageNum*1+1)">下一页</a>
+          跳到<input type="number" ng-model="nowpageNum2">/{{pageNum}}页<button ng-click="pageclick(nowpageNum2)">确定</button>
+        </div>
+        <!---->
+     </div>
+     <!--main-rightbox end-->
+  </div>
+</div>
+

@@ -1,0 +1,127 @@
+<div class="liveRoom_warp">
+	<div class="liveRoom_app over_hidden">
+		<div class="p_a t0 l0 r0 b0">
+			<div class="p_r w_b100 h_b100">
+				<!-- 视频盒子 -->
+				<div class="w_b100 h_b100 over_hidden back_000">
+					<video id="vieoPlayer" width="100%" height="100%" preload="auto" poster="" src="http://dspxplay.tstmobile.com/recordings/z1.vxiu1.php-sdk-test1511765411/0_1511765594.m3u8" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" class="IIV" style="object-fit: cover; border: 0px; background: rgb(0, 0, 0);"></video>
+					<!-- 封面图 -->
+					<div class="p_a t0 l0 w_b100 h_b100" id="playImgBox">
+						<img ng-src="{{liveInfo.play_img}}" class="liveRoomPlayImg" style="" alt="">
+					</div>
+				</div>
+				<div class="p_a t0 l0 w_b100 h_b100">
+					<div class="p_r w_b100 h_b100 box_direction">
+						<div class="grid_cell" id="videoPlayBox">
+							<!-- 主播信息 -->
+							<div class="p10 col_fff">
+								<div class="box_between">
+									<div class="grid_cell box_start">
+										<div class="w40 h40 br50">
+											<img class="br50" ng-src="{{liveInfo.header_img}}" alt="">
+										</div>
+										<div class="f12 ml10 mr10">
+											<div>直播</div>
+											<div><em ng-bind="liveRoomCount"></em>人</div>
+										</div>
+										<div class="back_3BB20B f14 br15 box_center h30 pl10 pr10">关注</div>
+									</div>
+									<div class="grid_cell box_end">
+										<div class="w35 h35 br50 mr5" ng-repeat="item in liveRoomUserListInfo track by $index">
+											<img class="br50" ng-src="{{item.header_img}}" alt="" >
+										</div>
+									</div>
+								</div>
+								<div class="box_between pt10 f12">
+									<div class="backRgba_black_5 box_center br15 h25 pl15 pr15">礼物：<em>567</em></div>
+									<div>ID号：<em ng-bind="liveInfo.ID"></em></div>
+								</div>
+							</div>
+							<!-- 消息区 -->
+							<div id="msgBox" class="p_a w_b70 l0 b70 over_y p10 maxH220">
+								<div id="chatInfo"></div>
+								<div id="bottomBox"></div>
+							</div>
+						</div>
+						<!-- 底部功能区 -->
+						<div class="h40 p_r" id="bottomFunBox">
+							<div class="box_between pl15 pr15 pb10">
+								<div class="liveRoom_goods_icon w30 h30" ng-click="inputModelClick(1,'#liveRoomGoodsListBox')"></div>
+								<div class=box_end>
+									<div class="liveRoom_msg_icon w30 h30" ng-click="inputModelClick(1,'#bottomInputBox')"></div>
+									<div class="liveRoom_gift_icon w30 h30 ml20" ng-click="giftModelClick(1)"></div>
+									<div class="liveRoom_close_icon w30 h30 ml20" ng-click="backFun()"></div>
+								</div>
+							</div>
+						</div>
+						<!-- 以下为绝对定位区 -->
+						<!-- 输入model -->
+						<div class="p_a t0 l0 w_b100 h_b100 hide" id="bottomInputBox">
+							<div class="p_r w_b100 h_b100 box_direction">
+								<div class="grid_cell" ng-click="inputModelClick(2,'#bottomInputBox')"></div>
+								<!-- 输入model -->
+								<div class="box_between bor_t h50 backRgba_black_5 pl15 pr15">
+									<div class="grid_cell box_center pl10 pr10 mr10">
+										<input id="liveRoomInput" ng-model="liveMsg" class="w_b100 back_tm f12 col_fff" type="text" placeholder="说些什么吧">
+									</div>
+									<div class="back_3BB20B pl15 pr15 br5 col_fff f14 h30 box_center" ng-click="sendMsgClick()">发送</div>
+								</div>
+							</div>
+						</div>
+						<!-- 商品列表model -->
+						<div class="p_a b0 l0 w_b100 back_fff br15_top_left br15_top_right hide" id="liveRoomGoodsListBox">
+							<div class="box_between h40 pl15 pr15 bor_b">
+								<div class="w28"></div>
+								<div class="grid_cell box_center f16">商品列表</div>
+								<div class="close_gray_icon w28 h28" ng-click="inputModelClick(2,'#liveRoomGoodsListBox')"></div>
+							</div>
+							<div class="over_y h375">
+								<!-- 列表项 -->
+								<a href="#/goodsDetails?goods_id={{goods.goods_id}}" class="box_start h110 bor_b pl10 pr10 p_r" ng-repeat="goods in liveGoodsListInfo track by $index">
+									<div class="w90 h90">
+										<img ng-src="{{goods.goods_img}}" alt="">
+									</div>
+									<div class="pl10 grid_cell box_direction h90">
+										<div class="f14 grid_cell">
+											<div class="wbyc2" ng-bind="goods.goods_name"></div>
+										</div>
+										<div class="col_red f12 ">现价：¥<em class="f16" ng-bind="goods.goods_now_price"></em></div>
+										<div class="col_999 scx box_start h20">原价：¥<em ng-bind="goods.goods_origin_price"></em></div>
+									</div>
+									<div class="p_a b10 r10 box_center back_red br15 h25 pl15 pr15 col_fff f12">立即购买</div>
+								</a>
+							</div>
+						</div>
+						<!-- 礼物列表model -->
+						<div class="p_a b0 l0 w_b100 h_b100 hide" id="liveRoomGiftBox">
+							<div class="p_r w_b100 h_b100 box_direction">
+								<div class="grid_cell" ng-click="giftModelClick(2)"></div>
+								<div class="p_r backRgba_black_8">
+									<div class="flex_wrap h220 box_start over_y media">
+										<!--列表-->
+										<div class="w_b20 pl10 pr10" ng-class="{borCol_red:gift_id==gift.gift_id}" ng-repeat="gift in giftListInfo track by $index" ng-click="giftClick(gift.gift_id)">
+											<div class="w_b100">
+												<img class="rewardImg" ng-src="{{gift.img}}" alt="">
+											</div>
+											<div class="col_fff pt10 pb10 t_c">
+												<div ng-bind="gift.name"></div>
+												<div><em ng-bind="gift.price"></em>钻石</div>
+											</div>
+										</div>
+									</div>
+									<div class="h50 box_between pl15 pr15">
+										<a class="box_start">
+											<div class="diamonds_icon w22 h18"></div>
+											<div class="col_yellow ml10 mr10 f14">6789</div>
+											<div class="left_yellow_icon w10 h15"></div>
+										</a>
+										<div class="col_156ee7 f16" ng-click="giveGiftClick()">发送</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>		
+</div>

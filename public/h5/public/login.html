@@ -1,0 +1,25 @@
+<div class="sign-box-login">
+    <i class="tck-btn" ng-click="tckhide()">×</i>
+    <ul class="login-options-show">
+        <li>会员登录</li>
+        <li>注册</li>
+    </ul>
+    <div class="login-options-show_content">
+        <ul class="sign-ul">
+            <li><label>手机号码：</label><input type="text" ng-model="signphone" placeholder="请输入手机号码" id="phoneNum" class="ng-pristine ng-untouched ng-valid ng-empty"></li>
+            <li><label>密码：</label><input type="password" name="password" ng-model="signpwd" placeholder="请输入密码" ng-keyup="myKeyuplogin($event,signphone,signpwd)" class="ng-pristine ng-untouched ng-valid ng-empty"></li>
+            <li><label>&nbsp;</label><a href="gwc.html#/wjmm" ng-click="tckhide()">忘记密码?</a></li>
+            <li><label>&nbsp;</label><button ng-click="signbtn(signphone,signpwd)">登录</button></li>
+        </ul>
+        <ul class="reg-ul">
+            <li><label>手机号码：</label><input type="text" ng-model="regphone" placeholder="请输入手机号码" class="ng-pristine ng-untouched ng-valid ng-empty"><p id="regphone"><!--请输入规范的手机号--></p></li>
+            <li><label>验证码：</label><input ng-model="regcode" style="width: 170px" type="text" placeholder="短信验证码" class="ng-pristine ng-untouched ng-valid ng-empty"><input type="button" id="btnSendCode" ng-click="sendMessage(regphone)" value="获取验证码"><p><!--请输入正确的验证码--></p></li>
+            <li><label>输入密码：</label><input ng-model="regpwd" type="password" placeholder="请输入6-20位字母数字的组合" class="ng-pristine ng-untouched ng-valid ng-empty"><p id="regpwd"><!--请输入规范的密码--></p></li>
+            <li><label>确认密码：</label><input ng-model="regpwd2" type="password" placeholder="请再次输入密码" ng-keyup="myKeyupregin($event,regphone,regcode,regpwd,regpwd2)" class="ng-pristine ng-untouched ng-valid ng-empty"><p id="regpwd2"><!--2次密码不一致--></p></li>
+            <li><label>推荐码：</label><input type="text" ng-model="referralcode" placeholder="非必填选项" class="ng-pristine ng-untouched ng-valid ng-empty"><p id="referralcode"><!--请输入规范的手机号--></p></li>
+            <li class="mar-b30"><label>&nbsp;</label><div class="fwtk"><span class="act"></span>我已同意沃鎏波洱的<a target="_blank" href="core.html#rule?act=4&amp;tit=用户注册协议">《用户注册协议》</a></div></li>
+            <li><label>&nbsp;</label><button ng-click="regbtn(regphone,regcode,regpwd,regpwd2,referralcode)">注册</button></li>
+        </ul>
+    </div>
+</div>
+

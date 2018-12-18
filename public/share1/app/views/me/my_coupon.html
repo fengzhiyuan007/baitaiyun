@@ -1,0 +1,41 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff z100">
+		<div class="box_center h44 pl10 pr10 bor_b">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">我的优惠券</div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+		<!-- tab -->
+		<div class="box_between back_fff h45 f14 col_999 bor_b">
+			<div class="box_center grid_cell pl5 pr5 ml10 mr10 h45" ng-class="{nav_act:type==1,col_red:type==1}" ng-click="couponTabClick(1)">未使用</div>
+			<div class="box_center grid_cell pl5 pr5 ml10 mr10 h45" ng-class="{nav_act:type==2,col_red:type==2}" ng-click="couponTabClick(2)">已使用</div>
+			<div class="box_center grid_cell pl5 pr5 ml10 mr10 h45" ng-class="{nav_act:type==3,col_red:type==3}" ng-click="couponTabClick(3)">已过期</div>
+		</div>
+	</div>
+	<div class="pt90">
+		<div class="p10">
+			<div class="p_r mb10" ng-repeat="dt in couponListInfo">
+				<div class="br5_top_right br5_top_left h5"  ng-class="{ true: 'back_999', false: 'back_red'}[type == 2 ||type == 3]"></div>
+				<div class="h70 box_between borType_dashed_b back_fff pl15 pr15" ng-class="{ true: 'col_999', false: 'col_000'}[type == 2 ||type == 3]">
+					<div class="f18 mb20" ng-bind="dt.name">通用优惠券</div>	
+					<div class="">
+						<div>￥ <span class="f22" ng-bind="dt.value">30</span>	</div>
+						<div class="" >满<span ng-bind="dt.limit_value">1000</span>使用</div>
+					</div>	
+				</div>
+				<div class="h50 pl15 pr15 back_fff col_666 pt10"  ng-class="{ true: 'col_999', false: 'col_666'}[type == 2 ||type == 3]">
+					<div class="" ng-bind="dt.title">满200减20</div>
+					<div class="">有效期： <span ng-bind="dt.start_time">2017-11-20</span> ~ <span ng-bind="dt.end_time">2017-11-20</span></div>
+				</div>
+				<div class="h_b100 w_b100 p_a t0 box_center">
+					<div class="h60 w60" ng-class="{'use_icon': type == 2, 'overdue_icon': type == 3}"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

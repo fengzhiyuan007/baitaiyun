@@ -1,0 +1,169 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>'','text'=>'销售结算统计'],
+['href'=>url('Earnings/today_sell'),'text'=>'今日结算'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <form class="search"  method="get">
+            <input name="p" value="" hidden>
+            <input type="text" class="input-text" style="width:230px" name="order_no" value="{$Request.get.order_no}" id="order_no" placeholder="店铺名、商户姓名">
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+            <div style="float: right;padding: 10px">
+                结算：
+                <a href="javascript:void(0)">{$sum|default='0'} ¥</a>
+            </div>
+            <span style="float:right;padding:0px 10px 10px 0" >
+                <a href="javascript:void(0)" title="导出Excl"  onclick="xiazai()" class="btn btn-default radius" >
+                    <i class="Hui-iconfont">&#xe644;</i>导出
+                </a>
+            </span>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="100">店铺LOGO</th>
+                <th width="70">商家信息</th>
+                <th width="70">结算总额</th>
+                <th width="70">商家</th>
+                <th width="70">招商</th>
+                <th width="70">引流</th>
+                <th width="70">推广</th>
+                <th width="70">结算时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td><img src="{$vo.merchants_img}" style="width:50px; height:50px; border-radius:25px;"></td>
+                <td>
+                     <span style="display: block; font-size: 8%">
+                    {$vo.merchants_name}<br/>
+                    {$vo.contact_name}
+                    </span>
+                </td>
+                <td>{$vo.settlement_price}元</td>
+                <td>
+                    <span style="display: block; font-size: 8%">
+                    {$vo.merchants_amount}元<br/>
+                    {$vo.merchants_ratio}%</span>
+                </td>
+                <td>
+                    {if condition="!empty($vo['spread_id']) && $vo['spread_id'] eq $tv_id"}
+                    <span style="display: block; font-size: 8%">
+                    {$vo.spread_amount}元<br/>
+                    {$vo.spread_ratio}%</span>
+                    {/if}
+                </td>
+                <td>
+                    {if condition="!empty($vo['spread_tv']) && $vo['spread_tv'] eq $tv_id"}
+                    <span style="display: block; font-size: 8%">
+                    {$vo.spread_tv_amount}元<br/>
+                    {$vo.spread_tv_ratio}%</span>
+                    {/if}
+                </td>
+                <td>
+                    {if condition="$vo['seller_ratio'] gt 0 && ($vo.level_one_tv  eq $tv_id OR $vo.level_two_tv eq $tv_id OR $vo.level_three_tv eq $tv_id)"}
+                    <u style="cursor:pointer"  onclick='member_show("电视台收益详情","{:url('Earnings/goods_settlement_view',['id'=>$vo['order_goods_settlement']])}","700","300")' class="text-primary">
+                    <span style="display: block; font-size: 8%">
+                    {$vo.seller_amount}元<br/>
+                    {$vo.seller_ratio}%</span>
+                    </u>
+                    {/if}
+                </td>
+                <td>{$vo.create_time}</td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center">
+        <span>
+            {$page}
+        </span>
+    </div>
+</div>
+<script type="text/javascript">
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input[name="checkbox"]:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+    function datadel(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Horder/del_order')}", {ids:kid}, function(data){
+                if( data.status == 'ok' ){
+                    layer.msg(data.data.info,{icon:1,time:1000});
+                    window.location.href = data.data.url;
+                }else{
+                    layer.msg(data.info,{icon:1,time:1000});
+                }
+            },'json');
+        })
+    }
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    function member_show(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+
+
+    /*用户-删除*/
+    function del(obj,id){
+        layer.confirm('确认要删除吗？',function(index){
+            $.post("{:url('Horder/del_order')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.data,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+    function xiazai(){
+        var download = 'download';
+        var url = window.location.href;
+        var a = url.split(".html")[0];
+        var b = url.split(".html")[1];
+        if(a.split("?")[1]){
+            window.location.href=a+"&act="+download+b;
+        }else{
+            window.location.href=a+"/act/"+download+b;
+        }
+    }
+    function getnums(){
+        var num = $("#nus").val();
+        window.location.href="__SELF__&num="+num;
+    }
+
+    function lock(v) {
+        $.post("{:url('Horder/lock_order')}", {id: v}, function (data) {
+            console.log(data);
+            if (data['status'] == 'ok') {
+                alert(data.info);
+                window.location.href = window.location.href;
+            } else {
+                alert(data.info);
+            }
+        }, 'json');
+    }
+
+</script>
+<script type="text/javascript" src="/static/layui/lay/dest/layui.all.js"></script>

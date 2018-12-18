@@ -1,0 +1,62 @@
+<php>
+    $text = '添加搜索热词';
+</php>
+{:W('public/breadcrumbs',[
+[
+['href'=>U('Config/hot_words'),'text'=>'热词设置'],
+['href'=>'','text'=>$text]
+]
+])}
+<style>
+    .ibutton { padding: 3px 15px; *padding: 0 15px; *height: 24px;  font-size: 12px; text-align: center; text-shadow: #CF510B 0 1px 0; border:1px solid #ec5c0d; border-radius: 2px; background: #FC750A; background-image: -webkit-linear-gradient(top, #fc8746, #ec5d0e); color:#FFF; cursor: pointer; display: inline-block; }
+</style>
+<load href="__ROOT__/public/upload/uploadify.css" />
+<load href="__ROOT__/public/upload/swfobject.js" />
+<script type="text/javascript" src="__ROOT__/public/upload/jquery.uploadify.v2.1.4.min.js"></script>
+
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12"><br/>
+            <div>
+                <span style="padding-top:20px;font-weight:bold;"><php>echo $text</php></span>
+            </div>
+            <hr/>
+            <form method="post" onsubmit="return checked()">
+                <table width="70%" border="0">
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="5%">热词</td>
+                        <td width="65%">
+                            <input  type="text" name="name" id="name"  value="{$re['name']}" size="50" />&nbsp;<span class="yzurl" ></span>
+                        </td>
+                    </tr>
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="5%">热词类型</td>
+                        <td width="65%">
+                            <select name="type">
+                                <option value="">请选择热词类型</option>
+                                <option value="1" <if condition="$re['type'] eq 1">selected</if>>网红</option>
+                                <option value="4" <if condition="$re['type'] eq 4">selected</if>>商城</option>
+                                <option value="5" <if condition="$re['type'] eq 5">selected</if>>众筹</option>
+                                <option value="6" <if condition="$re['type'] eq 6">selected</if>>VR</option>
+                                <option value="7" <if condition="$re['type'] eq 7">selected</if>>活动</option>
+                            </select>
+                            </span></td>
+                    </tr>
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                </table>
+                <input type="hidden" name="hot_word_id" value="{$_GET['id']}" />
+                <button type="button" class="ibutton submit">&emsp;保&emsp;存&emsp;</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(function() {
+        $(".submit").click(function () {
+            commonAjaxSubmit();
+            return false;
+        });
+    });
+</script>

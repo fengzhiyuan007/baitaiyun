@@ -1,0 +1,44 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff z100">
+		<div class="box_center h45 pr10 pl10 w_b100 bor_b">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center" ng-bind="title"></div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+		<!-- tab -->
+		<div class="box_between back_fff h45 f12 col_999 bor_b ">
+			<div class="grid_cell box_center" ng-click="getGoodsListFun(1)">
+				<div ng-class="{col_red:state==1}">综合</div>
+			</div>
+			<div class="grid_cell box_center" ng-click="getGoodsListFun(2)">
+				<div ng-class="{col_red:state==2}">销量</div>
+			</div>
+			<div class="grid_cell box_center" ng-click="sortClick(sortType)">
+				<div ng-class="{col_red:state==3 || state==4}">价格</div>
+				<div class="ml5 price_sort_icon w6 h15" ng-class="{price_sort_rise_icon:state==4,price_sort_drop_icon:state==3}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="pt90 back_fff">
+		<!-- 列表项 -->
+		<a href="#/goodsDetails?goods_id={{goods.goods_id}}" class="box_start h110 bor_b pl10 pr10 p_r" ng-repeat="goods in goodsListInfo track by $index">
+			<div class="w90 h90">
+				<img lazy-src="{{goods.goods_img}}" alt="">
+			</div>
+			<div class="pl10 grid_cell box_direction h90">
+				<div class="f14 grid_cell">
+					<div class="wbyc2" ng-bind="goods.goods_name"></div>
+				</div>
+				<div class="col_red f12 ">现价：¥<em class="f16" ng-bind="goods.goods_now_price"></em></div>
+				<div class="col_999 scx box_start h20">原价：¥<em ng-bind="goods.goods_origin_price"></em></div>
+			</div>
+			<div class="p_a b10 r10 box_center back_red br15 h25 pl15 pr15 col_fff f12">立即购买</div>
+		</a>
+	</div>
+</div>

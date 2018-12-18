@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="format-detection" content="telephone=no"/>
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+	<title>竖屏直播间</title>
+	<!--初始化样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/reset.css">
+	<!--公共样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/common.css">
+	<!--主样式表-->
+	<link rel="stylesheet" type="text/css" href="../../css/main.css">
+	<!--rem单位js-->
+	<script type="text/javascript">
+		(function (doc, win) {
+		    var docEl = doc.documentElement,
+		        resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+		        recalc = function () {
+		            var clientWidth = docEl.clientWidth;
+		            if (!clientWidth) return;
+		            if(clientWidth>=640){
+		                docEl.style.fontSize = '100px';
+		            }else{
+		                docEl.style.fontSize = 100 * (clientWidth / 750) + 'px'; // iphone6
+		        }
+		    };
+		    if(!doc.addEventListener) return;
+		    win.addEventListener(resizeEvt, recalc, false);
+		    doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);
+	</script>
+	<!--jquery-->
+	<script src="http://cdn.bootcss.com/jquery/2.2.1/jquery.js"></script>
+</head>
+<body>
+	<div class="liveRoom_warp">
+		<div class="liveRoom_app over_hidden">
+			<div class="p_a t0 l0 r0 b0">
+				<div class="p_r w_b100 h_b100">
+					<!-- 视频盒子 -->
+					<div class="w_b100 h_b100 over_hidden back_000">
+						<video id="vieoPlayer" width="100%" height="100%" preload="auto" poster="" src="http://mse.tstmobile.com/Public/admin/Uploads/video/obs124574545.mp4" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-player-type="h5" x5-video-player-fullscreen="true" class="IIV" style="object-fit: cover; border: 0px; background: rgb(0, 0, 0);"></video>
+						<!-- 封面图 -->
+						<div class="p_a t0 l0 w_b100 h_b100">
+							<img src="http://soundlife-app.oss-cn-hangzhou.aliyuncs.com/doubuy/6736/img15090005211137.jpg" style="position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; filter: blur(4px);" alt="">
+						</div>
+					</div>
+					<div class="p_a t0 l0 w_b100 h_b100">
+						<!-- 主播信息 -->
+						<div class="p10 col_fff">
+							<div class="box_between">
+								<div class="grid_cell box_start">
+									<div class="w35 h35 br50">
+										<img class="br50" src="../../images/user_header.png" alt="">
+									</div>
+									<div class="f12 ml10 mr10">
+										<div>直播</div>
+										<div><em>32432</em>人</div>
+									</div>
+									<div class="back_3BB20B f14 br15 box_center h30 pl10 pr10">关注</div>
+								</div>
+								<div class="grid_cell box_start over_hidden">
+									<div class="w35 h35 br50 mr5">
+										<img class="br50" src="../../images/user_header.png" alt="">
+									</div>
+									<div class="w35 h35 br50 mr5">
+										<img class="br50" src="../../images/user_header.png" alt="">
+									</div>
+									<div class="w35 h35 br50 mr5">
+										<img class="br50" src="../../images/user_header.png" alt="">
+									</div>
+									<div class="w35 h35 br50 mr5">
+										<img class="br50" src="../../images/user_header.png" alt="">
+									</div>
+								</div>
+							</div>
+							<div class="box_between pt10 f12">
+								<div class="backRgba_black_5 box_center br15 h25 pl15 pr15">礼物：<em>567</em></div>
+								<div>ID号：<em>34567899</em></div>
+							</div>
+						</div>
+						<!-- 消息区 -->
+						<div class="chanInfo p_a w_b70 l0 b70 over_y p10 maxH220">
+							<!-- 消息列表项 -->
+							<div class="f12 pb5"><span class="col_e4c931">StoryPeanut</span>：<span class="col_fff">你笑屁啊！！！！</span></div>
+							<div class="f12 pb5"><span class="col_fff">直播消息</span>：<span class="col_d55343">我们提倡绿色直播，请保持房间的干净整洁！！</span></div>
+						</div>
+						<!-- 底部功能区 -->
+						<div class="p_a b0 l0 w_b100">
+							<div class="">
+								<div class="box_between pl15 pr15 pb10">
+									<div class="liveRoom_goods_icon w30 h30"></div>
+									<div class=box_end>
+										<div class="liveRoom_msg_icon w40 h40"></div>
+										<div class="liveRoom_gift_icon w40 h40 ml20"></div>
+										<div class="liveRoom_close_icon w40 h40 ml20"></div>
+									</div>
+								</div>
+							</div>
+							<!-- 输入model -->
+							<div class="hide">
+								<div class="box_between bor_t h50 backRgba_black_5 pl15 pr15">
+									<div class="grid_cell box_center pl10 pr10 mr10">
+										<input class="w_b100 back_tm f12 col_fff" type="text" placeholder="说些什么吧">
+									</div>
+									<div class="back_3BB20B pl15 pr15 br5 col_fff f14 h30 box_center">发送</div>
+								</div>
+							</div>
+						</div>
+						<!-- 商品列表 -->
+						<div class="p_a b0 l0 w_b100 back_fff br15_top_left br15_top_right hide">
+							<div class="box_between h40 pl15 pr15 bor_b">
+								<div class="w28"></div>
+								<div class="grid_cell box_center f16">商品列表</div>
+								<div class="close_gray_icon w28 h28"></div>
+							</div>
+							<div class="over_y h375">
+								<!-- 列表项 -->
+								<a href="../mall/goods/goodsDetails.html" class="box_start h110 bor_b pl10 pr10 p_r">
+									<div class="w90 h90">
+										<img src="../../images/tmp2.png" alt="">
+									</div>
+									<div class="pl10 grid_cell box_direction h90">
+										<div class="f14 grid_cell">
+											<div class="wbyc2 ">太平鸟女装2017夏装新款 纯棉短袖女t恤 上衣体恤宽松短款半袖潮</div>
+										</div>
+										<div class="col_red f12 ">直播价：¥<em class="f16">999</em></div>
+										<div class="col_999 scx box_start h20">原价：¥<em>9999</em></div>
+									</div>
+									<div class="p_a b10 r10 box_center back_red br15 h25 pl15 pr15 col_fff f12">立即购买</div>
+								</a>
+							</div>
+						</div>
+						<!-- 礼物列表model -->
+						<div class="p_a b0 l0 w_b100 h_b100" id="liveRoomGiftBox">
+							<div class="p_r w_b100 h_b100 box_direction">
+								<div class="grid_cell"></div>
+								<div class="p_r backRgba_black_8">
+									<div class="flex_wrap h220 box_start over_y media">
+										<!--列表-->
+										<div class="w_b20 pl10 pr10 borCol_red">
+											<div class="w_b100">
+												<img class="rewardImg" src="http://dspx.tstmobile.com/uploads//image/goods/20171101/a4a4cf8eee5b2fa12a5cf2aa62fca525.png" alt="">
+											</div>
+											<div class="col_fff pt10 pb10 t_c">
+												<div>劳斯莱斯</div>
+												<div><em></em>钻石</div>
+											</div>
+										</div>
+									</div>
+									<div class="h50 box_between pl15 pr15">
+										<a class="box_start">
+											<div class="diamonds_icon w22 h18"></div>
+											<div class="col_yellow ml10 mr10 f14">6789</div>
+											<div class="left_yellow_icon w10 h15"></div>
+										</a>
+										<div class="col_156ee7 f16">发送</div>
+									</div>
+								</div>
+							</div>
+						</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+</body>
+</html>

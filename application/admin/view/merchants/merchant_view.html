@@ -1,0 +1,489 @@
+{:widget('public/breadcrumbs',[
+[
+['href'=>url('User/index'),'text'=>'会员列表'],
+['href'=>'javascript:;;','text'=>'会员详情'],
+]
+])}
+<div class="page-container">
+    <div class="cl pd-5 bg-1 bk-gray">基础信息</div>
+    <div class="cl pd-20" style="height:280px;background-color:#5bacb6">
+        <div style="float:left;height:150px;width:113px">
+            <img src="{$view.header_img}" class="avatar size-XL l" style="width:113px;height:111px;margin-bottom:10px">
+        </div>
+            <div style="float:left;padding-left:50px">
+                <div>
+                    <ul style="line-height:30px;color:#fff">
+                        <li>昵称：{$view.username}</li>
+                        <li>性别：{$view['sex'] == 1 ? '男' : ($view['sex'] == 2 ? '女' : '未知')}</li>
+                        <li>账号：{$view.phone}</li>
+                        <li>地址：{$view.address}</li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 25px">
+                    <div>
+                        <ul style="line-height:30px;color:#fff">
+                            <li>店铺名称：{$mer.merchants_name}</li>
+                            <li>商户姓名：{$mer.contact_name}</li>
+                            <li>联系方式: {$mer.contact_mobile}</li>
+                            <li>商户地址: {$mer.merchants_address}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div style="float:left;padding-left:50px">
+                <div>
+                    <ul style="line-height:30px;color:#fff">
+                        {if condition="$view['type'] eq 1"}
+                        <li>账户钻石余额：{$view.b_diamond|default=0} 钻石</li>
+                        <li>充值钻石总数：{$view.meters_count|default=0} 钻石</li>
+                        <li>充值金额：{$view.amount_count|default=0} 元</li>
+                        {elseif condition="$view['type'] eq 2"}
+                        <li>直播账户余额：{$view.e_ticket|default=0} 钻石</li>
+                        <li>直播总收益额：{$view.get_ticket|default=0} 钻石</li>
+                        <li>直播预估可兑换金额：{$view.get_money|default=0} 元</li>
+                        <li>直播总提现：{$view.withdraw_money|default=0} 元</li>
+                        {/if}
+                    </ul>
+                </div>
+                <div style="margin-top: 25px">
+                    <div>
+                        <ul style="line-height:30px;color:#fff">
+                            <li>
+                                认证状态：
+                                {switch name="$mer.apply_state" }
+                                {case value="0"}未认证{/case}
+                                {case value="1"}审核中{/case}
+                                {case value="2"}已通过{/case}
+                                {case value="1"}拒绝{/case}
+                                {/switch}
+                            </li>
+                            <li>销售总额：{$mer.sale_amount|default=0}元</li>
+                            <li>销售收益: {$mer.withdraw_money|default=0}元</li>
+                            <li>押金支付状态:
+                                {switch name="$mer.pay_state"}
+                                {case value="0"}未支付{/case}
+                                {case value="1"}已支付{/case}
+                                {/switch}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="pd-20">
+            <div class="tabBar cl">
+                <span class='sign {if condition="$_GET['type'] eq 1"}current{/if}' type="1">充值记录</span>
+                <span class='sign {if condition="$_GET['type'] eq 2"}current{/if}' type="2">提现记录</span>
+                <span class='sign {if condition="$_GET['type'] eq 5"}current{/if}' type="5">关注列表</span>
+                <span class='sign {if condition="$_GET['type'] eq 6"}current{/if}' type="6">粉丝列表</span>
+                <span class='sign {if condition="$_GET['type'] eq 7"}current{/if}' type="7">送礼记录</span>
+                <span class='sign {if condition="$_GET['type'] eq 8"}current{/if}' type="8">收礼记录</span>
+                <span class='sign {if condition="$_GET['type'] eq 9"}current{/if}' type="9">直播记录</span>
+                <span class='sign {if condition="$_GET['type'] eq 10"}current{/if}' type="10">录播列表</span>
+                <span class='sign {if condition="$_GET['type'] eq 11"}current{/if}' type="11">导购视频</span>
+            </div>
+            <!---------充值--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 1"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">充值编号</th>
+                <th width="100">充值金额</th>
+                <th width="100">充值钻石</th>
+                <th width="100">充值途径</th>
+                <th width="100">充值时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.pay_number}</td>
+                <td>¥{$vo.amount}</td>
+                <td>{$vo.meters}</td>
+                <td>{$vo.pay_type}</td>
+                <td>{$vo.intime}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+
+            <!---------提现--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 2"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">提现金额</th>
+                <th width="100">对应钻石</th>
+                <th width="100">提现账户</th>
+                <th width="100">账户类型</th>
+                <th width="100">提现时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.k}</td>
+                <td>¥{$vo.money}</td>
+                <td>{$vo.withdraw_way}</td>
+                <td>{$vo['withdraw_type'] == 1 ? '支付宝' : '银行卡'}</td>
+                <td>{$vo.date}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+
+            <!---------名师指点--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$_GET['type'] neq 3"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">指点金额</th>
+                <th width="100">指点导师</th>
+                <th width="100">导师账号</th>
+                <th width="100">订单状态</th>
+                <th width="100">指点状态</th>
+                <th width="100">指点时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.amount}</td>
+                <td>{$vo.tusername}</td>
+                <td>{$vo.tphone}</td>
+                <td>
+                    <php>
+                        $vo['state'] == '1' && print "待支付";
+                        $vo['state'] == '2' && print "已支付";
+                        $vo['state'] == '3' && print "已退款";
+                        {/php}
+                </td>
+                <td>
+                    {php}
+                    if($vo['state'] !=1){
+                    $vo['teach_status'] == '1' ? print "正在指点"  : print "指点结束";
+                    }
+                    {/php}
+                </td>
+                <td>{$vo.intime}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+            <!---------会员升级--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$_GET['type'] neq 4"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">升级金额</th>
+                <th width="100">导师</th>
+                <th width="100">导师账号</th>
+                <th width="100">升级类型</th>
+                <th width="100">升级时间</th>
+                <th width="100">到期时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.amount}</td>
+                <td>{$vo.tusername}</td>
+                <td>{$vo.tphone}</td>
+                <td>
+                    {php}
+                    $vo['state'] == '1' && print "待支付";
+                    $vo['state'] == '2' && print "已支付";
+                    $vo['state'] == '3' && print "已退款";
+                    {/php}
+                </td>
+                <td>{$vo.intime}</td>
+                <td>{$vo.date_value}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+
+            <!---------关注--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 5"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">关注用户</th>
+                <th width="100">用户手机</th>
+                <th width="100">关注时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.intime}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+
+            <!---------被关注--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 6"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">被关注用户</th>
+                <th width="100">用户手机</th>
+                <th width="100">被关注时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.intime}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+
+            <!---------送礼记录--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 7"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">收礼对象</th>
+                <th width="100">用户手机</th>
+                <th width="100">直播名称</th>
+                <th width="100">礼物名称</th>
+                <th width="100">礼物数价值</th>
+                <th width="100">送礼时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.title}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.jewel}</td>
+                <td>{$vo.intime|date="Y-m-d H:i:s",###}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+
+            <!---------收礼礼记录--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 8"}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">送礼对象</th>
+                <th width="100">用户手机</th>
+                <th width="100">直播名称</th>
+                <th width="100">礼物名称</th>
+                <th width="100">礼物数价值</th>
+                <th width="100">送礼时间</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.username}</td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.title}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.jewel}</td>
+                <td>{$vo.intime|date="Y-m-d H:i:s",###}</td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+
+            <!---------直播记录--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 9 OR $view['type'] neq 2 "}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">直播标题</th>
+                <th width="100">封面</th>
+                <th width="100">开始时间</th>
+                <th width="100">结束时间</th>
+                <th width="100">总人数</th>
+                <th width="100">收礼</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.title}</td>
+                <td><img src="{$vo.play_img}"  onclick="view_play_img(this.src)" style="width: 50px;height: 50px;border-radius:50%"></td>
+                <td>{$vo.start_time|date="Y-m-d H:i:s",###}</td>
+                <td>{if condition=" $vo.end_time eq 0 "}
+                    {else/}
+                    {$vo.end_time|date="Y-m-d H:i:s",###}
+                    {/if}</td>
+                <td>{$vo.watch_nums}</td>
+                <td>{$vo.gift_count}</td>
+                <td>
+                    {if condition="$vo['live_status'] eq 1"}
+                    <a title="强制下线" href="javascript:;" onclick="offline({$vo.live_id});"  class="ml-5" style="text-decoration:none">
+                        <i class="Hui-iconfont">&#xe6dd;</i>
+                    </a>
+                    <a title="播放" href="javascript:;" onclick="sel('{:url('Live/play_live',['id'=>$vo['live_id']])}')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e6;</i></a>
+                    {else/}
+                    已结束
+                    {/if}
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+
+            <!---------录播记录--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 10 OR $view['type'] neq 2 "}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">标题</th>
+                <th width="100">封面</th>
+                <th width="100">地址</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.title}</td>
+                <td><img src="{$vo.play_img}"  onclick="view_play_img(this.src)" style="width: 50px;height: 50px;border-radius:50%"></td>
+                <td>{$vo.url}</td>
+                <td class="td-manage" style="text-align: center">
+                    <a title="播放" href="javascript:;" onclick="sel('{:url('Live/play_record',['id'=>$vo['live_store_id']])}')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e6;</i></a>
+                    <!--<a title="举报列表" href="{:url('Live/report',['id'=>$l['live_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe692;</i></a>-->
+                    <a title="删除" href="javascript:;" onclick="del(this,'{$vo.live_store_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+            <!---------精彩课程--------->
+            <table class="table table-border table-bordered table-hover table-bg table-sort" {if condition="$type neq 11 OR $view['type'] neq 2 "}hidden{/if}>
+            <thead>
+            <tr class="text-c">
+                <th width="100">标题</th>
+                <th width="100">封面</th>
+                <th width="100">地址</th>
+                <th width="100">观看数量</th>
+                <th width="100">点赞数量</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.title}</td>
+                <td><img onclick="view_play_img(this.src)"  src="{$vo.video_img}" style="width: 50px;height: 50px;border-radius:50%"></td>
+                <td>{$vo.url}</td>
+                <td>{$vo.watch_nums}</td>
+                <td>{$vo.zan}</td>
+                <td class="td-manage" style="text-align: center">
+                    <a title="编辑" href="{:url('Live/edit_video',['id'=>$vo['video_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="播放" href="javascript:;" onclick="view_url('{$vo.url}')"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e6;</i></a>
+                    <!--<a title="举报列表" href="{:url('Live/report',['id'=>$l['live_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe692;</i></a>-->
+                    <a title="删除" href="javascript:;" onclick="del_video(this,'{$vo.video_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+            </table>
+            <div style="text-align:center">
+            <span>
+                 {$list->render()}
+            </span>
+            </div>
+
+        </div>
+    </div>
+    <div id="made" class="hide" style="display: none;">
+        <img style="width:100%" id="zhubo" src="">
+    </div>
+    <script type="text/javascript">
+        $(".sign").click(function(){
+            var type = $(this).attr('type');
+            $(this).siblings().removeClass('current');
+            $(this).addClass('current');
+            var url = "/admin/merchants/merchant_view/mid/{$mid}/type/"+type;
+            window.location.href = url;
+            $('.all').addClass("Height0");
+            $('.all').removeClass('hide');
+            $('.tag'+type.removeClass("Height0"));
+        });
+
+        function offline(id) {
+            layer.confirm('确定强制下线？',function(index){
+                $.post("{:url('Live/offline')}", {id:id}, function(v){
+                    if( v == 1 ){
+                        layer.msg('已强制下线！',{icon:1,time:1000});
+                        window.location.href = window.location.href;
+
+                    }else{
+                        layer.msg('强制下线失败！',{icon:5,time:1000});
+                    }
+                });
+            });
+        }
+
+        function del(obj,id){
+            layer.confirm('确认要删除吗？',function(index){
+                $.post("{:url('Live/del_live_store')}", {ids:id}, function(data){
+                    if( data.status == 'ok' ){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }else{
+                        layer.msg(data.info,{icon:5,time:1000});
+                    }
+                },'json');
+            });
+        }
+
+        function del_video(obj,id){
+            layer.confirm('确认要删除吗？',function(index){
+                $.post("{:url('Live/del_video')}", {ids:id}, function(data){
+                    if( data.status == 'ok' ){
+                        $(obj).parents("tr").remove();
+                        layer.msg('已删除!',{icon:1,time:1000});
+                    }else{
+                        layer.msg(data.info,{icon:5,time:1000});
+                    }
+                },'json');
+            });
+        }
+
+        function view_play_img(v){
+            $("#zhubo").attr('src',v);
+            layer.open({
+                type: 1,
+                title: false,
+                closeBtn: 0,
+                area: '516px',
+                skin: 'layui-layer-nobg', //没有背景色
+                shadeClose: true,
+                content: $('#made')
+            });
+        }
+
+        function sel(id) {
+            layer.open({
+                type: 2,
+                title: false,
+                area: ['1020px', '587px'],
+                shade: 0.1,
+                closeBtn: 1,
+                shadeClose: false,
+                content: id,
+            });
+        }
+
+        function view_url(v){
+            layer.open({
+                type: 2,
+                title: false,
+                area: ['800px', '500px'],
+                shade: 0.8,
+                closeBtn: 0,
+                shadeClose: true,
+                content: v
+            });
+        }
+    </script>

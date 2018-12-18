@@ -1,0 +1,133 @@
+/*
+  doc详情页面中点击收藏之后切换图片
+*/
+.tool .t2_active{
+  background: url(../../img/t2y.png) no-repeat
+}
+
+.tool .t1_active{
+    background: url(../../img/t1y.png) no-repeat
+}
+
+.info-main{
+    padding-left: 0;
+    padding-right: 0;
+}
+.top22{
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 11;
+    display: none;
+    background-color: rgba(43,52,58,0.8);
+    box-shadow:0 3px 8px #666;
+    -webkit-box-shadow:0 3px 8px #666;
+    -ms-box-shadow:0 3px 8px #666;
+    -moz-box-shadow:0 3px 8px #666;
+    -o-box-shadow:0 3px 8px #666;
+}
+.top-tt2{
+    float: left;
+    width: 800px;
+    line-height: 50px;
+    font-size: 18px;
+    color: #fff;
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+.top-tt2-ul{
+    float: right;
+    overflow:  hidden;
+}
+.top-tt2-ul li{
+    float: left;
+    line-height: 50px;
+    font-size: 18px;
+    color: #fff;
+    margin-left: 55px;
+    cursor: pointer;
+}
+.top-tt2-ul li.tt1-li.has_good{
+    color: #1d90e7;
+}
+.top-tt2-ul li.tt1-li{
+    color: #fff;
+}
+.top-tt2-ul li.tt1-li:hover{
+    color: #1d90e7;
+}
+
+.top-tt2-ul li.tt2-li.has_favorite{
+    color: #1d90e7;
+}
+.top-tt2-ul li.tt2-li{
+    color: #fff;
+}
+.top-tt2-ul li.tt2-li:hover{
+    color: #1d90e7;
+}
+
+.doc_content{
+    text-indent:3em;line-height: 30px;
+}
+a{text-decoration: none}
+a:hover{text-decoration: none}
+a:focus{text-decoration: none}
+.mulu_item{color: #337ab7;cursor: pointer;}
+.mulu_item:hover{color: #1d90e7;}
+
+.shenpanren{
+    padding-right: 0;
+}
+.shenpanren table tbody tr td{
+    padding: 2px 0;
+    border: none;
+    text-indent:0;
+}
+.shenpanren table tbody tr td:first-child{
+    width: 70%;
+}
+.tooltip-inner{min-width: 80px;}
+
+.left div,.right_tmp div{
+    line-height: 30px;
+}
+.case-title{margin-top: 20px;}
+.case-title div{
+    font-size: 18px;
+    color: #555;
+    text-align: center;
+}
+.case-title div:last-child{
+    text-align: right;font-size: 14px;
+}
+.dsr-info div{
+    line-height: 30px;font-size: 14px;
+}
+.dsr-flag{
+    color: #337ab7;cursor: pointer;
+}
+.dsr-flag:hover{
+    color: #337ab7;
+}
+.link-tag{
+    padding: 0 2px;
+}
+.content-info div{
+    text-indent: 2em;
+}
+
+.sentence{padding: 0 10px;}
+.info-main .sub-title{
+    padding-left: 15px;
+}
+.fulu_content{text-align: left;}
+.mulu{
+    font-size:14px;font-family:'宋体';position: absolute;right: 0px;border: 1px solid #e5e5e5;background: #fff;padding: 10px 15px 20px;line-height: 25px;
+}
+.heade-1 {
+    margin: 0 auto;
+}

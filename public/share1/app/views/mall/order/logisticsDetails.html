@@ -1,0 +1,39 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff pr10 pl10 z100 bor_b">
+		<div class="box_center h45">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">物流详情</div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="pt45">
+		<div class="back_fff h120 box_start pl10 pr10">
+			<div class="w90 h90">
+				<img ng-src="{{goods_img}}" alt="">
+			</div>
+			<div class="grid_cell pl10">
+				<div class="f16">物流状态：<span class="col_00AE95" ng-bind="logisticsDetailsInfo.State == 2 ? '运送中'  : logisticsDetailsInfo.State == 3 ? '已签收' : logisticsDetailsInfo.State == 4 ? '问题件' : '准备中' "></span></div>
+				<div class="f12 col_999 mt10">物流公司：<span ng-bind="logisticsDetailsInfo.ShipperCode"></span></div>
+				<div class="f12 col_999">订单编号：<span ng-bind="order_no"></span></div>
+				<div class="f12 col_999">运单编号：<span ng-bind="logisticsDetailsInfo.LogisticCode"></span></div>
+			</div>
+		</div>
+		<!--快递状态列表-->
+		<div class="back_fff mt10 pl15 pt20" ng-hide="logisticsDetailsInfo.Traces.length == 0">
+			<!-- 列表 -->
+			<div class="bor_l pl15" ng-class="{pt10:$index!=0}" ng-repeat="item in logisticsDetailsInfo.Traces track by $index">
+				<div class="bor_b p_r pb10" ng-class="{true:'col_00AE95',false:'col_666'}[$index==0]">
+					<div class="p_a w15 h15 logisticsLi br50 " ng-class="{true:'back_00AE95',false:'back_ccc'}[$index==0]"></div>
+					<div class="f14 pb5"><span ng-bind="item.AcceptStation"></span></div>
+					<div class="f12" ng-bind="item.AcceptTime"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

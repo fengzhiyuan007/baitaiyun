@@ -1,0 +1,199 @@
+<php>
+    $uid = $_GET['id'];
+    $_GET['id']?$text='编辑公告':$text='添加公告';
+</php>
+{:W('public/breadcrumbs',[
+[
+['href'=>U('Home/notice'),'text'=>'通知列表'],
+['href'=>'','text'=>$text]
+]
+])}
+<style>
+    .ibutton { padding: 3px 15px; *padding: 0 15px; *height: 24px;  font-size: 12px; text-align: center; text-shadow: #CF510B 0 1px 0; border:1px solid #ec5c0d; border-radius: 2px; background: #FC750A; background-image: -webkit-linear-gradient(top, #fc8746, #ec5d0e); color:#FFF; cursor: pointer; display: inline-block; }
+</style>
+<script type="text/javascript" src="__ROOT__/public/js/region_select.js"></script>
+<script type="text/javascript" src="__ROOT__/public/upload/jquery.uploadify.v2.1.4.min.js"></script>
+<script type="text/javascript">
+    $(function($) {
+        $("#file_upload2").uploadify({
+            'uploader'       : '__ROOT__/public/upload/uploadify.swf',
+            'script'         : '__ROOT__/public/upload/uploadify.php',
+            'cancelImg'      : '__ROOT__/public/upload/cancel.png',
+            'folder'         : '__ROOT__/public/upload/imgs',
+            'queueID'        : 'fileQueue2',
+            'sizeLimit'      :	10 * 1000 * 1024,
+            'buttonImg'      : '__ROOT__/public/upload/llsc.jpg',
+            'width'          :  85,
+            'height'          :  28,
+            'fileExt'        : '*.jpg;*.gif;*.png;', //允许文件上传类型,和fileDesc一起使用.
+            'fileDesc'       : '*.jpg;*.gif;*.png;',  //选择文件对话框中的提示文本.
+            'auto'           : true,
+            'multi'          : false,
+            'onComplete':function(event,queueId,fileObj,response,data){
+                $('input[name="logo"]').val(response);
+                $('#pic2').attr('src', response);
+            }
+        });
+
+    });
+
+</script>
+
+<style>
+    #big{
+        position:absolute;
+        left:490px;
+        top:0px;
+        z-index:999;
+        display:none;
+    }
+</style>
+<div class="page-content">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <div class="row">
+        <div class="col-xs-12"><br/>
+            <div>
+		        <span style="padding-top:20px;font-weight:bold;">
+					<php>echo $text</php>
+				</span>
+            </div>
+            <hr/>
+            <form  method="post" onsubmit="return checked()">
+                <table width="100%" border="0" class="all">
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="10%">公告标题</td>
+                        <td width="65%">
+                            <input value="{$re['title']}" name="title" id="title" type="text" size="50">
+                            <span class="important">*</span>
+                        </td>
+                    </tr>
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="10%">公告详情</td>
+                        <td colspan="2">
+                            <textarea name="summary"  oninput="textCounter(this,100)" onPropertyChange="textCounter(this,100)" style="width:400px;height:80px;" value="{$re['summary']}" placeholder="请填写公告详情">{$re['summary']}</textarea>
+                            &nbsp;<span class="important">*</span>限定100字
+                        </td>
+                    </tr>
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="10%">公告重要性</td>
+                        <td width="65%">
+                            <div style="line-height:30px;text-align:center;display: inline-block">
+                                <input type="radio" name="is_top" value="1" <if condition="$re['is_top'] eq 1">checked</if>>
+                                <span style="vertical-align:middle;">普通</span>
+                            </div>
+                            <div style="line-height:30px;text-align:center;display: inline-block;margin-left:50px;">
+                                <input type="radio" name="is_top" value="2" <if condition="$re['is_top'] eq 2" >checked</if>>
+                                <span style="vertical-align:middle;">置顶</span>
+                            </div>
+                        </td>
+                    </tr>
+<!--                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="10%">接收对象</td>
+                        <td width="65%">
+                            <div style="line-height:30px;text-align:center;display: inline-block">
+                                <input type="checkbox" name="object[]" id="all" onclick="check(this)" value="0" class="w15 h15" <php>if(in_array(0,$re['object']))echo 'checked';</php>  />
+                                <span style="vertical-align:middle;margin-left: -2px;">全体会员</span>
+                            </div>
+                            <volist name="grade" id="vo" key="k">
+                                <div style="line-height:30px;text-align:center;display: inline-block">
+                                    <input type="checkbox" name="object[]" class="other" onclick="check(this)" value="{$vo.grade_id}" class="w15 h15" style="margin-left:15px" <php>if(in_array($vo['grade_id'],$re['object'])) echo 'checked';</php>  />
+                                    <span style="vertical-align:middle;margin-left: -2px;">{$vo.name}</span>
+                                </div>
+                            </volist>
+                        </td>
+                    </tr>
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                    <tr>
+                        <td width="10%">公告内容</td>
+                        <td width="65%">
+                            {:W('Unit/ueditor',['content',$re['content']])}
+                        </td>
+                    </tr>-->
+                    <tr><td width="5%">&emsp;</td><td width="65%">&emsp;</td></tr>
+                </table>
+                <input type="hidden" name="id" value="{$_GET['id']}" />
+                <button class="ibutton submit" type="button">&emsp;保&emsp;存&emsp;</button>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+    $(function(){
+        var  content ;
+        KindEditor.ready(function(K) {
+            content = K.create('#content',{
+                allowFileManager : true,
+                uploadJson:'system.php/tools/upload?dirname=banner'
+            });
+        });
+
+        KindEditor.ready(function(K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager : true,
+                uploadJson:'system.php/tools/upload?dirname=banner'
+                //sdl:false
+            });
+            K('#uparea1').click(function() {
+                editor.loadPlugin('image', function() {
+                    editor.plugin.imageDialog({
+                        imageUrl : K('#image_1').val(),
+                        clickFn : function(url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+        });
+
+        $(".submit").click(function(){
+            commonAjaxSubmit();
+            return false;
+        });
+
+        $("#uparea1").mouseover(function(e){
+            $("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            var img = $('#image_1').val();
+            if(img.length !== 0) {
+                $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                $("#big").show();        //show：显示
+            }
+        });
+        $("#uparea1").mouseout(function(){
+            $("#big").hide();
+        });
+
+        $(".pic3").mouseover(function(e){
+            $("#big2").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+            $("#big2").html('<img src="'+this.src+'" width=380 height=300>');
+            $("#big2").show();        //show：显示
+        });
+        $(".pic3").mouseout(function(){
+            $("#big2").hide();
+        });
+    });
+
+    function check(v){
+        var name = $(v).prop("class");
+        if(name == 'other'){
+            if($(v).is(":checked")){
+                $('#all').prop("checked",false);
+            }
+        }
+        if($('#all').is(":checked")){
+            $('.other').prop("checked",false);
+        }
+    }
+
+</script>

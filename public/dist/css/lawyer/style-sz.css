@@ -1,0 +1,147 @@
+a:focus, a:hover{
+	text-decoration: none;
+}
+.container{
+	width: 1170px;
+	padding: 0;
+	position: relative;
+}
+.sign-bg{
+	position:fixed;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	z-index:-1;
+	min-width: 1170px;
+}
+.sign-bg img{
+	height:100%;
+	width:100%;
+	border:0;
+}
+.form-main{
+	width: 390px;
+	margin: 20% auto;
+	background: rgba(0,0,0,.6);
+	border: 1px solid #747474;
+	border-radius: 4px;
+	padding: 40px 34px 15px;
+}
+.icont-bb span{
+	background-color: #fff;
+}
+.icont-bb input{
+	border-left: 0;
+}
+.form-d{
+	position: relative;
+}
+.form-d input{
+	padding-left: 40px;
+}
+.ic-inpt{
+	display: inline-block;
+	width: 14px;
+	height: 15px;
+	background: url(../../img/use1.png) left center no-repeat;
+	position: absolute;
+	left: 14px;
+	top: 9px;
+	z-index: 3;
+}
+.ic-inpt.ic-inpt2{
+	width: 12px;
+	height: 15px;
+	background: url(../../img/use2.png) left center no-repeat;
+}
+.ic-inpt.ic-inpt3{
+	width: 15px;
+	height: 16px;
+	background: url(../../img/yanz.png) left center no-repeat;
+}
+.ic-inpt.ic-inpt4{
+	width: 13px;
+	height: 18px;
+	background: url(../../img/use3.png) left center no-repeat;
+}
+.sinup-box{
+	overflow: hidden;
+	font-size: 12px;
+	color: #b3b3b3;
+	margin: 0 0 8px 0;
+}
+.sinup-checke{
+	float: left;
+}
+.sinup-checke input{
+	vertical-align: middle;
+	margin: 0;
+	margin-right: 7px;
+}
+.sinup-box a{
+	float: right;
+	font-size: 12px;
+	color: #b3b3b3;
+}
+.sinup-btn{
+	width: 100%;
+	margin-bottom: 20px;
+}
+.sinup-zc{
+	text-align: center;
+	margin-top: 20px;
+}
+.sinup-zc a{
+	font-size: 14px;
+	color: #b3b3b3;
+}
+.sinup-zc2{
+	text-align: center;
+	font-size: 14px;
+	color: #b3b3b3;
+	margin-bottom: 15px;
+}
+.sinup-zc2 a{
+	color: #00a0e9;
+}
+.input-group .form-control.btn-yz{
+	border-radius: 4px 0 0 4px !important;
+}
+.alert-danger {
+    width: 240px;
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+    background-color: #FCC6C6;
+    border: 1px solid #FC4848;
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    top: 80px;
+    margin-left: -121px;
+    color: #000;
+}
+.alert-danger .text-0 {
+    margin: 0;
+}
+.alert-danger .clos-0 {
+    position: absolute;
+    top: -9px;
+    right: 0;
+    font-size: 36px;
+    cursor: pointer;
+    color: #999;
+}
+.zh-btn:focus,.zh-btn:active:focus{
+	outline: none;
+	border: 1px solid #398439;
+}
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+    outline: none;
+}

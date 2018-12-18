@@ -1,0 +1,138 @@
+<link rel="stylesheet" href="/static/css/amazeui.css"/>
+<link rel="stylesheet" href="/static/css/admin.css">
+<script src="/dist/js/app.js"></script>
+<style type="text/css">
+    ul{
+        margin: 0 0 0 0;
+    }
+</style>
+<div class="am-cf admin-main">
+    <div class=" admin-content">
+        <div style="overflow-x: hidden">
+            <div class="admin-index">
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 100}">
+                    <a href="{:url('goods/goods_list')}">
+                    <!--<dt style="background-color: #42cac0"><img style="height: 90px;width: 120px" src="/static/Img/zhubo.png"></dt>-->
+                    <dt style="background-color: #42cac0"><i class="Hui-iconfont">&#xe620;</i></dt>
+                    <dd style="color: #333">{$goods_count1|default='0'}</dd>
+                    <dd class="f12" style="color: #333">商品总数</dd>
+                    </a>
+                </dl>
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 600}">
+                    <a href="{:url('goods/goods_list')}">
+                    <!--<dt style="background-color: #f8d347"><img style="height: 90px;width: 120px" src="/static/Img/shouyi.png"></dt>-->
+                    <dt style="background-color: #f8d347"><i class="Hui-iconfont">&#xe620;</i></dt>
+                    <dd style="color: #333">{$goods_count2|default='0'}</dd>
+                    <dd class="f12" style="color: #333">上架总数</dd>
+                    </a>
+                </dl>
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 300}">
+                    <a href="{:url('horder/to_all_order')}">
+                    <!--<dt style="background-color: #ff6c60"><img style="height: 90px;width: 120px" src="/static/Img/shangjia.png"></dt>-->
+                    <dt style="background-color: #ff6c60"><i class="Hui-iconfont">&#xe627;</i></dt>
+                    <dd style="color: #333">{$order_count1|default='0'}</dd>
+                    <dd class="f12" style="color: #333">订单总数</dd>
+                    </a>
+                </dl>
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
+                    <!--<dt style="background-color: #57c8f2"><img style="height: 90px;width: 120px" src="/static/Img/shouyi.png"></dt>-->
+                    <dt style="background-color: #57c8f2"><i class="Hui-iconfont">&#xe628;</i></dt>
+                    <dd style="font-size: 30px;color: #333">{$order_count3|default='0'}</dd>
+                    <dd class="f12" style="color: #333">销售金额(结算)</dd>
+                </dl>
+            </div>
+            <div class="admin-biaoge">
+                <div class="xinxitj" style=""><h3>商家信息</h3></div>
+                <table class="am-table">
+                    <thead>
+                    <tr>
+                        <th>店铺名称</th>
+                        <th>联系方式</th>
+                        <th>订单金额:单位(人民币)</th>
+                        <th>结算金额:单位(人民币)</th>
+                        <th>提现金额:单位(人民币)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{$merchants.merchants_name}</td>
+                        <td>{$merchants.contact_mobile}</td>
+                        <td>{$order_count2|default='0'}</td>
+                        <td>{$order_count3|default='0'}</td>
+                        <td>{$total_withdraw|default='0'}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="xinxitj" style=""><h3>直播信息</h3></div>
+                <table class="am-table">
+                    <thead>
+                    <tr>
+                        <th>直播次数</th>
+                        <th>粉丝数</th>
+                        <th>关注数</th>
+                        <th>收益额:单位(钻石)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{$live_count|default='0'}</td>
+                        <td>{$fans_count|default='0'}</td>
+                        <td>{$follow_count|default='0'}</td>
+                        <td>{$total_income|default='0'}</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="xinxitj" style=""><h3>商户销售信息</h3></div>
+                <table class="am-table">
+                    <thead>
+                    <tr>
+                        <th>店铺名称</th>
+                        <th>商户姓名</th>
+                        <th>商户账号</th>
+                        <th>销售总额:单位(人民币)</th>
+                        <th>提现金额:单位(人民币)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {volist name="merchants_info" id="vo"}
+                    <tr>
+                        <td>{$vo.merchants_name}</td>
+                        <td>{$vo.contact_name}</td>
+                        <td>{$vo.phone}</td>
+                        <td>{$vo.merchants_earninag}</td>
+                        <td>{$vo.total_withdraw} </td>
+                    </tr>
+                   {/volist}
+                    </tbody>
+                </table>
+            </div>
+            <div class="shuju">
+                <div class="hd" style="margin-bottom: 10px;"><h3>电视台直播收益</h3></div>
+                <div class="shujuone">
+                    <dl>
+                        <dt>钻石总收益:&nbsp;{$total_income|default='0'}钻石</dt>
+                        <dt>钻石余额:&nbsp; {$merchant['e_ticket']|default='0'}钻石</dt>
+                        <dt>可提现金额:&nbsp;{$merchant['amount']|default='0'}元</dt>
+                    </dl>
+                    <ul>
+                        <h2>￥{$case_money}元</h2>
+                        <li>已提现金额</li>
+                    </ul>
+                </div>
+                <div class="hd" style="margin-top: 10px"><h3>电视台销售收益</h3></div>
+                <div class="shujutow">
+                    <dl>
+                        <dt>销售总额：  1356666元</dt>
+                        <dt>收益额：   5646465.98元</dt>
+                        <dt>可提现金额：  546464元</dt>
+                    </dl>
+                    <ul>
+                        <h2>￥26.83元</h2>
+                        <li>已提现金额</li>
+                    </ul>
+                </div>
+                <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+            </div>
+        </div>
+    </div>
+</div>

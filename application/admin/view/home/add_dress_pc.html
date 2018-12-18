@@ -1,0 +1,300 @@
+{php}
+	$uid = input('get.uid');
+	$uid?$text='编辑模块':$text='添加模块';
+{/php}
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('Home/dress_pc'),'text'=>'PC首页管理'],
+['href'=>'','text'=>$text]
+]
+])}
+<link rel="stylesheet" href="/static/zTree/css/demo.css" type="text/css">
+<div class="page-container">
+	<div id="big"></div>
+	<div id="big2"></div>
+
+	<form class="form form-horizontal" id="form" method="post">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>模块标题：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="title" class="input-text" value="{$re.title ? $re.title : ''}" placeholder="模块标题" id="title" />
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">图片：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="droparea spot" id="image1" style="background-image: url('{$re.img ? $re.img :''}');background-size: 220px 160px;" >
+					<div class="instructions" onclick="del_image('1')">删除</div>
+					<div id="uparea1"></div>
+					<input type="hidden" name="img" id="image_1" value="{$re.img ? $re.img :''}" />
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>跳转属性：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select name="type" class="select" onchange="changeMk(this.value)">
+						<option value="5" {$re.type == 5 ? 'selected' : ''}>商品</option>
+					</select>
+				</span>
+			</div>
+		</div>
+		<div id="tag2" class="row tag cl {$re.type == 2? '' : 'hiden'}">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>跳转值：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$re['jump'] ? $re['jump'] : ''}" placeholder="跳转WEB页"  name="url" />
+			</div>
+		</div>
+		<!--<div id="tag3" class='row tag cl {$re.type == 3? '' : 'hiden'}'>-->
+			<!--<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>导师ID：</label>-->
+			<!--<div class="formControls col-xs-8 col-sm-9">-->
+				<!--<input type="text" class="input-text" value="{$banner['value'] ? $banner['value'] : ''}" placeholder="导师ID"  name="user" />-->
+			<!--</div>-->
+		<!--</div>-->
+		<div id="tag3" class="row tag cl {$re.type == 3? '' : 'hiden'}">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品分类：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" name="" class="input-text select" id="citySel" value="{$class.class_name}" onclick="checkMenu();" placeholder="选择分类"  />
+				<input type="hidden" name="class_uuid" class="input-text select" id="class" value="{$class.class_uuid}"   />
+				<div id="menuContent" class="menuContent" style="display:none; position:relative;">
+					<ul id="treeDemo" class="ztree" style="margin-top:0; width:180px; max-height: 200px;"></ul>
+				</div>
+			</div>
+		</div>
+		<div id="tag4" class="row tag cl {$re.type == 4? '' : 'hiden'}">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商家：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width: 55%">
+					<select id="merchant" name="merchant" class="select">
+						{volist name='merchants' id='vo'}
+						<option value="{$vo.member_id}" {$re.type == 4 && $re.jump == $vo.member_id ? 'selected' : ''}>{$vo.merchants_name}</option>
+						{/volist}
+					</select>
+				</span>
+				<input type="text"  class="input-text" style="width: 30%" value="" placeholder="商家店铺名"  />
+				<button type="button" onclick="searchMerchant($(this))" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索 </button>
+			</div>
+		</div>
+		<div id="tag5" class="row tag cl {$re.type == 5? '' : 'hiden'}">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>商品：</label>
+			<div  class="formControls col-xs-8 col-sm-9">
+				<span class="select-box" style="width: 55%">
+					<select id="goods" name="goods" class="select">
+						{volist name='goods' id='vo'}
+						<option value="{$vo.goods_id}" {$re.type == 4 && $re.jump == $vo.goods_id ? 'selected' : ''}>{$vo.goods_name}</option>
+						{/volist}
+					</select>
+				</span>
+				<input type="text"  class="input-text" style="width: 30%" value="" placeholder="商品名称"  />
+				<button type="button" onclick="searchGoods($(this))" class="btn btn-success radius"  name=""><i class="Hui-iconfont">&#xe665;</i> 搜索 </button>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+				<!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+				<button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+				<input type="hidden" class="input-text" value="{$re.dress_id ? $re.dress_id : ''}" placeholder=""  name="dress_id">
+			</div>
+		</div>
+	</form>
+</div>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+		$(document).ready(function(){
+			var  content ;
+			KindEditor.ready(function(K) {
+				content = K.create('#content',{
+					allowFileManager : true,
+					uploadJson:"{:url('Tools/upload',['dirname'=>'banner'])}"
+				});
+			});
+
+			KindEditor.ready(function(K) {
+				K.create();
+				var editor = K.editor({
+					allowFileManager : true,
+					uploadJson:"{:url('Tools/upload')}"
+					//sdl:false
+				});
+				K('#uparea1').click(function() {
+					console.log(1);
+					editor.loadPlugin('image', function() {
+						editor.plugin.imageDialog({
+							imageUrl : K('#image_1').val(),
+							clickFn : function(url, title, width, height, border, align) {
+								console.log(url);
+								$('#image1').css('background-image','url('+url+')').css('background-size','220px 160px');
+								K('#image_1').val(url);
+								// K('#getImgUrl').val(url);
+								editor.hideDialog();
+							}
+						});
+					});
+				});
+
+			});
+
+			$(".submit").click(function(){
+				commonAjaxSubmit('','form');
+				return false;
+			});
+
+			$("#uparea1").mouseover(function(e){
+				$("#big").css({top:e.pageY,right:e.pageX});//鼠标定位一个点
+				var img = $('#image_1').val();
+				if(img.length !== 0) {
+					$("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+					$("#big").show();        //show：显示
+				}
+			});
+			$("#uparea1").mouseout(function(){
+				$("#big").hide();
+			});
+
+
+			$('.skin-minimal input').iCheck({
+				checkboxClass: 'icheckbox-blue',
+				radioClass: 'iradio-blue',
+				increaseArea: '20%'
+			});
+		})
+
+		function changeMk(v){
+			$('.tag').hide();
+			$('#tag'+v).show();
+		}
+
+		function searchMerchant(v){
+			var name = $(v).prev('input').val();
+			var url  = "{:url('Home/searchMerchant')}";
+			$.post(url,{name:name},function(data){
+				$('#merchant').html(data);
+			})
+		}
+        function searchGoods(v){
+            var name = $(v).prev('input').val();
+            var url  = "{:url('Home/searchGoods')}";
+            $.post(url,{name:name},function(data){
+                $('#goods').html(data);
+            })
+        }
+</script>
+<script>
+    var setting = {
+        check: {
+            enable: true,
+            chkStyle: "radio",
+            radioType: "all"
+        },
+        view: {
+            dblClickExpand: true
+        },
+        data: {
+            simpleData: {
+                enable: true
+            }
+        },
+        callback: {
+            onClick: onClick,
+            onCheck: onCheck
+        }
+    };
+
+    zNodes = new Array();
+    function get_zNodes() {
+        $.ajax({
+            url: "{:url('Home/getClass')}",
+            type: "POST",
+            async: false,
+            dataType: "json",
+            success: function (data) {
+                console.log(data);
+                if (data.status == 'ok') {
+                    var arr = data.data;
+                    for (var i = 0; i < arr.length; i++) {
+                        var object = new Object();
+                        object.id = parseInt(arr[i].class_id);
+                        object.pId = 0;
+                        object.name = arr[i].class_name;
+                        object.class_uuid = arr[i].class_uuid;
+                        object.isParent = true;
+                        zNodes.push(object);
+                        if (arr[i].seed.length > 0) {
+                            for (var j = 0; j < arr[i].seed.length; j++) {
+                                var object = new Object();
+                                object.id = parseInt(arr[i].seed[j].class_id);
+                                object.pId = parseInt(arr[i].seed[j].parent_id);
+                                object.name = arr[i].seed[j].class_name;
+                                object.class_uuid = arr[i].seed[j].class_uuid;
+                                object.isParent = false;
+                                zNodes.push(object);
+                            }
+                        }
+                    }
+                }
+            },
+            error: function (data) {
+
+            }
+
+        });
+    }
+    get_zNodes();
+
+
+
+    function onClick(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo");
+        zTree.checkNode(treeNode, !treeNode.checked, null, true);
+        return false;
+    }
+
+    function onCheck(e, treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj("treeDemo"),
+            nodes = zTree.getCheckedNodes(true),
+            v = "";
+        	class_uuid = '';
+        console.log(nodes);
+        for (var i=0, l=nodes.length; i<l; i++) {
+            console.log(nodes[i]);
+            v += nodes[i].name + ",";
+            class_uuid = nodes[i].class_uuid + ",";
+        }
+        if (v.length > 0 ) v = v.substring(0, v.length-1);
+        if (class_uuid.length > 0 ) class_uuid = class_uuid.substring(0, class_uuid.length-1);
+        var cityObj = $("#citySel");
+        cityObj.attr("value", v);
+        $('#class').val(class_uuid)
+    }
+
+    function checkMenu(){
+        if($("#menuContent").is(":hidden")){
+            showMenu();    //如果元素为隐藏,则将它显现
+        }else{
+            hideMenu();     //如果元素为显现,则将其隐藏
+        }
+	}
+
+    function showMenu() {
+//        $("#menuContent").css({left:cityOffset.left + "px", top:cityOffset.top + cityObj.outerHeight() + "px"}).slideDown("fast");
+        $("#menuContent").slideDown("fast");
+        $("body").bind("mousedown", onBodyDown);
+    }
+    function hideMenu() {
+        $("#menuContent").fadeOut("fast");
+        $("body").unbind("mousedown", onBodyDown);
+    }
+    function onBodyDown(event) {
+        if (!(event.target.id == "menuBtn" || event.target.id == "citySel" || event.target.id == "menuContent" || $(event.target).parents("#menuContent").length>0)) {
+            hideMenu();
+        }
+    }
+
+    $(document).ready(function(){
+        console.log(zNodes);
+        $.fn.zTree.init($("#treeDemo"), setting, zNodes);
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->

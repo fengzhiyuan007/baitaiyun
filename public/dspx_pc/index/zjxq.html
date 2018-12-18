@@ -1,0 +1,93 @@
+
+<div class="mainbox clearfix bg-f5 pad-b70">
+  <!--面包屑-->
+  <div class="mbx-navbox">
+    <div class="mbx-nav">
+       <div class="mbx-nav-l"><a href="#/">首页</a><a href="index.html#/fxhh">发现好货</a><a href="javascript:;">专辑</a></div>
+    </div>
+  </div>
+  <!---->
+  <div class="box shop-sorts bg-fff clearfix">
+     <div class="s-s-list clearfix" ng-repeat="sps in shoppinpais" ng-if="sps.type=='brand'" id="{{sps.type}}">
+        <label class="pad-t30">{{sps.name}}</label>
+        <div class="s-s-l-pp-list">
+          <ul>
+            <li ng-repeat="simg in sps.brandBeans" val='{{simg.brand_id}}' ng-click="ssclicks(sps.type,simg.brand_id)" ss-Click><img ng-src="{{simg.brand_img}}" alt="{{simg.brand_name}}" title="{{simg.brand_name}}" /></li>
+          </ul>
+        </div>
+        <div class="s-s-l-btn pad-t40">
+          <a href="javascript:void(0);" class="dx" ss-Click2>+多选</a>
+          <a href="javascript:void(0);" ng-click="ssclicks(sps.type,'')" ss-Click8>清空</a>
+          <a ng-if="sps.brandBeans.length>16" href="javascript:void(0);" class="gd" ss-Click5>更多</a>
+        </div>
+        <p class="pad-t0"><a class="qr" href="javascript:void(0);" ng-click="dbclicks(sps.type)" ss-Click3>确认</a><a class='qx' href="javascript:void(0);" ss-Click4>取消</a></p>
+     </div>
+     <div class="s-s-list clearfix" ng-repeat="sps in shoppinpais" ng-if="sps.type=='activity'" id="{{sps.type}}">
+        <label>{{sps.name}}</label>
+        <div class="s-s-l-sp-list">
+          <ul>
+            <li ng-repeat="zk in sps.activityBeans" val='{{zk.activity_id}}' ng-click="ssclicks(sps.type,zk.activity_id)" ss-Click><span></span>{{zk.activity_name}}</li>
+          </ul>
+        </div>
+        <div class="s-s-l-btn s-s-l-btn2">
+          <a href="javascript:void(0);" class="dx" ss-Click2>+多选</a>
+          <a href="javascript:void(0);" ng-click="ssclicks(sps.type,'')" ss-Click8>清空</a>
+        </div>
+        <p><a class="qr" href="javascript:void(0);" ng-click="dbclicks(sps.type)" ss-Click3>确认</a><a class='qx' href="javascript:void(0)" ss-Click4>取消</a></p>
+     </div>
+     <div class="s-s-list clearfix" ng-repeat="sps in shoppinpais" ng-if="sps.type=='service'" id="{{sps.type}}">
+        <label>{{sps.name}}</label>
+        <div class="s-s-l-sp-list">
+          <ul>
+            <li ng-repeat="fw in sps.goodsLabelBeans" val='{{fw.label_id}}' ng-click="ssclicks(sps.type,fw.label_id)" ss-Click><span></span>{{fw.label_name}}</li>
+          </ul>
+        </div>
+        <div class="s-s-l-btn s-s-l-btn2">
+          <a href="javascript:void(0);" class="dx" ss-Click2>+多选</a>
+          <a href="javascript:void(0);" ng-click="ssclicks(sps.type,'')" ss-Click8>清空</a>
+        </div>
+        <p><a class="qr" href="javascript:void(0);" ng-click="dbclicks(sps.type)" ss-Click3>确认</a><a class='qx' href="javascript:void(0);" ss-Click4>取消</a></p>
+     </div>
+  </div>
+  <!---->
+  <!---->
+  <div class="box loading-box">
+    <div class="loading" ng-if="loading==1||loading==2">
+       <div class="loader">
+         <div class="loader-inner line-spin-fade-loader">
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+           <div></div>
+         </div>
+       </div>
+       <span ng-if="loading==1">加载中...</span>
+       <span ng-if="loading==2" class="red">请求超时...</span>
+     </div>
+  </div>
+  <div class="cnxh-listbox mar-t40 clearfix">
+     <div class="sj-r-list" ng-repeat="fs in zjxqlists">
+        <ul>
+          <li class="sj-l-1of5"><a href="index.html#/shop?shopid={{fs.goods_id}}"><img ng-src="{{fs.goods_img!=''?fs.goods_img:'images/zw1.png'}}"  onerror="this.src='images/zw1.png'" /></a></li>
+          <li class="sj-l-2of5">￥{{fs.goods_pc_price}}<span ng-if="fs.goods_origin_price!=0">￥{{fs.goods_origin_price}}</span></li>
+          <li class="sj-l-3of5">{{fs.goods_name}}</li>
+          <li class="sj-l-4of5"><span ng-if="fs.is_directly==1">自营</span><span ng-if="fs.brand_name!=''">{{fs.brand_name}}</span></li>
+          <li class="sj-l-5of5"><span>评价：<a href="javascript:;">{{fs.assessment_count}}</a></span><span>销量：<a href="javascript:;">{{fs.year_sales}}</a></span></li>
+        </ul>
+     </div>
+  </div>
+  <div class="box">
+    <!--分页-->
+    <div class="page-box" ng-if="pageNum>1">
+      <a href="javascript:;" ng-click="pageclick(nowpageNum-1)">上一页</a>
+      <span ng-repeat="page in pageboxs" ng-click="pageclick(page)" ng-class="{act:page==nowpageNum}">{{page}}</span>
+      <a class="act" href="javascript:;" ng-click="pageclick(nowpageNum*1+1)">下一页</a>
+      跳到<input type="number" ng-model="nowpageNum2" width="20px;">/{{pageNum}}页<button ng-click="pageclick(nowpageNum2)">确定</button>
+    </div>
+  </div>
+
+</div>

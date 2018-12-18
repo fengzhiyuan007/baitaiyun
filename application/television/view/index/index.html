@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="/static/css/amazeui.css"/>
+<link rel="stylesheet" href="/static/css/admin.css">
+<script src="/dist/js/app.js"></script>
+<style type="text/css">
+    ul{
+        margin: 0 0 0 0;
+    }
+</style>
+<div class="am-cf admin-main">
+    <div class=" admin-content">
+        <div style="overflow-x: hidden">
+            <div class="admin-index">
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 100}">
+                    <a href="{:url('anchor/index')}">
+                    <dt style="background-color: #42cac0"><img  src="/static/Img/zhubo.png"></dt>
+                    <dd style="color: #333">{$anchor_count|default='0'}</dd>
+                    <dd class="f12" style="color: #333">主播数量</dd>
+                    </a>
+                </dl>
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 300}">
+                    <a href="{:url('merchants/index')}">
+                    <dt style="background-color: #ff6c60"><img style="height: 90px;" src="/static/Img/shangjia.png"></dt>
+                    <dd style="color: #333">{$merchants_count|default='0'}</dd>
+                    <dd class="f12" style="color: #333">商户数量</dd>
+                    </a>
+                </dl>
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
+                    <dt style="background-color: #f8d347"><img style="height: 90px;width: 120px" src="/static/Img/shouyi.png"></dt>
+                    <dd style="color: #333">{$live_earning|default='0'}</dd>
+                    <dd class="f12" style="color: #333">直播收益(钻石)</dd>
+                </dl>
+                <dl data-am-scrollspy="{animation: 'slide-right', delay: 900}">
+                    <dt style="background-color: #57c8f2"><img style="height: 90px;width: 120px" src="/static/Img/shouyi.png"></dt>
+                    <dd style="color: #333">{$settlement_count|default='0'}</dd>
+                    <dd class="f12" style="color: #333">商品销售分润(元)</dd>
+                </dl>
+            </div>
+            <div class="admin-biaoge">
+                <div class="xinxitj" style=""><h3>电视台直播信息</h3></div>
+                <table class="am-table">
+                    <thead>
+                    <tr>
+                        <th>电视台名字</th>
+                        <th>账号手机</th>
+                        <th>钻石余额</th>
+                        <!--<th>直播收益总额额</th>-->
+                        <th>可提现余额</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{$tv.username}</td>
+                        <td>{$tv.phone}</td>
+                        <td>{$tv.e_ticket|default='0'}(钻石)</td>
+                        <!--<td>{$tv.e_ticket_count|default='0'}(钻石)</td>-->
+                        <td>{$tv.cash_money|default='0'}元</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="am-table">
+                    <thead>
+                    <tr>
+                        <th>新增商家(月)</th>
+                        <th>销售订单(月)</th>
+                        <th>销售商品(月)</th>
+                        <th>收益额(月)</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>{$sell_merchants|default='0'}</td>
+                        <td>{$sell_order_merchants|default='0'}</td>
+                        <td>{$sell_goods_sum|default='0'}</td>
+                        <td>{$settlement_count|default='0'}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="shuju">
+                <div class="hd" style="margin-bottom: 10px;"><h3>电视台直播收益</h3></div>
+                <div class="shujuone">
+                    <dl>
+                        <dt>钻石总收益:&nbsp;{$tv.e_ticket_count|default='0'}钻石</dt>
+                        <dt>钻石余额:&nbsp; {$tv.e_ticket|default='0'}钻石
+                            <a href="{:url('caiwu/to_withdraw_ticket')}">
+                                <button type="submit" class="btn btn-danger radius"  name="">去提现</button>
+                            </a>
+                        </dt>
+                        <dt>预估可提现金额:&nbsp;{$tv.cash_money|default='0'}元</dt>
+                    </dl>
+                    <ul>
+                        <h2>￥{$live_withdraw_count|default='0'}元</h2>
+                        <li>已提现金额</li>
+                    </ul>
+                </div>
+                <div class="hd" style="margin-top: 10px"><h3>电视台销售收益</h3></div>
+                <div class="shujutow" style="height: auto">
+                    <dl>
+                        <dt>销售结算总额：  {$settlement_count|default='0'}</dt>
+                        <dt>账户余额：  {$account_money|default='0'}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="{:url('caiwu/to_withdraw')}">
+                                <button type="submit" class="btn btn-danger radius" id="" name="">去提现</button>
+                            </a>
+                        </dt>
+                        <dt>可提现金额： {$withdraw_money|default='0'}</dt>
+                    </dl>
+                    <ul>
+                        <h2>￥{$withdrawal_money|default='0'}元</h2>
+                        <li>已提现金额</li>
+                    </ul>
+                </div>
+                <script type="text/javascript">jQuery(".slideTxtBox").slide();</script>
+            </div>
+        </div>
+    </div>
+</div>

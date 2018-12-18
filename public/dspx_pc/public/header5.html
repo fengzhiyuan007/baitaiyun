@@ -1,0 +1,148 @@
+<div class="header" id="hddb">
+  <div class="header-top-box">
+    <div class="header-top box">
+       <div class="l" ng-if="membershow==0"><a href="javascript:void(0)" ng-click="tckshow(1)">登录</a>/<a href="javascript:void(0)" ng-click="tckshow(2)">注册</a></div>
+       <div class="l" ng-if="membershow==1">欢迎你，{{grxx_centers.nick_name}}！<a class="mar-l20" href="core.html#/">用户中心</a><small ng-click="delmomber()">【退出】</small></div>
+       <div class="r"><a href="gwc.html#/" class="gwc">购物车</a>|<a href="core.html#/wddd">我的订单</a>|<a href="core.html#/spsc">商品收藏</a>|<a href="javascript:void(0)">APP下载</a>|<a href="javascript:void(0)">网址导航</a><span>400-021-6808</span></div>
+    </div>
+  </div>
+
+  <div class="logo-box box clearfix">
+      <div class="logo">
+         <a href="#/"><img src="images/logo.png" /></a>
+         <div class="logo-city">
+           <ul>
+             <li>上海</li>
+             <li><a href="javascript:;">[切换城市]</a></li>
+           </ul>
+         </div>
+      </div>
+      <div class="gwc"><a href="gwc.html#/">购物车<span ng-if="gwc_nums>0">{{gwc_nums}}</span></a></div>
+      <div class="inp">
+         <div class="logo-inp-box">
+           <div class="logo-inp-box-select" ng-class="{act:selectsorts==0}">
+              <span ng-repeat="st in sortlist" val="{{st.goods_uuid}}" gid="{{st.goods_id}}" ng-click="selectsort(selectsorts)" ng-if="$index==0">{{st.goods_name}}</span>
+              <ul>
+                <li val="{{st.goods_uuid}}"  gid="{{st.goods_id}}" ng-repeat="st in sortlist" sel-sort>{{st.goods_name}}</li>
+              </ul>
+           </div>
+           <input ng-model="search_name" type="text" placeholder="热门关键词" /><button ng-click="goshoplist(search_name)"></button>
+         </div>
+         <div class="hot-search"><a href="#/shoplist?goodsname={{htct.search_name}}" ng-repeat="htct in hotentry" ng-class="{act:$index==0}" title="{{htct.search_name}}">{{htct.search_name}}</a></div>
+      </div>
+  </div>
+  <div class="nav-box">
+    <div class="nav box clearfix">
+       <div class="sorts" ng-class="{act:navsortshow==0}">
+          <span ng-click="navsortshows(navsortshow)">商品分类</span>
+          <ul class="list">
+            <li ng-repeat="sort in sortlist" ng-mouseover="sorthover(sort.goods_uuid,$index)" ng-mouseleave="sortleave()" a="{{$index}}">{{sort.goods_name}}</li>
+          </ul>
+          <div class="sorts-center" hidden>
+            <div class="listbox" ng-repeat="sort2 in sortlist" b="{{$index}}" hidden>
+               <div class="s-c-l-left">
+                  <div class="sort2-listbox clearfix" ng-repeat="sort3 in sort2.goodsBeans">
+                     <label>{{sort3.goods_name}}：</label>
+                     <div class="sort2-list">
+                       <a ng-repeat="sort4 in sort3.goodsBeans" href="#/shoplist?gid={{sort4.goods_id}}&uuid={{sort4.goods_uuid}}&sortname={{sort4.goods_name}}" class="act">{{sort4.goods_name}}</a>
+                     </div>
+                  </div>
+               </div>
+               <div class="s-c-l-right">
+                  <div class="s-c-l-r-brand clearfix">
+                     <a href="index.html#/pinpai?bid={{sb.brand_id}}" ng-repeat="sb in sortbrand"><img ng-src="{{sb.brand_img}}" /></a>
+                  </div>
+                  <div class="btn" hidden>
+                    <ul>
+                      <li class="act"></li>
+                      <li></li>
+                      <li></li>
+                    </ul>
+                  </div>
+               </div>
+            </div>
+
+          </div>
+          <!--sorts-center end-->
+       </div>
+       <div class="nav-listbox">
+          <a href="index.html#/" style="width: {{100/navlen-0.001}}%" tab>首页</a>
+          <a ng-if="nav.label_type=='class'" style="width: {{100/navlen}}%" href="index.html#/shoplist?gid={{nav.label_relation}}&uuid={{nav.label_relation_uuid}}&sortname={{nav.label_name}}" ng-repeat="nav in navlist" tab>{{nav.label_name}}</a>
+          <a ng-if="nav.label_type=='business'" class="act" style="width: {{100/navlen}}%" href="qyg.html#/" ng-repeat="nav in navlist" tab>{{nav.label_name}}</a>
+       </div>
+    </div>
+  </div>
+</div>
+<!--header end-->
+<!--用户登录 注册-->
+<div class="tck sign" ng-if="tcksign==1">
+  <i ng-click="tckhide()"></i>
+  <div class="sign-box">
+     <p class="tit"><span class="act" signtab>会员登录</span><span signtab>注册</span><i class="tck-btn" ng-click="tckhide()">&times</i></p>
+     <ul class="sign-ul" >
+       <li><label>手机号码：</label><input type="text" ng-model="signphone" placeholder="请输入手机号码" /></li>
+       <li><label>密码：</label><input type="password" ng-model="signpwd" placeholder="请输入密码" /></li>
+       <li><label>&nbsp;</label><a href="#/wjmm">忘记密码?</a></li>
+       <li><label>&nbsp;</label><button ng-click="signbtn(signphone,signpwd)">登录</button></li>
+     </ul>
+     <ul class="reg-ul" hidden>
+       <li><label>手机号码：</label><input type="text" ng-model="regphone" placeholder="请输入手机号码" /><p><!--请输入规范的手机号--></p></li>
+       <li><label>验证码：</label><input ng-model="regcode" style="width: 170px" type="text" placeholder="短信验证码" /><input type="button" id="btnSendCode" ng-click="sendMessage(regphone)" value="获取验证码"/><p><!--请输入正确的验证码--></p></li>
+       <li><label>输入密码：</label><input ng-model="regpwd" type="password" placeholder="请输入6-20位字母数字的组合" /><p id="regpwd"><!--请输入规范的密码--></p></li>
+       <li><label>确认密码：</label><input ng-model="regpwd2" type="password" placeholder="请再次输入密码" /><p id="regpwd2"><!--2次密码不一致--></p></li>
+       <li class="mar-b30"><label>&nbsp;</label><div class="fwtk"><span class="act"></span>我已同意牛烘烘的<a href="javascript:;">《网站服务条款》</a></div></li>
+       <li><label>&nbsp;</label><button ng-click="regbtn(regphone,regcode,regpwd,regpwd2)">注册</button></li>
+     </ul>
+  </div>
+</div>
+
+<!--右悬浮-->
+<div class="fixd">
+   <div class="fixd-r">
+     <a href="gwc.html#/">购物车</a>
+     <a href="javascript:;">咨询</a>
+     <a href="javascript:;">反馈</a>
+     <a href="javascript:;" ng-click="scrolltop(0)">顶部</a>
+   </div>
+</div>
+<!--弹出框end-->
+<script>
+var fixdH=document.body.offsetHeight;
+var fixdH_r=$(".fixd-r").height();
+$(".fixd-r").css("margin-top",(fixdH-fixdH_r)/2)
+
+//品牌
+$(".s-c-l-right .btn li").click(function(){
+  $(this).parents(".s-c-l-right").find(".btn li").removeClass("act")
+  $(this).addClass("act")
+  var index=$(this).index();
+  $(this).parents(".s-c-l-right").find(".s-c-l-r-brand").hide();
+  $(this).parents(".s-c-l-right").find(".s-c-l-r-brand").eq(index).show()
+})
+//显示分类
+// $("body").on("mouseover",".sorts>.list li",function(){
+//   $(".sorts>.list li").removeClass("act")
+//   $(this).addClass("act")
+//   var attra=$(this).attr("a");
+//   var len=$(".sorts-center .listbox").length;
+//   for(var i=0;i<len;i++){
+//     if(attra==$(".sorts-center .listbox").eq(i).attr("b")){
+//       $(".sorts-center .listbox").hide();
+//       $(".sorts-center").show()
+//       $(".sorts-center .listbox").eq(i).show();
+//       break;
+//     }
+//   }
+
+// })
+$(".sorts>.list li").mouseout(function(){
+  $(".sorts-center").hide()
+})
+$(".sorts-center").mouseover(function(){
+  $(".sorts-center").show()
+})
+$(".sorts-center").mouseout(function(){
+  $(".sorts-center").hide()
+})
+
+</script>

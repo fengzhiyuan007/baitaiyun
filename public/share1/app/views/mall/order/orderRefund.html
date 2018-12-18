@@ -1,0 +1,104 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 bor_b back_fff pr10 pl10 bor_b z99">
+		<div class="box_center h44">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">申请退款</div>
+			<div class="grid_cell box_end"></div>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="pt44 pb40">
+		<div class="back_fff h40 pl15 box_start f14">选择退款数量：</div>
+		<div class="box_start h105 back_fa pl15 pr15">
+			<div class="w85 h85 mr10">
+				<img ng-src="{{refundGoodsInfo.goods_img}}" alt="">
+			</div>
+			<div class="grid_cell w_b70 p_r">
+				<div class="f16 wbyc w_b100 pb10" ng-bind="refundGoodsInfo.goods_name"></div>
+				<div class="f12 col_666 pt5 pb5" ng-bind="refundGoodsInfo.specification_names"></div>
+				<div class="f12">现价<span class="col_red f16">￥<em ng-bind="refundGoodsInfo.refund_price"></em></span></div>
+				<div class="box_center p_a b0 r0">
+					<div class="w22 h22 back_ccc box_center" ng-click="numberfn(gmnum,refundGoodsInfo.goods_num,1)">-</div>
+					<div class="w40 h22 box_center">
+						<input readonly ng-model="gmnum" ng-change="numberfn(gmnum,refundGoodsInfo.goods_num)" class="w_b100 back_tm h20 t_c" type="text">
+					</div>
+					<div class="w22 h22 back_ccc box_center" ng-click="numberfn(gmnum,refundGoodsInfo.goods_num,2)">+</div>
+				</div>
+			</div>
+		</div>
+		<div class="box_center w_b100 h12 sawtooth_icon"></div>
+		<div class="p15">
+			<div class="f14">
+				<div class="box_start h30">选择售后类型<span class="col_red">（必填）</span></div>
+				<div class="back_fff br3 box_center h40 pl10 pr10 bor_b">
+					<div class="grid_cell f12">我要退款(未收到货)</div>
+					<div class="check_icon w22 h22" ng-class="{check_act_icon:refund_type==1}" ng-click="refundTypeClick(1)"></div>	
+				</div>
+				<div class="back_fff br3 box_center h40 pl10 pr10">
+					<div class="grid_cell f12">我要退货(已收到货)</div>
+					<div class="check_icon w22 h22" ng-class="{check_act_icon:refund_type==2}" ng-click="refundTypeClick(2)"></div>	
+				</div>
+			</div>
+			<div class="f14">
+				<div class="box_start h30">退款原因<span class="col_red">（必填）</span></div>
+				<div class="back_fff br3 box_center h40 pl10 pr10" ng-click="reasonModelToggle(1)">
+					<div class="grid_cell f12" ng-bind="reason_name ? reason_name :'请选择退款原因' ">请选择退款原因</div>
+					<div class="right_icon w22 h28"></div>	
+				</div>
+			</div>
+			<div class="f14 mt10">
+				<div class="box_start h30">退款金额</div>
+				<div class="back_fff br3 box_start h40 pl10 pr10 f12 col_red">¥<em ng-bind="refundMoney"></em></div>
+			</div>
+			<div class="f14 mt10">
+				<div class="box_start h30">退款说明</div>
+				<div class="back_fff br3 box_center h70 pl10 pr10">
+					<textarea ng-model="refund_desc" class="w_b100 maxW_b100 maxH_b100 minH_b100 pt5 pb5 f12" type="text" placeholder="请输入退款说明"></textarea>
+				</div>
+			</div>
+			<div class="mt15">
+				<div class="box_start h30 mb10 f14">上传凭证<span class="col_red">（必传）</span></div>
+				<div class="box_start">
+					<div class="box_start">
+						<div class="w60 h60 mr15 mb15 p_r" ng-repeat="img in refundImg track by $index">
+							<div class="p_a t_f10 r_f10 w22 h22 close_red_icon" ng-click="delImgClick($index)"></div>
+							<img class="br3" ng-src="{{img}}" alt="">
+						</div>
+					</div>
+					<form id="txFileFoem">
+						<div class="p_r">
+							<div class="w60 h60 photograph_icon mb15"></div>
+							<input class="p_a l0 t0 w60 h60 opacity" id="txFile" type="file" name="img" onchange="angular.element(this).scope().uploadImg('txFileFoem','txFile')" >
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 选择原因 -->
+		<div ng-show="reasonModelType==1">
+			<div class="mk" ng-click="reasonModelToggle(2)"></div>
+			<div class="p_f b0 l0 w_b100 z101">
+				<!-- title -->
+				<div class="box_between h45 pl10 pr10 back_ef">
+					<div class="grid_cell"></div>
+					<div class="grid_cell box_center f16">选择退款原因</div>
+					<div class="grid_cell box_end">
+						<div class="close_gray_icon w30 h30" ng-click="reasonModelToggle(2)"></div>
+					</div>
+				</div>
+				<div class="back_fff h300 pl15 pr15 f14 over_y">
+					<!-- 列表项 -->
+					<div class="h55 box_between bor_b" ng-repeat="r in reasonListInfo track by $index">
+						<div class="" ng-bind="r.reason_name"></div>
+						<div class="w22 h22" ng-class="{true:'check_act_icon',false:'check_icon'}[reasonId==r.refund_reason_id]" ng-click="reasonIdClick(r.refund_reason_id,r.reason_name)"></div>
+					</div>
+				</div>
+				<div class="box_center h45 back_red col_fff f16" ng-click="reasonModelToggle(2)">确定</div>
+			</div>
+		</div>
+	</div>
+	<div class="p_f b0 l0 box_center w_b100 h45 back_red col_fff f16" ng-click="refundClick()">提交申请</div>
+</div>

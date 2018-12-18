@@ -1,0 +1,174 @@
+{php}
+$uid = input('id');
+$uid?$text=$re['title']:$text='添加优惠券';
+{/php}
+{:widget('Base/breadcrumbs',[
+[
+['href'=>url('Marketing/common_coupon'),'text'=>'通兑优惠券列表'],
+['href'=>'','text'=>$text]
+]
+])}
+<div class="page-container">
+    <div id="big"></div>
+    <div id="big2"></div>
+    <form class="form form-horizontal" id="form" method="post">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="title" class="input-text" value="{$re['title']}" placeholder="优惠券名称" id="title" />
+            </div>
+        </div>
+        <!--<div class="row cl">-->
+            <!--<label class="form-label col-xs-4 col-sm-2">图片：</label>-->
+            <!--<div class="formControls col-xs-8 col-sm-9">-->
+                <!--<div class="droparea spot" id="image1" style="background-image: url('{$re.img?$re.img:''}');background-size: 220px 160px;" >-->
+                    <!--<div class="instructions" onclick="del_image('1')">删除</div>-->
+                    <!--<div id="uparea1"></div>-->
+                    <!--<input type="hidden" name="img" id="image_1" value="{$re['img']?$re['img']:''}" />-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>抵扣金额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="value" class="input-text" value="{$re['value']}" placeholder="抵扣金额" id="value" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>限制金额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="limit_value" class="input-text" value="{$re['limit_value']}" placeholder="优惠券使用需满足金额" id="limit_value" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>发放数量：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="number" class="input-text" value="{$re['number']}" placeholder="优惠券发放数量" id="number" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>开始时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="start_time" class="input-text" value="{$re['start_time']}" placeholder="优惠券使用开始时间" id="start_time" />
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>结束时间：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" name="end_time" class="input-text" value="{$re['end_time']}" placeholder="优惠券使用结束时间" id="end_time" />
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+                <button  class="submit btn btn-primary radius"  type="button"><i class="Hui-iconfont">&#xe632;</i> 保存并提交</button>
+                <!--<button onClick="article_save();" class="btn btn-secondary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 保存草稿</button>-->
+                <button onClick="removeIframe();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
+                <input type="hidden" class="input-text" value="{$re.coupon_id?$re.coupon_id:''}" placeholder=""  name="coupon_id">
+                <input type="hidden" class="input-text" value="1" placeholder=""  name="type">
+            </div>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    $(function() {
+        var content;
+        KindEditor.ready(function (K) {
+            content = K.create('#content', {
+                allowFileManager: true,
+                uploadJson: "{:url('Tools/upload_save_thumb',['dirname'=>'goods'])}"
+            });
+        });
+
+        KindEditor.ready(function (K) {
+            K.create();
+            var editor = K.editor({
+                allowFileManager: true,
+                uploadJson: "{:url('Tools/upload_save_thumb',['dirname'=>'goods'])}"
+                //sdl:false
+            });
+
+            K('#uparea1').click(function () {
+                editor.loadPlugin('image', function () {
+                    editor.plugin.imageDialog({
+                        imageUrl: K('#image_1').val(),
+                        clickFn: function (url, title, width, height, border, align) {
+                            console.log(url);
+                            $('#image1').css('background-image', 'url(' + url + ')').css('background-size', '220px 160px');
+                            K('#image_1').val(url);
+                            // K('#getImgUrl').val(url);
+                            editor.hideDialog();
+                        }
+                    });
+                });
+            });
+
+
+            $(".submit").click(function () {
+                commonAjaxSubmit('', 'form');
+                return false;
+            });
+
+            $("#uparea1").mouseover(function (e) {
+                $("#big").css({top: e.pageY, right: e.pageX});//鼠标定位一个点
+                var img = $('#image_1').val();
+                if (img.length !== 0) {
+                    $("#big").html('<img src="' + $('#image_1').val() + '" width=380 height=300>');
+                    $("#big").show();        //show：显示
+                }
+            });
+            $("#uparea1").mouseout(function () {
+                $("#big").hide();
+            });
+
+        });
+
+    });
+
+</script>
+<script type="text/javascript" src="/static/layui/lay/dest/layui.all.js"></script>
+<script>
+    layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        var start = {
+            elem: '#start_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#start_time").attr("value",datas);
+                end.min = datas; //开始日选好后，重置结束日的最小日期
+                end.start = datas //将结束日的初始值设定为开始日
+            }
+        };
+        var end = {
+            elem: '#end_time',
+            event: 'click', //触发事件
+            format: 'YYYY-MM-DD hh:mm:ss', //日期格式
+            istime: true, //是否开启时间选择
+            isclear: true, //是否显示清空
+            istoday: true, //是否显示今天
+            issure: true, //是否显示确认
+            festival: true,//是否显示节日
+            min: '1900-01-01 00:00:00', //最小日期
+            max: '2099-12-31 23:59:59', //最大日期
+            choose: function(datas){
+                $("#end_time").attr("value",datas);
+                start.max = datas; //结束日选好后，重置开始日的最大日期
+            }
+        };
+        document.getElementById('start_time').onclick = function(){
+            start.elem = this;
+            laydate(start);
+        }
+        document.getElementById('end_time').onclick = function(){
+            end.elem = this
+            laydate(end);
+        }
+    });
+</script>

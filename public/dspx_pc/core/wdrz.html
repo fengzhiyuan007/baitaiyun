@@ -1,0 +1,116 @@
+
+<div class="mainbox bg-f5 clearfix pad-b70 pad-t40">
+  <div class="box">
+     <div class="main-leftbox nav2">
+        <ul>
+          <li class="act1">设置</li>
+          <li><a href="#grzl">个人资料</a></li>
+          <li><a href="#aqsz">安全设置</a></li>
+          <li><a href="#shdz">收货地址</a></li>
+          <li class="act"><a href="#wdrz">我的认证</a></li>
+          <li><a href="#xyrz">信用申请</a></li>
+        </ul>
+     </div>
+     <div class="main-rightbox wdrz-box bg-fff">
+        <div class="dd-tit">我的认证</div>
+        <!--提交-->
+        <div class="wdrz-listbox" ng-if="wdrzshow==1">
+           <ul>
+             <li class="w-l-1of"><label>请选择认证的角色：</label><span class="qy act" tab>企业用户</span><span tab>商家</span></li>
+             <li class="w-l-2of"><label>单位名称：：</label><input id="m_names" type="text" /></li>
+             <li class="w-l-2of"><label>单位地址：</label><input id="m_add" type="text" /></li>
+             <li class="w-l-4of"><label>联系人姓名：</label><input id="m_name" type="text" /></li>
+             <li class="w-l-5of"><label>手机号：</label><input id="m_phone" type="text" /></li>
+             <li class="w-l-6of"><label>邮箱：</label><input id="m_email" type="text" /></li>
+             <li class="w-l-7of"><p><span class="red">*</span>请上传企业三证或者三证合一的营业执照或者高校、研究所、医院、其他事业单位或国家单位单位盖章证明和盖章扫描件（原件交平台存档）</p><p hidden><span class="red">*</span>请上传企业三证或者三证合一的营业执照</p></li>
+             <li class="w-l-8of">
+                <div class="sc-list"><i ty="business1"><img src="images/addimg.png" /></i><form class="uploadForm" ><input onchange="preview(this,0)" type="file" name="file" /></form></div>
+                <div class="sc-list"><i ty="business2"><img src="images/addimg.png" /></i><form class="uploadForm" ><input onchange="preview(this,1)" type="file" name="file" /></form></div>
+                <div class="sc-list"><i ty="business3"><img src="images/addimg.png" /></i><form class="uploadForm" ><input onchange="preview(this,2)" type="file" name="file" /></form></div>
+             </li>
+             <li class="w-l-9of"><label>&nbsp;</label><p><span class="red">*</span>请上传申请人证件照</p></li>
+             <li class="w-l-10of">
+                <div class="sc-list"><i ty="card_positive"><img src="images/addimg.png" /></i><form class="uploadForm" ><input onchange="preview(this,3)" type="file" name="file" /></form><span>身份证正面</span></div>
+                <div class="sc-list"><i ty="card_opposite"><img src="images/addimg.png" /></i><form class="uploadForm" ><input onchange="preview(this,4)" type="file" name="file" /></form><span>身份证反面</span></div>
+                <div class="sc-list"><i ty="card_hand"><img src="images/addimg.png" /></i><form class="uploadForm" ><input onchange="preview(this,5)" type="file" name="file" /></form><span>手持身份证</span></div>
+             </li>
+             <li class="w-l-11of"><label>&nbsp;</label><button ng-click="wdrzbtn()">上传</button></li>
+           </ul>
+        </div>
+        <!--展示-->
+        <div class="wdrz-listbox" ng-if="wdrzshow==2">
+           <ul>
+             <li class="w-l-1of"><label>认证的角色：</label><span class="act" ng-if="c_wdrzs.merchants_type==2">企业用户</span><span class="act" ng-if="c_wdrzs.merchants_type==4">商家</span></li>
+             <li class="w-l-2of"><label>单位名称：</label>{{c_wdrzs.merchants_name}}</li>
+             <li class="w-l-2of"><label>单位地址：</label>{{c_wdrzs.merchants_address}}</li>
+             <li class="w-l-4of"><label>联系人姓名：</label>{{c_wdrzs.contact_name}}</li>
+             <li class="w-l-5of"><label>手机号：</label>{{c_wdrzs.contact_mobile}}</li>
+             <li class="w-l-6of"><label>邮箱：</label>{{c_wdrzs.merchants_email}}</li>
+             <li class="w-l-7of"><p>企业三证或者三证合一的营业执照</p></li>
+             <li class="w-l-8of">
+                <div class="sc-list"><i ng-repeat="img in c_wdrzs.merchantsImgBeans" ng-if="img.img_type=='business1'"><img ng-src="{{img.merchants_img}}" /></i></div>
+                <div class="sc-list"><i ng-repeat="img in c_wdrzs.merchantsImgBeans" ng-if="img.img_type=='business2'"><img ng-src="{{img.merchants_img}}" /></i></div>
+                <div class="sc-list"><i ng-repeat="img in c_wdrzs.merchantsImgBeans" ng-if="img.img_type=='business3'"><img ng-src="{{img.merchants_img}}" /></i></div>
+             </li>
+             <li class="w-l-9of"><label>&nbsp;</label><p>证件照</p></li>
+             <li class="w-l-10of">
+                <div class="sc-list"><i ng-repeat="img in c_wdrzs.merchantsImgBeans" ng-if="img.img_type=='card_positive'"><img ng-src="{{img.merchants_img}}" /></i><span>身份证正面</span></div>
+                <div class="sc-list"><i ng-repeat="img in c_wdrzs.merchantsImgBeans" ng-if="img.img_type=='card_opposite'"><img ng-src="{{img.merchants_img}}" /></i><span>身份证反面</span></div>
+                <div class="sc-list"><i ng-repeat="img in c_wdrzs.merchantsImgBeans" ng-if="img.img_type=='card_hand'"><img ng-src="{{img.merchants_img}}" /></i><span>手持身份证</span></div>
+             </li>
+             <li class="w-l-11of"><label>&nbsp;</label><button ng-if="c_wdrzs.apply_state==0">审核中...</button><button ng-if="c_wdrzs.apply_state==1">已认证</button><button ng-if="c_wdrzs.apply_state==2" ng-click="cxtjbtn()">被拒绝,重新提交</button></li>
+           </ul>
+        </div>
+     </div>
+     <!--main-rightbox end-->
+  </div>
+</div>
+<script>
+$(".w-l-1of span").click(function(){
+	$(".w-l-1of span").removeClass("act")
+	$(this).addClass("act");
+	var index=$(this).index();
+	$(".w-l-7of p").hide();
+	$(".w-l-7of p").eq(index-1).show();
+})
+</script>
+<script type="text/javascript">
+ function preview(file,brr){
+    var this1=$(file);
+    var index=$(this1).parents('.sc-list').index();
+    console.log(index);
+    var formData = new FormData($( ".uploadForm")[brr]);
+    formData.append("img",formData);
+    $.ajax({
+      url: '../orderInterfaces.api?uploadAssessmentImg',
+      type: 'POST',
+      data: formData,
+      async: false,
+      cache: false,
+      contentType: false,
+      processData: false,
+      success: function (returndata) {
+         returndata=JSON.parse(returndata);
+         console.log(returndata);
+         if(returndata["status"] == "ok"){
+           $(this1).parents('.sc-list').find('i').html('').append('<img val="'+returndata['data']+'" src='+returndata['data']+'>');
+         }else {
+          alert(returndata['error']);
+        }
+      },
+      error: function (returndata) {
+        console.log(returndata);
+      }
+    });
+     //  var prevDiv = document.getElementById("img");
+     // if (file.files && file.files[0]){
+     //   var reader = new FileReader();
+     //   reader.onload = function(evt){
+     //       $("#uploadForm span").html('').append('<input onchange="preview(this)" type="file" name="file">')
+     //    }
+     //    reader.readAsDataURL(file.files[0]);
+     // }else{
+     //     prevDiv.innerHTML = '<img class="img" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'" /><input onchange="preview(this)" type="file" name="file">';
+     // }
+ }
+</script>

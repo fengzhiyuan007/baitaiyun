@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>邮费模板选择</title>
+    <!--[if lt IE 9]>
+    <script type="text/javascript" src="/lib/html5.js"></script>
+    <script type="text/javascript" src="/lib/respond.min.js"></script>
+    <script type="text/javascript" src="/lib/PIE_IE678.js"></script>
+    <![endif]-->
+    <!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.4/css/bootstrap.min.css">-->
+    <link rel="stylesheet" type="text/css" href="/static/h-ui/css/H-ui.min.css" />
+    <link rel="stylesheet" type="text/css" href="/static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/H-ui.admin.css" />
+    <link rel="stylesheet" type="text/css" href="/static/Hui-iconfont/1.0.7/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="/static/icheck/icheck.css" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/skin/default/skin.css" id="skin" />
+    <link rel="stylesheet" type="text/css" href="/static/h-ui.admin/css/style.css" />
+    <script src="https://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="page-container">
+    <div class="text-l">
+        <form class="search"  method="get">
+            <input type="text" class="input-text" style="width:200px" placeholder="模板名称" value="{$Request.get.name}" name="name">
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜模板</button>
+            <span style="float:right;padding:0px 10px 10px 0" >
+                <a href="javascript:;" class=" btn btn-primary radius" id="transmit">
+					<i class="Hui-iconfont">&#xe600;</i>确认选择
+				</a>
+            </span>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table style="" class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25">选择</th>
+                <th width="40">ID</th>
+                <th width="50">名称</th>
+                <th width="50">模板类型</th>
+                <th width="60">邮费计费</th>
+                <th width="60">默认</th>
+                <th width="120">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td><input type="radio" value="{$vo.postage_id}" value-name="{$vo['postage_name']}" name="checkbox"></td>
+                <td>{$vo.postage_id}</td>
+                <td>{$vo['postage_name']}</td>
+                <td>{$vo['postage_way']==1?'自定义运费':'卖家承担运费'}</td>
+                <td>
+                    {if condition="$vo['postage_type'] eq 1"}
+                    按件
+                    {elseif condition="$vo['postage_type'] eq 2"/}
+                    按重
+                    {else}
+                    按体积
+                    {/if}
+                <td>
+                    {if condition="$vo['default'] eq 1"}
+                    <u><a href="javascript:;;"><span class="label label-success radius">默认</span></a></u>
+                    {else/}
+                    <u><a href="javascript:;;" onClick="default_postage(this,{$vo.postage_id})"><span class="label label-defaunt radius">设置默认</span></a></u>
+                    {/if}
+                </td>
+                <td class="td-manage">
+                    <a title="编辑" href="{:url('Goods/postage_create',['id'=>$vo['postage_id']])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+                    <a title="删除" href="javascript:;" onclick="del(this,'{$vo.postage_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <div style="text-align:center">
+            {$page}
+        </div>
+        <div id="made" class="hide" style="display: none;">
+            <img style="width:100%" id="zhubo" src="">
+        </div>
+    </div>
+</div>
+
+
+<script>
+    //给父页面传值
+    var index = parent.layer.getFrameIndex(window.name); //获取窗口索引
+    $('#transmit').on('click', function(){
+        var $checkbox = $('input[name="checkbox"]:checked')
+        console.log($checkbox.attr('value-name'));
+        console.log($checkbox.val());
+        parent.$('#postage_name').val($checkbox.attr('value-name'));
+        parent.$('#postage_id').val($checkbox.val());
+        parent.layer.close(index);
+    });
+</script>
+</body>
+</html>

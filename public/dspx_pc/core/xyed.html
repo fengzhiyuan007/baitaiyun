@@ -1,0 +1,62 @@
+
+<div class="mainbox bg-f5 clearfix pad-b70 pad-t40">
+  <div class="box">
+     <div class="main-leftbox nav2">
+        <ul>
+          <li class="act1">订单中心</li>
+          <li><a href="#wddd">我的订单</a></li>
+          <li><a href="#tkdd">退款订单</a></li>
+          <li><a href="#pjdd">评价晒单</a></li>
+          <li class="act1">我的收藏</li>
+          <li><a href="#spsc">商品收藏</a></li>
+          <li><a href="#dpsc">店铺收藏</a></li>
+          <li class="act1">资产中心</li>
+          <li><a href="#wdqb">我的钱包</a></li>
+          <li class="act"><a href="#xyed">信用额度</a></li>
+          <li><a href="#wdjf">我的积分</a></li>
+          <li><a href="#yhq">优惠券</a></li>
+          <li><a href="#yhk">银行卡</a></li>
+        </ul>
+     </div>
+     <div class="main-rightbox">
+         <div class="xyed-money clearfix">
+            <div class="left">
+              <ul>
+                <li class="li1"><span class="blue">信用额度(元)：</span><b>{{grxx_centers.trust_balance}}</b></li>
+                <li class="li2" ng-if="grxx_centers.trust_balance==0">您还没有信用额度？<a href="#/xyrz" class="red">前去申请</a>link我的认证页面。</li>
+                <li class="li2" ng-if="grxx_centers.trust_balance!=0">信用额度太少？<a href="#/xyrz" class="red">前去申请</a>更多信用额度。</li>
+              </ul>
+            </div>
+            <div class="gz-tit">信用额度规则:</div>
+            <div class="gz-txt"></div>
+           </div>
+         <div class="zdjl-box mar-t40 bg-fff">
+            <div class="dd-tit">账单记录</div>
+            <!-- <div class="time-seach"><input type="date" />——<input type="date" /><button>搜索</button></div> -->
+            <div class="table clear">
+            <table cellspacing="0" cellpadding="0">
+              <thead>
+                <tr>
+                  <td>时间</td>
+                  <td>备注</td>
+                  <td>类型</td>
+                  <td>金额</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr ng-repeat="z in xyedjls">
+                  <td>{{z.bill_time | limitTo:19}}</td>
+                  <td>{{z.bill_type_show}}</td>
+                  <td class="red">{{z.bill_remark}}</td>
+                  <td class="blue" ng-if="z.bill_type=='order_pay'">-￥{{z.bill_price | number:2 }}</td>
+                  <td class="red" ng-if="z.bill_type!='order_pay'">￥{{z.bill_price | number:2 }}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            </div>
+         </div>
+     </div>
+     <!--main-rightbox end-->
+  </div>
+</div>

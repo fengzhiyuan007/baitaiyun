@@ -1,0 +1,298 @@
+@charset "utf-8";
+/* CSS Document */
+/*全局样式定义*/
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/*
+.zh-cn{ width: 16px;height: 11px; background: url(../Img/zh-cn.png);}
+.zh-en{ width: 16px;height: 11px; background: url(../Img/zh-en.png);}
+*/
+.important{
+    color: red;
+    font-size: 16px;
+}
+li {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+input, textarea {
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 3px;
+}
+
+input:focus, textarea:focus {
+    outline: 0;
+    border-color: rgba(82, 168, 236, 0.8);
+    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+#big{
+    position:absolute;
+    left:490px;
+    top:0px;
+    z-index:999;
+    display:none;
+}
+
+input {
+    vertical-align: middle;
+}
+
+option {
+    height: 16px;
+}
+
+.clear {
+    clear: both;
+}
+
+.fr {
+    float: right;
+}
+
+
+.hr {
+    background: url(/Public/Img/Bg/hr.png) repeat-x bottom;
+}
+
+.btn {
+    margin-right: 10px;
+    min-width: 80px;
+}
+
+.commonBtnArea {
+    border-top: 1px solid #D8D8D8;
+    padding: 10px 20px;
+    background: #F5F5F5;
+    left: 190px;
+    bottom: 0px;
+    position: fixed;
+    width: 100%;
+}
+
+/*登录页样式*/
+.loginWeb {
+    background: url(../Img/login_body_bg.gif) repeat-x center top;
+}
+
+.loginBox {
+    width: 900px;
+    height: 500px;
+    background: url(../Img/login_bg.jpg) no-repeat center 30px;
+    margin: 0 auto;
+    padding-top: 135px;
+}
+
+.loginBox .innerBox {
+    width: 456px;
+    height: 310px;
+    margin: 0px auto 5px auto;
+}
+
+.loginBox .innerBox .logo {
+    height: 75px;
+    line-height: 75px;
+    padding: 10px 40px 0 40px;
+}
+
+.loginBox .loginInfo {
+}
+
+.loginBox ul {
+    clear: both;
+    margin: 0 40px;
+}
+
+.loginBox ul li {
+    line-height: 50px;
+    height: 50px;
+    float: left;
+}
+
+.loginBox ul li.row1 {
+    width: 80px;
+    text-align: right;
+    padding-right: 10px;
+    font-family: "微软雅黑";
+    font-size: 16px;
+    color: #666;
+}
+
+.loginBox ul li.row2 {
+}
+
+.loginBox .loginInfo {
+}
+
+.loginBox .operation {
+    text-align: center;
+    padding: 10px 0;
+}
+
+.tabEvenOdd {
+    border: 1px solid #ddd;
+    background: #fefefe
+}
+
+.tabEvenOdd tr.odd {
+    background: #fff;
+}
+
+.tabEvenOdd td {
+    padding: 3px 5px;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #ddd;
+}
+
+.Item {
+    height: 35px;
+    margin-bottom: 15px;
+    line-height: 35px;
+}
+
+.Item div {
+    display: inline-block;
+    padding: 0 10px;
+    height: 32px;
+}
+
+.Item div.current {
+    border-bottom: 2px solid #266AAE;
+    color: #266AAE;
+    font-weight: 700;
+}
+
+.table1 {
+    border-top: #ddd solid 1px;
+}
+
+.table1 tr:hover {
+    background-color: #fafafa;
+}
+
+.table1 th {
+    border: 1px solid #E5E3E3;
+    border-left: none;
+    font-weight: 100;
+    line-height: 24px;
+    padding: 5px 5px 7px;
+    text-align: right;
+}
+
+.table1 td {
+    line-height: 24px;
+    padding: 5px 10px 7px;
+    border-bottom: 1px solid #e5e3e3;
+}
+
+.table2 {
+}
+.list,
+.tab {
+    width: 100%;
+}
+
+.list td,
+.tab td {
+    padding: 5px 10px;
+    line-height: 24px;
+    border: 1px solid #dedede
+}
+.list thead td,
+.tab thead td {
+    text-align: center;
+}
+.list tbody tr:hover,
+.tab tbody tr:hover {
+    background: #fff;
+}
+.tab td img,
+.list td img{
+    max-width:150px;
+}
+
+.bar_nav {
+    width: 100%;
+    height: 42px;
+    background: #62a8d1;
+    color: #FFF;
+    margin-top: -1px;
+    line-height: 42px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.bar_nav i {
+    padding: 0 7px 0 17px;
+}
+
+div.spot {
+    float: left;
+    margin: 0 20px 0 0;
+    width: 220px;
+    min-height: 160px;
+    border: 2px dashed #ddd;
+}
+.droparea {
+    position: relative;
+    text-align: center;
+}
+.droparea .instructions {
+    opacity: 0.8;
+    background-color: #cccccc;
+    height: 25px;
+    z-index: 10;
+    zoom: 1;
+    background-position: initial initial;
+    background-repeat: initial initial;
+    cursor: pointer;
+}
+.droparea div, .droparea input {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.droparea input {
+    cursor: pointer;
+    opacity: 0;
+}
+.droparea div, .droparea input {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+#uparea1,#uparea2,#uparea3{
+    height: 170px;
+    cursor: pointer;
+}
+
+.cut_content{
+    width:200px;
+    line-height:25px;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    white-space:nowrap;
+    overflow:hidden;
+}
+
+.hide{
+    display:none;
+}
+option{font-size: 14px;}

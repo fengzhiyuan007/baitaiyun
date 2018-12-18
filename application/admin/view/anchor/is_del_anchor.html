@@ -1,0 +1,147 @@
+{:widget('base/breadcrumbs',[
+[
+['href'=>url('member/index'),'text'=>'会员管理'],
+['href'=>'url("anchor/del_anchor")','text'=>'主播删除列表'],
+]
+])}
+<div class="page-container">
+    <div class="text-l">
+        <form class="search"  method="get">
+            <input type="hidden" name="p" value="1" />
+            <input type="text" class="input-text" style="width:250px" placeholder="搜索主播昵称、编号、账号" value="{$_GET['nickname']}" name="nickname">
+            <button type="submit" class="btn btn-success radius" id="" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+        </form>
+    </div>
+    <div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+			<a href="javascript:;" onclick="datadel()" class="btn btn-danger radius">
+                <i class="Hui-iconfont">&#xe6e2;</i> 彻底删除
+            </a>
+		</span>
+        <span class="r">共有数据：<strong>{$count|default=0}</strong> 条</span> </div>
+    <div class="mt-20">
+        <table class="table table-border table-bordered table-bg table-hover table-sort">
+            <thead>
+            <tr class="text-c">
+                <th width="25"><input type="checkbox" name="" value=""></th>
+                <th width="80">ID</th>
+                <th width="100">头像</th>
+                <th width="100">昵称</th>
+                <th width="40">性别</th>
+                <th width="90">手机</th>
+                <th width="150">别名</th>
+                <th width="100">直播收益(%)</th>
+                <th width="130">加入时间</th>
+                <th width="100">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="list" id="vo"}
+            <tr class="text-c">
+                <td><input type="checkbox" value="{$vo['member_id']}" name="checkbox"></td>
+                <td>{$vo.member_id}</td>
+                <td><img src="{$vo.header_img}" style="width:50px; height:50px; border-radius:25px;"></td>
+                <td>{$vo.username}</td>
+                <td>
+                    {php}
+                    $vo['sex']==1 && print "男";
+                    $vo['sex']==2 && print "女";
+                    $vo['sex']==3 && print "保密";
+                    {/php}
+                </td>
+                <td>{$vo.phone}</td>
+                <td>{$vo.alias}</td>
+                <td>{$vo.dashang_scale}</td>
+                <td>{$vo.intime|date="Y-m-d H:i:S",###}</td>
+                <td class="td-manage">
+                    <a title="个人详情" href="{:url('anchor/anchor_view',['mid'=>$vo['member_id'],'type'=>1])}"  class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe705;</i></a>
+                    <a title="恢复数据" href="javascript:void(0)" onclick="recovery({$vo.member_id});" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6f7;</i></a>
+                    <a title="彻底删除" href="javascript:;" onclick="del(this,'{$vo.member_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center">
+            <span>
+                 {$page}
+            </span>
+    </div>
+</div>
+<script type="text/javascript">
+
+
+    function getChecked() {
+        var gids = new Array();
+        $.each($('input[name="checkbox"]:checked'), function(i, n){
+            gids.push( $(n).val() );
+        });
+        return gids;
+    }
+    function datadel(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要彻底删除吗？',function(index){
+            $.post("{:url('Anchor/del_anchor_true')}", {ids:kid}, function(data){
+                if( data.status == 'ok' ){
+                    layer.msg(data.info,{icon:1,time:1000});
+                    window.location.href = data.url;
+                }else{
+                    layer.msg(data.info,{icon:1,time:1000});
+                }
+            },'json');
+        })
+    }
+    /*用户-添加*/
+    function member_add(title,url,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-查看*/
+    function member_show(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-编辑*/
+    function member_edit(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*密码-修改*/
+    function change_password(title,url,id,w,h){
+        layer_show(title,url,w,h);
+    }
+    /*用户-删除*/
+    function del(obj,id){
+        layer.confirm('确认要彻底删除吗？',function(index){
+            $.post("{:url('Anchor/del_anchor_true')}", {ids:id}, function(data){
+                if( data.status == 'ok' ){
+                    $(obj).parents("tr").remove();
+                    layer.msg('已删除!',{icon:1,time:1000});
+                }else{
+                    layer.msg(data.info,{icon:5,time:1000});
+                }
+            },'json');
+        });
+    }
+    function recovery(kid){
+        kid = kid ? kid : getChecked();
+        kid = kid.toString();
+        if(kid == ''){
+            layer.msg('你没有选择任何选项！', {offset: 95,shift: 6});
+            return false;
+        }
+        layer.confirm('确认要恢复吗？',function(index){
+            $.post("{:url('Anchor/recovery_anchor')}", {ids:kid}, function(data){
+                if(data['status'] == 'ok'){
+                    layer.msg('已恢复',{icon:1,time:1000})
+                    window.location.href = window.location.href;
+                }else{
+                    layer.msg('恢复失败',{icon:5,time:1000})
+                }
+            },'json');
+        });
+    }
+</script>

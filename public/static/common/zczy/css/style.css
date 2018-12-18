@@ -1,0 +1,11 @@
+.tuich_tcbox{width:490px; border:#ccc solid 5px; background:#fff;}
+.tuich_tit{background:#f8f8f8;border-bottom:#eaeaea solid 1px; height:40px; line-height:40px; padding:0 8px; color:#333; font-size:14px; font-weight:bold;}
+.tuich_tit a{ display:block; background:url(../images/Close.gif) no-repeat center; width:20px; height:40px; float:right; text-indent:-9999px;}
+.tuich_dl{ margin:20px 100px;}
+.tuich_dl dd{ height:100px; font-size:14px; background:url(../images/jinggao.png) no-repeat left center; padding-left:83px;}
+.tuich_dl dd span{ padding-top:13px; font-size:16px;display:block; color:#0db34f;}
+.tuich_dl dd b{ margin:0 5px; color:#FF6600; font-weight:normal;}
+.tuich_dl dd a{ color:#FF6600; margin-left:5px;}
+.tuich_dl dt{ text-align:center; padding:0 0 20px 85px; overflow:hidden;zoom:1;}
+.tuich_btn{ background:url(../images/btm_11.png) no-repeat; display:block; float:left; width:77px; height:30px; line-height:30px; text-align:center; color:#fff; border:0; text-decoration:none; margin-right:15px; display:inline; font-size:14px;}
+.tuich_btn2{ background:url(../images/btm_12.png) no-repeat; display:block; float:left; width:77px; height:30px; line-height:30px; text-align:center; color:#fff; border:0; text-decoration:none;font-size:14px;}

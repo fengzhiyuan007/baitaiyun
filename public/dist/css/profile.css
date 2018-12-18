@@ -1,0 +1,249 @@
+#basicInfo {
+    border-bottom:1px solid #eaeaea
+}
+#basicInfo .socialLinks .btn {
+    font-size:15px;
+    line-height:17px;
+    margin-left:20px;
+    color:#535353
+}
+#infoStats .stats .title {
+    font-size:22px;
+    line-height:24px;
+    margin-top:20px;
+    margin-bottom:20px;
+    color:#212121;
+    text-align:center
+}
+#infoStats .stats .block .idxBtn {
+    display:inline-block
+}
+#infoStats .stats .block .blockTitle+.lzDoughnutChart {
+    margin-top:20px
+}
+#infoStats .stats .block .blockContent,#infoStats .stats#experienceStas .block .lineList {
+    margin-left:auto;
+    margin-right:auto
+}
+#infoStats .gridList.relcauseList .li.criminal .grid {
+    background:#ff4d00
+}
+#infoStats .gridList.relcauseList .li.administrative .grid {
+    background:#8b00b5
+}
+#relResultOverlay {
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    /*background:rgba(0,0,0,.6);*/
+    display:none;
+    z-index:1001; opacity : 0;
+}
+#relResult {
+    font-family: \5FAE\8F6F\96C5\9ED1,\5FAE\8EDF\6B63\9ED1\9AD4,sans-serif,"Hiragino Sans GB";
+}
+#relResult .content {
+    -webkit-transition:all .3s ease-out;
+    -moz-transition:all .3s ease-out;
+    -o-transition:all .3s ease-out;
+    transition:all .3s ease-out;
+    position:fixed;
+    top:0;
+    padding:20px;
+    right:-500px;
+    width:460px;
+    height:100%;
+    background:#fff;
+    text-align:left;
+    z-index:1200
+}
+#relResult .content .title {
+    font-size:17px;
+    line-height:19px
+}
+#relResult .content .title .resultTag {
+    font-size:0;
+    line-height:0;
+    margin-left:5px;
+    padding-bottom:2px;
+    border-bottom:1px solid #0070da;
+    color:#0070da
+}
+#relResult .content .title .resultTag .hide {
+    display:none
+}
+#relResult .content .title .resultTag .fa,#relResult .content .title .resultTag span {
+    font-size:17px;
+    line-height:19px
+}
+#relResult .content .title .resultTag .fa {
+    margin-left:4px
+}
+#relResult .content .resultInput {
+    margin:20px 0 10px;
+    display:inline-block;
+    border:1px solid #888
+}
+#relResult .content .resultInput .searchBrn {
+    font-size:15px;
+    line-height:17px;
+    display:inline-block;
+    padding:6px;
+    width:25px;
+    color:#0070da
+}
+#relResult .content .resultInput input {
+    width:300px;
+    border:none
+}
+#relResult .content .loader,#relResult .content .msg {
+    display:none
+}
+#relResult .content .result .entry {
+    display:block;
+    padding:8px 5px
+}
+#relResult .content .result .entry .name {
+    font-size:15px;
+    line-height:20px;
+    display:inline;
+    float:left;
+    width:70%;
+    color:#535353;
+    overflow:hidden;
+    /*height:30px*/
+}
+#relResult .content .result .entry .count {
+    font-size:15px;
+    line-height:20px;
+    display:inline;
+    width:30%;
+    text-align:right;
+    float:right;
+    vertical-align:middle
+}
+#relResult .content .result .entry .count{
+    color: #21a7db;
+}
+#relResult .content .result .entry .count .fa {
+    font-size:15px;
+    line-height:17px
+}
+#relResult .content .result .entry:hover {
+    background:#fafaf5
+}
+#relResult.show .content {
+    right:0;
+    width:90%
+}
+#relResult.loading .loader {
+    display:block
+}
+#relResult.loading .result {
+    display:none
+}
+#relResult.empty .msg {
+    display:block
+}
+#relResult.empty .result {
+    display:none
+}
+#relResult #rel_content{
+    /*min-height: 300px;*/
+    position: relative;
+}
+#helptips {
+    background:#eee;
+    position:relative
+}
+#helptips .inner {
+    position:relative;
+    padding:20px 40px;
+    width:960px;
+    margin:0 auto;
+    text-align:left
+}
+#helptips .inner ul {
+    padding:0
+}
+#helptips .inner ul li {
+    margin:4px 0
+}
+#helpicon {
+    background:#eee;
+    cursor:pointer
+}
+@media (min-width:768px) {
+    #relResult.show .content {
+        width:460px
+    }
+}.btn-order-lawyer {
+     background-color:#1b2354;
+     border-color:#1b2354
+ }
+.btn-add-cart,.btn-add-cart:hover,.btn-i-cart,.btn-i-cart:hover {
+    border-color:#c7a377
+}
+.btn-order-lawyer:hover {
+    opacity:.8
+}
+.btn-add-cart {
+    background-color:#fff;
+    color:#c7a377
+}
+.btn-add-cart:hover {
+    background-color:#c7a377;
+    color:#fff
+}
+.btn-i-cart {
+    background-color:#fff;
+    color:#999;
+    float:right;
+    margin:15px 15px 0 0
+}
+.btn-i-cart .badge,.btn-i-cart:hover {
+    background-color:#c7a377;
+    color:#fff
+}
+.btn-i-cart .fa {
+    color:#c7a377
+}
+.btn-i-cart:hover .fa {
+    color:#fff
+}
+.btn-i-cart:hover .badge {
+    background-color:#fff;
+    color:#c7a377
+}
+@media (min-width:992px) {
+    .heading-right {
+        float:right;
+        text-align:right
+    }
+}@media (max-width:767px) {
+    .heading-right {
+        padding-top:20px;
+        text-align:center
+    }
+}.heading-right dl {
+     text-align:center;
+     display:inline-block;
+     margin:0
+ }
+.heading-right dl a {
+    color:#666
+}
+.heading-right dl a:hover {
+    color:#21a7db
+}
+.heading-right dt.icon {
+    font-size:24px
+}
+.heading-right dt.text {
+    font-size:12px;
+    font-weight:400;
+    padding-top:10px
+}
+#relResult .result{margin-top: 10px;}

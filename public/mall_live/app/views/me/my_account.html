@@ -1,0 +1,38 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff pl10 pr10 z100 bor_b">
+		<div class="box_center h44">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">我的账户</div>
+			<div class="grid_cell box_end">
+				<a href="#/rechargeHistory" class="f12">充值记录</a>
+			</div>
+		</div>
+	</div>
+	<div class="pt45">
+		<div class="pl10 pr10 back_fff box_between h40 f12">
+			<div>账户余额</div>
+			<div class="box_end">
+				<div class="diamonds_icon w15 h12"></div>
+				<div class="ml5" ng-bind="rechargeInfo.amount"></div>
+			</div>
+		</div>
+		<div class="box_start pl10 f12 h40">充值</div>
+		<!-- 充值列表 -->
+		<div class="back_fff pl10 pr10 f12">
+			<!-- 列表项 -->
+			<div class="box_between bor_b h40" ng-repeat="item in rechargeInfo.list track by $index">
+				<div class="grid_cell box_start">
+					<div class="box_start minW_b30">
+						<div class="diamonds_icon w15 h12"></div>
+						<div class="ml5" ng-bind="item.diamond"></div>
+					</div>
+					<div class="ml30">赠送<em ng-bind="item.zeng"></em></div>
+				</div>
+				<div class="lh25 t_c br15 h25 back_red col_fff w70" refresh="getRechargeInfoFun()" parameter="{{item.price_list_id}}" pay-type='1' payment>¥<em ng-bind="item.price"></em></div>
+			</div>
+		</div>
+	</div>
+</div>

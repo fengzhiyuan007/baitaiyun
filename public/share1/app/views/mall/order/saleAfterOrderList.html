@@ -1,0 +1,54 @@
+<div class="wrapper">
+	<!--header-->
+	<div class="p_f t0 l0 w_b100 back_fff z100">
+		<div class="box_center h45 pr10 pl10 w_b100 bor_b">
+			<div class="grid_cell box_start">
+				<div class="left_icon w22 h28" ng-click="backFun()"></div>
+			</div>
+			<div class="f16 grid_cell box_center">售后订单</div>
+			<div class="grid_cell box_end">
+				<div class=""></div>
+			</div>
+		</div>
+	</div>
+	<!-- content -->
+	<div class="pt45">
+		<div class="p10">
+			<!-- 订单列表项 -->
+			<div class="mb10" ng-repeat="item in saleAfterOrderListInfo track by $index">
+				<div class="h40 pl10 pr10 box_between f12 back_fff">
+					<div class="box_start">
+						<div class="w30 h30">
+							<img ng-src="{{item.merchants_img}}" alt="" />
+						</div>
+						<div class="ml10" ng-bind="item.merchants_name"></div>
+					</div>
+					<div class="col_red" ng-bind="item.refund_state=='wait_review' ? '等待审核' : item.refund_state=='accept' ? '审核通过' : item.refund_state== 'refuse'? '申请被拒' : item.refund_state=='end' ? '退款成功' : '未知'"></div>
+				</div>
+				<!-- 商品列表 -->
+				<a href="#/saleAfterOrderDetails?refund_id={{item.refund_id}}" class="back_fa show">
+					<!-- 商品列表项 -->
+					<div class="box_start p_r h115 bor_t">
+						<div class="w95 h95 ml10">
+							<img ng-src="{{item.goods_img}}" alt="" />
+						</div>
+						<div class="w_b65 ml10">
+							<div class="w_b100 h40">
+								<div class="f12 col_666 wbyc2" ng-bind="item.goods_name"></div>
+							</div>
+							<div class="f12 col_999 wbyc2"><span ng-bind="item.specification_names"></span></div>
+							<div class="f12 col_red">￥<em class=" f16" ng-bind="item.specification_price"></em></div>
+							<div class="box_between col_999 f12">
+								<div></div>
+								<div>x<em ng-bind="item.refund_count"></em></div>
+							</div>
+						</div>
+					</div>
+					<div class="box_end pl10 pr10 h40 back_fff col_999">
+						<div class="box_center borCol_red col_red f12 br15 h25 pl10 pr10 ml10">查看详情</div>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</div>

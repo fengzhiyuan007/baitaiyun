@@ -1,0 +1,127 @@
+
+@charset "utf-8";
+/*****************************************
+* @Author: StoryPeanut
+* @Date: 2017-11-08
+* @Last Modified by: StoryPeanut
+* @Last Modified time: 2017-11-08
+********************************************/
+body{font-size: 0.2rem;background:#eef3f5;}
+.wrapper{height: 100%;max-width: 640px;min-width: 320px;margin: 0 auto!important}
+
+.nav_act { border-bottom: 0.04rem solid red }
+.nav_white_act { border-bottom: .04rem solid #fff }
+
+.left_white_icon { background: url(../icon/fanhui-bai@2x.png) no-repeat center; background-size: cover; }
+.left_icon { background: url(../icon/fanhui-hei@2x.png) no-repeat center; background-size: cover; }
+.right_icon { background: url(../icon/xiangzuo-hui@2x.png) no-repeat center;background-size: cover; }
+.top_icon { background: url(../icon/dianpu_zhankai@2x.png) no-repeat center;background-size: cover; }
+.bottom_icon { background: url(../icon/dianpu_shouqi@2x.png) no-repeat center;background-size: cover; }
+.info_white_icon { background: url(../icon/dianpu_gendui_1@2x.png) no-repeat center;background-size: cover; }
+.search_white_icon { background: url(../icon/dianpu_sousuo@2x.png) no-repeat center;background-size: cover; }
+.sawtooth_icon { background: url(../icon/jiangefu@2x.png) no-repeat center;background-size: cover; }
+.class_white_icon { background: url(../icon/fenlei@2x.png) no-repeat center;background-size: cover; } 
+.header_back_icon { background: url(../icon/daohang@2x.png) no-repeat center;background-size: cover; }
+.home_black_icon { background: url(../icon/dianpu_gengduo_shouye@2x.png) no-repeat center;background-size: cover; }
+
+/*footer*/
+.footer_live_icon { background: url(../icon/zhibo1@2x.png) no-repeat center;background-size: cover; }
+.footer_live_act_icon { background: url(../icon/zhibo@2x.png) no-repeat center;background-size: cover; }
+.footer_mall_icon { background: url(../icon/shangcheng1@2x.png) no-repeat center;background-size: cover; }
+.footer_mall_act_icon { background: url(../icon/shangcheng@2x.png) no-repeat center;background-size: cover; }
+.footer_car_icon { background: url(../icon/gouwuche1@2x.png) no-repeat center;background-size: cover; }
+.footer_car_act_icon { background: url(../icon/gouwuche@2x.png) no-repeat center;background-size: cover; }
+.footer_me_icon { background: url(../icon/wode1@2x.png) no-repeat center;background-size: cover; }
+.footer_me_act_icon { background: url(../icon/wode@2x.png) no-repeat center;background-size: cover; }
+
+/*直播首页*/
+.liveType_position_f { position: fixed;top: 0;left: 0;width: 100%; z-index: 100}
+
+/*直播间*/
+.liveRoom_warp{height: 100%;width: 100%;margin: 0 auto!important;position: relative;}
+.liveRoom_app{position: absolute;width: 100%;top: 0;bottom: 0;overflow-x: hidden;-webkit-overflow-scrolling: touch;z-index: 1;}
+.liveRoom_touch{-webkit-overflow-scrolling: touch;z-index: 1;overflow: auto;overflow-x: hidden;}
+.liveRoom_close_icon { background: url(../icon/kanzhibo_guanbi@2x.png) no-repeat center;background-size: cover; }
+.liveRoom_goods_icon { background: url(../icon/kanzhibo_shangpingku@2x.png) no-repeat center;background-size: cover; }
+.liveRoom_gift_icon { background: url(../icon/zengsongliwu@2x.png)no-repeat center;background-size: cover; }
+.liveRoom_msg_icon { background: url(../icon/fasongxiaoxi@2x.png) no-repeat center;background-size: cover; }
+.liveRoomPlayImg { position: absolute; top: 0px; left: 0px; width: 100%; height: 100%; object-fit: cover; filter: blur(4px);}
+.diamonds_icon { background: url(../icon/zuanshi@2x.png) no-repeat center; background-size: cover; }
+.left_yellow_icon {background: url(../icon/arrow_yellow@2x.png) no-repeat center;background-size: cover;}
+
+/*商品列表*/
+.price_sort_icon { background: url(../icon/Sales-volume_unselected@2x.png) no-repeat center;background-size: cover; }
+.price_sort_rise_icon { background: url(../icon/Sales-volume_High-to-low@2x.png) no-repeat center;background-size: cover; }
+.price_sort_drop_icon { background: url(../icon/Sales-volume_Low-to-high@2x.png) no-repeat center;background-size: cover; }
+
+/*商品详情*/
+.ensure_icon { background: url(../icon/To-examine_Success_red@2x.png) no-repeat center;background-size: cover; }
+.close_red_icon { background: url(../icon/shouhou-guanbi@2x.png) no-repeat center; background-size: cover; }
+.close_gray_icon { background: url(../icon/xinzendizhi-guanbi@2x.png) no-repeat center;background-size: cover; }
+.specItem_act { color: #fff;background:red; }
+.kf_icon { background: url(../icon/xiangqing_kefu@2x.png) no-repeat center;background-size: cover; }
+.kf_black_icon { background: url(../icon/dianpu_gengduo_kefu@2x.png) no-repeat center;background-size: cover; } 
+.shop_icon { background: url(../icon/xiangqing_dianpu@2x.png) no-repeat center;background-size: cover; }
+.collection_icon { background: url(../icon/xiangqing_shoucang_hui@2x.png) no-repeat center;background-size: cover; }
+.collection_act_icon { background: url(../icon/xiangqing_shoucang_hong@2x.png) no-repeat center;background-size: cover; }
+
+
+/*确认订单*/
+.address_icon { background: url(../icon/querendingdan-dizhi@2x.png) no-repeat center;background-size: cover; }
+.add_address_icon { background: url(../icon/querendingdan-wudizhi-tianjia@2x.png) no-repeat center; background-size: cover; }
+.colour_line_icon { background: url(../icon/xiangqing_qrdd_caidai@2x.png) no-repeat center;background-size: cover; }
+
+/* 个人中心 */
+.stay_payment_icon{background:url(../icon/wode_daifukuan@2x.png) no-repeat center;background-size: cover;}
+.stay_delivery_icon{background:url(../icon/wode_daifahuo@2x.png) no-repeat center;background-size: cover;}
+.stay_Goods_receipt_icon{background:url(../icon/wode_daishouhuo@2x.png) no-repeat center;background-size: cover;}
+.complete_icon{background:url(../icon/wode_daipingjia@2x.png) no-repeat center;background-size: cover;}
+.refund_icon{background:url(../icon/wode_tuikuanshou@2x.png) no-repeat center;background-size: cover;}
+.msg_white_icon { background: url(../icon/wode_xiaoxi@2x.png) no-repeat center;background-size: cover; }
+.msg_black_icon { background: url(../icon/dianpu_gengduo_xiaoxi@2x.png) no-repeat center;background-size: cover; }
+.man_icon { background: url(../icon/man@2x.png) no-repeat center;background-size: cover; }
+.woman_icon { background: url(../icon/icon_woman@2x.png) no-repeat center;background-size: cover; }
+.refund_line_icon { background: url(../icon/wode_xian@2x.png) no-repeat center;background-size: cover; }
+	/*功能区icon*/
+	.my_account_icon { background: url(../icon/wode_zhanghao@2x.png) no-repeat center;background-size: cover; }
+	.my_collection_icon { background: url(../icon/wode_shoucang@2x.png) no-repeat center;background-size: cover; }
+	.my_followt_icon { background: url(../icon/wode_guanzhu@2x.png) no-repeat center;background-size: cover; }
+	.my_address_icon { background: url(../icon/wode_dizhi@2x.png) no-repeat center; background-size: cover; }
+	.my_coupon_icon { background: url(../icon/wode_youhuiquan@2x.png) no-repeat center;background-size: cover; }
+	.becoming_a_seller_icon { background: url(../icon/wode_chengweimaijia@2x.png) no-repeat center;background-size: cover; }
+	.set_up_icon { background: url(../icon/wode_shezhi@2x.png) no-repeat center;background-size: cover; }
+	.help_icon { background: url(../icon/wode_bangzhu@2x.png) no-repeat center;background-size: cover; }
+	.about_icon { background: url(../icon/wode_guanyuwomen@2x.png) no-repeat center;background-size: cover; }
+
+/*设置*/
+.my_data_icon{background:url(../icon/wode_shezhi_ziliao@2x.png) no-repeat center;background-size: cover;}
+.feeback_icon{background:url(../icon/wode_shezhi_yijianfankui@2x.png) no-repeat center;background-size: cover;}
+
+/*我的地址*/
+.check_icon{background:url(../icon/tongyi-hui@2x.png) no-repeat center;background-size: cover;}
+.check_act_icon{background:url(../icon/tongyi@2x.png) no-repeat center;background-size: cover;}
+.del_icon{background:url(../icon/wode_dizhi_shanchu@2x.png) no-repeat center;background-size: cover;}
+.edit_icon{background:url(../icon/wode_dizhi_bianji@2x.png) no-repeat center;background-size: cover;}
+
+/*购物车*/
+.cart_null_icon { background: url(../icon/gouwuche_kong@2x.png) no-repeat center;background-size: cover; }
+.cart_white_icon { background: url(../icon/Shopping-Cart@2x.png) no-repeat center;background-size: cover; }
+
+/*优惠券*/
+.use_icon { background: url(../icon/yishiyong@2x.png) no-repeat center;background-size: cover; }
+.overdue_icon { background: url(../icon/yiguoqi@2x.png) no-repeat center;background-size: cover; }
+
+/*物流*/
+.logisticsLi{top:0;left: -0.46rem;}
+
+/*店铺详情*/
+.play_icon { background: url(../icon/direct-seeding_play_Button@2x@2x@2x.png) no-repeat center;background-size: cover; }
+.shop_synopsis_icon { background: url(../icon/dianpu_gengduo_jianjie@2x.png) no-repeat center;background-size: cover; }
+
+/*评价*/
+.star_icon { background: url(../icon/fabupingjia_xing_hui@2x.png) no-repeat center;background-size: cover; }
+.star_act_icon { background: url(../icon/fabupingjia_xing_cheng@2x.png) no-repeat center;background-size: cover; }
+.photograph_icon { background: url(../icon/paizhao@2x.png) no-repeat center;background-size: cover; }
+
+.palyBtn{ position: absolute; top: 50%;left: 50%;margin-left: -0.5rem;margin-top: -0.5rem; }
+
